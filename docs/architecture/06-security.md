@@ -1,21 +1,21 @@
 # Security Architecture
 
-**Status:** Phase 1 deliverable · awaiting founder approval
+**Status:** Approved 2026-07-11 (M0 complete)
 
 Omnio's core security problem is unusual and must be named plainly: **the product's whole purpose is feeding untrusted files to a stack of native binaries with long CVE histories** (FFmpeg, ImageMagick, Ghostscript, LibreOffice, poppler). Everything here follows from that.
 
 ## 1. Threat model (summary)
 
-| Threat | Vector | Primary mitigations |
-|---|---|---|
-| Malicious file exploits a processing binary | crafted PDF/image/video | worker sandbox (§2), hardened tool configs, magic-byte validation, per-job limits |
-| Compromised worker pivots to the network/host | post-exploit lateral movement | no-network worker, non-root, read-only rootfs, least-priv DB creds, no secrets in worker env beyond queue/storage |
-| Instance exposed to the internet unauthenticated | scanning bots | auth on by default (D2), rate limiting, no unauth mutating routes |
-| Decompression/processing bombs | zip bombs, pixel floods, huge inputs | size caps pre- and post-decompress, pixel-count caps, wall-clock/CPU/mem limits per job |
-| XSS via user content | rendered file previews (SVG, HTML, MD) | strict CSP, sandboxed iframes for HTML/SVG preview, sanitized MD rendering |
-| SSRF | any URL-fetching tool | URL tools are an explicit opt-in capability; deny private/link-local ranges; FFmpeg protocol whitelist (`file` only) |
-| Path traversal / injection | filenames, tool options | storage keys are generated (never derived from filenames), `ctx.exec()` builds argv arrays (no shell), Zod-validated options |
-| Supply chain | deps, future plugins | lockfile + CI audit + pinned digests for base images; third-party plugins out-of-process only ([03-module-system.md](03-module-system.md) §6) |
+| Threat                                           | Vector                                 | Primary mitigations                                                                                                                           |
+| ------------------------------------------------ | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Malicious file exploits a processing binary      | crafted PDF/image/video                | worker sandbox (§2), hardened tool configs, magic-byte validation, per-job limits                                                             |
+| Compromised worker pivots to the network/host    | post-exploit lateral movement          | no-network worker, non-root, read-only rootfs, least-priv DB creds, no secrets in worker env beyond queue/storage                             |
+| Instance exposed to the internet unauthenticated | scanning bots                          | auth on by default (D2), rate limiting, no unauth mutating routes                                                                             |
+| Decompression/processing bombs                   | zip bombs, pixel floods, huge inputs   | size caps pre- and post-decompress, pixel-count caps, wall-clock/CPU/mem limits per job                                                       |
+| XSS via user content                             | rendered file previews (SVG, HTML, MD) | strict CSP, sandboxed iframes for HTML/SVG preview, sanitized MD rendering                                                                    |
+| SSRF                                             | any URL-fetching tool                  | URL tools are an explicit opt-in capability; deny private/link-local ranges; FFmpeg protocol whitelist (`file` only)                          |
+| Path traversal / injection                       | filenames, tool options                | storage keys are generated (never derived from filenames), `ctx.exec()` builds argv arrays (no shell), Zod-validated options                  |
+| Supply chain                                     | deps, future plugins                   | lockfile + CI audit + pinned digests for base images; third-party plugins out-of-process only ([03-module-system.md](03-module-system.md) §6) |
 
 ## 2. The worker sandbox
 
@@ -57,4 +57,4 @@ Post-v1 hardening ladder (documented so it's a plan, not a hope): gVisor/Kata ru
 
 ## 6. Disclosure
 
-`SECURITY.md` at repo root: private reporting via GitHub Security Advisories, 90-day coordinated disclosure, supported-versions table, no-retaliation language. Ships in Phase 2 with the repository scaffold.
+[`SECURITY.md`](../../SECURITY.md) at repo root: private reporting via GitHub Security Advisories, 90-day coordinated disclosure, supported-versions table.

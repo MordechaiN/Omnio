@@ -1,40 +1,41 @@
 # Module System & Plugin Architecture
 
-**Status:** Phase 1 deliverable · awaiting founder approval
+**Status:** Approved 2026-07-11 (M0 complete)
 
 The module system is the platform. It must let the tool count grow by two orders of magnitude without the core growing at all, keep every tool consistent, and eventually let outsiders extend Omnio without being able to hurt its users.
 
 ## 1. The manifest
 
-Every module has a `module.json`, validated against a Zod schema exported by `@omnio/module-sdk`. The manifest is the module's *entire* public identity — everything the platform knows about a module, it knows from here.
+Every module has a `module.json`, validated against a Zod schema exported by `@omnio/module-sdk`. The manifest is the module's _entire_ public identity — everything the platform knows about a module, it knows from here.
 
 ```jsonc
 {
   "$schema": "https://omnio.dev/schemas/module.v1.json",
   "id": "pdf",
   "version": "1.0.0",
-  "category": "pdf",                    // one of the platform categories
-  "icon": "file-text",                  // lucide icon name
-  "i18nNamespace": "mod-pdf",           // names/descriptions live in i18n catalogs
+  "category": "pdf", // one of the platform categories
+  "icon": "file-text", // lucide icon name
+  "i18nNamespace": "mod-pdf", // names/descriptions live in i18n catalogs
   "tools": [
     {
       "id": "pdf-merge",
-      "tier": "worker",                 // browser | server | worker
-      "tierReason": "requires qpdf",    // mandatory for server/worker tiers
+      "tier": "worker", // browser | server | worker
+      "tierReason": "requires qpdf", // mandatory for server/worker tiers
       "surface": "frontend/tools/merge",
       "accepts": [{ "mime": ["application/pdf"], "multiple": true, "maxSizeMB": 200 }],
       "produces": [{ "mime": "application/pdf" }],
-      "keywords": ["combine", "join"],  // extra search terms (i18n-keyed)
-      "limits": { "timeoutSec": 120, "memoryMB": 512 }
-    }
+      "keywords": ["combine", "join"], // extra search terms (i18n-keyed)
+      "limits": { "timeoutSec": 120, "memoryMB": 512 },
+    },
   ],
   "capabilities": {
-    "fileActions": [                    // powers the "drop a file" flow
-      { "toolId": "pdf-merge", "verb": "merge", "rank": 30 }
-    ]
+    "fileActions": [
+      // powers the "drop a file" flow
+      { "toolId": "pdf-merge", "verb": "merge", "rank": 30 },
+    ],
   },
-  "permissions": [],                    // first-party: informational; third-party: enforced
-  "worker": { "queues": ["pdf"], "binaries": ["qpdf", "ghostscript"] }
+  "permissions": [], // first-party: informational; third-party: enforced
+  "worker": { "queues": ["pdf"], "binaries": ["qpdf", "ghostscript"] },
 }
 ```
 
@@ -66,7 +67,7 @@ Contributor experience: create a folder, run `pnpm dev`, your tool is in the app
 ```ts
 // browser tier — pure function of inputs, runs client-side
 export interface BrowserTool<In, Out> {
-  run(input: In, ctx: BrowserToolContext): Promise<Out>;   // ctx: files, abort signal, progress
+  run(input: In, ctx: BrowserToolContext): Promise<Out>; // ctx: files, abort signal, progress
 }
 
 // worker tier — runs inside the sandbox, filesystem-scoped to the job dir
@@ -100,14 +101,14 @@ Because this reads the same declarations that validate inputs, the action sheet 
 
 Two lanes, one manifest format:
 
-| | First-party (v1) | Third-party (post-v1) |
-|---|---|---|
-| Lives | in-repo, reviewed | external repo/registry |
-| Runs | compiled into apps | **out-of-process**: own container |
-| Trust | full | manifest-declared permissions, enforced |
-| Protocol | direct imports | versioned HTTP/gRPC plugin protocol |
+|          | First-party (v1)   | Third-party (post-v1)                   |
+| -------- | ------------------ | --------------------------------------- |
+| Lives    | in-repo, reviewed  | external repo/registry                  |
+| Runs     | compiled into apps | **out-of-process**: own container       |
+| Trust    | full               | manifest-declared permissions, enforced |
+| Protocol | direct imports     | versioned HTTP/gRPC plugin protocol     |
 
-The third-party lane is the only sound way to run untrusted code against private files: a plugin container gets a job-scoped mount, no network unless its manifest requests it *and* the admin grants it, and speaks the same `ToolJob`/`ToolResult` shapes over the wire that first-party worker tools use in-process. Because both lanes share the manifest schema and tool contracts, a first-party module can be extracted into a plugin (or vice versa) without redesign.
+The third-party lane is the only sound way to run untrusted code against private files: a plugin container gets a job-scoped mount, no network unless its manifest requests it _and_ the admin grants it, and speaks the same `ToolJob`/`ToolResult` shapes over the wire that first-party worker tools use in-process. Because both lanes share the manifest schema and tool contracts, a first-party module can be extracted into a plugin (or vice versa) without redesign.
 
 What ships in v1 to keep this honest: the manifest schema is versioned and published, the SDK types are published under a permissive license (see decision D1), and nothing in the core assumes "all modules are compiled in" — the registries are data, not code paths.
 
@@ -121,4 +122,4 @@ Scale safety comes from contracts, not review vigilance:
 - Every string is an i18n key — localization consistency is structural.
 - `modgen` fails the build on any manifest violation — metadata consistency is structural.
 
-A reviewer of a new-tool PR checks the tool's *logic*; the platform has already enforced everything else.
+A reviewer of a new-tool PR checks the tool's _logic_; the platform has already enforced everything else.

@@ -1,8 +1,8 @@
 # System Overview
 
-**Status:** Phase 1 deliverable · awaiting founder approval
+**Status:** Approved 2026-07-11 (M0 complete)
 
-Omnio is a modular, self-hosted workspace. The system is four services plus two data stores, deployed with Docker Compose. Everything else — every tool, viewer, and capability — is a *module* built on this substrate.
+Omnio is a modular, self-hosted workspace. The system is four services plus two data stores, deployed with Docker Compose. Everything else — every tool, viewer, and capability — is a _module_ built on this substrate.
 
 ## 1. Topology
 
@@ -39,13 +39,13 @@ Omnio is a modular, self-hosted workspace. The system is four services plus two 
 
 Five runtime components:
 
-| Component | Image | Responsibility |
-|---|---|---|
-| `web` | node (distroless) | Next.js app shell. Serves UI, never touches user files. |
-| `api` | node (distroless) | NestJS. Auth, upload/download streaming, job orchestration, server-tier tools, admin, audit. |
-| `worker` | node + native tools | BullMQ consumers. The only place native binaries run. Hardened (see [06-security.md](06-security.md)). |
-| `postgres` | postgres:17 | Durable state. |
-| `redis` | redis:7 | Queues, rate limiting, ephemeral cache. |
+| Component  | Image               | Responsibility                                                                                         |
+| ---------- | ------------------- | ------------------------------------------------------------------------------------------------------ |
+| `web`      | node (distroless)   | Next.js app shell. Serves UI, never touches user files.                                                |
+| `api`      | node (distroless)   | NestJS. Auth, upload/download streaming, job orchestration, server-tier tools, admin, audit.           |
+| `worker`   | node + native tools | BullMQ consumers. The only place native binaries run. Hardened (see [06-security.md](06-security.md)). |
+| `postgres` | postgres:17         | Durable state.                                                                                         |
+| `redis`    | redis:7             | Queues, rate limiting, ephemeral cache.                                                                |
 
 All services have health checks (`/healthz` liveness, `/readyz` readiness including dependency pings). Compose ships with persistent named volumes for postgres, redis (AOF), and storage.
 

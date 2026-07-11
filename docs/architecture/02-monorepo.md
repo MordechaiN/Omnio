@@ -1,6 +1,6 @@
 # Monorepo Structure
 
-**Status:** Phase 1 deliverable · awaiting founder approval
+**Status:** Approved 2026-07-11 (M0 complete)
 **Tooling:** pnpm workspaces + Turborepo · Node 22 LTS · TypeScript strict everywhere
 
 ## 1. Layout

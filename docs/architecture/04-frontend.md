@@ -1,6 +1,6 @@
 # Frontend & UX Architecture
 
-**Status:** Phase 1 deliverable · awaiting founder approval
+**Status:** Approved 2026-07-11 (M0 complete)
 **Stack:** Next.js App Router · React · TypeScript · Tailwind · shadcn/ui · Framer Motion · TanStack Query · Zustand · React Hook Form + Zod · next-intl
 
 ## 1. The app shell
@@ -75,12 +75,12 @@ Tools with genuinely bespoke surfaces (the PDF viewer, image crop canvas) use `T
 
 ## 4. State management
 
-| Concern | Owner |
-|---|---|
-| Server state (files, jobs, settings) | TanStack Query over the ts-rest client — caching, retries, SSE-driven invalidation |
-| UI state (palette open, tray, dropzone) | Zustand — small, no boilerplate |
-| Form state | React Hook Form + the tool's Zod schema |
-| Persistent client prefs (recents, pinned, theme before hydration) | `localStorage` with schema-versioned migration; synced to server when signed in |
+| Concern                                                           | Owner                                                                              |
+| ----------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Server state (files, jobs, settings)                              | TanStack Query over the ts-rest client — caching, retries, SSE-driven invalidation |
+| UI state (palette open, tray, dropzone)                           | Zustand — small, no boilerplate                                                    |
+| Form state                                                        | React Hook Form + the tool's Zod schema                                            |
+| Persistent client prefs (recents, pinned, theme before hydration) | `localStorage` with schema-versioned migration; synced to server when signed in    |
 
 No global state framework beyond this. Browser-tier tool executions are plain async functions with AbortController — no server round-trip, nothing to cache.
 

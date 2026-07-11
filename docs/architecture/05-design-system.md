@@ -1,6 +1,6 @@
 # Design System
 
-**Status:** Phase 1 deliverable · awaiting founder approval
+**Status:** Approved 2026-07-11 (M0 complete)
 **Package:** `@omnio/ui` — tokens, primitives, patterns. The visual identity of the platform.
 
 ## 1. Design position
@@ -36,17 +36,17 @@ Layer 1 — **primitives** (shadcn/ui over Radix, restyled with tokens): Button,
 
 Layer 2 — **platform patterns** (Omnio-specific, where the identity lives):
 
-| Pattern | Role |
-|---|---|
-| `ToolShell` | The standard tool surface ([04-frontend.md](04-frontend.md) §3) |
-| `DropZone` | Input-zone and full-viewport variants; drag, paste, picker; file-type hints from manifests |
-| `FileCard` / `FileList` | Icon by type, size/date via `Intl`, TTL badge for scratch files, action menu from capability map |
-| `JobProgress` | Determinate/indeterminate, streamed via SSE, cancel affordance, `aria-live` |
-| `ResultPane` | Preview, download, copy, "send to…" chaining |
-| `CategoryTile`, `ToolCard` | Home/category grids; icon + name + one-liner, pin affordance |
-| `EmptyState` | Friendly, instructive, illustrated by icon composition (no mascot clip-art) |
-| `PrivacyBadge` | "Runs on your device" marker for browser-tier tools — brand-level pattern |
-| `StatCard`, `LogViewer`, `QueueTable` | Admin surfaces |
+| Pattern                               | Role                                                                                             |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `ToolShell`                           | The standard tool surface ([04-frontend.md](04-frontend.md) §3)                                  |
+| `DropZone`                            | Input-zone and full-viewport variants; drag, paste, picker; file-type hints from manifests       |
+| `FileCard` / `FileList`               | Icon by type, size/date via `Intl`, TTL badge for scratch files, action menu from capability map |
+| `JobProgress`                         | Determinate/indeterminate, streamed via SSE, cancel affordance, `aria-live`                      |
+| `ResultPane`                          | Preview, download, copy, "send to…" chaining                                                     |
+| `CategoryTile`, `ToolCard`            | Home/category grids; icon + name + one-liner, pin affordance                                     |
+| `EmptyState`                          | Friendly, instructive, illustrated by icon composition (no mascot clip-art)                      |
+| `PrivacyBadge`                        | "Runs on your device" marker for browser-tier tools — brand-level pattern                        |
+| `StatCard`, `LogViewer`, `QueueTable` | Admin surfaces                                                                                   |
 
 Layer 3 — **icons:** lucide exclusively, 1.5px stroke, sized 16/20/24. Directional icons flip in RTL via the `ui` icon wrapper; symmetric ones don't (the wrapper knows which is which — authors never decide).
 

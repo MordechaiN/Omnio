@@ -1,14 +1,14 @@
 # Implementation Roadmap
 
-**Status:** Phase 1 deliverable · awaiting founder approval
+**Status:** Approved 2026-07-11 (M0 complete)
 
 Milestones, not dates — each has exit criteria, and a milestone isn't done until they all pass. The repo must build, lint, test, and boot green at the end of **every** milestone (and every commit within one).
 
-## M0 — Architecture approval ← *you are here*
+## M0 — Architecture approval ✅ _(2026-07-11)_
 
 This document set reviewed; decisions D1–D7 ([08-decisions.md](08-decisions.md)) resolved by the founder.
 
-## M1 — Repository & toolchain
+## M1 — Repository & toolchain ← _in progress_
 
 Monorepo scaffold per [02-monorepo.md](02-monorepo.md): pnpm + Turborepo; `web`/`api`/`worker` hello-world apps; `contracts`, `core`, `config` packages; ESLint (incl. logical-properties rule, import-boundary rules), Prettier, tsconfig strict; Vitest + Playwright wiring; CI pipeline; compose dev stack (postgres, redis) with health checks; `.env.example`; community files (README, LICENSE, CONTRIBUTING, SECURITY, CODE_OF_CONDUCT, issue/PR templates).
 **Exit:** clone → `pnpm i && pnpm dev` → shell page served by web, `/healthz` green on api+worker, CI green.
