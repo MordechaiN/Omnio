@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+/*
+ * M1 placeholder tokens. The real design system (@omnio/ui, OKLCH scales,
+ * light/dark/high-contrast) arrives in M2 — docs/architecture/05-design-system.md.
+ * These exist so the landing page renders decently in both schemes until then.
+ */
+:root {
+  --bg: oklch(0.985 0.002 250);
+  --surface: oklch(1 0 0);
+  --border-subtle: oklch(0.92 0.004 250);
+  --text: oklch(0.25 0.01 250);
+  --text-muted: oklch(0.52 0.012 250);
+  --accent: oklch(0.55 0.18 262);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: oklch(0.19 0.008 255);
+    --surface: oklch(0.23 0.009 255);
+    --border-subtle: oklch(0.31 0.01 255);
+    --text: oklch(0.93 0.004 250);
+    --text-muted: oklch(0.68 0.01 250);
+    --accent: oklch(0.72 0.14 262);
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-border-subtle: var(--border-subtle);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-accent: var(--accent);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}

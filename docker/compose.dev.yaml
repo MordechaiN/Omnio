@@ -1,0 +1,40 @@
+# Development data stores. The apps themselves run on the host with hot
+# reload (`pnpm dev`); only postgres and redis are containerized in dev.
+# The production stack (web/api/worker images, internal networks, hardened
+# worker) ships with milestone M9 — docs/architecture/07-roadmap.md.
+
+name: omnio-dev
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: omnio
+      POSTGRES_PASSWORD: omnio
+      POSTGRES_DB: omnio
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U omnio -d omnio"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  postgres-data:
+  redis-data:

@@ -1,0 +1,20 @@
+{
+  "name": "@omnio/config",
+  "version": "0.1.0",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "description": "Shared tooling presets: tsconfig, eslint. Internal to the Omnio monorepo.",
+  "type": "module",
+  "exports": {
+    "./eslint": "./eslint/index.mjs",
+    "./tsconfig/*.json": "./tsconfig/*.json"
+  },
+  "dependencies": {
+    "@eslint/js": "^9.30.0",
+    "typescript-eslint": "^8.35.0",
+    "eslint-config-prettier": "^10.1.0"
+  },
+  "peerDependencies": {
+    "eslint": "^9.0.0"
+  }
+}

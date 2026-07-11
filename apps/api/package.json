@@ -1,0 +1,33 @@
+{
+  "name": "@omnio/api",
+  "version": "0.1.0",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "description": "Omnio HTTP API — NestJS implementation of @omnio/contracts.",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "dev": "tsc -p tsconfig.build.json --watch & node --watch dist/main.js",
+    "start": "node dist/main.js",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.1.0",
+    "@nestjs/core": "^11.1.0",
+    "@nestjs/platform-express": "^11.1.0",
+    "@omnio/contracts": "workspace:*",
+    "@omnio/core": "workspace:*",
+    "@ts-rest/nest": "^3.52.0",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@omnio/config": "workspace:*",
+    "@types/node": "^22.15.0",
+    "eslint": "^9.30.0",
+    "typescript": "^5.8.0",
+    "vitest": "^3.2.0"
+  }
+}

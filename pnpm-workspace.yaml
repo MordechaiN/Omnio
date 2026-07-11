@@ -1,0 +1,11 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+  - "packages/modules/*"
+  - "tooling/*"
+
+# Build scripts are blocked by default (supply-chain hygiene); only these
+# audited packages may run theirs.
+onlyBuiltDependencies:
+  - esbuild
+  - sharp

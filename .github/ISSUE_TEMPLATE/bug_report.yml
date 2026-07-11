@@ -1,0 +1,40 @@
+name: Bug report
+description: Something is broken
+labels: ["bug", "triage"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open …
+        2. Drop file …
+        3. See error
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Omnio version
+      placeholder: e.g. 0.1.0, or a commit SHA
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: How is Omnio deployed? Browser and OS if it's a UI bug.
+      placeholder: docker compose on Ubuntu 24.04 · Firefox 140 on macOS
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      description: api/worker logs around the failure. Redact anything private.
+      render: text

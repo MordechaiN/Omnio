@@ -1,0 +1,26 @@
+{
+  "name": "@omnio/worker",
+  "version": "0.1.0",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "description": "Omnio processing worker — the sandboxed home of all heavy file work. M1 ships the process skeleton and health endpoint; BullMQ consumers arrive in M3.",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "dev": "tsc -p tsconfig.build.json --watch & node --watch dist/main.js",
+    "start": "node dist/main.js",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@omnio/core": "workspace:*",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@omnio/config": "workspace:*",
+    "@types/node": "^22.15.0",
+    "eslint": "^9.30.0",
+    "typescript": "^5.8.0",
+    "vitest": "^3.2.0"
+  }
+}

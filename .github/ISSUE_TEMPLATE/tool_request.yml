@@ -1,0 +1,27 @@
+name: Tool request
+description: Request a new tool or file format support
+labels: ["tool-request", "triage"]
+body:
+  - type: input
+    id: tool
+    attributes:
+      label: What tool or format?
+      placeholder: e.g. "HEIC → JPG conversion" or "view EPUB files"
+    validations:
+      required: true
+  - type: textarea
+    id: usecase
+    attributes:
+      label: When do you need it?
+      description: The real-world task this would help with.
+    validations:
+      required: true
+  - type: dropdown
+    id: privacy
+    attributes:
+      label: Should this run entirely in the browser if possible?
+      description: Browser-tier tools never upload your file (docs/architecture/01-system-overview.md §2).
+      options:
+        - "Yes, ideally on-device"
+        - "Server-side is fine"
+        - "Don't know / don't care"

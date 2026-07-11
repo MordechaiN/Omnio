@@ -1,0 +1,35 @@
+{
+  "name": "@omnio/contracts",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "description": "API contracts: ts-rest routers + Zod schemas. The single source of truth for the Omnio HTTP API. MIT-licensed (decision D1) so external integrators are never license-encumbered.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --sourcemap --clean",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@ts-rest/core": "^3.52.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@omnio/config": "workspace:*",
+    "eslint": "^9.30.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.0",
+    "vitest": "^3.2.0"
+  }
+}
