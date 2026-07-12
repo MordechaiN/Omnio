@@ -8,15 +8,17 @@ Milestones, not dates — each has exit criteria, and a milestone isn't done unt
 
 This document set reviewed; decisions D1–D7 ([08-decisions.md](08-decisions.md)) resolved by the founder.
 
-## M1 — Repository & toolchain ← _in progress_
+## M1 — Repository & toolchain ✅ _(2026-07-11)_
 
 Monorepo scaffold per [02-monorepo.md](02-monorepo.md): pnpm + Turborepo; `web`/`api`/`worker` hello-world apps; `contracts`, `core`, `config` packages; ESLint (incl. logical-properties rule, import-boundary rules), Prettier, tsconfig strict; Vitest + Playwright wiring; CI pipeline; compose dev stack (postgres, redis) with health checks; `.env.example`; community files (README, LICENSE, CONTRIBUTING, SECURITY, CODE_OF_CONDUCT, issue/PR templates).
 **Exit:** clone → `pnpm i && pnpm dev` → shell page served by web, `/healthz` green on api+worker, CI green.
 
-## M2 — Design system core
+## M2 — Design system & application foundation ✅ _(2026-07-12)_
 
 `@omnio/ui`: tokens (light/dark/high-contrast, OKLCH palette with AA-verified pairs), fonts self-hosted, primitives restyled over shadcn/Radix, Storybook with theme × direction matrix, visual-regression baseline.
 **Exit:** Storybook builds in CI; token contrast test passes; primitives render correctly in all 4 theme/direction combos.
+
+_Scope note:_ at founder direction, M2 also pulled forward from M5: the app shell (sidebar/top bar/mobile sheet), the ⌘K command palette, full i18n + RTL wiring (en/he, next-intl), settings, and the redesigned home. M5 therefore shrinks to the file-first surfaces: global dropzone + file-action sheet, jobs tray, recents/pinned, and palette-over-tool-registry. Deviations from the design spec are recorded in [05-design-system.md](05-design-system.md) §6; the milestone self-review lives in [../reviews/M2.md](../reviews/M2.md).
 
 ## M3 — Core platform services
 

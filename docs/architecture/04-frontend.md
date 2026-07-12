@@ -84,6 +84,8 @@ Tools with genuinely bespoke surfaces (the PDF viewer, image crop canvas) use `T
 
 No global state framework beyond this. Browser-tier tool executions are plain async functions with AbortController — no server round-trip, nothing to cache.
 
+_M2 implementation note:_ palette open/close state currently lives in a small React context rather than Zustand — one boolean did not justify a store. Zustand enters with the jobs tray and upload state (M3/M5), where cross-surface subscriptions are real.
+
 ## 5. i18n & RTL — native, not retrofitted
 
 - **next-intl** with locale segment routing; ICU messages; catalogs per module (`i18nNamespace`), merged at build.

@@ -4,7 +4,7 @@
 
 A completely self-hosted, privacy-first workspace for opening, viewing, editing, converting, analyzing, and managing virtually every common file format — and the everyday digital tasks around them — from one beautiful interface.
 
-> **Status:** milestone **M1** (repository & toolchain) of the [roadmap](docs/architecture/07-roadmap.md). The platform skeleton builds, tests, and boots; the product arrives milestone by milestone, with the repo releasable at every commit.
+> **Status:** milestone **M2 complete** — design system, component library, app shell, ⌘K command palette, and full English/Hebrew (RTL-native) i18n are live ([roadmap](docs/architecture/07-roadmap.md), [M2 review](docs/reviews/M2.md)). Next: **M3**, core platform services. The repo stays releasable at every commit.
 
 ## Why Omnio
 

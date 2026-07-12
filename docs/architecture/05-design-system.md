@@ -59,3 +59,12 @@ Interface copy is plain, short, and confident. No jargon in user-facing errors: 
 - The design system is documented in Storybook (built in CI, published with docs) — every primitive and pattern, in light/dark/high-contrast × LTR/RTL.
 - New patterns require a ui-package PR — modules cannot introduce one-off visual patterns (lint rule: modules import styling only from `@omnio/ui` and semantic Tailwind classes).
 - Visual regression (Playwright screenshots) on primitives and ToolShell across all four theme/direction combinations.
+
+## 6. Implementation record (M2) — deltas from this spec
+
+Built as designed, with four recorded deviations (rationale in `packages/ui/README.md`):
+
+1. **Motion:** Framer Motion is deferred. All current motion is CSS — Radix `data-state` animations plus bespoke logical keyframes (sheet slides flip under `[dir="rtl"]`). The spring token exists as a CSS easing. Framer Motion enters when a surface needs real physics/gestures, not before.
+2. **Fonts:** self-hosted via Fontsource packages rather than `next/font` — no binaries in the repo, identical behavior in Next and Storybook, still zero external requests.
+3. **High contrast is an axis, not a theme:** `data-contrast="high"` overlays either theme (the spec's single "high-contrast" theme would have forced a light-only assumption). AAA-targeted overrides exist for both light and dark; the contrast test enforces 7:1 for text roles in both.
+4. **Visual regression:** CI currently gates with axe (WCAG AA, four pages + dark) and functional e2e in both directions. Pixel-screenshot baselines are deliberately postponed until a dedicated consistent-rendering runner exists — cross-environment screenshot diffs produce false reds that train people to ignore CI.

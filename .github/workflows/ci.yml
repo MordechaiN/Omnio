@@ -41,6 +41,9 @@ jobs:
       - name: Build
         run: pnpm turbo build
 
+      - name: Build Storybook
+        run: pnpm --filter @omnio/ui storybook:build
+
   e2e:
     name: E2E smoke (Playwright)
     runs-on: ubuntu-latest

@@ -15,7 +15,9 @@
     "gen:tokens": "node scripts/generate-tokens.ts",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
-    "test": "vitest run"
+    "test": "vitest run",
+    "storybook": "storybook dev -p 6006",
+    "storybook:build": "storybook build"
   },
   "peerDependencies": {
     "react": "^19.0.0",
@@ -49,6 +51,9 @@
   },
   "devDependencies": {
     "@omnio/config": "workspace:*",
+    "@storybook/addon-a11y": "^10.5.0",
+    "@storybook/react-vite": "^10.5.0",
+    "@tailwindcss/vite": "^4.3.2",
     "@types/culori": "^2.1.0",
     "@types/node": "^22.15.0",
     "@types/react": "^19.1.0",
@@ -57,7 +62,10 @@
     "eslint": "^9.30.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "storybook": "^10.5.0",
+    "tailwindcss": "^4.3.2",
     "typescript": "^5.8.0",
+    "vite": "^8.1.4",
     "vitest": "^3.2.0"
   }
 }
