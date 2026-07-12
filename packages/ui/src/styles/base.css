@@ -1,0 +1,66 @@
+/*
+ * Omnio base layer — global behaviors that belong to the platform,
+ * not to any component: focus, selection, scrollbars, reduced motion.
+ */
+
+* {
+  border-color: var(--border-subtle);
+}
+
+html {
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-size: var(--text-base);
+  line-height: var(--text-base--line-height);
+}
+
+::selection {
+  background: var(--selection);
+  color: var(--text);
+}
+
+/* One focus style everywhere — visible, tokenized, never removed. */
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}
+
+[data-contrast="high"] :focus-visible {
+  outline-width: 3px;
+}
+
+/* Quiet scrollbars that match the theme. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+/* Tabular numerals wherever data is numeric. */
+[data-numeric],
+table,
+code,
+kbd {
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+ * Reduced motion: collapse everything to near-instant opacity changes.
+ * Components use token durations, so this single rule covers the platform.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,109 @@
+/*
+ * Bespoke keyframes that utility classes can't express correctly —
+ * mostly because slide directions must be logical (RTL-aware), and
+ * Radix measures content height via custom properties.
+ */
+
+/* Sheet: slides from the logical inline-start/end or bottom. */
+@keyframes omnio-sheet-in-start {
+  from {
+    translate: -100% 0;
+  }
+}
+@keyframes omnio-sheet-out-start {
+  to {
+    translate: -100% 0;
+  }
+}
+@keyframes omnio-sheet-in-end {
+  from {
+    translate: 100% 0;
+  }
+}
+@keyframes omnio-sheet-out-end {
+  to {
+    translate: 100% 0;
+  }
+}
+@keyframes omnio-sheet-in-bottom {
+  from {
+    translate: 0 100%;
+  }
+}
+@keyframes omnio-sheet-out-bottom {
+  to {
+    translate: 0 100%;
+  }
+}
+
+[data-omnio-sheet="start"][data-state="open"] {
+  animation: omnio-sheet-in-start var(--motion-slow) var(--motion-ease-out);
+}
+[data-omnio-sheet="start"][data-state="closed"] {
+  animation: omnio-sheet-out-start var(--motion-base) var(--motion-ease-out);
+}
+[data-omnio-sheet="end"][data-state="open"] {
+  animation: omnio-sheet-in-end var(--motion-slow) var(--motion-ease-out);
+}
+[data-omnio-sheet="end"][data-state="closed"] {
+  animation: omnio-sheet-out-end var(--motion-base) var(--motion-ease-out);
+}
+[data-omnio-sheet="bottom"][data-state="open"] {
+  animation: omnio-sheet-in-bottom var(--motion-slow) var(--motion-ease-out);
+}
+[data-omnio-sheet="bottom"][data-state="closed"] {
+  animation: omnio-sheet-out-bottom var(--motion-base) var(--motion-ease-out);
+}
+
+/* In RTL the logical sides swap physical directions. */
+[dir="rtl"] [data-omnio-sheet="start"][data-state="open"] {
+  animation-name: omnio-sheet-in-end;
+}
+[dir="rtl"] [data-omnio-sheet="start"][data-state="closed"] {
+  animation-name: omnio-sheet-out-end;
+}
+[dir="rtl"] [data-omnio-sheet="end"][data-state="open"] {
+  animation-name: omnio-sheet-in-start;
+}
+[dir="rtl"] [data-omnio-sheet="end"][data-state="closed"] {
+  animation-name: omnio-sheet-out-start;
+}
+
+/* Indeterminate progress: a third-width bar sweeping the track. */
+@keyframes omnio-progress-sweep {
+  from {
+    inset-inline-start: -33%;
+  }
+  to {
+    inset-inline-start: 100%;
+  }
+}
+
+[data-omnio-progress="indeterminate"] {
+  animation: omnio-progress-sweep 1.2s ease-in-out infinite;
+}
+
+/* Accordion: Radix exposes measured height as a custom property. */
+@keyframes omnio-accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+@keyframes omnio-accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+[data-omnio-accordion-content][data-state="open"] {
+  animation: omnio-accordion-down var(--motion-base) var(--motion-ease-out);
+}
+[data-omnio-accordion-content][data-state="closed"] {
+  animation: omnio-accordion-up var(--motion-base) var(--motion-ease-out);
+}
