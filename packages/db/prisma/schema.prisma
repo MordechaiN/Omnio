@@ -1,0 +1,183 @@
+// Omnio core data model (docs/architecture/01-system-overview.md §5).
+// Modules own their own tables prefixed `mod_<id>_…`; this schema owns only
+// the platform core. Every user-owned row FKs to User so single-admin → multi
+// user is a feature flag, not a migration apocalypse.
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("OMNIO_DATABASE_URL")
+}
+
+/// Storage areas. `scratch` is TTL-swept and quota-capped; `workspace` holds
+/// files the user explicitly kept.
+enum FileArea {
+  scratch
+  workspace
+}
+
+/// Worker-tier job lifecycle. Postgres is the source of truth; Redis/BullMQ is
+/// only transport (docs/architecture/01-system-overview.md §3).
+enum JobStatus {
+  queued
+  active
+  completed
+  failed
+  canceled
+}
+
+/// The three-tier execution model (docs/architecture/01-system-overview.md §2).
+enum ToolTier {
+  browser
+  server
+  worker
+}
+
+/// Settings live at the instance level (userId null) or per user.
+enum SettingScope {
+  instance
+  user
+}
+
+/// Even in single-admin mode there is exactly one real row.
+model User {
+  id           String   @id @default(cuid())
+  username     String   @unique
+  email        String?  @unique
+  passwordHash String
+  isAdmin      Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  sessions  Session[]
+  files     FileObject[]
+  jobs      Job[]
+  auditLogs AuditLog[]
+  settings  Setting[]
+
+  @@map("user")
+}
+
+/// Server-side sessions. The cookie carries an opaque token; only its hash is
+/// stored here (docs/architecture/06-security.md §4).
+model Session {
+  id         String   @id @default(cuid())
+  userId     String
+  tokenHash  String   @unique
+  createdAt  DateTime @default(now())
+  expiresAt  DateTime
+  lastSeenAt DateTime @default(now())
+  userAgent  String?
+  ip         String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@map("session")
+}
+
+/// Metadata for every stored object. Storage keys are generated ULIDs, never
+/// derived from filenames (docs/architecture/06-security.md §3).
+model FileObject {
+  id           String    @id
+  area         FileArea
+  driverKey    String    @unique
+  mime         String
+  size         BigInt
+  hash         String
+  originalName String
+  ownerId      String
+  ttlAt        DateTime?
+  createdAt    DateTime  @default(now())
+
+  owner       User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  jobInputId  String?
+  jobInput    Job?    @relation("JobInputs", fields: [jobInputId], references: [id], onDelete: SetNull)
+  jobOutputId String?
+  jobOutput   Job?    @relation("JobOutputs", fields: [jobOutputId], references: [id], onDelete: SetNull)
+
+  @@index([ownerId])
+  @@index([area, ttlAt])
+  @@index([jobInputId])
+  @@index([jobOutputId])
+  @@map("file_object")
+}
+
+/// Worker-tier executions. Inputs/outputs are FileObject refs.
+model Job {
+  id         String    @id @default(cuid())
+  moduleId   String
+  toolId     String
+  status     JobStatus @default(queued)
+  progress   Int       @default(0)
+  options    Json      @default("{}")
+  error      String?
+  ownerId    String
+  attempts   Int       @default(0)
+  createdAt  DateTime  @default(now())
+  startedAt  DateTime?
+  finishedAt DateTime?
+
+  owner   User         @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  inputs  FileObject[] @relation("JobInputs")
+  outputs FileObject[] @relation("JobOutputs")
+
+  @@index([ownerId])
+  @@index([status])
+  @@map("job")
+}
+
+/// Anonymous usage counters for self-hosted analytics — no file names, sizes,
+/// or content (docs/architecture/01-system-overview.md §5, decision D5).
+model ToolEvent {
+  id             String   @id @default(cuid())
+  toolId         String
+  tier           ToolTier
+  durationBucket String
+  success        Boolean
+  createdAt      DateTime @default(now())
+
+  @@index([toolId])
+  @@index([createdAt])
+  @@map("tool_event")
+}
+
+/// Append-only security-relevant actions. actorId is nullable for failed
+/// logins where no session was established.
+model AuditLog {
+  id         String   @id @default(cuid())
+  action     String
+  actorId    String?
+  targetType String?
+  targetId   String?
+  ip         String?
+  meta       Json?
+  createdAt  DateTime @default(now())
+
+  actor User? @relation(fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([actorId])
+  @@index([action])
+  @@index([createdAt])
+  @@map("audit_log")
+}
+
+/// Instance + per-user settings (theme, locale, retention overrides).
+model Setting {
+  id        String       @id @default(cuid())
+  scope     SettingScope
+  userId    String?
+  key       String
+  value     Json
+  updatedAt DateTime     @updatedAt
+
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([scope, userId, key])
+  @@map("setting")
+}

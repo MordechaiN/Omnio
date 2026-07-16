@@ -8,6 +8,9 @@ out/
 *.tsbuildinfo
 next-env.d.ts
 
+# prisma generated client (regenerated from schema)
+packages/db/generated/
+
 # turbo
 .turbo/
 
