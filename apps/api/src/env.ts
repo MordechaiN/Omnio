@@ -31,6 +31,8 @@ const EnvSchema = z
     OMNIO_STORAGE_ROOT: z.string().default("./.omnio-data"),
     /** Scratch retention before the sweeper reclaims it (decision D3). */
     OMNIO_SCRATCH_TTL_HOURS: z.coerce.number().int().positive().default(24),
+    /** Session lifetime; login rotates the token and resets this window. */
+    OMNIO_SESSION_TTL_HOURS: z.coerce.number().int().positive().default(168),
 
     OMNIO_LOG_LEVEL: z
       .enum(["fatal", "error", "warn", "info", "debug", "trace", "silent"])

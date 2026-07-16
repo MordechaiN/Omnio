@@ -1,4 +1,5 @@
 import { Controller, Get, ServiceUnavailableException } from "@nestjs/common";
+import { Public } from "../auth/public.decorator";
 import { PrismaService } from "../infra/prisma.service";
 import { RedisService } from "../infra/redis.service";
 
@@ -8,6 +9,7 @@ type DependencyStatus = "up" | "down";
  * Container orchestration endpoints — intentionally outside the public
  * ts-rest contract; they belong to the deployment, not the product API.
  */
+@Public()
 @Controller()
 export class HealthController {
   constructor(

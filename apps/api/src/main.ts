@@ -3,10 +3,12 @@ import { NestFactory } from "@nestjs/core";
 import { deployMigrations } from "@omnio/db";
 import { Logger } from "nestjs-pino";
 import { AppModule } from "./app.module";
+import { assertAuthPosture } from "./auth/posture";
 import { loadEnv } from "./env";
 
 async function bootstrap(): Promise<void> {
   const env = loadEnv();
+  assertAuthPosture(env);
 
   // Migrations run before anything connects; Prisma's advisory lock makes this
   // safe with multiple api replicas (docs/architecture/01-system-overview.md §7).

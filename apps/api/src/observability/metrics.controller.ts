@@ -1,11 +1,13 @@
 import { Controller, Get, Header, Res } from "@nestjs/common";
 import type { Response } from "express";
+import { Public } from "../auth/public.decorator";
 import { MetricsService } from "./metrics.service";
 
 /**
  * Prometheus scrape endpoint — deployment surface, intentionally outside the
  * public ts-rest contract (docs/architecture/01-system-overview.md §7).
  */
+@Public()
 @Controller()
 export class MetricsController {
   constructor(private readonly metrics: MetricsService) {}

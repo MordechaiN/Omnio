@@ -1,6 +1,7 @@
 import type { DynamicModule } from "@nestjs/common";
 import { Module } from "@nestjs/common";
 import { LoggerModule } from "nestjs-pino";
+import { AuthModule } from "./auth/auth.module";
 import { ConfigModule, OMNIO_ENV } from "./config/config.module";
 import type { Env } from "./env";
 import { HealthController } from "./health/health.controller";
@@ -25,6 +26,7 @@ export class AppModule {
         PrismaModule,
         RedisModule,
         MetricsModule,
+        AuthModule,
       ],
       controllers: [HealthController, SystemController],
       providers: [SystemService],
