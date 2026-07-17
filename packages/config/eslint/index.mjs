@@ -9,7 +9,16 @@ import noPhysicalDirectionClasses from "./no-physical-direction-classes.mjs";
  */
 export function omnio() {
   return tseslint.config(
-    { ignores: ["dist/**", ".next/**", ".turbo/**", "coverage/**", "node_modules/**"] },
+    {
+      ignores: [
+        "dist/**",
+        ".next/**",
+        ".turbo/**",
+        "coverage/**",
+        "node_modules/**",
+        "**/generated/**",
+      ],
+    },
     js.configs.recommended,
     ...tseslint.configs.recommended,
     prettier,

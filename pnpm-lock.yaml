@@ -525,6 +525,37 @@ importers:
         specifier: ^3.2.0
         version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
 
+  tooling/modgen:
+    dependencies:
+      '@omnio/core':
+        specifier: workspace:*
+        version: link:../../packages/core
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../packages/module-sdk
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../packages/config
+      '@types/node':
+        specifier: ^22.15.0
+        version: 22.20.1
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      tsup:
+        specifier: ^8.5.0
+        version: 8.5.1(@swc/core@1.15.43)(jiti@2.7.0)(postcss@8.5.16)(typescript@5.9.3)(yaml@2.9.0)
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
 packages:
 
   '@adobe/css-tools@4.5.0':

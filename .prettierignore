@@ -4,3 +4,6 @@ dist
 .turbo
 coverage
 pnpm-lock.yaml
+
+# modgen output — generated before build, not hand-edited
+**/src/generated/

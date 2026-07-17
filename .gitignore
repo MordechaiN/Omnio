@@ -11,6 +11,9 @@ next-env.d.ts
 # prisma generated client (regenerated from schema)
 packages/db/generated/
 
+# modgen output (regenerated before build)
+apps/*/src/generated/
+
 # turbo
 .turbo/
 
