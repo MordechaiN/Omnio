@@ -41,8 +41,8 @@ export class AuthController {
   @TsRestHandler(c.setup)
   setup(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     return tsRestHandler(c.setup, async ({ body }) => {
-      const identity = await this.auth.setup(body.username, body.password);
-      const user = await this.auth.login(body.username, body.password);
+      const identity = await this.auth.setup(body.username, body.password, { ip: req.ip });
+      const user = await this.auth.login(body.username, body.password, { ip: req.ip });
       await this.openSession(res, req, user);
       return { status: 201 as const, body: identity };
     });
@@ -52,17 +52,21 @@ export class AuthController {
   @TsRestHandler(c.login)
   login(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     return tsRestHandler(c.login, async ({ body }) => {
-      const user = await this.auth.login(body.username, body.password);
+      const user = await this.auth.login(body.username, body.password, { ip: req.ip });
       await this.openSession(res, req, user);
       return { status: 200 as const, body: { username: user.username } };
     });
   }
 
   @TsRestHandler(c.logout)
-  logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
+  logout(
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response,
+    @CurrentUser() user: AuthedUser,
+  ) {
     return tsRestHandler(c.logout, async () => {
       const token = readSessionCookie(req.headers.cookie);
-      if (token) await this.auth.revokeSession(token);
+      if (token) await this.auth.logout(token, user.id, { ip: req.ip });
       res.setHeader("Set-Cookie", clearSessionCookie({ secure: this.secureCookies }));
       return { status: 204 as const, body: undefined };
     });

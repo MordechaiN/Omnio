@@ -1,6 +1,8 @@
 import type { OnModuleInit } from "@nestjs/common";
 import { ConflictException, Inject, Injectable, UnauthorizedException } from "@nestjs/common";
 import type { AuthStatus, Identity } from "@omnio/contracts";
+import { AuditAction } from "../audit/audit.actions";
+import { AuditService } from "../audit/audit.service";
 import { OMNIO_ENV } from "../config/config.module";
 import type { Env } from "../env";
 import { PrismaService } from "../infra/prisma.service";
@@ -8,6 +10,11 @@ import { generateSessionToken, hashPassword, hashToken, verifyPassword } from ".
 import type { AuthedUser } from "./types";
 
 const SYSTEM_USERNAME = "admin";
+
+/** Request context for auditing (client IP). */
+export interface AuthContext {
+  ip?: string;
+}
 
 export interface SessionMeta {
   userAgent?: string;
@@ -35,6 +42,7 @@ export class AuthService implements OnModuleInit {
   constructor(
     @Inject(OMNIO_ENV) env: Env,
     private readonly prisma: PrismaService,
+    private readonly audit: AuditService,
   ) {
     this.enabled = env.OMNIO_AUTH === "password";
     this.ttlMs = env.OMNIO_SESSION_TTL_HOURS * 3_600_000;
@@ -62,7 +70,7 @@ export class AuthService implements OnModuleInit {
     };
   }
 
-  async setup(username: string, password: string): Promise<Identity> {
+  async setup(username: string, password: string, ctx: AuthContext = {}): Promise<Identity> {
     if (!this.enabled) {
       throw new ConflictException({
         code: "auth_disabled",
@@ -80,6 +88,13 @@ export class AuthService implements OnModuleInit {
       const user = await this.prisma.user.create({
         data: { username, passwordHash, isAdmin: true },
       });
+      await this.audit.record({
+        action: AuditAction.AdminCreated,
+        actorId: user.id,
+        targetType: "user",
+        targetId: user.id,
+        ip: ctx.ip,
+      });
       return { username: user.username };
     } catch {
       // Unique-constraint race — another setup won.
@@ -90,17 +105,27 @@ export class AuthService implements OnModuleInit {
     }
   }
 
-  async login(username: string, password: string): Promise<AuthedUser> {
+  async login(username: string, password: string, ctx: AuthContext = {}): Promise<AuthedUser> {
     const user = await this.prisma.user.findUnique({ where: { username } });
     const ok = user
       ? await verifyPassword(user.passwordHash, password)
       : await verifyPassword(await this.getDecoyHash(), password);
     if (!user || !ok) {
+      await this.audit.record({
+        action: AuditAction.LoginFailure,
+        ip: ctx.ip,
+        meta: { username },
+      });
       throw new UnauthorizedException({
         code: "invalid_credentials",
         message: "Incorrect username or password.",
       });
     }
+    await this.audit.record({
+      action: AuditAction.LoginSuccess,
+      actorId: user.id,
+      ip: ctx.ip,
+    });
     return { id: user.id, username: user.username };
   }
 
@@ -122,6 +147,12 @@ export class AuthService implements OnModuleInit {
 
   async revokeSession(token: string): Promise<void> {
     await this.prisma.session.deleteMany({ where: { tokenHash: hashToken(token) } });
+  }
+
+  /** Revoke the current session and audit the logout. */
+  async logout(token: string, actorId: string, ctx: AuthContext = {}): Promise<void> {
+    await this.revokeSession(token);
+    await this.audit.record({ action: AuditAction.Logout, actorId, ip: ctx.ip });
   }
 
   /** Resolves a cookie token to its user, sliding `lastSeenAt`; null if invalid. */

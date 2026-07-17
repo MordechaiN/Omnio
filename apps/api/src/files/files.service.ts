@@ -2,6 +2,8 @@ import { Inject, Injectable, NotFoundException } from "@nestjs/common";
 import type { StorageArea } from "@omnio/contracts";
 import type { FileObject } from "@omnio/db";
 import type { StorageDriver } from "@omnio/storage";
+import { AuditAction } from "../audit/audit.actions";
+import { AuditService } from "../audit/audit.service";
 import { PrismaService } from "../infra/prisma.service";
 import { STORAGE_DRIVER } from "../storage/storage.module";
 
@@ -14,6 +16,7 @@ export class FilesService {
   constructor(
     private readonly prisma: PrismaService,
     @Inject(STORAGE_DRIVER) private readonly storage: StorageDriver,
+    private readonly audit: AuditService,
   ) {}
 
   list(ownerId: string, area?: StorageArea): Promise<FileObject[]> {
@@ -52,6 +55,12 @@ export class FilesService {
     const file = await this.get(ownerId, id);
     await this.storage.delete(file.area, file.driverKey).catch(() => undefined);
     await this.prisma.fileObject.delete({ where: { id: file.id } });
+    await this.audit.record({
+      action: AuditAction.FileDeleted,
+      actorId: ownerId,
+      targetType: "file",
+      targetId: file.id,
+    });
   }
 
   streamContent(file: FileObject): Promise<NodeJS.ReadableStream> {
