@@ -44,6 +44,29 @@ jobs:
       - name: Build Storybook
         run: pnpm --filter @omnio/ui storybook:build
 
+  integration:
+    name: Integration (Testcontainers)
+    runs-on: ubuntu-latest
+    needs: verify
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build workspace packages
+        run: pnpm turbo build --filter=@omnio/api^...
+
+      - name: Run api integration tests
+        run: pnpm --filter @omnio/api test:integration
+
   e2e:
     name: E2E smoke (Playwright)
     runs-on: ubuntu-latest

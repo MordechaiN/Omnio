@@ -20,10 +20,12 @@ Monorepo scaffold per [02-monorepo.md](02-monorepo.md): pnpm + Turborepo; `web`/
 
 _Scope note:_ at founder direction, M2 also pulled forward from M5: the app shell (sidebar/top bar/mobile sheet), the ⌘K command palette, full i18n + RTL wiring (en/he, next-intl), settings, and the redesigned home. M5 therefore shrinks to the file-first surfaces: global dropzone + file-action sheet, jobs tray, recents/pinned, and palette-over-tool-registry. Deviations from the design spec are recorded in [05-design-system.md](05-design-system.md) §6; the milestone self-review lives in [../reviews/M2.md](../reviews/M2.md).
 
-## M3 — Core platform services
+## M3 — Core platform services ✅ _(2026-07-17)_
 
 Auth (single-admin, sessions, first-run setup flow), config validation, storage driver (fs) + scratch/workspace areas + TTL sweeper, upload/download streaming with validation pipeline, `Job` model + BullMQ round-trip + SSE progress, rate limiting, security headers/CSP, audit log, pino logging with request IDs, Prisma migrations on boot.
 **Exit:** integration tests (Testcontainers) cover auth, upload→job→download→sweep lifecycle; security headers verified by test.
+
+Delivered as `@omnio/db`, `@omnio/storage`, `@omnio/jobs`, the api platform modules (config/infra/auth/security/files/jobs/audit/analytics), and the worker's BullMQ consumer + sweeper. Integration tests run in a dedicated CI job; the milestone self-review lives in [../reviews/M3.md](../reviews/M3.md).
 
 ## M4 — Module system
 
