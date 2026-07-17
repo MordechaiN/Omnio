@@ -1,0 +1,25 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "case",
+  "version": "1.0.0",
+  "category": "text",
+  "icon": "case-upper",
+  "i18nNamespace": "mod-case",
+  "tools": [
+    {
+      "id": "uppercase",
+      "tier": "worker",
+      "tierReason": "streams the uploaded file through the sandboxed worker",
+      "surface": "frontend/tools/uppercase",
+      "accepts": [{ "mime": ["text/plain"], "maxSizeMB": 5 }],
+      "produces": [{ "mime": "text/plain" }],
+      "keywords": ["uppercase", "capitalize", "transform"],
+      "limits": { "timeoutSec": 30, "memoryMB": 128 }
+    }
+  ],
+  "capabilities": {
+    "fileActions": [{ "toolId": "uppercase", "verb": "uppercase", "rank": 10 }]
+  },
+  "permissions": [],
+  "worker": { "queues": ["case"] }
+}

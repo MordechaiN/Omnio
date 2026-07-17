@@ -3,11 +3,12 @@ import { createPrismaClient } from "@omnio/db";
 import { createJobsConnection, OMNIO_JOB_QUEUE, OMNIO_MAINTENANCE_QUEUE } from "@omnio/jobs";
 import { createStorageDriver } from "@omnio/storage";
 import { Worker } from "bullmq";
-import { loadEnv } from "./env";
-import { healthPayload } from "./health";
-import { createLogger } from "./logger";
-import { createProcessor } from "./processor";
-import { createSweepProcessor } from "./sweeper";
+import { loadEnv } from "./env.js";
+import { WORKER_TOOLS } from "./generated/registry.worker.js";
+import { healthPayload } from "./health.js";
+import { createLogger } from "./logger.js";
+import { createProcessor } from "./processor.js";
+import { createSweepProcessor } from "./sweeper.js";
 
 /**
  * The worker consumes jobs exclusively through the queue and must NEVER grow an
@@ -31,6 +32,7 @@ function main(): void {
       publisher,
       ttlMs: env.OMNIO_SCRATCH_TTL_HOURS * 3_600_000,
       logger,
+      tools: WORKER_TOOLS,
     }),
     { connection, concurrency: env.OMNIO_WORKER_CONCURRENCY },
   );

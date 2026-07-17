@@ -2,7 +2,7 @@ import type { PrismaClient } from "@omnio/db";
 import type { StorageDriver } from "@omnio/storage";
 import type { Logger } from "pino";
 import { describe, expect, it, vi } from "vitest";
-import { sweepExpired, type SweeperDeps } from "./sweeper";
+import { sweepExpired, type SweeperDeps } from "./sweeper.js";
 
 function makeDeps(rows: { id: string; area: string; driverKey: string }[]): {
   deps: SweeperDeps;

@@ -1,0 +1,14 @@
+{
+  "name": "Text Case",
+  "description": "Transform the case of text files.",
+  "tools": {
+    "uppercase": {
+      "name": "Uppercase",
+      "description": "Convert a text file to UPPERCASE in the sandboxed worker."
+    }
+  },
+  "ui": {
+    "title": "Uppercase",
+    "workerNote": "This tool runs in the worker. Upload and job progress arrive with the file surfaces in a later milestone."
+  }
+}

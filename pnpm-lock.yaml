@@ -135,6 +135,9 @@ importers:
       '@omnio/i18n':
         specifier: workspace:*
         version: link:../../packages/i18n
+      '@omnio/mod-case':
+        specifier: workspace:*
+        version: link:../../packages/modules/case
       '@omnio/mod-uuid':
         specifier: workspace:*
         version: link:../../packages/modules/uuid
@@ -202,6 +205,12 @@ importers:
       '@omnio/jobs':
         specifier: workspace:*
         version: link:../../packages/jobs
+      '@omnio/mod-case':
+        specifier: workspace:*
+        version: link:../../packages/modules/case
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../packages/module-sdk
       '@omnio/storage':
         specifier: workspace:*
         version: link:../../packages/storage
@@ -230,6 +239,9 @@ importers:
       eslint:
         specifier: ^9.30.0
         version: 9.39.5(jiti@2.7.0)
+      tsup:
+        specifier: ^8.5.0
+        version: 8.5.1(@swc/core@1.15.43)(jiti@2.7.0)(postcss@8.5.16)(typescript@5.9.3)(yaml@2.9.0)
       typescript:
         specifier: ^5.8.0
         version: 5.9.3
@@ -381,6 +393,46 @@ importers:
       tsup:
         specifier: ^8.5.0
         version: 8.5.1(@swc/core@1.15.43)(jiti@2.7.0)(postcss@8.5.16)(typescript@5.9.3)(yaml@2.9.0)
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
+  packages/modules/case:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/node':
+        specifier: ^22.15.0
+        version: 22.20.1
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
       typescript:
         specifier: ^5.8.0
         version: 5.9.3
