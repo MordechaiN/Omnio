@@ -17,6 +17,7 @@ import { Link } from "@/i18n/navigation";
 import { CATEGORY_ICONS } from "@/lib/category-icons";
 import { SearchButton } from "@/components/shell/search-button";
 import { ToolLauncher } from "@/components/workspace/tool-launcher";
+import { PersonalSections } from "@/components/workspace/personal-sections";
 
 const FEATURES = [
   { key: "Privacy", icon: ShieldCheck },
@@ -62,6 +63,9 @@ function HomeContent() {
         </div>
         <Badge variant="accent">{t("statusBadge", { milestone: "M5" })}</Badge>
       </section>
+
+      {/* Personal first — pinned and recent tools for returning users */}
+      <PersonalSections />
 
       {/* Tool launcher — the workspace leads with real tools */}
       <ToolLauncher />

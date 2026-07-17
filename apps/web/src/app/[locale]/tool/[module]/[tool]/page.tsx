@@ -6,6 +6,7 @@ import { DynamicIcon, type IconName } from "lucide-react/dynamic";
 import { Badge, ToolShell } from "@omnio/ui";
 import { routing } from "@/i18n/routing";
 import { TOOL_SURFACES, WEB_TOOLS, type WebToolMeta } from "@/generated/registry.web";
+import { RecordRecentTool } from "@/components/workspace/record-recent-tool";
 
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) =>
@@ -50,6 +51,7 @@ function ToolView({ meta, Surface }: { meta: WebToolMeta; Surface: ComponentType
         meta.tier === "browser" ? <Badge variant="accent">{t("common.onDevice")}</Badge> : null
       }
     >
+      <RecordRecentTool id={`${meta.moduleId}.${meta.toolId}`} />
       <Surface />
     </ToolShell>
   );

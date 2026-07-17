@@ -9,7 +9,9 @@
     "download": "Download",
     "loading": "Loading…",
     "comingSoon": "Coming soon",
-    "onDevice": "Runs on your device"
+    "onDevice": "Runs on your device",
+    "addFavorite": "Add to favorites",
+    "removeFavorite": "Remove from favorites"
   },
   "shell": {
     "skipToContent": "Skip to content",
@@ -75,6 +77,8 @@
     "heroSubtitle": "Open, view, convert and manage almost any file — on your own hardware. Tools that can run in your browser do, so your files never even leave your device.",
     "heroSearchLabel": "Search tools and commands",
     "heroSearchHint": "Press {shortcut} anywhere",
+    "favoritesTitle": "Your favorites",
+    "recentTitle": "Recently used",
     "toolsTitle": "Start with a tool",
     "toolsSubtitle": "Jump straight in — tools that can run on your device do, so your files stay with you.",
     "toolsEmptyTitle": "Tools are on the way",

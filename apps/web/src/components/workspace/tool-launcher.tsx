@@ -2,7 +2,7 @@ import { useTranslations } from "next-intl";
 import { EmptyState } from "@omnio/ui";
 import { Wrench } from "lucide-react";
 import { SEARCH_ENTRIES } from "@/generated/registry.search";
-import { ToolCard } from "./tool-card";
+import { ToolGrid } from "./tool-grid";
 
 /**
  * The workspace centrepiece — the real tools, straight from the registry. This
@@ -23,13 +23,7 @@ export function ToolLauncher() {
       {SEARCH_ENTRIES.length === 0 ? (
         <EmptyState icon={Wrench} title={t("toolsEmptyTitle")} description={t("toolsEmptyBody")} />
       ) : (
-        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-          {SEARCH_ENTRIES.map((entry) => (
-            <li key={entry.id}>
-              <ToolCard entry={entry} />
-            </li>
-          ))}
-        </ul>
+        <ToolGrid entries={[...SEARCH_ENTRIES]} />
       )}
     </section>
   );
