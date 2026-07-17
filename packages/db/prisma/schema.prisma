@@ -84,7 +84,7 @@ model Session {
 /// Metadata for every stored object. Storage keys are generated ULIDs, never
 /// derived from filenames (docs/architecture/06-security.md §3).
 model FileObject {
-  id           String    @id
+  id           String    @id @default(cuid())
   area         FileArea
   driverKey    String    @unique
   mime         String

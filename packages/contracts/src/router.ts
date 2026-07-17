@@ -1,5 +1,6 @@
 import { initContract } from "@ts-rest/core";
 import { authContract } from "./auth.js";
+import { filesContract } from "./files.js";
 import { systemContract } from "./system.js";
 
 const c = initContract();
@@ -12,4 +13,5 @@ const c = initContract();
 export const apiContract = c.router({
   system: systemContract,
   auth: authContract,
+  files: filesContract,
 });

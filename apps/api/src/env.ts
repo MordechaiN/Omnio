@@ -29,6 +29,8 @@ const EnvSchema = z
 
     /** Root of the local filesystem storage driver. */
     OMNIO_STORAGE_ROOT: z.string().default("./.omnio-data"),
+    /** Hard ceiling for a single upload, enforced while streaming. */
+    OMNIO_MAX_UPLOAD_MB: z.coerce.number().int().positive().default(512),
     /** Scratch retention before the sweeper reclaims it (decision D3). */
     OMNIO_SCRATCH_TTL_HOURS: z.coerce.number().int().positive().default(24),
     /** Session lifetime; login rotates the token and resets this window. */

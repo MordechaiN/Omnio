@@ -13,6 +13,7 @@ function env(overrides: Partial<Env>): Env {
     OMNIO_SESSION_SECRET: "x".repeat(32),
     OMNIO_AUTH_ALLOW_INSECURE: false,
     OMNIO_STORAGE_ROOT: "./.omnio-data",
+    OMNIO_MAX_UPLOAD_MB: 512,
     OMNIO_SCRATCH_TTL_HOURS: 24,
     OMNIO_SESSION_TTL_HOURS: 168,
     OMNIO_LOG_LEVEL: "info",
