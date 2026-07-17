@@ -34,10 +34,12 @@ Delivered as `@omnio/db`, `@omnio/storage`, `@omnio/jobs`, the api platform modu
 
 Delivered as `@omnio/module-sdk`, `@omnio/modgen`, `@omnio/scaffold`, and the `uuid` (browser) + `case` (worker) reference modules. The worker moved to a bundled NodeNext build to load module source; the server-tier reference is deferred until a real server tool lands (api registry stays empty). Milestone self-review: [../reviews/M4.md](../reviews/M4.md).
 
-## M5 — App shell & navigation
+## M5 — App shell & navigation 🟡 _(workspace UX 2026-07-17; API-backed workflow pending)_
 
 Shell layout (sidebar, top bar, jobs tray), command palette with client-side fuzzy search, category pages, home page, global dropzone + paste, file-action sheet driven by `capabilities.json`, settings (theme, language, analytics opt-in), keyboard map, mobile layouts, RTL end-to-end.
 **Exit:** Playwright e2e — search→open tool, drop file→action sheet→tool, keyboard-only navigation pass; axe checks pass; RTL visual smoke green.
+
+Delivered: the client-first workspace — tool launcher, favorites + recent tools (schema-versioned localStorage), global file drop → action sheet → universal viewer foundation (images/PDF/text/audio/video, on-device), "/" quick-open, loading/empty/no-preview states, responsive + RTL, and Playwright coverage (search→open tool, favorites, palette; axe + RTL green). **Pending (next vertical):** the API-backed workflow — auth UI (first-run/login), upload, jobs tray + SSE progress, recent server files — which requires wiring the web to the api (ts-rest client + TanStack Query). Self-review: [../reviews/M5.md](../reviews/M5.md).
 
 ## M6 — Universal file viewer (flagship #1)
 
