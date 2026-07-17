@@ -27,10 +27,12 @@ Auth (single-admin, sessions, first-run setup flow), config validation, storage 
 
 Delivered as `@omnio/db`, `@omnio/storage`, `@omnio/jobs`, the api platform modules (config/infra/auth/security/files/jobs/audit/analytics), and the worker's BullMQ consumer + sweeper. Integration tests run in a dedicated CI job; the milestone self-review lives in [../reviews/M3.md](../reviews/M3.md).
 
-## M4 — Module system
+## M4 — Module system ✅ _(2026-07-17)_
 
 `@omnio/module-sdk` (manifest schema, tool contracts, `ctx.exec()`); `tooling/modgen` emitting all four registries + `capabilities.json`; `pnpm new:module` / `new:tool` scaffolders; i18n pipeline (next-intl, per-module catalogs, en/he parity check); one reference module per tier (browser: uuid; server: placeholder; worker: a trivial file transform) proving the whole path.
 **Exit:** a scaffolded browser tool appears in the app with zero manual registration; manifest violations fail the build with actionable errors.
+
+Delivered as `@omnio/module-sdk`, `@omnio/modgen`, `@omnio/scaffold`, and the `uuid` (browser) + `case` (worker) reference modules. The worker moved to a bundled NodeNext build to load module source; the server-tier reference is deferred until a real server tool lands (api registry stays empty). Milestone self-review: [../reviews/M4.md](../reviews/M4.md).
 
 ## M5 — App shell & navigation
 
