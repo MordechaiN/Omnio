@@ -16,6 +16,7 @@ import { Eye, Github, HeartHandshake, Server, ShieldCheck, Zap } from "lucide-re
 import { Link } from "@/i18n/navigation";
 import { CATEGORY_ICONS } from "@/lib/category-icons";
 import { SearchButton } from "@/components/shell/search-button";
+import { ToolLauncher } from "@/components/workspace/tool-launcher";
 
 const FEATURES = [
   { key: "Privacy", icon: ShieldCheck },
@@ -59,8 +60,11 @@ function HomeContent() {
         <div className="mt-2 w-full max-w-xl" aria-label={t("heroSearchLabel")}>
           <SearchButton size="hero" />
         </div>
-        <Badge variant="accent">{t("statusBadge", { milestone: "M2" })}</Badge>
+        <Badge variant="accent">{t("statusBadge", { milestone: "M5" })}</Badge>
       </section>
+
+      {/* Tool launcher — the workspace leads with real tools */}
+      <ToolLauncher />
 
       {/* Categories */}
       <section className="flex flex-col gap-6" aria-labelledby="categories-title">
