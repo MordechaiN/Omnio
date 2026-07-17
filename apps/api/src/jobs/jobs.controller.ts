@@ -22,6 +22,14 @@ export class JobsController {
     }));
   }
 
+  @TsRestHandler(c.list)
+  list(@CurrentUser() user: AuthedUser) {
+    return tsRestHandler(c.list, async ({ query }) => ({
+      status: 200 as const,
+      body: { jobs: (await this.jobs.list(user.id, query.limit)).map(toJobDto) },
+    }));
+  }
+
   @TsRestHandler(c.get)
   get(@CurrentUser() user: AuthedUser) {
     return tsRestHandler(c.get, async ({ params }) => ({

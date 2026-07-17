@@ -35,6 +35,15 @@ export const CreateJobSchema = z.object({
  */
 export const jobsContract = c.router(
   {
+    list: {
+      method: "GET",
+      path: "/api/v1/jobs",
+      query: z.object({
+        limit: z.coerce.number().int().min(1).max(100).default(20),
+      }),
+      responses: { 200: z.object({ jobs: z.array(JobSchema) }) },
+      summary: "List the caller's recent jobs, newest first",
+    },
     create: {
       method: "POST",
       path: "/api/v1/jobs",

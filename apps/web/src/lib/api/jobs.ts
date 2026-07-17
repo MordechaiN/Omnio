@@ -1,5 +1,18 @@
+import { useQuery } from "@tanstack/react-query";
 import type { JobDto } from "@omnio/contracts";
 import { API_BASE_URL, apiClient } from "./client";
+
+/** The caller's recent jobs, newest first — the History surface. */
+export function useJobsList(limit = 20) {
+  return useQuery<JobDto[]>({
+    queryKey: ["jobs", "list", limit],
+    queryFn: async () => {
+      const res = await apiClient.jobs.list({ query: { limit } });
+      if (res.status !== 200) throw new Error("Could not load your history.");
+      return res.body.jobs;
+    },
+  });
+}
 
 interface CreateJobInput {
   moduleId: string;

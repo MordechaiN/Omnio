@@ -78,7 +78,17 @@
     "home": "Home",
     "categories": "Categories",
     "files": "Files",
+    "history": "History",
     "settings": "Settings"
+  },
+  "history": {
+    "title": "History",
+    "subtitle": "Every file you've processed, newest first.",
+    "error": "We couldn't load your history.",
+    "retry": "Try again",
+    "emptyTitle": "Nothing here yet",
+    "emptyBody": "Process a file and it'll show up here, ready to download again.",
+    "emptyAction": "Browse tools"
   },
   "palette": {
     "title": "Command palette",

@@ -51,6 +51,15 @@ export class JobsService {
     return job;
   }
 
+  list(ownerId: string, limit: number): Promise<JobWithRefs[]> {
+    return this.prisma.job.findMany({
+      where: { ownerId },
+      include: WITH_REFS,
+      orderBy: { createdAt: "desc" },
+      take: limit,
+    });
+  }
+
   async get(ownerId: string, id: string): Promise<JobWithRefs> {
     const job = await this.prisma.job.findFirst({
       where: { id, ownerId },
