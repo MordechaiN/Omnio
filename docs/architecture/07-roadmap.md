@@ -34,17 +34,19 @@ Delivered as `@omnio/db`, `@omnio/storage`, `@omnio/jobs`, the api platform modu
 
 Delivered as `@omnio/module-sdk`, `@omnio/modgen`, `@omnio/scaffold`, and the `uuid` (browser) + `case` (worker) reference modules. The worker moved to a bundled NodeNext build to load module source; the server-tier reference is deferred until a real server tool lands (api registry stays empty). Milestone self-review: [../reviews/M4.md](../reviews/M4.md).
 
-## M5 — App shell & navigation 🟡 _(workspace UX 2026-07-17; API-backed workflow pending)_
+## M5 — App shell & navigation ✅ _(2026-07-17)_
 
 Shell layout (sidebar, top bar, jobs tray), command palette with client-side fuzzy search, category pages, home page, global dropzone + paste, file-action sheet driven by `capabilities.json`, settings (theme, language, analytics opt-in), keyboard map, mobile layouts, RTL end-to-end.
 **Exit:** Playwright e2e — search→open tool, drop file→action sheet→tool, keyboard-only navigation pass; axe checks pass; RTL visual smoke green.
 
-Delivered: the client-first workspace — tool launcher, favorites + recent tools (schema-versioned localStorage), global file drop → action sheet → universal viewer foundation (images/PDF/text/audio/video, on-device), "/" quick-open, loading/empty/no-preview states, responsive + RTL, and Playwright coverage (search→open tool, favorites, palette; axe + RTL green). **Pending (next vertical):** the API-backed workflow — auth UI (first-run/login), upload, jobs tray + SSE progress, recent server files — which requires wiring the web to the api (ts-rest client + TanStack Query). Self-review: [../reviews/M5.md](../reviews/M5.md).
+Delivered: the client-first workspace — tool launcher, favorites + recent tools (schema-versioned localStorage), global file drop → action sheet → universal viewer foundation (images/PDF/text/audio/video, on-device), "/" quick-open, loading/empty/no-preview states, responsive + RTL, and Playwright coverage (search→open tool, favorites, palette; axe + RTL green). The API-backed workflow it left pending was delivered as M6. Self-review: [../reviews/M5.md](../reviews/M5.md).
 
-## M6 — Universal file viewer (flagship #1)
+## M6 — First end-to-end journey ✅ _(2026-07-17)_
 
-`viewer` module: images (incl. zoom/pan), video/audio (native + range streaming), PDF (pdf.js), text/code (CodeMirror read mode, syntax highlighting), Markdown (sanitized), JSON/YAML/XML/CSV (tree/table views), fonts (specimen), archives (listing + safe extract), HTML/SVG (sandboxed iframe). Office docs via worker conversion→PDF preview (LibreOffice).
-**Exit:** drop any supported file → correct viewer < 1s for local rendering; unsupported files get a graceful "here's what you can do instead" state.
+The first complete, API-backed workflow: first-run setup → login → workspace → drop/choose a file → upload → enqueue → live SSE progress → downloadable result → history. Typed ts-rest client + TanStack Query, single-admin auth gate, the raw multipart upload path, a global Activity tray driven by the worker's Redis→SSE progress, `GET /api/v1/jobs` history, and a History page. Worker-tier file actions now run inline from the action sheet instead of deep-linking.
+**Exit:** Playwright e2e — auth setup/login/offline, upload→SSE→download, populated + empty history; axe over the tray and history; en/he parity. Self-review: [../reviews/M6.md](../reviews/M6.md).
+
+_Resequenced:_ the universal file viewer (former M6 flagship — zoom/pan, pdf.js, CodeMirror, tree/table views, sandboxed HTML/SVG, office→PDF) becomes a later flagship. The M5 viewer _foundation_ already covers on-device inline preview for the common types.
 
 ## M7 — First tools: browser tier (~30 tools)
 

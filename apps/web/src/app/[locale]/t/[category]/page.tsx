@@ -47,7 +47,7 @@ function CategoryContent({ category }: { category: CategoryId }) {
         icon={CATEGORY_ICONS[category]}
         title={t("common.comingSoon")}
         description={t("home.roadmapM7")}
-        action={<Badge variant="accent">{t("home.statusBadge", { milestone: "M2" })}</Badge>}
+        action={<Badge variant="accent">{t("home.statusBadge", { milestone: "M6" })}</Badge>}
       />
     </div>
   );

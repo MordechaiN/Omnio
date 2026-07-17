@@ -29,9 +29,11 @@ const FEATURES = [
 
 const ROADMAP = [
   { key: "roadmapM1", status: "done" },
-  { key: "roadmapM2", status: "current" },
-  { key: "roadmapM3", status: "next" },
-  { key: "roadmapM4", status: "next" },
+  { key: "roadmapM2", status: "done" },
+  { key: "roadmapM3", status: "done" },
+  { key: "roadmapM4", status: "done" },
+  { key: "roadmapM5", status: "done" },
+  { key: "roadmapM6", status: "current" },
   { key: "roadmapM7", status: "next" },
 ] as const;
 
@@ -61,7 +63,7 @@ function HomeContent() {
         <div className="mt-2 w-full max-w-xl" aria-label={t("heroSearchLabel")}>
           <SearchButton size="hero" />
         </div>
-        <Badge variant="accent">{t("statusBadge", { milestone: "M5" })}</Badge>
+        <Badge variant="accent">{t("statusBadge", { milestone: "M6" })}</Badge>
       </section>
 
       {/* Personal first — pinned and recent tools for returning users */}
