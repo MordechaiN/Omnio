@@ -57,6 +57,7 @@ export function run(repoRoot: string): void {
 
   writeIfChanged(join(webGen, "registry.search.ts"), registries.searchTs);
   writeIfChanged(join(webGen, "registry.web.ts"), registries.webTs);
+  writeIfChanged(join(webGen, "messages.ts"), registries.messagesTs);
   writeIfChanged(join(webGen, "capabilities.json"), registries.capabilitiesJson);
   writeIfChanged(
     join(webGen, "modules.ts"),

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "uuid",
+  "version": "1.0.0",
+  "category": "developer",
+  "icon": "fingerprint",
+  "i18nNamespace": "mod-uuid",
+  "tools": [
+    {
+      "id": "uuid",
+      "tier": "browser",
+      "surface": "frontend/tools/uuid",
+      "keywords": ["guid", "identifier", "unique", "v4", "v7"]
+    }
+  ],
+  "capabilities": { "fileActions": [] },
+  "permissions": []
+}

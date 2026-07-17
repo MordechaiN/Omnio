@@ -1,0 +1,19 @@
+{
+  "name": "UUID",
+  "description": "Generate universally unique identifiers.",
+  "tools": {
+    "uuid": {
+      "name": "UUID Generator",
+      "description": "Generate v4 (random) or v7 (time-ordered) UUIDs on your device."
+    }
+  },
+  "ui": {
+    "version": "Version",
+    "v4": "v4 (random)",
+    "v7": "v7 (time-ordered)",
+    "count": "How many",
+    "generate": "Generate",
+    "copy": "Copy all",
+    "empty": "Choose your options and generate."
+  }
+}

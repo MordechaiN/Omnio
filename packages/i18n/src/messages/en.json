@@ -31,6 +31,7 @@
     "placeholder": "Type a command or search…",
     "empty": "No results. Try a different term.",
     "groupCategories": "Categories",
+    "groupTools": "Tools",
     "groupTheme": "Theme",
     "groupLanguage": "Language",
     "groupNavigation": "Go to",

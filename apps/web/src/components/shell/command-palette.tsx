@@ -15,9 +15,11 @@ import {
   useContrast,
   useTheme,
 } from "@omnio/ui";
+import { DynamicIcon, type IconName } from "lucide-react/dynamic";
 import { Contrast, Home, Languages, Moon, Monitor, Settings, Sun } from "lucide-react";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { CATEGORY_ICONS } from "@/lib/category-icons";
+import { SEARCH_ENTRIES } from "@/generated/registry.search";
 import { useCommandPalette } from "./palette-context";
 
 /**
@@ -55,6 +57,29 @@ export function CommandPalette() {
             {t("nav.settings")}
           </CommandItem>
         </CommandGroup>
+
+        {SEARCH_ENTRIES.length > 0 ? (
+          <>
+            <CommandSeparator />
+            <CommandGroup heading={t("palette.groupTools")}>
+              {SEARCH_ENTRIES.map((entry) => {
+                const name = t(
+                  `${entry.i18nNamespace}.${entry.nameKey}` as Parameters<typeof t>[0],
+                );
+                return (
+                  <CommandItem
+                    key={entry.id}
+                    keywords={[name, ...entry.keywords]}
+                    onSelect={() => run(() => router.push(entry.href))}
+                  >
+                    <DynamicIcon name={entry.icon as IconName} size={16} />
+                    {name}
+                  </CommandItem>
+                );
+              })}
+            </CommandGroup>
+          </>
+        ) : null}
 
         <CommandSeparator />
 

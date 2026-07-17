@@ -3,6 +3,7 @@ import { hasLocale } from "next-intl";
 import type { Locale } from "@omnio/i18n";
 import en from "@omnio/i18n/messages/en.json";
 import he from "@omnio/i18n/messages/he.json";
+import { MODULE_MESSAGES } from "@/generated/messages";
 import { routing } from "./routing";
 
 // Static imports keep bundlers honest (dynamic specifiers defeat the
@@ -13,8 +14,9 @@ export default getRequestConfig(async ({ requestLocale }) => {
   const requested = await requestLocale;
   const locale = hasLocale(routing.locales, requested) ? requested : routing.defaultLocale;
 
+  // Base app catalog + every module's namespaced catalog (modgen-generated).
   return {
     locale,
-    messages: MESSAGES[locale],
+    messages: { ...MESSAGES[locale], ...MODULE_MESSAGES[locale] },
   };
 });

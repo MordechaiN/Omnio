@@ -10,7 +10,8 @@
     "start": "node dist/main.js",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
-    "test": "vitest run"
+    "test": "vitest run",
+    "codegen": "modgen"
   },
   "dependencies": {
     "@omnio/core": "workspace:*",
@@ -24,6 +25,7 @@
   },
   "devDependencies": {
     "@omnio/config": "workspace:*",
+    "@omnio/modgen": "workspace:*",
     "@types/node": "^22.15.0",
     "eslint": "^9.30.0",
     "typescript": "^5.8.0",

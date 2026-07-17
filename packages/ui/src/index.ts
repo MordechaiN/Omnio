@@ -114,3 +114,6 @@ export {
 export { Toaster, toast, type ToasterProps } from "./components/toast.tsx";
 export { VisuallyHidden } from "./components/visually-hidden.tsx";
 export { SkipLink } from "./components/skip-link.tsx";
+
+// patterns
+export { ToolShell, type ToolShellProps } from "./patterns/tool-shell.tsx";

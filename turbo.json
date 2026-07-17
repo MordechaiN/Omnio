@@ -1,18 +1,23 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
-    "build": {
+    "codegen": {
       "dependsOn": ["^build"],
+      "cache": false
+    },
+    "build": {
+      "dependsOn": ["^build", "codegen"],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**", "generated/**"]
     },
     "typecheck": {
-      "dependsOn": ["^build", "build"]
+      "dependsOn": ["^build", "build", "codegen"]
     },
     "lint": {},
     "test": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build", "codegen"]
     },
     "dev": {
+      "dependsOn": ["codegen"],
       "cache": false,
       "persistent": true
     }

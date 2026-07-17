@@ -11,7 +11,8 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "test": "vitest run",
-    "test:integration": "vitest run --config vitest.integration.config.ts"
+    "test:integration": "vitest run --config vitest.integration.config.ts",
+    "codegen": "modgen"
   },
   "dependencies": {
     "@nestjs/common": "^11.1.0",
@@ -40,6 +41,7 @@
   },
   "devDependencies": {
     "@omnio/config": "workspace:*",
+    "@omnio/modgen": "workspace:*",
     "@testcontainers/postgresql": "^10.13.0",
     "@testcontainers/redis": "^10.13.0",
     "@types/busboy": "^1.5.4",
