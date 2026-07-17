@@ -1,6 +1,8 @@
 import { initContract } from "@ts-rest/core";
+import { analyticsContract } from "./analytics.js";
 import { authContract } from "./auth.js";
 import { filesContract } from "./files.js";
+import { jobsContract } from "./jobs.js";
 import { systemContract } from "./system.js";
 
 const c = initContract();
@@ -14,4 +16,6 @@ export const apiContract = c.router({
   system: systemContract,
   auth: authContract,
   files: filesContract,
+  jobs: jobsContract,
+  analytics: analyticsContract,
 });

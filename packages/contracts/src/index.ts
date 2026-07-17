@@ -16,4 +16,19 @@ export {
   type FileObjectDto,
   type StorageArea,
 } from "./files.js";
+export {
+  jobsContract,
+  JobSchema,
+  JobStatusSchema,
+  CreateJobSchema,
+  type JobDto,
+  type JobStatus,
+} from "./jobs.js";
+export {
+  analyticsContract,
+  ToolEventInputSchema,
+  ToolTierSchema,
+  DurationBucketSchema,
+  type ToolEventInput,
+} from "./analytics.js";
 export { apiContract } from "./router.js";

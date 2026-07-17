@@ -1,25 +1,29 @@
 {
-  "name": "@omnio/worker",
+  "name": "@omnio/jobs",
   "version": "0.1.0",
   "private": true,
   "license": "AGPL-3.0-only",
-  "description": "Omnio processing worker — the sandboxed home of all heavy file work. M1 ships the process skeleton and health endpoint; BullMQ consumers arrive in M3.",
+  "description": "Shared job-queue contract: BullMQ queue name, job payload schema, and SSE progress events. Server-only (CommonJS); consumed by api (producer) and worker (consumer).",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "dev": "tsc -p tsconfig.build.json --watch & node --watch dist/main.js",
-    "start": "node dist/main.js",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "test": "vitest run"
   },
   "dependencies": {
-    "@omnio/core": "workspace:*",
-    "@omnio/db": "workspace:*",
-    "@omnio/jobs": "workspace:*",
-    "@omnio/storage": "workspace:*",
     "bullmq": "^5.34.0",
     "ioredis": "^5.4.1",
-    "pino": "^9.5.0",
     "zod": "^3.25.0"
   },
   "devDependencies": {
