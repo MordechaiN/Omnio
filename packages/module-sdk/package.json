@@ -1,0 +1,34 @@
+{
+  "name": "@omnio/module-sdk",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Omnio module SDK: the versioned module.json manifest schema and tool contracts. MIT-licensed (decision D1) so plugin authors are never license-encumbered.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --sourcemap --clean",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@omnio/config": "workspace:*",
+    "eslint": "^9.30.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.0",
+    "vitest": "^3.2.0"
+  }
+}
