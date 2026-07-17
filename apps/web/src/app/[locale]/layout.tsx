@@ -14,6 +14,7 @@ import "@omnio/ui/fonts";
 import "../globals.css";
 import { routing } from "@/i18n/routing";
 import { AppShell } from "@/components/shell/app-shell";
+import { QueryProvider } from "@/components/providers/query-provider";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -60,7 +61,9 @@ export default async function LocaleLayout({
           <ThemeProvider>
             <ContrastProvider>
               <TooltipProvider delayDuration={300}>
-                <AppShell>{children}</AppShell>
+                <QueryProvider>
+                  <AppShell>{children}</AppShell>
+                </QueryProvider>
                 <Toaster dir={dir} />
               </TooltipProvider>
             </ContrastProvider>
