@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, gotoApp, test } from "./fixtures";
 
 test.describe("workspace", () => {
   test("launches a tool from the home", async ({ page }) => {
@@ -23,7 +23,7 @@ test.describe("workspace", () => {
   });
 
   test("'/' opens the command palette", async ({ page }) => {
-    await page.goto("/");
+    await gotoApp(page);
     await page.keyboard.press("/");
     await expect(page.getByPlaceholder("Type a command or search…")).toBeVisible();
   });

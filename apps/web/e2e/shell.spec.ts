@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, gotoApp, test } from "./fixtures";
 
 test.describe("app shell & landing", () => {
   test("home renders hero, categories, roadmap and FAQ (en)", async ({ page }) => {
@@ -30,7 +30,7 @@ test.describe("app shell & landing", () => {
   });
 
   test("keyboard-only: skip link is the first tab stop", async ({ page }) => {
-    await page.goto("/");
+    await gotoApp(page);
     await page.keyboard.press("Tab");
     await expect(page.getByRole("link", { name: "Skip to content" })).toBeFocused();
   });
@@ -38,7 +38,7 @@ test.describe("app shell & landing", () => {
 
 test.describe("command palette", () => {
   test("opens with Ctrl+K, filters, and navigates", async ({ page }) => {
-    await page.goto("/");
+    await gotoApp(page);
     await page.keyboard.press("ControlOrMeta+k");
     const input = page.getByPlaceholder("Type a command or search…");
     await expect(input).toBeVisible();
@@ -50,7 +50,7 @@ test.describe("command palette", () => {
   });
 
   test("switches theme from the palette", async ({ page }) => {
-    await page.goto("/");
+    await gotoApp(page);
     await page.keyboard.press("ControlOrMeta+k");
     await page.getByPlaceholder("Type a command or search…").fill("dark");
     await page.getByRole("option", { name: "Switch to dark theme" }).click();
@@ -58,7 +58,7 @@ test.describe("command palette", () => {
   });
 
   test("switches language from the palette", async ({ page }) => {
-    await page.goto("/");
+    await gotoApp(page);
     await page.keyboard.press("ControlOrMeta+k");
     await page.getByPlaceholder("Type a command or search…").fill("עברית");
     await page.getByRole("option", { name: "עברית" }).click();

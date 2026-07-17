@@ -22,6 +22,26 @@
     "primaryNavigation": "Primary",
     "categoriesNavigation": "Categories"
   },
+  "auth": {
+    "loading": "Loading…",
+    "setupTitle": "Welcome to Omnio",
+    "setupSubtitle": "Create your admin account to set up this instance.",
+    "loginTitle": "Welcome back",
+    "loginSubtitle": "Sign in to your workspace.",
+    "username": "Username",
+    "password": "Password",
+    "passwordHint": "At least {min} characters.",
+    "createAccount": "Create account",
+    "creating": "Creating…",
+    "signIn": "Sign in",
+    "signingIn": "Signing in…",
+    "signOut": "Sign out",
+    "signedInAs": "Signed in as {username}",
+    "account": "Account",
+    "offlineTitle": "Can't reach the server",
+    "offlineSubtitle": "Omnio couldn't connect to the API. Check it's running and try again.",
+    "retry": "Try again"
+  },
   "files": {
     "dropTitle": "Drop to open your file",
     "dropSubtitle": "It stays on your device — nothing is uploaded.",

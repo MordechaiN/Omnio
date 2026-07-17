@@ -15,6 +15,7 @@ import "../globals.css";
 import { routing } from "@/i18n/routing";
 import { AppShell } from "@/components/shell/app-shell";
 import { QueryProvider } from "@/components/providers/query-provider";
+import { AuthGate } from "@/components/auth/auth-gate";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -62,7 +63,9 @@ export default async function LocaleLayout({
             <ContrastProvider>
               <TooltipProvider delayDuration={300}>
                 <QueryProvider>
-                  <AppShell>{children}</AppShell>
+                  <AuthGate>
+                    <AppShell>{children}</AppShell>
+                  </AuthGate>
                 </QueryProvider>
                 <Toaster dir={dir} />
               </TooltipProvider>

@@ -10,6 +10,7 @@ import { NavItems } from "./nav-items";
 import { PaletteProvider } from "./palette-context";
 import { SearchButton } from "./search-button";
 import { ThemeMenu } from "./theme-menu";
+import { UserMenu } from "./user-menu";
 import { FileDropProvider } from "@/components/files/file-drop-provider";
 
 /**
@@ -54,6 +55,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <div className="flex items-center gap-1">
                 <ThemeMenu />
                 <LocaleMenu />
+                <UserMenu />
               </div>
             </header>
 

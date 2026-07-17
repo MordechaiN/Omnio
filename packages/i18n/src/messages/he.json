@@ -22,6 +22,26 @@
     "primaryNavigation": "ניווט ראשי",
     "categoriesNavigation": "קטגוריות"
   },
+  "auth": {
+    "loading": "טוען…",
+    "setupTitle": "ברוכים הבאים ל‑Omnio",
+    "setupSubtitle": "צרו חשבון מנהל כדי להגדיר את המופע הזה.",
+    "loginTitle": "ברוכים השבים",
+    "loginSubtitle": "היכנסו לסביבת העבודה שלכם.",
+    "username": "שם משתמש",
+    "password": "סיסמה",
+    "passwordHint": "לפחות {min} תווים.",
+    "createAccount": "יצירת חשבון",
+    "creating": "יוצר…",
+    "signIn": "כניסה",
+    "signingIn": "מתחבר…",
+    "signOut": "התנתקות",
+    "signedInAs": "מחובר כ‑{username}",
+    "account": "חשבון",
+    "offlineTitle": "לא ניתן להגיע לשרת",
+    "offlineSubtitle": "‏Omnio לא הצליח להתחבר ל‑API. ודאו שהוא פועל ונסו שוב.",
+    "retry": "נסו שוב"
+  },
   "files": {
     "dropTitle": "שחררו כדי לפתוח את הקובץ",
     "dropSubtitle": "הקובץ נשאר במכשיר שלכם — שום דבר לא מועלה.",
