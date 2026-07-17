@@ -7,6 +7,7 @@ import { Badge, ToolShell } from "@omnio/ui";
 import { routing } from "@/i18n/routing";
 import { TOOL_SURFACES, WEB_TOOLS, type WebToolMeta } from "@/generated/registry.web";
 import { RecordRecentTool } from "@/components/workspace/record-recent-tool";
+import { WorkerToolLauncher } from "@/components/jobs/worker-tool-launcher";
 
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) =>
@@ -52,7 +53,11 @@ function ToolView({ meta, Surface }: { meta: WebToolMeta; Surface: ComponentType
       }
     >
       <RecordRecentTool id={`${meta.moduleId}.${meta.toolId}`} />
-      <Surface />
+      {meta.tier === "browser" ? (
+        <Surface />
+      ) : (
+        <WorkerToolLauncher moduleId={meta.moduleId} toolId={meta.toolId} name={name} />
+      )}
     </ToolShell>
   );
 }

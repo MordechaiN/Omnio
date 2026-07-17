@@ -42,6 +42,28 @@
     "offlineSubtitle": "‏Omnio לא הצליח להתחבר ל‑API. ודאו שהוא פועל ונסו שוב.",
     "retry": "נסו שוב"
   },
+  "jobs": {
+    "title": "פעילות",
+    "openTray": "פעילות",
+    "clearFinished": "ניקוי שהושלמו",
+    "dismiss": "הסרה",
+    "download": "הורדה",
+    "genericError": "משהו השתבש.",
+    "connectionLost": "החיבור לשרת אבד.",
+    "launcherTitle": "בחרו קובץ לעיבוד",
+    "launcherSubtitle": "הקובץ יועלה, יעובד, והתוצאה תופיע בפעילות.",
+    "chooseFile": "בחירת קובץ",
+    "doneToast": "{label} הסתיים",
+    "failedToast": "{label} נכשל",
+    "phase": {
+      "uploading": "מעלה…",
+      "queued": "בתור",
+      "active": "מעבד…",
+      "completed": "הושלם",
+      "failed": "נכשל",
+      "canceled": "בוטל"
+    }
+  },
   "files": {
     "dropTitle": "שחררו כדי לפתוח את הקובץ",
     "dropSubtitle": "הקובץ נשאר במכשיר שלכם — שום דבר לא מועלה.",

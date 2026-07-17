@@ -42,6 +42,28 @@
     "offlineSubtitle": "Omnio couldn't connect to the API. Check it's running and try again.",
     "retry": "Try again"
   },
+  "jobs": {
+    "title": "Activity",
+    "openTray": "Activity",
+    "clearFinished": "Clear finished",
+    "dismiss": "Dismiss",
+    "download": "Download",
+    "genericError": "Something went wrong.",
+    "connectionLost": "Lost connection to the server.",
+    "launcherTitle": "Choose a file to process",
+    "launcherSubtitle": "It uploads, runs, and the result appears in Activity.",
+    "chooseFile": "Choose a file",
+    "doneToast": "{label} finished",
+    "failedToast": "{label} failed",
+    "phase": {
+      "uploading": "Uploading",
+      "queued": "Queued",
+      "active": "Working",
+      "completed": "Done",
+      "failed": "Failed",
+      "canceled": "Canceled"
+    }
+  },
   "files": {
     "dropTitle": "Drop to open your file",
     "dropSubtitle": "It stays on your device — nothing is uploaded.",
