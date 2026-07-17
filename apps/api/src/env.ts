@@ -35,6 +35,8 @@ const EnvSchema = z
     OMNIO_SCRATCH_TTL_HOURS: z.coerce.number().int().positive().default(24),
     /** Session lifetime; login rotates the token and resets this window. */
     OMNIO_SESSION_TTL_HOURS: z.coerce.number().int().positive().default(168),
+    /** How often the repeatable scratch sweeper runs. */
+    OMNIO_SWEEP_INTERVAL_MINUTES: z.coerce.number().int().positive().default(60),
 
     OMNIO_LOG_LEVEL: z
       .enum(["fatal", "error", "warn", "info", "debug", "trace", "silent"])

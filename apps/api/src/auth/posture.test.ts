@@ -16,6 +16,7 @@ function env(overrides: Partial<Env>): Env {
     OMNIO_MAX_UPLOAD_MB: 512,
     OMNIO_SCRATCH_TTL_HOURS: 24,
     OMNIO_SESSION_TTL_HOURS: 168,
+    OMNIO_SWEEP_INTERVAL_MINUTES: 60,
     OMNIO_LOG_LEVEL: "info",
     OMNIO_ALLOWED_ORIGINS: [],
     OMNIO_TRUST_PROXY: false,
