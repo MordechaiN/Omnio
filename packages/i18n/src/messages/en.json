@@ -22,6 +22,16 @@
     "primaryNavigation": "Primary",
     "categoriesNavigation": "Categories"
   },
+  "files": {
+    "dropTitle": "Drop to open your file",
+    "dropSubtitle": "It stays on your device — nothing is uploaded.",
+    "view": "View",
+    "close": "Close",
+    "unknownType": "Unknown type",
+    "loading": "Loading preview…",
+    "noPreviewTitle": "No preview for this file",
+    "noPreviewBody": "You can still use it with a tool that accepts it."
+  },
   "nav": {
     "home": "Home",
     "categories": "Categories",

@@ -22,6 +22,16 @@
     "primaryNavigation": "ניווט ראשי",
     "categoriesNavigation": "קטגוריות"
   },
+  "files": {
+    "dropTitle": "שחררו כדי לפתוח את הקובץ",
+    "dropSubtitle": "הקובץ נשאר במכשיר שלכם — שום דבר לא מועלה.",
+    "view": "צפייה",
+    "close": "סגירה",
+    "unknownType": "סוג לא ידוע",
+    "loading": "טוען תצוגה מקדימה…",
+    "noPreviewTitle": "אין תצוגה מקדימה לקובץ הזה",
+    "noPreviewBody": "עדיין אפשר להשתמש בו עם כלי שתומך בו."
+  },
   "nav": {
     "home": "בית",
     "categories": "קטגוריות",
