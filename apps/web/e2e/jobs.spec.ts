@@ -1,3 +1,4 @@
+import AxeBuilder from "@axe-core/playwright";
 import { expect, mockJson, test } from "./fixtures";
 
 const CORS = {
@@ -64,6 +65,13 @@ test.describe("job runtime", () => {
     const download = page.getByRole("link", { name: "Download" });
     await expect(download).toBeVisible();
     await expect(download).toHaveAttribute("href", /\/api\/v1\/files\/out1\/content$/);
+
+    // The tray (an open popover) is on the WCAG gate too.
+    const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
+    const serious = results.violations.filter(
+      (v) => v.impact === "serious" || v.impact === "critical",
+    );
+    expect(serious, serious.map((v) => v.id).join("\n")).toEqual([]);
   });
 
   test("an upload failure shows a failed run", async ({ page }) => {

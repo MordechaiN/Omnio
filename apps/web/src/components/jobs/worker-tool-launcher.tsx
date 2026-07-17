@@ -39,7 +39,13 @@ export function WorkerToolLauncher({
         <p className="text-sm font-medium">{t("launcherTitle")}</p>
         <p className="text-sm text-text-muted">{t("launcherSubtitle")}</p>
       </div>
-      <input ref={input} type="file" className="sr-only" onChange={onPick} />
+      <input
+        ref={input}
+        type="file"
+        aria-label={t("chooseFile")}
+        className="sr-only"
+        onChange={onPick}
+      />
       <Button onClick={() => input.current?.click()}>{t("chooseFile")}</Button>
     </div>
   );

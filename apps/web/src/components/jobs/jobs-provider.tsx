@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { toast } from "@omnio/ui";
 import { apiClient } from "@/lib/api/client";
@@ -59,9 +60,15 @@ export function useJobs(): JobsContextValue {
  */
 export function JobsProvider({ children }: { children: React.ReactNode }) {
   const t = useTranslations("jobs");
+  const queryClient = useQueryClient();
   const [jobs, setJobs] = useState<TrackedJob[]>([]);
   const [open, setOpen] = useState(false);
   const sources = useRef(new Map<string, EventSource>());
+
+  // A finished run changes the server-side history; keep that surface fresh.
+  const invalidateHistory = useCallback(() => {
+    void queryClient.invalidateQueries({ queryKey: ["jobs", "list"] });
+  }, [queryClient]);
 
   const patch = useCallback((localId: string, next: Partial<TrackedJob>) => {
     setJobs((current) =>
@@ -86,6 +93,15 @@ export function JobsProvider({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
+  // Completed runs report outputs out-of-band from the SSE stream; fetch them.
+  const finalize = useCallback(
+    async (localId: string, jobId: string) => {
+      const res = await apiClient.jobs.get({ params: { id: jobId } });
+      if (res.status === 200) patch(localId, { outputIds: res.body.outputs });
+    },
+    [patch],
+  );
+
   const track = useCallback(
     (localId: string, jobId: string, label: string) => {
       const source = new EventSource(jobEventsUrl(jobId), { withCredentials: true });
@@ -98,6 +114,7 @@ export function JobsProvider({ children }: { children: React.ReactNode }) {
 
         if (TERMINAL_PHASES.has(data.status)) {
           closeSource(localId);
+          invalidateHistory();
           if (data.status === "completed") {
             void finalize(localId, jobId);
             toast.success(t("doneToast", { label }));
@@ -114,15 +131,7 @@ export function JobsProvider({ children }: { children: React.ReactNode }) {
         patch(localId, { phase: "failed", error: t("connectionLost") });
       };
     },
-    [closeSource, patch, t],
-  );
-
-  const finalize = useCallback(
-    async (localId: string, jobId: string) => {
-      const res = await apiClient.jobs.get({ params: { id: jobId } });
-      if (res.status === 200) patch(localId, { outputIds: res.body.outputs });
-    },
-    [patch],
+    [closeSource, finalize, invalidateHistory, patch, t],
   );
 
   const runJob = useCallback(
@@ -158,6 +167,7 @@ export function JobsProvider({ children }: { children: React.ReactNode }) {
           patch(localId, { jobId: job.id, phase: job.status, progress: job.progress });
           if (TERMINAL_PHASES.has(job.status)) {
             if (job.status === "completed") patch(localId, { outputIds: job.outputs });
+            invalidateHistory();
             return;
           }
           track(localId, job.id, input.label);
@@ -170,7 +180,7 @@ export function JobsProvider({ children }: { children: React.ReactNode }) {
         }
       })();
     },
-    [patch, t, track],
+    [invalidateHistory, patch, t, track],
   );
 
   const dismiss = useCallback(

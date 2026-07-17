@@ -61,7 +61,7 @@ function JobRow({ job, onDismiss }: { job: TrackedJob; onDismiss: () => void }) 
   const terminal = isTerminal(job.phase);
 
   return (
-    <div className="flex flex-col gap-2 px-4 py-3">
+    <div className="flex flex-col gap-2 px-4 py-3 animate-in fade-in-0 slide-in-from-top-1 duration-(--motion-fast)">
       <div className="flex items-start gap-2.5">
         <PhaseIcon phase={job.phase} />
         <div className="min-w-0 flex-1">
@@ -86,6 +86,7 @@ function JobRow({ job, onDismiss }: { job: TrackedJob; onDismiss: () => void }) 
         <div className="flex items-center gap-2">
           <Progress
             value={job.phase === "completed" ? 100 : job.phase === "active" ? job.progress : null}
+            aria-label={job.label}
             className="flex-1"
           />
           <span className="w-16 shrink-0 text-end text-xs text-text-muted">

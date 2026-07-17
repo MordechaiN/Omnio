@@ -1,3 +1,4 @@
+import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "./fixtures";
 
 const CORS = {
@@ -51,6 +52,12 @@ test.describe("history", () => {
 
     const download = page.getByRole("link", { name: "Download" });
     await expect(download).toHaveAttribute("href", /\/api\/v1\/files\/out1\/content$/);
+
+    const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
+    const serious = results.violations.filter(
+      (v) => v.impact === "serious" || v.impact === "critical",
+    );
+    expect(serious, serious.map((v) => v.id).join("\n")).toEqual([]);
   });
 
   test("shows an empty state with nothing to show", async ({ page }) => {
