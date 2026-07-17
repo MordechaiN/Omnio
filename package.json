@@ -12,6 +12,8 @@
     "dev": "turbo dev",
     "build": "turbo build",
     "modgen": "turbo codegen",
+    "new:module": "omnio-scaffold module",
+    "new:tool": "omnio-scaffold tool",
     "lint": "turbo lint",
     "typecheck": "turbo typecheck",
     "test": "turbo test",
@@ -19,6 +21,7 @@
     "format:fix": "prettier --write ."
   },
   "devDependencies": {
+    "@omnio/scaffold": "workspace:*",
     "prettier": "^3.6.0",
     "turbo": "^2.5.0"
   }

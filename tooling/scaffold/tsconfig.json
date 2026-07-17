@@ -1,0 +1,8 @@
+{
+  "extends": "@omnio/config/tsconfig/library.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "types": ["node"]
+  },
+  "include": ["src"]
+}
