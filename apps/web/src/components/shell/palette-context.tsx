@@ -14,10 +14,25 @@ export function PaletteProvider({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
+    function isEditable(target: EventTarget | null): boolean {
+      const el = target as HTMLElement | null;
+      if (!el) return false;
+      const tag = el.tagName;
+      return tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || el.isContentEditable;
+    }
+
     function onKeyDown(event: KeyboardEvent) {
+      // ⌘K / Ctrl+K toggles the palette from anywhere.
       if (event.key.toLowerCase() === "k" && (event.metaKey || event.ctrlKey)) {
         event.preventDefault();
         setOpen((current) => !current);
+        return;
+      }
+      // "/" focuses search — but only when not already typing (keyboard map,
+      // docs/architecture/04-frontend.md §6).
+      if (event.key === "/" && !event.metaKey && !event.ctrlKey && !isEditable(event.target)) {
+        event.preventDefault();
+        setOpen(true);
       }
     }
     window.addEventListener("keydown", onKeyDown);
