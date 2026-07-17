@@ -23,6 +23,16 @@ describe("loadEnv", () => {
     expect(() => loadEnv({ ...base, NODE_ENV: "production" })).toThrow(/OMNIO_SESSION_SECRET/);
   });
 
+  it("refuses the .env.example placeholder secret in production", () => {
+    expect(() =>
+      loadEnv({
+        ...base,
+        NODE_ENV: "production",
+        OMNIO_SESSION_SECRET: "change-me-to-a-long-random-secret-value",
+      }),
+    ).toThrow(/OMNIO_SESSION_SECRET/);
+  });
+
   it("accepts a strong production secret", () => {
     const env = loadEnv({
       ...base,

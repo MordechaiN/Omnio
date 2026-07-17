@@ -8,6 +8,16 @@ import { z } from "zod";
  */
 const DEV_SESSION_SECRET = "omnio-development-session-secret-change-me";
 
+/**
+ * Secrets that appear in the repo (dev default, .env.example placeholder) are
+ * public knowledge — refuse them in production so a copied-but-unedited config
+ * can never ship a forgeable session secret.
+ */
+const PUBLIC_SESSION_SECRETS = new Set([
+  DEV_SESSION_SECRET,
+  "change-me-to-a-long-random-secret-value",
+]);
+
 const EnvSchema = z
   .object({
     NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
@@ -60,11 +70,12 @@ const EnvSchema = z
       .transform((value) => value === "true"),
   })
   .superRefine((env, ctx) => {
-    if (env.NODE_ENV === "production" && env.OMNIO_SESSION_SECRET === DEV_SESSION_SECRET) {
+    if (env.NODE_ENV === "production" && PUBLIC_SESSION_SECRETS.has(env.OMNIO_SESSION_SECRET)) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         path: ["OMNIO_SESSION_SECRET"],
-        message: "must be set to a strong secret in production (the dev default is refused).",
+        message:
+          "must be set to a unique strong secret in production (repo defaults and placeholders are refused).",
       });
     }
   });
