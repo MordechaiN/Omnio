@@ -37,6 +37,23 @@ const EnvSchema = z
     OMNIO_LOG_LEVEL: z
       .enum(["fatal", "error", "warn", "info", "debug", "trace", "silent"])
       .default("info"),
+
+    /** Extra browser origins allowed for CORS and the CSRF origin check
+     * (comma-separated). Same-origin is always allowed; empty in production. */
+    OMNIO_ALLOWED_ORIGINS: z
+      .string()
+      .default("")
+      .transform((value) =>
+        value
+          .split(",")
+          .map((origin) => origin.trim())
+          .filter(Boolean),
+      ),
+    /** Trust X-Forwarded-* so req.ip reflects the real client behind a proxy. */
+    OMNIO_TRUST_PROXY: z
+      .enum(["true", "false"])
+      .default("false")
+      .transform((value) => value === "true"),
   })
   .superRefine((env, ctx) => {
     if (env.NODE_ENV === "production" && env.OMNIO_SESSION_SECRET === DEV_SESSION_SECRET) {

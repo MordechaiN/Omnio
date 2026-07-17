@@ -6,12 +6,14 @@ import { OMNIO_ENV } from "../config/config.module";
 import type { Env } from "../env";
 import { AuthService } from "./auth.service";
 import { clearSessionCookie, readSessionCookie, serializeSessionCookie } from "./cookies";
+import { RateLimit } from "../security/rate-limit.decorator";
 import { CurrentUser } from "./current-user.decorator";
 import { Public } from "./public.decorator";
 import type { AuthedUser } from "./types";
 
 const c = apiContract.auth;
 
+@RateLimit("auth")
 @Controller()
 export class AuthController {
   private readonly secureCookies: boolean;

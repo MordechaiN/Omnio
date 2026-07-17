@@ -9,6 +9,7 @@ import { PrismaModule } from "./infra/prisma.module";
 import { RedisModule } from "./infra/redis.module";
 import { loggerParams } from "./observability/logger";
 import { MetricsModule } from "./observability/metrics.module";
+import { SecurityModule } from "./security/security.module";
 import { SystemController } from "./system/system.controller";
 import { SystemService } from "./system/system.service";
 
@@ -26,6 +27,7 @@ export class AppModule {
         PrismaModule,
         RedisModule,
         MetricsModule,
+        SecurityModule,
         AuthModule,
       ],
       controllers: [HealthController, SystemController],

@@ -22,6 +22,7 @@
     "@omnio/db": "workspace:*",
     "@ts-rest/nest": "^3.52.0",
     "cookie": "^1.0.2",
+    "helmet": "^8.0.0",
     "ioredis": "^5.4.1",
     "nestjs-pino": "^4.1.0",
     "pino": "^9.5.0",

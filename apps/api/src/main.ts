@@ -1,10 +1,12 @@
 import "reflect-metadata";
 import { NestFactory } from "@nestjs/core";
+import type { NestExpressApplication } from "@nestjs/platform-express";
 import { deployMigrations } from "@omnio/db";
 import { Logger } from "nestjs-pino";
 import { AppModule } from "./app.module";
 import { assertAuthPosture } from "./auth/posture";
 import { loadEnv } from "./env";
+import { configureHttpSecurity } from "./security/http-security";
 
 async function bootstrap(): Promise<void> {
   const env = loadEnv();
@@ -14,9 +16,12 @@ async function bootstrap(): Promise<void> {
   // safe with multiple api replicas (docs/architecture/01-system-overview.md §7).
   await deployMigrations({ databaseUrl: env.OMNIO_DATABASE_URL });
 
-  const app = await NestFactory.create(AppModule.forRoot(env), { bufferLogs: true });
+  const app = await NestFactory.create<NestExpressApplication>(AppModule.forRoot(env), {
+    bufferLogs: true,
+  });
   const logger = app.get(Logger);
   app.useLogger(logger);
+  configureHttpSecurity(app, env);
   app.enableShutdownHooks();
 
   await app.listen(env.OMNIO_API_PORT, env.OMNIO_API_HOST);

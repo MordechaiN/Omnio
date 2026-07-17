@@ -16,6 +16,8 @@ function env(overrides: Partial<Env>): Env {
     OMNIO_SCRATCH_TTL_HOURS: 24,
     OMNIO_SESSION_TTL_HOURS: 168,
     OMNIO_LOG_LEVEL: "info",
+    OMNIO_ALLOWED_ORIGINS: [],
+    OMNIO_TRUST_PROXY: false,
     ...overrides,
   };
 }
