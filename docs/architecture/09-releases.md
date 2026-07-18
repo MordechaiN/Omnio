@@ -59,6 +59,21 @@ image `ENV`:
 from the Docker build context, so git-derived values must arrive as build args —
 they cannot be read inside the image.
 
+### The release manifest (`release.json`)
+
+`tooling/release/gen-manifest.mjs` writes a canonical **`release.json`** — the
+single machine-readable source of truth for a build. It is generated
+automatically during every build (regenerated inside the api image from the
+build args) and committed to the repo; it is never hand-edited. It holds the
+build-time-immutable fields plus the build environment's node/pnpm/os/arch and
+the Docker image tags. The running api reads it and overlays the live runtime
+fields (hostname, os/arch, node, redis version, environment, mode) before
+serving the **complete** manifest at `GET /api/version`.
+
+It is available from all four surfaces: the **repository** (committed), the
+**Docker image** (baked), the **running API** (`/api/version`), and the **About
+page** (which fetches the API).
+
 The **web** tier receives them as `NEXT_PUBLIC_OMNIO_*` (inlined into the client
 bundle at build). The **api** tier receives them as `OMNIO_*` env (read at
 runtime). The immutable fields describe the build; mode and environment describe
@@ -66,14 +81,19 @@ the running deployment and are read live, so they are always current.
 
 ## 3. Surfaces
 
-- **`GET /api/version`** — the running api's own report `{ version, commit,
-  branch, buildDate, buildNumber, environment, mode }`. Unauthenticated
-  deployment metadata (like `/healthz`). The canonical "what is running" source.
+- **`GET /api/version`** — the running api's own report: the **complete release
+  manifest** (version, channel, commit, branch, build number/timestamp,
+  environment, mode, docker images, hostname, os, arch, node, pnpm, database,
+  redis). Unauthenticated deployment metadata (like `/healthz`). The canonical
+  "what is running" source.
+- **`GET /api/health`** — live three-state status (`healthy`/`warning`/`offline`)
+  for API, database, redis, worker, and storage. Drives the About page's
+  Services section and the deployment summary.
 - **Footer** — `Omnio · vX.Y.Z-stage.N · Commit <sha>` on every page; the
   version links to About.
-- **About page** (`/about`) — full build + deployment report, plus license,
-  repository, documentation, release notes, and a live build-status check that
-  confirms the running api's commit matches the bundle it shipped with.
+- **About page** (`/about`) — the system-information page: General, Deployment,
+  Runtime, Services (live), and Project (license, repository, documentation,
+  changelog, release notes).
 - **Changelog page** (`/changelog`) — renders `CHANGELOG.md`, grouped New /
   Changed / Fixed / Security per release.
 
@@ -126,5 +146,6 @@ were rebuilt when required. The two must never disagree on the running version.
 | Tool                                  | Role                                                                 |
 | ------------------------------------- | ------------------------------------------------------------------- |
 | `tooling/release/build-metadata.mjs`  | Portable: compute version/commit/branch/date/number from git        |
-| `~/scripts/omnio-release`             | Oracle: build with metadata → deploy → verify → report              |
-| `~/scripts/omnio-version-check`       | Oracle: compare running `/api/version` against GitHub source        |
+| `tooling/release/gen-manifest.mjs`    | Portable: write the canonical `release.json` (single source of truth) |
+| `~/scripts/omnio-release`             | Oracle: build with metadata → deploy → verify → deployment summary  |
+| `~/scripts/omnio-version-check`       | Oracle: `/api/version` + `/api/health` summary vs GitHub source      |

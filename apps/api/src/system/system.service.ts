@@ -1,6 +1,6 @@
 import { Inject, Injectable } from "@nestjs/common";
 import type { SystemInfo } from "@omnio/contracts";
-import { readBuildInfo } from "../build-info";
+import { readManifest } from "../build-info";
 import { OMNIO_ENV } from "../config/config.module";
 import type { Env } from "../env";
 
@@ -11,7 +11,7 @@ export class SystemService {
   getInfo(): SystemInfo {
     return {
       name: "omnio",
-      version: readBuildInfo(this.env).version,
+      version: readManifest(this.env).version,
       uptimeSec: process.uptime(),
     };
   }

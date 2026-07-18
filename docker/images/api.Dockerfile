@@ -21,12 +21,26 @@ RUN corepack enable && corepack prepare pnpm@10.33.0 --activate \
   && pnpm install --frozen-lockfile
 
 FROM deps AS build
+# Build & release metadata — supplied by the release tooling (docs/architecture/09-releases.md).
+ARG OMNIO_VERSION=0.0.0-dev
+ARG OMNIO_GIT_COMMIT=unknown
+ARG OMNIO_GIT_BRANCH=unknown
+ARG OMNIO_BUILD_DATE=unknown
+ARG OMNIO_BUILD_NUMBER=unknown
+ENV OMNIO_VERSION=${OMNIO_VERSION} \
+    OMNIO_GIT_COMMIT=${OMNIO_GIT_COMMIT} \
+    OMNIO_GIT_BRANCH=${OMNIO_GIT_BRANCH} \
+    OMNIO_BUILD_DATE=${OMNIO_BUILD_DATE} \
+    OMNIO_BUILD_NUMBER=${OMNIO_BUILD_NUMBER}
 # `modgen`'s bin isn't symlinked by `pnpm install` until tooling/modgen/dist
 # exists (pnpm skips bin-linking for build-artifact bins that aren't built
 # yet) — build it first, relink, then build everything else.
 RUN pnpm turbo build --filter=@omnio/modgen... \
   && pnpm install --frozen-lockfile --prefer-offline \
   && pnpm turbo build
+# Regenerate the canonical release manifest from the build args (`.git` is not in
+# the context) so the image carries an authoritative release.json for /api/version.
+RUN node tooling/release/gen-manifest.mjs
 
 # ---- minimal production dependency graph for just @omnio/api ----
 FROM base AS pruner
@@ -46,6 +60,9 @@ COPY --from=pruner /app/out/full/ .
 COPY --from=prod-deps /app/ .
 COPY --from=build /app/apps/api/dist ./apps/api/dist
 COPY --from=build /app/packages ./packages
+# The canonical release manifest, generated during the build above. Read at
+# runtime and merged with live fields for GET /api/version.
+COPY --from=build /app/release.json ./release.json
 RUN chown -R omnio:omnio /app
 USER omnio
 ENV NODE_ENV=production

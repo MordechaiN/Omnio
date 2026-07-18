@@ -17,11 +17,13 @@ worker pipeline, and a permanent release-management system.
 
 ### Added
 
-- **Semantic versioning & release infrastructure** — canonical version, embedded
-  build metadata (version, commit, branch, build date, build number), a
-  `GET /api/version` endpoint, an in-app About page and Changelog, a footer
-  version badge, this changelog, and a documented Commit → Push → Build → Deploy
-  → Verify → Tag release workflow.
+- **Semantic versioning & release infrastructure** — canonical version, a
+  generated `release.json` manifest (single source of truth) embedded in the
+  image and served whole from `GET /api/version`, a `GET /api/health` service
+  report, an About system-information page (General / Deployment / Runtime /
+  live Services / Project), an in-app Changelog, a footer version badge, this
+  changelog, and a documented Commit → Push → Build → Deploy → Verify → Tag
+  workflow that prints a deployment summary proving Oracle matches GitHub.
 - **Browser-tier tools (M7)** — 36 tools across 31 modules, all running entirely
   on your device, in English and Hebrew with full RTL: JSON/YAML/CSV converters,
   JWT decode, Base64/URL/HTML/binary encoders, number-base, UUID, hash and

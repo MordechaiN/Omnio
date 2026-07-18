@@ -1,23 +1,36 @@
+import { readFileSync } from "node:fs";
+import { arch, hostname, release, type as osType } from "node:os";
+import { join } from "node:path";
 import type { Env } from "./env";
 
 /**
- * Build & deployment metadata for the running api.
+ * The canonical release manifest for the running api.
  *
- * The immutable per-build fields (version, commit, branch, buildDate,
- * buildNumber) are injected as plain environment variables by the release
- * tooling — baked into the image as Docker `ENV` from build `ARG`s, never
- * hand-maintained (docs/architecture/09-releases.md). The runtime-varying
- * fields (environment, mode) come from the validated config so they always
- * describe *this* deployment, not the moment the image was built.
+ * Build-time-immutable fields come from `release.json` — generated during the
+ * build (tooling/release/gen-manifest.mjs) and baked into the image, never
+ * hand-maintained (docs/architecture/09-releases.md). Runtime fields (hostname,
+ * os/arch, node, redis version, environment, mode) are gathered live so the
+ * manifest always describes *this* deployment. Served whole at GET /api/version.
  */
-export interface BuildInfo {
+export type ReleaseChannel = "alpha" | "beta" | "rc" | "stable";
+
+export interface ReleaseManifest {
   version: string;
+  channel: ReleaseChannel;
   commit: string;
   branch: string;
-  buildDate: string;
   buildNumber: string;
+  buildTimestamp: string;
   environment: string;
   mode: string;
+  dockerImages: string[];
+  hostname: string;
+  os: string;
+  arch: string;
+  node: string;
+  pnpm: string;
+  database: string;
+  redis: string | null;
 }
 
 /** Compiled-in fallback version; the release tooling sets OMNIO_VERSION. */
@@ -25,14 +38,67 @@ export const OMNIO_VERSION = "0.1.0-alpha.1";
 
 const UNKNOWN = "unknown";
 
-export function readBuildInfo(env: Env, source: NodeJS.ProcessEnv = process.env): BuildInfo {
+export function channelOf(version: string): ReleaseChannel {
+  const pre = version.split("-")[1] ?? "";
+  if (pre.startsWith("alpha")) return "alpha";
+  if (pre.startsWith("beta")) return "beta";
+  if (pre.startsWith("rc")) return "rc";
+  return "stable";
+}
+
+type StaticManifest = Partial<
+  Pick<
+    ReleaseManifest,
+    | "version"
+    | "channel"
+    | "commit"
+    | "branch"
+    | "buildNumber"
+    | "buildTimestamp"
+    | "dockerImages"
+    | "pnpm"
+    | "database"
+  >
+>;
+
+/** Prefer the baked release.json; fall back to individual build-arg env vars. */
+function readStatic(source: NodeJS.ProcessEnv): StaticManifest {
+  try {
+    return JSON.parse(readFileSync(join(process.cwd(), "release.json"), "utf8")) as StaticManifest;
+  } catch {
+    return {
+      version: source.OMNIO_VERSION,
+      commit: source.OMNIO_GIT_COMMIT,
+      branch: source.OMNIO_GIT_BRANCH,
+      buildNumber: source.OMNIO_BUILD_NUMBER,
+      buildTimestamp: source.OMNIO_BUILD_DATE,
+    };
+  }
+}
+
+export function readManifest(
+  env: Env,
+  opts: { redis?: string | null } = {},
+  source: NodeJS.ProcessEnv = process.env,
+): ReleaseManifest {
+  const s = readStatic(source);
+  const version = s.version ?? source.OMNIO_VERSION ?? OMNIO_VERSION;
   return {
-    version: source.OMNIO_VERSION ?? OMNIO_VERSION,
-    commit: source.OMNIO_GIT_COMMIT ?? UNKNOWN,
-    branch: source.OMNIO_GIT_BRANCH ?? UNKNOWN,
-    buildDate: source.OMNIO_BUILD_DATE ?? UNKNOWN,
-    buildNumber: source.OMNIO_BUILD_NUMBER ?? UNKNOWN,
+    version,
+    channel: s.channel ?? channelOf(version),
+    commit: s.commit ?? UNKNOWN,
+    branch: s.branch ?? UNKNOWN,
+    buildNumber: s.buildNumber ?? UNKNOWN,
+    buildTimestamp: s.buildTimestamp ?? UNKNOWN,
     environment: env.OMNIO_ENVIRONMENT ?? env.NODE_ENV,
     mode: env.OMNIO_MODE,
+    dockerImages: s.dockerImages ?? [],
+    hostname: hostname(),
+    os: `${osType()} ${release()}`,
+    arch: arch(),
+    node: process.version,
+    pnpm: s.pnpm ?? UNKNOWN,
+    database: s.database ?? "postgresql",
+    redis: opts.redis ?? null,
   };
 }

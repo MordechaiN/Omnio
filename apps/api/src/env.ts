@@ -29,6 +29,8 @@ const EnvSchema = z
 
     OMNIO_DATABASE_URL: z.string().url(),
     OMNIO_REDIS_URL: z.string().url(),
+    /** Worker health base URL for the /api/health service check (internal). */
+    OMNIO_WORKER_HEALTH_URL: z.string().url().default("http://worker:4100"),
 
     /** Deployment mode (decision D2, reversed 2026-07-18): "personal" is a
      * single implicit local user with no login; "multi-user" is the original

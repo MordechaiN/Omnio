@@ -1,0 +1,18 @@
+{
+  "version": "0.1.0-alpha.1",
+  "channel": "alpha",
+  "commit": "24ea513",
+  "branch": "main",
+  "buildNumber": "44",
+  "buildTimestamp": "2026-07-18T13:33:28.694Z",
+  "dockerImages": [
+    "omnio-web:0.1.0-alpha.1",
+    "omnio-api:0.1.0-alpha.1",
+    "omnio-worker:0.1.0-alpha.1"
+  ],
+  "node": "v22.23.1",
+  "pnpm": "10.33.0",
+  "os": "Linux 6.17.0-1009-oracle",
+  "arch": "arm64",
+  "database": "postgresql"
+}
