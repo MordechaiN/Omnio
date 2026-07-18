@@ -26,15 +26,21 @@ function NavLink({
       onClick={onNavigate}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "flex items-center gap-2.5 rounded-sm px-2.5 py-1.5 text-sm",
-        "transition-colors duration-(--motion-fast) ease-(--ease-out)",
+        "relative flex items-center gap-2.5 rounded-md px-2.5 text-sm",
+        "h-(--control-h-sm)",
+        "transition-[background-color,color] duration-(--motion-fast) ease-(--ease-out)",
+        // A left accent bar marks the active route — Linear-style, more
+        // legible than a background tint alone and never color-only (the
+        // label also goes bold + full-contrast text).
+        "before:absolute before:top-1/2 before:-translate-y-1/2 before:h-4 before:w-0.5 before:rounded-full before:bg-accent before:transition-opacity before:duration-(--motion-fast)",
+        "before:start-0",
         active
-          ? "bg-surface-raised font-medium text-text"
-          : "text-text-secondary hover:bg-surface-raised/70 hover:text-text",
+          ? "bg-accent-subtle font-medium text-text before:opacity-100"
+          : "text-text-secondary before:opacity-0 hover:bg-surface-raised hover:text-text",
       )}
     >
       <Icon icon={icon} size={16} className={active ? "text-accent" : "text-text-muted"} />
-      {label}
+      <span className="truncate">{label}</span>
     </Link>
   );
 }
@@ -43,7 +49,7 @@ function NavLink({
 export function NavItems({ onNavigate }: { onNavigate?: () => void }) {
   const t = useTranslations();
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-6">
       <nav aria-label={t("shell.primaryNavigation")} className="flex flex-col gap-0.5">
         <NavLink href="/" icon={Home} label={t("nav.home")} onNavigate={onNavigate} />
         <NavLink href="/stats" icon={BarChart3} label={t("nav.stats")} onNavigate={onNavigate} />
@@ -62,7 +68,9 @@ export function NavItems({ onNavigate }: { onNavigate?: () => void }) {
         <NavLink href="/about" icon={Info} label={t("nav.about")} onNavigate={onNavigate} />
       </nav>
       <nav aria-label={t("shell.categoriesNavigation")} className="flex flex-col gap-0.5">
-        <p className="mb-1 px-2.5 text-xs font-medium text-text-muted">{t("nav.categories")}</p>
+        <p className="mb-1.5 px-2.5 text-xs font-semibold tracking-wide text-text-muted uppercase">
+          {t("nav.categories")}
+        </p>
         {CATEGORY_IDS.map((id) => (
           <NavLink
             key={id}

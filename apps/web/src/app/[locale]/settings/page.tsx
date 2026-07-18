@@ -15,8 +15,8 @@ export default function SettingsPage({ params }: { params: Promise<{ locale: str
 function SettingsContent() {
   const t = useTranslations("nav");
   return (
-    <div className="mx-auto flex max-w-2xl flex-col gap-8 px-4 py-10 sm:px-6">
-      <h1 className="text-2xl font-semibold tracking-tight">{t("settings")}</h1>
+    <div className="mx-auto flex max-w-2xl flex-col gap-8 px-4 py-8 sm:px-6 lg:py-10">
+      <h1 className="animate-rise text-2xl font-semibold tracking-tight">{t("settings")}</h1>
       <SettingsPanel />
     </div>
   );

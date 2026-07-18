@@ -102,7 +102,7 @@ export function SettingsPanel() {
   useEffect(() => setMounted(true), []);
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="animate-rise-stagger flex flex-col gap-8">
       <SettingsSection title={t("settings.general")}>
         <SettingRow label={t("settings.deploymentMode")} htmlFor="setting-mode-info">
           <div id="setting-mode-info" className="flex sm:justify-end">

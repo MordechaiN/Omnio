@@ -17,7 +17,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   return (
     <section className="flex flex-col gap-3">
       <h2 className="text-sm font-semibold text-text-secondary">{title}</h2>
-      <dl className="rounded-lg border border-border px-4">{children}</dl>
+      <dl className="rounded-xl border border-border-subtle bg-surface px-4">{children}</dl>
     </section>
   );
 }
@@ -106,7 +106,7 @@ export function AboutContent() {
   }
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="animate-rise-stagger flex flex-col gap-8">
       <Section title={t("projectSection")}>
         <Row label={t("version")}>
           <span className="flex items-center gap-2">

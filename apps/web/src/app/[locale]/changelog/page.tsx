@@ -57,8 +57,8 @@ export default async function ChangelogPage({
   };
 
   return (
-    <div className="mx-auto flex max-w-2xl flex-col gap-8 px-4 py-10 sm:px-6">
-      <header className="flex flex-col gap-1">
+    <div className="mx-auto flex max-w-2xl flex-col gap-8 px-4 py-8 sm:px-6 lg:py-10">
+      <header className="animate-rise flex flex-col gap-1">
         <h1 className="text-2xl font-semibold tracking-tight">{t("title")}</h1>
         <p className="text-sm text-text-muted">{t("subtitle")}</p>
       </header>
@@ -66,7 +66,7 @@ export default async function ChangelogPage({
       {releases.length === 0 ? (
         <p className="text-sm text-text-muted">{t("empty")}</p>
       ) : (
-        <div className="flex flex-col gap-10">
+        <div className="animate-rise-stagger flex flex-col gap-10">
           {releases.map((release) => (
             <section key={release.version} className="flex flex-col gap-4">
               <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-b border-border-subtle pb-2">

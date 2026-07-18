@@ -16,6 +16,10 @@ const PAGES = [
 for (const { name, path } of PAGES) {
   test(`${name} has no serious accessibility violations`, async ({ page }) => {
     await page.goto(path);
+    // Let the entrance animation (staggered up to ~480ms) settle before
+    // scanning — mid-animation frames are a real transient, not a fixed
+    // violation, and axe otherwise catches them nondeterministically.
+    await page.waitForTimeout(500);
     const results = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
       .analyze();
@@ -32,6 +36,7 @@ for (const { name, path } of PAGES) {
 test("dark theme home passes axe", async ({ page }) => {
   await page.emulateMedia({ colorScheme: "dark" });
   await page.goto("/");
+  await page.waitForTimeout(500);
   const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
   const serious = results.violations.filter(
     (v) => v.impact === "serious" || v.impact === "critical",

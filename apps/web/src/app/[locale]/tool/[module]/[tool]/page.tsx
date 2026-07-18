@@ -2,9 +2,12 @@ import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { hasLocale, useTranslations } from "next-intl";
 import { use, type ComponentType } from "react";
+import type { CategoryId } from "@omnio/core";
 import { DynamicIcon, type IconName } from "lucide-react/dynamic";
-import { Badge, ToolShell } from "@omnio/ui";
+import { Badge, Icon, ToolShell } from "@omnio/ui";
+import { ChevronRight } from "lucide-react";
 import { routing } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
 import { TOOL_SURFACES, WEB_TOOLS, type WebToolMeta } from "@/generated/registry.web";
 import { RecordRecentTool } from "@/components/workspace/record-recent-tool";
 import { WorkerToolLauncher } from "@/components/jobs/worker-tool-launcher";
@@ -42,6 +45,7 @@ function ToolView({ meta, Surface }: { meta: WebToolMeta; Surface: ComponentType
   const description = t(
     `${meta.i18nNamespace}.tools.${meta.toolId}.description` as Parameters<typeof t>[0],
   );
+  const category = meta.category as CategoryId;
 
   return (
     <ToolShell
@@ -50,6 +54,17 @@ function ToolView({ meta, Surface }: { meta: WebToolMeta; Surface: ComponentType
       icon={<DynamicIcon name={meta.icon as IconName} size={24} />}
       badge={
         meta.tier === "browser" ? <Badge variant="accent">{t("common.onDevice")}</Badge> : null
+      }
+      breadcrumb={
+        <nav aria-label={t("shell.breadcrumb")} className="flex items-center gap-1.5">
+          <Link href={`/t/${category}`} className="transition-colors hover:text-text">
+            {t(`categories.${category}.name`)}
+          </Link>
+          <Icon icon={ChevronRight} size={16} className="text-text-disabled" />
+          <span className="text-text-secondary" aria-current="page">
+            {name}
+          </span>
+        </nav>
       }
     >
       <RecordRecentTool id={`${meta.moduleId}.${meta.toolId}`} />

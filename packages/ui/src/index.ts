@@ -127,6 +127,8 @@ export {
   CommandItem,
   CommandSeparator,
   CommandShortcut,
+  CommandFooter,
+  CommandFooterHint,
   type CommandDialogProps,
 } from "./components/command.tsx";
 export { Toaster, toast, type ToasterProps } from "./components/toast.tsx";

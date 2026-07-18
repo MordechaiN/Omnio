@@ -80,7 +80,7 @@ export function CommandList({
 }: React.ComponentProps<typeof CommandPrimitive.List>) {
   return (
     <CommandPrimitive.List
-      className={cn("max-h-80 overflow-y-auto overscroll-contain p-2", className)}
+      className={cn("max-h-[26rem] overflow-y-auto overscroll-contain p-2", className)}
       {...props}
     />
   );
@@ -122,9 +122,9 @@ export function CommandItem({
   return (
     <CommandPrimitive.Item
       className={cn(
-        "flex cursor-default items-center gap-2.5 rounded-sm px-2 py-2 text-sm select-none",
-        "text-text-secondary",
-        "data-[selected=true]:bg-surface-raised data-[selected=true]:text-text",
+        "flex cursor-default items-center gap-2.5 rounded-md px-2.5 py-2 text-sm select-none",
+        "text-text-secondary transition-colors duration-(--motion-fast) ease-(--ease-out)",
+        "data-[selected=true]:bg-accent-subtle data-[selected=true]:text-accent-subtle-fg",
         "data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-55",
         className,
       )}
@@ -148,4 +148,41 @@ export function CommandSeparator({
 /** Trailing hint on an item — keyboard shortcut or category. */
 export function CommandShortcut({ className, ...props }: React.ComponentProps<"span">) {
   return <span className={cn("ms-auto text-xs text-text-muted", className)} {...props} />;
+}
+
+/** Persistent keyboard-hint strip along the bottom of the palette. */
+export function CommandFooter({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      className={cn(
+        "flex items-center gap-4 border-t border-border-subtle px-4 py-2.5 text-xs text-text-muted",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+
+export function CommandFooterHint({
+  keys,
+  label,
+}: {
+  keys: string[];
+  label: string;
+}) {
+  return (
+    <span className="flex items-center gap-1.5">
+      <span className="flex items-center gap-0.5">
+        {keys.map((key) => (
+          <kbd
+            key={key}
+            className="flex h-5 min-w-5 items-center justify-center rounded border border-border-subtle bg-surface px-1 font-mono text-[11px] text-text-secondary"
+          >
+            {key}
+          </kbd>
+        ))}
+      </span>
+      {label}
+    </span>
+  );
 }

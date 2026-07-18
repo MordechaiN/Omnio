@@ -10,6 +10,7 @@
     "loading": "Loading…",
     "comingSoon": "Coming soon",
     "onDevice": "Runs on your device",
+    "notOnDevice": "Uploads to run",
     "addFavorite": "Add to favorites",
     "removeFavorite": "Remove from favorites"
   },
@@ -20,7 +21,9 @@
     "searchHint": "Search tools, categories, commands…",
     "openSettings": "Settings",
     "primaryNavigation": "Primary",
-    "categoriesNavigation": "Categories"
+    "categoriesNavigation": "Categories",
+    "searchHintShort": "Search…",
+    "breadcrumb": "Breadcrumb"
   },
   "auth": {
     "loading": "Loading…",
@@ -92,6 +95,9 @@
     "groupTheme": "Theme",
     "groupLanguage": "Language",
     "groupNavigation": "Go to",
+    "hintNavigate": "Navigate",
+    "hintSelect": "Select",
+    "hintClose": "Close",
     "themeLight": "Switch to light theme",
     "themeDark": "Switch to dark theme",
     "themeSystem": "Follow system theme",
@@ -199,59 +205,11 @@
     }
   },
   "home": {
-    "heroEyebrow": "Self-hosted · Privacy-first · Open source",
-    "heroTitle": "Everything. One workspace.",
-    "heroSubtitle": "Open, view, convert and manage almost any file — on your own hardware. Tools that can run in your browser do, so your files never even leave your device.",
-    "heroSearchLabel": "Search tools and commands",
-    "heroSearchHint": "Press {shortcut} anywhere",
     "favoritesTitle": "Your favorites",
     "recentTitle": "Recently used",
-    "toolsTitle": "Start with a tool",
-    "toolsSubtitle": "Jump straight in — tools that can run on your device do, so your files stay with you.",
-    "toolsEmptyTitle": "Tools are on the way",
-    "toolsEmptyBody": "The first tools land here as modules ship. Search is ready whenever they do.",
-    "categoriesTitle": "Built around what you work on",
-    "categoriesSubtitle": "Every category is a module. Drop a file anywhere and Omnio shows what it can do.",
-    "whyTitle": "Why Omnio",
-    "whyPrivacyTitle": "Private by architecture",
-    "whyPrivacyBody": "Browser-tier tools process files entirely on your device. Nothing is uploaded, tracked or retained — and analytics are off unless you turn them on.",
-    "whySelfHostedTitle": "Yours to run",
-    "whySelfHostedBody": "One Docker Compose file brings up the whole platform on your own machine, NAS or server. It works fully air-gapped.",
-    "whyViewerTitle": "One viewer for everything",
-    "whyViewerBody": "Images, video, PDF, code, archives, documents — drop any file and see it instantly, with every available action one click away.",
-    "whyOpenTitle": "Open source, openly built",
-    "whyOpenBody": "AGPL-licensed, with a module SDK designed so a contributor can ship a polished tool in an afternoon.",
-    "whyFastTitle": "Feels like a desktop app",
-    "whyFastBody": "Instant search, a command palette, keyboard shortcuts everywhere, and interfaces that respond in milliseconds.",
-    "roadmapTitle": "Where the project stands",
-    "roadmapSubtitle": "Omnio is built milestone by milestone, in the open, with the repository releasable at every commit.",
-    "roadmapDone": "Done",
-    "roadmapCurrent": "In progress",
-    "roadmapNext": "Planned",
-    "roadmapM1": "Platform skeleton — monorepo, services, CI",
-    "roadmapM2": "Design system, app shell, i18n",
-    "roadmapM3": "Accounts, storage and job pipeline",
-    "roadmapM4": "Module SDK and tool registry",
-    "roadmapM5": "Universal workspace — search, files, favorites",
-    "roadmapM6": "The complete file-to-result journey",
-    "roadmapM7": "The first fifty tools",
-    "faqTitle": "Questions, answered",
-    "faqQ1": "Is my data really private?",
-    "faqA1": "Yes — structurally, not just by promise. Tools that can run in your browser never upload your files at all, and the badge on each tool tells you where it runs. Everything else stays on hardware you control, with uploads expiring automatically.",
-    "faqQ2": "What do I need to run it?",
-    "faqA2": "Docker and Docker Compose. One command brings up the web app, API, worker, database and queue. A small home server or NAS is plenty.",
-    "faqQ3": "Is it free?",
-    "faqA3": "Omnio is open source under AGPL-3.0. Self-host it, modify it, use it for anything — the license only asks that improvements to the platform stay open.",
-    "faqQ4": "Can I add my own tools?",
-    "faqA4": "That's the whole design. Every tool is a module with a manifest; the SDK, docs and scaffolder are built so your first tool takes an afternoon, not a weekend.",
-    "footerDocs": "Architecture & docs",
-    "footerGitHub": "GitHub",
-    "footerLicense": "AGPL-3.0 — self-hosted and open source",
-    "statusBadge": "Under construction — milestone {milestone}"
-  },
-  "footer": {
-    "commit": "Commit {commit}",
-    "viewAbout": "About Omnio"
+    "categoriesTitle": "Categories",
+    "toolCount": "{count} tools",
+    "comingSoon": "Soon"
   },
   "about": {
     "title": "About Omnio",
@@ -359,5 +317,9 @@
     "behavior": "Behavior",
     "autoOpenActivity": "Open Activity automatically",
     "autoOpenActivityDescription": "Show the Activity tray as soon as a tool starts processing a file."
+  },
+  "categoryPage": {
+    "emptyTitle": "No tools here yet",
+    "emptyBody": "This category is on the roadmap. Search (⌘K) always shows what's available today."
   }
 }

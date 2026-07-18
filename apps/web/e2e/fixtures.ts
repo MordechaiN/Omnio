@@ -22,7 +22,9 @@ const AUTHENTICATED = { needsSetup: false, authenticated: true, username: "admin
  */
 export async function gotoApp(page: Page, path = "/") {
   await page.goto(path);
-  await expect(page.getByText("Search tools, categories, commands…").first()).toBeVisible();
+  // The search trigger lives in the sidebar on desktop and the top bar on
+  // mobile — different visible placeholder text, same stable accessible name.
+  await expect(page.getByRole("button", { name: "Search" }).first()).toBeVisible();
 }
 
 /**

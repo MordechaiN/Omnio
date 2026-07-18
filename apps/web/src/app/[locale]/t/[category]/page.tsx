@@ -3,9 +3,11 @@ import { setRequestLocale } from "next-intl/server";
 import { hasLocale, useTranslations } from "next-intl";
 import { use } from "react";
 import { CATEGORY_IDS, isCategoryId, type CategoryId } from "@omnio/core";
-import { Badge, EmptyState, Icon } from "@omnio/ui";
+import { EmptyState, Icon } from "@omnio/ui";
 import { routing } from "@/i18n/routing";
 import { CATEGORY_ICONS } from "@/lib/category-icons";
+import { SEARCH_ENTRIES } from "@/generated/registry.search";
+import { ToolGrid } from "@/components/workspace/tool-grid";
 
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) =>
@@ -27,28 +29,31 @@ export default function CategoryPage({
 
 function CategoryContent({ category }: { category: CategoryId }) {
   const t = useTranslations();
+  const entries = SEARCH_ENTRIES.filter((entry) => entry.category === category);
 
   return (
-    <div className="mx-auto flex max-w-5xl flex-col gap-8 px-4 py-10 sm:px-6">
-      <header className="flex items-center gap-4">
-        <span className="flex size-11 items-center justify-center rounded-lg bg-accent-subtle text-accent-subtle-fg">
+    <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-8 sm:px-6 lg:py-10">
+      <header className="animate-rise flex items-center gap-4">
+        <span className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-accent-subtle text-accent-subtle-fg">
           <Icon icon={CATEGORY_ICONS[category]} size={24} />
         </span>
         <div className="flex flex-col gap-0.5">
-          <h1 className="text-2xl font-semibold tracking-tight">
+          <h1 className="text-xl font-semibold tracking-tight">
             {t(`categories.${category}.name`)}
           </h1>
-          <p className="text-text-muted">{t(`categories.${category}.blurb`)}</p>
+          <p className="text-sm text-text-muted">{t(`categories.${category}.blurb`)}</p>
         </div>
       </header>
 
-      {/* Tools populate this grid from the module registry in M4/M7. */}
-      <EmptyState
-        icon={CATEGORY_ICONS[category]}
-        title={t("common.comingSoon")}
-        description={t("home.roadmapM7")}
-        action={<Badge variant="accent">{t("home.statusBadge", { milestone: "M6" })}</Badge>}
-      />
+      {entries.length === 0 ? (
+        <EmptyState
+          icon={CATEGORY_ICONS[category]}
+          title={t("categoryPage.emptyTitle")}
+          description={t("categoryPage.emptyBody")}
+        />
+      ) : (
+        <ToolGrid entries={entries} />
+      )}
     </div>
   );
 }

@@ -6,6 +6,8 @@ import { locales, localeNames, type Locale } from "@omnio/i18n";
 import {
   CommandDialog,
   CommandEmpty,
+  CommandFooter,
+  CommandFooterHint,
   CommandGroup,
   CommandInput,
   CommandItem,
@@ -191,6 +193,11 @@ export function CommandPalette() {
           ))}
         </CommandGroup>
       </CommandList>
+      <CommandFooter>
+        <CommandFooterHint keys={["↑", "↓"]} label={t("palette.hintNavigate")} />
+        <CommandFooterHint keys={["↵"]} label={t("palette.hintSelect")} />
+        <CommandFooterHint keys={["esc"]} label={t("palette.hintClose")} />
+      </CommandFooter>
     </CommandDialog>
   );
 }

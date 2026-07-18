@@ -26,10 +26,13 @@ export function PersonalSections() {
   if (favorites.length === 0 && recents.length === 0) return null;
 
   return (
-    <div className="flex flex-col gap-12">
+    <div className="animate-rise flex flex-col gap-8">
       {favorites.length > 0 ? (
-        <section className="flex flex-col gap-4" aria-labelledby="favorites-title">
-          <h2 id="favorites-title" className="text-2xl font-semibold tracking-tight">
+        <section className="flex flex-col gap-3" aria-labelledby="favorites-title">
+          <h2
+            id="favorites-title"
+            className="text-sm font-semibold tracking-wide text-text-secondary uppercase"
+          >
             {t("favoritesTitle")}
           </h2>
           <ToolGrid entries={favorites} />
@@ -37,8 +40,11 @@ export function PersonalSections() {
       ) : null}
 
       {recents.length > 0 ? (
-        <section className="flex flex-col gap-4" aria-labelledby="recent-title">
-          <h2 id="recent-title" className="text-2xl font-semibold tracking-tight">
+        <section className="flex flex-col gap-3" aria-labelledby="recent-title">
+          <h2
+            id="recent-title"
+            className="text-sm font-semibold tracking-wide text-text-secondary uppercase"
+          >
             {t("recentTitle")}
           </h2>
           <ToolGrid entries={recents} />

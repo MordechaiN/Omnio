@@ -55,6 +55,61 @@ kbd {
 }
 
 /*
+ * Entrance animation — a single, restrained "rise" for content that appears
+ * on load or route change (section headers, grids). One motion vocabulary
+ * everywhere rather than ad-hoc per-component transitions; token-driven
+ * duration/easing so it inherits the reduced-motion rule below for free.
+ * Transform-only, deliberately never opacity: text must stay at full,
+ * WCAG-compliant contrast for every frame of the animation, not just its
+ * resting state — a fade-in briefly dips a text/background pairing's
+ * effective contrast, which a "more obvious, more accessible" redesign
+ * should not trade away for a decorative flourish.
+ */
+@keyframes omnio-rise {
+  from {
+    transform: translateY(6px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+.animate-rise {
+  animation: omnio-rise var(--motion-slow) var(--motion-ease-out) both;
+}
+/* Staggers the direct children of a grid/list by a fixed step — no JS,
+   capped at 10 items so a long list doesn't crawl in one at a time. */
+.animate-rise-stagger > * {
+  animation: omnio-rise var(--motion-slow) var(--motion-ease-out) both;
+}
+.animate-rise-stagger > *:nth-child(1) {
+  animation-delay: 0ms;
+}
+.animate-rise-stagger > *:nth-child(2) {
+  animation-delay: 30ms;
+}
+.animate-rise-stagger > *:nth-child(3) {
+  animation-delay: 60ms;
+}
+.animate-rise-stagger > *:nth-child(4) {
+  animation-delay: 90ms;
+}
+.animate-rise-stagger > *:nth-child(5) {
+  animation-delay: 120ms;
+}
+.animate-rise-stagger > *:nth-child(6) {
+  animation-delay: 150ms;
+}
+.animate-rise-stagger > *:nth-child(7) {
+  animation-delay: 180ms;
+}
+.animate-rise-stagger > *:nth-child(8) {
+  animation-delay: 210ms;
+}
+.animate-rise-stagger > *:nth-child(n + 9) {
+  animation-delay: 240ms;
+}
+
+/*
  * Reduced motion: collapse everything to near-instant opacity changes.
  * Components use token durations, so this single rule covers the platform.
  */

@@ -1,24 +1,23 @@
 import { expect, gotoApp, test } from "./fixtures";
 
 test.describe("app shell & landing", () => {
-  test("home renders hero, categories, roadmap and FAQ (en)", async ({ page }) => {
+  test("home is the category browser, not a marketing page (en)", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByRole("heading", { level: 1 })).toContainText(
-      "Everything. One workspace.",
-    );
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("Categories");
     await expect(page.getByRole("link", { name: "PDF", exact: true }).first()).toBeVisible();
-    await expect(page.getByText("Why Omnio")).toBeVisible();
-    await expect(page.getByText("Questions, answered")).toBeVisible();
+    // The old landing-page sections must be gone.
+    await expect(page.getByText("Why Omnio")).toHaveCount(0);
+    await expect(page.getByText("Questions, answered")).toHaveCount(0);
   });
 
   test("hebrew locale renders natively in RTL", async ({ page }) => {
     await page.goto("/he");
     await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
     await expect(page.locator("html")).toHaveAttribute("lang", "he");
-    await expect(page.getByRole("heading", { level: 1 })).toContainText("הכול. סביבת עבודה אחת.");
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("קטגוריות");
   });
 
-  test("category page is reachable from the sidebar", async ({ page }) => {
+  test("category page is reachable from the sidebar and lists its tools", async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto("/");
     await page
@@ -27,6 +26,13 @@ test.describe("app shell & landing", () => {
       .click();
     await expect(page).toHaveURL(/\/t\/developer$/);
     await expect(page.getByRole("heading", { level: 1, name: "Developer" })).toBeVisible();
+    // The category page must actually list tools, not a stale "coming soon" state.
+    await expect(page.getByText("No tools here yet")).toHaveCount(0);
+  });
+
+  test("an empty category shows an honest empty state, not a placeholder", async ({ page }) => {
+    await page.goto("/t/images");
+    await expect(page.getByText("No tools here yet")).toBeVisible();
   });
 
   test("keyboard-only: skip link is the first tab stop", async ({ page }) => {

@@ -16,7 +16,7 @@ base.describe("authentication — personal mode (default)", () => {
   base("skips straight to the workspace, no login UI", async ({ page }) => {
     await status(page, { mode: "personal", needsSetup: false, authenticated: true, username: "admin" });
     await page.goto("/");
-    await expect(page.getByRole("heading", { name: "Start with a tool" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Categories" })).toBeVisible();
     await expect(page.getByLabel("Account")).not.toBeVisible();
   });
 });
@@ -69,6 +69,6 @@ base.describe("authentication — multi-user mode", () => {
     await page.getByLabel("Password").fill("correct horse battery staple");
     await page.getByRole("button", { name: "Sign in" }).click();
 
-    await expect(page.getByRole("heading", { name: "Start with a tool" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Categories" })).toBeVisible();
   });
 });

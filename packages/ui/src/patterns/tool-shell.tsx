@@ -8,6 +8,8 @@ export interface ToolShellProps {
   icon?: ReactNode;
   /** Trailing header slot — e.g. the "runs on your device" privacy badge. */
   badge?: ReactNode;
+  /** Optional breadcrumb above the title (e.g. "Developer / JSON Format"). */
+  breadcrumb?: ReactNode;
   children: ReactNode;
   className?: string;
 }
@@ -18,23 +20,37 @@ export interface ToolShellProps {
  * and the privacy badge; the tool supplies the body. Richer contract (RHF+Zod
  * options panel, result actions, "send to…") grows in M5/M7.
  */
-export function ToolShell({ name, description, icon, badge, children, className }: ToolShellProps) {
+export function ToolShell({
+  name,
+  description,
+  icon,
+  badge,
+  breadcrumb,
+  children,
+  className,
+}: ToolShellProps) {
   return (
     <div
-      className={cn("mx-auto flex w-full max-w-4xl flex-col gap-6 px-4 py-8 sm:px-6", className)}
+      className={cn(
+        "animate-rise mx-auto flex w-full max-w-4xl flex-col gap-6 px-4 py-8 sm:px-6",
+        className,
+      )}
     >
-      <header className="flex items-start gap-3">
-        {icon ? (
-          <span className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-accent-subtle text-accent-subtle-fg">
-            {icon}
-          </span>
-        ) : null}
-        <div className="flex flex-1 flex-col gap-0.5">
-          <h1 className="text-2xl font-semibold tracking-tight text-text">{name}</h1>
-          <p className="text-text-muted">{description}</p>
-        </div>
-        {badge ? <div className="shrink-0">{badge}</div> : null}
-      </header>
+      <div className="flex flex-col gap-4">
+        {breadcrumb ? <div className="text-sm text-text-muted">{breadcrumb}</div> : null}
+        <header className="flex items-start gap-3">
+          {icon ? (
+            <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-accent-subtle text-accent-subtle-fg">
+              {icon}
+            </span>
+          ) : null}
+          <div className="flex flex-1 flex-col gap-0.5">
+            <h1 className="text-2xl font-semibold tracking-tight text-text">{name}</h1>
+            <p className="text-text-muted">{description}</p>
+          </div>
+          {badge ? <div className="shrink-0">{badge}</div> : null}
+        </header>
+      </div>
       <section className="flex flex-col gap-4">{children}</section>
     </div>
   );

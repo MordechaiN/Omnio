@@ -1,9 +1,9 @@
 import { expect, gotoApp, test } from "./fixtures";
 
 test.describe("workspace", () => {
-  test("launches a tool from the home", async ({ page }) => {
+  test("launches a tool from a category", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByRole("heading", { name: "Start with a tool" })).toBeVisible();
+    await page.getByRole("link", { name: /Developer/ }).first().click();
     await page
       .getByRole("link", { name: /UUID Generator/ })
       .first()
@@ -12,13 +12,13 @@ test.describe("workspace", () => {
   });
 
   test("favoriting a tool surfaces it under Your favorites", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/t/developer");
     await page
       .getByRole("link", { name: /UUID Generator/ })
       .first()
       .hover();
     await page.getByRole("button", { name: "Add to favorites" }).first().click();
-    await page.reload();
+    await page.goto("/");
     await expect(page.getByRole("heading", { name: "Your favorites" })).toBeVisible();
   });
 
