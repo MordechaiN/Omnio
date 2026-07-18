@@ -20,6 +20,8 @@ All tokens are CSS custom properties on `:root`, switched by `[data-theme]` — 
 
 **Themes (day one):** `light`, `dark`, `system` (default, live-follows OS), `high-contrast` (AAA-targeted, borders everywhere, no translucency). Persisted per user; pre-hydration inline script prevents theme flash.
 
+**Style (added post-M7, §7):** a second, orthogonal axis — `friendly` (default) vs `classic` — switched by `[data-style]` the same way theme and contrast are. Combines freely with every theme × contrast pairing.
+
 **Typography.**
 
 - Latin: **Inter** (variable). Hebrew: **Noto Sans Hebrew** (variable) — stacked as one family so mixed-script lines set cleanly; both self-hosted via `next/font` (air-gap rule: no font CDNs).
@@ -68,3 +70,13 @@ Built as designed, with four recorded deviations (rationale in `packages/ui/READ
 2. **Fonts:** self-hosted via Fontsource packages rather than `next/font` — no binaries in the repo, identical behavior in Next and Storybook, still zero external requests.
 3. **High contrast is an axis, not a theme:** `data-contrast="high"` overlays either theme (the spec's single "high-contrast" theme would have forced a light-only assumption). AAA-targeted overrides exist for both light and dark; the contrast test enforces 7:1 for text roles in both.
 4. **Visual regression:** CI currently gates with axe (WCAG AA, four pages + dark) and functional e2e in both directions. Pixel-screenshot baselines are deliberately postponed until a dedicated consistent-rendering runner exists — cross-environment screenshot diffs produce false reds that train people to ignore CI.
+
+## 7. Style axis (post-M7 UX refinement) — `friendly` (default) vs `classic`
+
+A UX pass introduced a second visual identity, independent of theme and contrast, so the product could get friendlier without discarding anything:
+
+- **`[data-style]` on `<html>`**, exactly like `[data-contrast]`: absent = `friendly` (the new default, no attribute needed); `[data-style="classic"]` restores the original M2 palette and shape byte-for-byte. `StyleProvider`/`useStyle` (packages/ui/src/theme/style-provider.tsx) mirror `ContrastProvider` — localStorage-persisted, pre-hydration init script, zero React re-render to switch.
+- **What changes:** neutrals shift from a cool-violet cast (hue 265) to a warm one (hue 45); the single accent shifts from muted iris (hue 285) to a warm rose (hue 350) — chosen to stay clearly outside every semantic hue (danger 27, warning 78, success 155, info 240), so the accent is never mistaken for an alert. Radii grow (controls 6px→8px, cards 10px→14px, modals 16px→20px) and the focus ring thickens (2px→3px) for more obvious interaction states. Semantic colors (success/warning/danger/info) are identical in both styles — meaning never shifts with cosmetics.
+- **Same accessibility bar, enforced the same way:** `tokens.ts` holds `classicLight`/`classicDark`/`classicHighContrast` as the exact original values; `contrast.test.ts` runs the full WCAG AA/AAA gate for **both** styles × both themes × both contrast modes (196 assertions) — a new style ships only if it clears the identical bar as classic.
+- **Reversible in three places a user would look:** the theme menu (icon button in the header), Settings → Appearance, and the command palette — all wired to the same `useStyle()`.
+- **Usage stats replaced the history page** in the same pass: the personal per-run log (`/history`, job list + downloads + timestamps) was removed from the UI in favor of `/stats` — local, aggregate-only counters (tool/category counts, popular, trending-by-recency) stored in `localStorage` under `omnio.usage.v1`, with a one-click "Clear stats". No per-run data is retained or sent anywhere; this is a privacy tightening, not a feature parity loss (job tracking and downloads still happen live in the Activity tray during a run).

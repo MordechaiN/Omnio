@@ -10,6 +10,12 @@ export {
   contrastInitScript,
   type ContrastPreference,
 } from "./theme/contrast-provider.tsx";
+export {
+  StyleProvider,
+  useStyle,
+  styleInitScript,
+  type VisualStyle,
+} from "./theme/style-provider.tsx";
 
 // primitives
 export { Icon, type IconProps, type IconSize } from "./components/icon.tsx";

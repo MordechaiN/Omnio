@@ -38,7 +38,6 @@ export default function PasswordGeneratorTool() {
         ? generatePassword(options)
         : generatePassphrase(WORDS, wordCount),
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode, length, wordCount, classes.lowercase, classes.uppercase, classes.digits, classes.symbols, avoidAmbiguous]);
 
   useEffect(() => {

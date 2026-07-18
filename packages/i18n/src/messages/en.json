@@ -78,19 +78,10 @@
     "home": "Home",
     "categories": "Categories",
     "files": "Files",
-    "history": "History",
     "settings": "Settings",
     "about": "About",
-    "changelog": "Changelog"
-  },
-  "history": {
-    "title": "History",
-    "subtitle": "Every file you've processed, newest first.",
-    "error": "We couldn't load your history.",
-    "retry": "Try again",
-    "emptyTitle": "Nothing here yet",
-    "emptyBody": "Process a file and it'll show up here, ready to download again.",
-    "emptyAction": "Browse tools"
+    "changelog": "Changelog",
+    "stats": "Stats"
   },
   "palette": {
     "title": "Command palette",
@@ -106,7 +97,9 @@
     "themeSystem": "Follow system theme",
     "contrastHigh": "Turn on high contrast",
     "contrastNormal": "Turn off high contrast",
-    "goHome": "Home"
+    "goHome": "Home",
+    "styleFriendly": "Switch to friendly look",
+    "styleClassic": "Switch to classic look"
   },
   "theme": {
     "label": "Theme",
@@ -114,7 +107,11 @@
     "dark": "Dark",
     "system": "System",
     "highContrast": "High contrast",
-    "toggle": "Change theme"
+    "toggle": "Change theme",
+    "styleLabel": "Look",
+    "styleFriendly": "Friendly (default)",
+    "styleClassic": "Classic",
+    "styleDescription": "Friendly is the new default look. Switch to Classic any time to restore the original."
   },
   "locale": {
     "label": "Language",
@@ -292,5 +289,28 @@
       "deprecated": "Deprecated",
       "known": "Known limitations"
     }
+  },
+  "stats": {
+    "title": "Usage stats",
+    "subtitle": "How you've been using Omnio, counted on this device only.",
+    "privacyNote": "Nothing here is sent anywhere — clear it any time.",
+    "emptyTitle": "No stats yet",
+    "emptyBody": "Use a tool and it'll start showing up here.",
+    "emptyAction": "Browse tools",
+    "totalRuns": "Tools run",
+    "toolsUsed": "Different tools used",
+    "thisWeek": "Tools used this week",
+    "popularTitle": "Most used",
+    "popularEmpty": "Nothing used yet.",
+    "trendingTitle": "Trending this week",
+    "trendingEmpty": "No activity in the last 7 days.",
+    "byCategoryTitle": "By category",
+    "byCategoryEmpty": "Nothing to show yet.",
+    "runsLabel": "{count} runs",
+    "clearButton": "Clear stats",
+    "clearConfirmTitle": "Clear usage stats?",
+    "clearConfirmBody": "This removes the counts stored on this device. It can't be undone.",
+    "clearConfirmAction": "Clear stats",
+    "clearedToast": "Usage stats cleared"
   }
 }

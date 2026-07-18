@@ -9,6 +9,24 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ## [Unreleased]
 
+### Added
+
+- **Friendly visual style (new default)** — a warmer, rounder, higher-contrast-focus-ring visual identity alongside the original, now called "Classic". Switchable and fully reversible from the theme menu, Settings → Appearance, or the command palette; persisted per device. Both styles pass the full WCAG AA/AAA token gate.
+- **Usage stats page** (`/stats`) — tool usage count, category usage count, trending (last 7 days), and most-used tools, aggregated from local counters only. Includes a one-click "Clear stats".
+
+### Changed
+
+- **History removed from the UI.** The personal per-run log (`/history`: timestamps, statuses, re-downloads) is gone. Live job tracking during a run (the Activity tray, SSE progress, downloads) is unaffected — only the after-the-fact personal audit trail was removed, replaced by anonymous, aggregate usage stats.
+
+### Security
+
+- Usage stats are local-only (`localStorage`, no server round trip) — a privacy tightening versus the removed history page, which round-tripped every job through the API.
+
+### Fixed
+
+- Markdown preview's inline code-span placeholder used a raw NUL byte as its delimiter, tripping `no-control-regex`; switched to an explicit U+E000 (Private Use Area) escape with no behavior change (7/7 tests unaffected).
+- Removed a vestigial `eslint-disable react-hooks/exhaustive-deps` comment in the password generator referencing a plugin that isn't part of the shared lint config, which failed lint outright.
+
 ## [0.1.0-alpha.1] - 2026-07-18
 
 First public alpha. Omnio becomes a professionally versioned, releasable product:

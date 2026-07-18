@@ -6,6 +6,8 @@ import { directionFor } from "@omnio/i18n";
 import {
   ContrastProvider,
   contrastInitScript,
+  StyleProvider,
+  styleInitScript,
   ThemeProvider,
   Toaster,
   TooltipProvider,
@@ -54,21 +56,24 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>
       <head>
-        {/* Applies stored contrast preference before first paint — no flash. */}
+        {/* Applies stored contrast + style preference before first paint — no flash. */}
         <script dangerouslySetInnerHTML={{ __html: contrastInitScript }} />
+        <script dangerouslySetInnerHTML={{ __html: styleInitScript }} />
       </head>
       <body className="antialiased">
         <NextIntlClientProvider>
           <ThemeProvider>
             <ContrastProvider>
-              <TooltipProvider delayDuration={300}>
-                <QueryProvider>
-                  <AuthGate>
-                    <AppShell>{children}</AppShell>
-                  </AuthGate>
-                </QueryProvider>
-                <Toaster dir={dir} />
-              </TooltipProvider>
+              <StyleProvider>
+                <TooltipProvider delayDuration={300}>
+                  <QueryProvider>
+                    <AuthGate>
+                      <AppShell>{children}</AppShell>
+                    </AuthGate>
+                  </QueryProvider>
+                  <Toaster dir={dir} />
+                </TooltipProvider>
+              </StyleProvider>
             </ContrastProvider>
           </ThemeProvider>
         </NextIntlClientProvider>

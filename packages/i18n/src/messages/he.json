@@ -78,19 +78,10 @@
     "home": "בית",
     "categories": "קטגוריות",
     "files": "קבצים",
-    "history": "היסטוריה",
     "settings": "הגדרות",
     "about": "אודות",
-    "changelog": "יומן שינויים"
-  },
-  "history": {
-    "title": "היסטוריה",
-    "subtitle": "כל קובץ שעיבדתם, מהחדש לישן.",
-    "error": "לא הצלחנו לטעון את ההיסטוריה.",
-    "retry": "נסו שוב",
-    "emptyTitle": "עדיין ריק כאן",
-    "emptyBody": "עבדו קובץ והוא יופיע כאן, מוכן להורדה מחדש.",
-    "emptyAction": "עיון בכלים"
+    "changelog": "יומן שינויים",
+    "stats": "סטטיסטיקות"
   },
   "palette": {
     "title": "לוח פקודות",
@@ -106,7 +97,9 @@
     "themeSystem": "לפי הגדרת המערכת",
     "contrastHigh": "הפעלת ניגודיות גבוהה",
     "contrastNormal": "כיבוי ניגודיות גבוהה",
-    "goHome": "בית"
+    "goHome": "בית",
+    "styleFriendly": "מעבר למראה ידידותי",
+    "styleClassic": "מעבר למראה קלאסי"
   },
   "theme": {
     "label": "ערכת נושא",
@@ -114,7 +107,11 @@
     "dark": "כהה",
     "system": "מערכת",
     "highContrast": "ניגודיות גבוהה",
-    "toggle": "החלפת ערכת נושא"
+    "toggle": "החלפת ערכת נושא",
+    "styleLabel": "מראה",
+    "styleFriendly": "ידידותי (ברירת מחדל)",
+    "styleClassic": "קלאסי",
+    "styleDescription": "ידידותי הוא המראה החדש כברירת מחדל. אפשר לחזור למראה הקלאסי בכל עת."
   },
   "locale": {
     "label": "שפה",
@@ -292,5 +289,28 @@
       "deprecated": "יצא משימוש",
       "known": "מגבלות ידועות"
     }
+  },
+  "stats": {
+    "title": "סטטיסטיקות שימוש",
+    "subtitle": "איך השתמשתם ב-Omnio, נספר במכשיר הזה בלבד.",
+    "privacyNote": "שום דבר כאן לא נשלח לשום מקום — אפשר לנקות בכל עת.",
+    "emptyTitle": "אין עדיין נתונים",
+    "emptyBody": "השתמשו בכלי כלשהו והוא יופיע כאן.",
+    "emptyAction": "עיון בכלים",
+    "totalRuns": "הרצות כלים",
+    "toolsUsed": "כלים שונים שנעשה בהם שימוש",
+    "thisWeek": "כלים בשימוש השבוע",
+    "popularTitle": "הכי בשימוש",
+    "popularEmpty": "עדיין לא נעשה שימוש בכלום.",
+    "trendingTitle": "פופולרי השבוע",
+    "trendingEmpty": "אין פעילות ב-7 הימים האחרונים.",
+    "byCategoryTitle": "לפי קטגוריה",
+    "byCategoryEmpty": "אין עדיין מה להציג.",
+    "runsLabel": "{count} הרצות",
+    "clearButton": "ניקוי נתונים",
+    "clearConfirmTitle": "לנקות את נתוני השימוש?",
+    "clearConfirmBody": "פעולה זו מוחקת את הספירות השמורות במכשיר הזה. לא ניתן לבטל.",
+    "clearConfirmAction": "ניקוי נתונים",
+    "clearedToast": "נתוני השימוש נוקו"
   }
 }

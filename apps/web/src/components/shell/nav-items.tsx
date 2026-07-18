@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { CATEGORY_IDS } from "@omnio/core";
 import { cn, Icon } from "@omnio/ui";
-import { History, Home, Info, ScrollText, Settings } from "lucide-react";
+import { BarChart3, Home, Info, ScrollText, Settings } from "lucide-react";
 import { Link, usePathname } from "@/i18n/navigation";
 import { CATEGORY_ICONS } from "@/lib/category-icons";
 
@@ -46,7 +46,7 @@ export function NavItems({ onNavigate }: { onNavigate?: () => void }) {
     <div className="flex flex-col gap-5">
       <nav aria-label={t("shell.primaryNavigation")} className="flex flex-col gap-0.5">
         <NavLink href="/" icon={Home} label={t("nav.home")} onNavigate={onNavigate} />
-        <NavLink href="/history" icon={History} label={t("nav.history")} onNavigate={onNavigate} />
+        <NavLink href="/stats" icon={BarChart3} label={t("nav.stats")} onNavigate={onNavigate} />
         <NavLink
           href="/settings"
           icon={Settings}

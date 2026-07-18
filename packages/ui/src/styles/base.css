@@ -25,9 +25,11 @@ body {
   color: var(--text);
 }
 
-/* One focus style everywhere — visible, tokenized, never removed. */
+/* One focus style everywhere — visible, tokenized, never removed.
+   Width is itself a token (friendly: 3px, classic: 2px) so the "more
+   obvious interaction states" requirement is data, not a component edit. */
 :focus-visible {
-  outline: 2px solid var(--focus-ring);
+  outline: var(--focus-ring-width) solid var(--focus-ring);
   outline-offset: 2px;
   border-radius: var(--radius-xs);
 }

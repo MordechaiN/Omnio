@@ -14,23 +14,30 @@ import {
   SelectValue,
   Switch,
   useContrast,
+  useStyle,
   useTheme,
+  type VisualStyle,
 } from "@omnio/ui";
 import { usePathname, useRouter } from "@/i18n/navigation";
 
 function SettingRow({
   label,
+  description,
   htmlFor,
   children,
 }: {
   label: string;
+  description?: string;
   htmlFor: string;
   children: React.ReactNode;
 }) {
   return (
     <div className="flex items-center justify-between gap-6 py-4 first:pt-0 last:pb-0">
-      <Label htmlFor={htmlFor}>{label}</Label>
-      <div className="w-44">{children}</div>
+      <div className="flex flex-col gap-0.5">
+        <Label htmlFor={htmlFor}>{label}</Label>
+        {description ? <p className="text-sm text-text-muted">{description}</p> : null}
+      </div>
+      <div className="w-44 shrink-0">{children}</div>
     </div>
   );
 }
@@ -39,6 +46,7 @@ export function SettingsPanel() {
   const t = useTranslations();
   const { theme, setTheme } = useTheme();
   const { contrast, setContrast } = useContrast();
+  const { style, setStyle } = useStyle();
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
@@ -59,6 +67,24 @@ export function SettingsPanel() {
                 <SelectItem value="light">{t("theme.light")}</SelectItem>
                 <SelectItem value="dark">{t("theme.dark")}</SelectItem>
                 <SelectItem value="system">{t("theme.system")}</SelectItem>
+              </SelectContent>
+            </Select>
+          ) : null}
+        </SettingRow>
+
+        <SettingRow
+          label={t("theme.styleLabel")}
+          description={t("theme.styleDescription")}
+          htmlFor="setting-style"
+        >
+          {mounted ? (
+            <Select value={style} onValueChange={(next) => setStyle(next as VisualStyle)}>
+              <SelectTrigger id="setting-style">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="friendly">{t("theme.styleFriendly")}</SelectItem>
+                <SelectItem value="classic">{t("theme.styleClassic")}</SelectItem>
               </SelectContent>
             </Select>
           ) : null}

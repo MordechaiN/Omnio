@@ -7,11 +7,26 @@
  * `src/tokens/contrast.test.ts` refuses any palette change that breaks
  * WCAG AA (docs/architecture/05-design-system.md §2).
  *
+ * Two independent axes, both data-driven (attribute on <html>, zero React
+ * re-render to switch):
+ * - **Theme**: `light` | `dark` — `[data-theme]`.
+ * - **Style**: `friendly` (default) | `classic` — `[data-style]`. `friendly`
+ *   is the shipped default and needs no attribute; `[data-style="classic"]`
+ *   restores the original palette exactly, so the change is fully reversible.
+ *
  * Identity notes:
- * - Neutrals carry a whisper of cool violet (hue ≈265, chroma ≤0.012) —
- *   calm, never dead gray, never blue-corporate.
- * - One accent: muted iris (hue 285). Deliberately not "developer blue".
- *   Used for primary actions, focus, selection — and nothing else.
+ * - **Friendly** (default): neutrals carry a whisper of warm amber (hue ≈45,
+ *   chroma ≤0.014) — soft and welcoming, never beige, never "cream page".
+ *   Accent is a warm rose (hue 350) — distinct from every semantic hue
+ *   (danger 27, warning 78, success 155, info 240) so it never reads as an
+ *   alert. Radii are larger and the focus ring is thicker — friendlier
+ *   corners, more obvious interaction states.
+ * - **Classic**: the original palette — cool violet neutrals (hue ≈265) and
+ *   a muted iris accent (hue 285), tighter radii, 2px focus ring. Selected
+ *   via `[data-style="classic"]`; `classicLight`/`classicDark` below hold the
+ *   exact original values, unchanged since M2.
+ * - Semantic colors (success/warning/danger/info) never shift with style —
+ *   meaning must stay stable regardless of visual identity.
  * - Dark mode elevates with surface lightness, not shadows.
  */
 
@@ -56,30 +71,32 @@ export type ColorTokenName =
   | "shadow-2";
 
 export type ThemeName = "light" | "dark";
+export type StyleName = "friendly" | "classic";
 export type ColorTheme = Record<ColorTokenName, string>;
 
+/** Friendly (default) — light. */
 export const light: ColorTheme = {
-  bg: "oklch(0.977 0.003 265)",
-  surface: "oklch(0.995 0.001 265)",
+  bg: "oklch(0.977 0.003 45)",
+  surface: "oklch(0.995 0.001 45)",
   "surface-raised": "oklch(1 0 0)",
   overlay: "oklch(1 0 0)",
-  backdrop: "oklch(0.15 0.01 265 / 0.42)",
+  backdrop: "oklch(0.15 0.01 45 / 0.42)",
 
-  "border-subtle": "oklch(0.925 0.004 265)",
-  border: "oklch(0.885 0.005 265)",
-  "border-strong": "oklch(0.62 0.008 265)",
+  "border-subtle": "oklch(0.925 0.004 45)",
+  border: "oklch(0.885 0.005 45)",
+  "border-strong": "oklch(0.62 0.008 45)",
 
-  text: "oklch(0.235 0.012 265)",
-  "text-secondary": "oklch(0.42 0.014 265)",
-  "text-muted": "oklch(0.51 0.014 265)",
-  "text-disabled": "oklch(0.68 0.01 265)",
+  text: "oklch(0.235 0.012 45)",
+  "text-secondary": "oklch(0.42 0.014 45)",
+  "text-muted": "oklch(0.51 0.014 45)",
+  "text-disabled": "oklch(0.68 0.01 45)",
 
-  accent: "oklch(0.5 0.15 285)",
-  "accent-hover": "oklch(0.46 0.15 285)",
-  "accent-active": "oklch(0.42 0.14 285)",
-  "accent-fg": "oklch(0.995 0.001 285)",
-  "accent-subtle": "oklch(0.955 0.022 285)",
-  "accent-subtle-fg": "oklch(0.42 0.15 285)",
+  accent: "oklch(0.5 0.15 350)",
+  "accent-hover": "oklch(0.46 0.15 350)",
+  "accent-active": "oklch(0.42 0.14 350)",
+  "accent-fg": "oklch(0.995 0.001 350)",
+  "accent-subtle": "oklch(0.955 0.022 350)",
+  "accent-subtle-fg": "oklch(0.42 0.15 350)",
 
   success: "oklch(0.5 0.11 155)",
   "success-fg": "oklch(0.99 0.004 155)",
@@ -101,6 +118,90 @@ export const light: ColorTheme = {
   "info-subtle": "oklch(0.95 0.022 240)",
   "info-subtle-fg": "oklch(0.4 0.09 240)",
 
+  selection: "oklch(0.9 0.045 350)",
+  "focus-ring": "oklch(0.5 0.15 350)",
+
+  "shadow-1": "0 1px 2px oklch(0.2 0.01 45 / 0.05), 0 1px 3px oklch(0.2 0.01 45 / 0.07)",
+  "shadow-2": "0 2px 8px oklch(0.2 0.01 45 / 0.07), 0 12px 32px oklch(0.2 0.01 45 / 0.09)",
+};
+
+/** Friendly (default) — dark. */
+export const dark: ColorTheme = {
+  bg: "oklch(0.17 0.008 45)",
+  surface: "oklch(0.205 0.009 45)",
+  "surface-raised": "oklch(0.245 0.01 45)",
+  overlay: "oklch(0.245 0.01 45)",
+  backdrop: "oklch(0.1 0.008 45 / 0.55)",
+
+  "border-subtle": "oklch(0.27 0.01 45)",
+  border: "oklch(0.32 0.012 45)",
+  "border-strong": "oklch(0.55 0.014 45)",
+
+  text: "oklch(0.93 0.005 45)",
+  "text-secondary": "oklch(0.78 0.008 45)",
+  "text-muted": "oklch(0.7 0.01 45)",
+  "text-disabled": "oklch(0.52 0.01 45)",
+
+  accent: "oklch(0.74 0.12 350)",
+  "accent-hover": "oklch(0.78 0.11 350)",
+  "accent-active": "oklch(0.7 0.12 350)",
+  "accent-fg": "oklch(0.17 0.03 350)",
+  "accent-subtle": "oklch(0.27 0.045 350)",
+  "accent-subtle-fg": "oklch(0.85 0.08 350)",
+
+  success: "oklch(0.74 0.12 155)",
+  "success-fg": "oklch(0.17 0.03 155)",
+  "success-subtle": "oklch(0.26 0.035 155)",
+  "success-subtle-fg": "oklch(0.84 0.09 155)",
+
+  warning: "oklch(0.8 0.13 80)",
+  "warning-fg": "oklch(0.2 0.04 80)",
+  "warning-subtle": "oklch(0.27 0.035 80)",
+  "warning-subtle-fg": "oklch(0.85 0.09 80)",
+
+  danger: "oklch(0.7 0.15 25)",
+  "danger-fg": "oklch(0.16 0.03 25)",
+  "danger-subtle": "oklch(0.27 0.04 25)",
+  "danger-subtle-fg": "oklch(0.84 0.08 25)",
+
+  info: "oklch(0.74 0.1 240)",
+  "info-fg": "oklch(0.17 0.03 240)",
+  "info-subtle": "oklch(0.26 0.035 240)",
+  "info-subtle-fg": "oklch(0.84 0.07 240)",
+
+  selection: "oklch(0.38 0.075 350)",
+  "focus-ring": "oklch(0.74 0.12 350)",
+
+  "shadow-1": "0 1px 2px oklch(0 0 0 / 0.2)",
+  "shadow-2": "0 2px 8px oklch(0 0 0 / 0.25), 0 12px 32px oklch(0 0 0 / 0.3)",
+};
+
+/**
+ * Classic — the original palette (M2–M8), restored via `[data-style="classic"]`.
+ * Only the fields whose hue actually differs from friendly are listed; every
+ * semantic color (success/warning/danger/info) is identical in both styles.
+ */
+export const classicLight: Partial<ColorTheme> = {
+  bg: "oklch(0.977 0.003 265)",
+  surface: "oklch(0.995 0.001 265)",
+  backdrop: "oklch(0.15 0.01 265 / 0.42)",
+
+  "border-subtle": "oklch(0.925 0.004 265)",
+  border: "oklch(0.885 0.005 265)",
+  "border-strong": "oklch(0.62 0.008 265)",
+
+  text: "oklch(0.235 0.012 265)",
+  "text-secondary": "oklch(0.42 0.014 265)",
+  "text-muted": "oklch(0.51 0.014 265)",
+  "text-disabled": "oklch(0.68 0.01 265)",
+
+  accent: "oklch(0.5 0.15 285)",
+  "accent-hover": "oklch(0.46 0.15 285)",
+  "accent-active": "oklch(0.42 0.14 285)",
+  "accent-fg": "oklch(0.995 0.001 285)",
+  "accent-subtle": "oklch(0.955 0.022 285)",
+  "accent-subtle-fg": "oklch(0.42 0.15 285)",
+
   selection: "oklch(0.9 0.045 285)",
   "focus-ring": "oklch(0.5 0.15 285)",
 
@@ -108,7 +209,7 @@ export const light: ColorTheme = {
   "shadow-2": "0 2px 8px oklch(0.2 0.01 265 / 0.07), 0 12px 32px oklch(0.2 0.01 265 / 0.09)",
 };
 
-export const dark: ColorTheme = {
+export const classicDark: Partial<ColorTheme> = {
   bg: "oklch(0.17 0.008 265)",
   surface: "oklch(0.205 0.009 265)",
   "surface-raised": "oklch(0.245 0.01 265)",
@@ -131,38 +232,61 @@ export const dark: ColorTheme = {
   "accent-subtle": "oklch(0.27 0.045 285)",
   "accent-subtle-fg": "oklch(0.85 0.08 285)",
 
-  success: "oklch(0.74 0.12 155)",
-  "success-fg": "oklch(0.17 0.03 155)",
-  "success-subtle": "oklch(0.26 0.035 155)",
-  "success-subtle-fg": "oklch(0.84 0.09 155)",
-
-  warning: "oklch(0.8 0.13 80)",
-  "warning-fg": "oklch(0.2 0.04 80)",
-  "warning-subtle": "oklch(0.27 0.035 80)",
-  "warning-subtle-fg": "oklch(0.85 0.09 80)",
-
-  danger: "oklch(0.7 0.15 25)",
-  "danger-fg": "oklch(0.16 0.03 25)",
-  "danger-subtle": "oklch(0.27 0.04 25)",
-  "danger-subtle-fg": "oklch(0.84 0.08 25)",
-
-  info: "oklch(0.74 0.1 240)",
-  "info-fg": "oklch(0.17 0.03 240)",
-  "info-subtle": "oklch(0.26 0.035 240)",
-  "info-subtle-fg": "oklch(0.84 0.07 240)",
-
   selection: "oklch(0.38 0.075 285)",
   "focus-ring": "oklch(0.74 0.12 285)",
-
-  "shadow-1": "0 1px 2px oklch(0 0 0 / 0.2)",
-  "shadow-2": "0 2px 8px oklch(0 0 0 / 0.25), 0 12px 32px oklch(0 0 0 / 0.3)",
 };
 
 /**
  * High-contrast overrides, applied on top of a theme via [data-contrast="high"].
  * Targets: AAA (7:1) for all text roles, hard borders, no translucency.
+ * `highContrast` matches the friendly (default) hue; `classicHighContrast`
+ * matches classic — layered in via `[data-style="classic"][data-contrast="high"]`,
+ * which outranks the friendly rule on specificity alone.
  */
 export const highContrast: Record<ThemeName, Partial<ColorTheme>> = {
+  light: {
+    "border-subtle": "oklch(0.62 0.008 45)",
+    border: "oklch(0.5 0.01 45)",
+    "border-strong": "oklch(0.32 0.012 45)",
+    text: "oklch(0.145 0.012 45)",
+    "text-secondary": "oklch(0.28 0.014 45)",
+    "text-muted": "oklch(0.33 0.014 45)",
+    "text-disabled": "oklch(0.45 0.01 45)",
+    accent: "oklch(0.42 0.15 350)",
+    "accent-hover": "oklch(0.38 0.14 350)",
+    "accent-active": "oklch(0.35 0.13 350)",
+    "accent-subtle-fg": "oklch(0.33 0.14 350)",
+    "success-subtle-fg": "oklch(0.3 0.08 155)",
+    "warning-subtle-fg": "oklch(0.32 0.08 70)",
+    "danger-subtle-fg": "oklch(0.33 0.14 27)",
+    "info-subtle-fg": "oklch(0.31 0.08 240)",
+    backdrop: "oklch(0.12 0.01 45 / 0.7)",
+    "focus-ring": "oklch(0.3 0.14 350)",
+  },
+  dark: {
+    "border-subtle": "oklch(0.45 0.012 45)",
+    border: "oklch(0.55 0.014 45)",
+    "border-strong": "oklch(0.75 0.012 45)",
+    text: "oklch(0.97 0.003 45)",
+    "text-secondary": "oklch(0.88 0.006 45)",
+    "text-muted": "oklch(0.83 0.008 45)",
+    "text-disabled": "oklch(0.62 0.01 45)",
+    accent: "oklch(0.8 0.11 350)",
+    "accent-hover": "oklch(0.84 0.1 350)",
+    "accent-active": "oklch(0.76 0.11 350)",
+    "accent-fg": "oklch(0.13 0.03 350)",
+    "accent-subtle-fg": "oklch(0.92 0.06 350)",
+    "success-subtle-fg": "oklch(0.91 0.07 155)",
+    "warning-subtle-fg": "oklch(0.92 0.07 80)",
+    "danger-subtle-fg": "oklch(0.91 0.06 25)",
+    "info-subtle-fg": "oklch(0.91 0.05 240)",
+    backdrop: "oklch(0.05 0.005 45 / 0.8)",
+    "focus-ring": "oklch(0.85 0.1 350)",
+  },
+};
+
+/** High-contrast overrides for the classic style — identical since M2. */
+export const classicHighContrast: Record<ThemeName, Partial<ColorTheme>> = {
   light: {
     "border-subtle": "oklch(0.62 0.008 265)",
     border: "oklch(0.5 0.01 265)",
@@ -204,7 +328,7 @@ export const highContrast: Record<ThemeName, Partial<ColorTheme>> = {
   },
 };
 
-/** Non-color tokens — identical across themes. */
+/** Non-color tokens shared by both styles (type scale, motion, z, blur). */
 export const staticTokens = {
   font: {
     sans: `"Inter Variable", "Noto Sans Hebrew Variable", system-ui, "Segoe UI", sans-serif`,
@@ -222,13 +346,14 @@ export const staticTokens = {
     "4xl": { size: "2.25rem", leading: "1.15" },
     display: { size: "clamp(2.25rem, 1.6rem + 2.6vw, 3.25rem)", leading: "1.08" },
   },
+  // Friendly (default) — softer, rounder corners than classic.
   radius: {
-    xs: "0.25rem",
-    sm: "0.375rem", // controls
-    md: "0.5rem",
-    lg: "0.625rem", // cards
-    xl: "0.75rem",
-    "2xl": "1rem", // modals, sheets
+    xs: "0.3125rem",
+    sm: "0.5rem", // controls
+    md: "0.625rem",
+    lg: "0.875rem", // cards
+    xl: "1rem",
+    "2xl": "1.25rem", // modals, sheets
   },
   motion: {
     fast: "120ms",
@@ -248,6 +373,21 @@ export const staticTokens = {
   blur: {
     backdrop: "12px",
   },
+  // Friendly (default) — a thicker, more obvious focus ring.
+  focusRingWidth: "3px",
+} as const;
+
+/** Classic overrides for the non-color, per-style tokens above. */
+export const classicStaticTokens = {
+  radius: {
+    xs: "0.25rem",
+    sm: "0.375rem",
+    md: "0.5rem",
+    lg: "0.625rem",
+    xl: "0.75rem",
+    "2xl": "1rem",
+  },
+  focusRingWidth: "2px",
 } as const;
 
 /**

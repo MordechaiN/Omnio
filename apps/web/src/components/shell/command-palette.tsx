@@ -13,10 +13,21 @@ import {
   CommandSeparator,
   Icon,
   useContrast,
+  useStyle,
   useTheme,
 } from "@omnio/ui";
 import { DynamicIcon, type IconName } from "lucide-react/dynamic";
-import { Contrast, Home, Languages, Moon, Monitor, Settings, Sun } from "lucide-react";
+import {
+  BarChart3,
+  Contrast,
+  Home,
+  Languages,
+  Moon,
+  Monitor,
+  Palette,
+  Settings,
+  Sun,
+} from "lucide-react";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { CATEGORY_ICONS } from "@/lib/category-icons";
 import { SEARCH_ENTRIES } from "@/generated/registry.search";
@@ -35,6 +46,7 @@ export function CommandPalette() {
   const pathname = usePathname();
   const { setTheme } = useTheme();
   const { contrast, setContrast } = useContrast();
+  const { style, setStyle } = useStyle();
 
   function run(action: () => void) {
     setOpen(false);
@@ -55,6 +67,10 @@ export function CommandPalette() {
           <CommandItem onSelect={() => run(() => router.push("/settings"))}>
             <Icon icon={Settings} size={16} />
             {t("nav.settings")}
+          </CommandItem>
+          <CommandItem onSelect={() => run(() => router.push("/stats"))}>
+            <Icon icon={BarChart3} size={16} />
+            {t("nav.stats")}
           </CommandItem>
         </CommandGroup>
 
@@ -112,6 +128,12 @@ export function CommandPalette() {
           >
             <Icon icon={Contrast} size={16} />
             {contrast === "high" ? t("palette.contrastNormal") : t("palette.contrastHigh")}
+          </CommandItem>
+          <CommandItem
+            onSelect={() => run(() => setStyle(style === "classic" ? "friendly" : "classic"))}
+          >
+            <Icon icon={Palette} size={16} />
+            {style === "classic" ? t("palette.styleFriendly") : t("palette.styleClassic")}
           </CommandItem>
         </CommandGroup>
 
