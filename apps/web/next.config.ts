@@ -24,6 +24,9 @@ const SECURITY_HEADERS = [
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
+  // Lean runtime image for docker/images/web.Dockerfile — copies only the
+  // traced production server, not the full node_modules tree.
+  output: "standalone",
   async headers() {
     return [{ source: "/:path*", headers: SECURITY_HEADERS }];
   },

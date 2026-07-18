@@ -1,0 +1,10 @@
+**/node_modules
+**/dist
+**/.next
+**/generated
+**/.turbo
+**/coverage
+**/playwright-report
+**/test-results
+.git
+.omnio-data

@@ -1,0 +1,167 @@
+# Production-shape stack: web, api, worker, postgres, redis.
+# Portable defaults — named volumes, env-var substitution with safe fallbacks,
+# no real secrets. Environment-specific values (real ports, real secrets,
+# bind-mounted paths) belong in a layered override or an external env file,
+# never in this file.
+#
+# Quick start: cp .env.example .env, edit it, then:
+#   docker compose -f docker/compose.yaml --env-file .env up -d --build
+#
+# Architecture: docs/architecture/01-system-overview.md
+# Security model (worker sandbox, internal-only data stores): docs/architecture/06-security.md
+
+name: omnio
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: omnio
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-omnio}
+      POSTGRES_DB: omnio
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U omnio -d omnio"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks: [internal]
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks: [internal]
+
+  api:
+    build:
+      context: ..
+      dockerfile: docker/images/api.Dockerfile
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      OMNIO_API_PORT: "4000"
+      OMNIO_API_HOST: "0.0.0.0"
+      OMNIO_DATABASE_URL: postgresql://omnio:${POSTGRES_PASSWORD:-omnio}@postgres:5432/omnio
+      OMNIO_REDIS_URL: redis://redis:6379
+      OMNIO_AUTH: ${OMNIO_AUTH:-password}
+      OMNIO_SESSION_SECRET: ${OMNIO_SESSION_SECRET:?OMNIO_SESSION_SECRET must be set — generate with: openssl rand -hex 32}
+      OMNIO_SESSION_TTL_HOURS: ${OMNIO_SESSION_TTL_HOURS:-168}
+      OMNIO_AUTH_ALLOW_INSECURE: ${OMNIO_AUTH_ALLOW_INSECURE:-false}
+      OMNIO_STORAGE_ROOT: /data
+      OMNIO_MAX_UPLOAD_MB: ${OMNIO_MAX_UPLOAD_MB:-512}
+      OMNIO_SCRATCH_TTL_HOURS: ${OMNIO_SCRATCH_TTL_HOURS:-24}
+      OMNIO_SWEEP_INTERVAL_MINUTES: ${OMNIO_SWEEP_INTERVAL_MINUTES:-60}
+      OMNIO_LOG_LEVEL: ${OMNIO_LOG_LEVEL:-info}
+      OMNIO_ALLOWED_ORIGINS: ${OMNIO_ALLOWED_ORIGINS:-}
+      OMNIO_TRUST_PROXY: ${OMNIO_TRUST_PROXY:-true}
+    volumes:
+      - storage-data:/data
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4000/readyz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    ports:
+      - "${API_PORT:-4000}:4000"
+    networks: [internal, edge]
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 1g
+
+  worker:
+    build:
+      context: ..
+      dockerfile: docker/images/worker.Dockerfile
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      OMNIO_DATABASE_URL: postgresql://omnio:${POSTGRES_PASSWORD:-omnio}@postgres:5432/omnio
+      OMNIO_REDIS_URL: redis://redis:6379
+      OMNIO_STORAGE_ROOT: /data
+      OMNIO_SCRATCH_TTL_HOURS: ${OMNIO_SCRATCH_TTL_HOURS:-24}
+      OMNIO_WORKER_CONCURRENCY: ${OMNIO_WORKER_CONCURRENCY:-4}
+      OMNIO_WORKER_HEALTH_PORT: "4100"
+      OMNIO_LOG_LEVEL: ${OMNIO_LOG_LEVEL:-info}
+    volumes:
+      - storage-data:/data
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4100/readyz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    networks: [internal]
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 1g
+
+  web:
+    build:
+      context: ..
+      dockerfile: docker/images/web.Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-}
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+    networks: [edge]
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 512m
+
+networks:
+  internal:
+    internal: true
+  edge: {}
+
+volumes:
+  postgres-data:
+  redis-data:
+  storage-data:
