@@ -33,6 +33,14 @@ const nextConfig: NextConfig = {
   // @omnio/ui and every module ship TypeScript source (docs/architecture/02-monorepo.md).
   // MODULE_PACKAGES is modgen-generated so new modules transpile with zero config edits.
   transpilePackages: ["@omnio/ui", ...MODULE_PACKAGES],
+  // The api is never exposed publicly (reference architecture: tunnel -> web only).
+  // This server-side rewrite is web's own proxy to the internal api container, so
+  // browser calls to same-origin /api/* still work without a separate reverse proxy.
+  // Next.js resolves rewrites() at build time, not per-request, so this can't read
+  // a runtime env var — "api" is the fixed compose service name regardless of env.
+  async rewrites() {
+    return [{ source: "/api/:path*", destination: "http://api:4000/api/:path*" }];
+  },
   // Linting is a first-class turbo task with the shared config;
   // next build must not run a second, differently-configured pass.
   eslint: { ignoreDuringBuilds: true },
