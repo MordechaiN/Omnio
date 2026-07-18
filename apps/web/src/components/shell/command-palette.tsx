@@ -12,19 +12,26 @@ import {
   CommandList,
   CommandSeparator,
   Icon,
+  useAccent,
   useContrast,
+  useDensity,
   useStyle,
   useTheme,
+  type AccentColor,
+  type Density,
+  type VisualStyle,
 } from "@omnio/ui";
 import { DynamicIcon, type IconName } from "lucide-react/dynamic";
 import {
   BarChart3,
+  Circle,
   Contrast,
   Home,
   Languages,
   Moon,
   Monitor,
   Palette,
+  Ruler,
   Settings,
   Sun,
 } from "lucide-react";
@@ -33,11 +40,15 @@ import { CATEGORY_ICONS } from "@/lib/category-icons";
 import { SEARCH_ENTRIES } from "@/generated/registry.search";
 import { useCommandPalette } from "./palette-context";
 
+const STYLES: VisualStyle[] = ["classic", "modern", "minimal", "accessible"];
+const ACCENTS: AccentColor[] = ["indigo", "blue", "purple", "green", "orange"];
+const DENSITIES: Density[] = ["compact", "comfortable", "large"];
+
 /**
  * The command palette — the primary navigation surface
- * (docs/architecture/04-frontend.md §1). In M2 it indexes navigation,
- * categories, theme, contrast and language; the tool registry plugs into
- * the same groups in M4 via registry.search.ts.
+ * (docs/architecture/04-frontend.md §1). Indexes navigation, categories, the
+ * tool registry, and every appearance axis (theme/contrast/style/accent/
+ * density) as individually searchable commands.
  */
 export function CommandPalette() {
   const t = useTranslations();
@@ -47,6 +58,8 @@ export function CommandPalette() {
   const { setTheme } = useTheme();
   const { contrast, setContrast } = useContrast();
   const { style, setStyle } = useStyle();
+  const { accent, setAccent } = useAccent();
+  const { density, setDensity } = useDensity();
 
   function run(action: () => void) {
     setOpen(false);
@@ -129,12 +142,39 @@ export function CommandPalette() {
             <Icon icon={Contrast} size={16} />
             {contrast === "high" ? t("palette.contrastNormal") : t("palette.contrastHigh")}
           </CommandItem>
-          <CommandItem
-            onSelect={() => run(() => setStyle(style === "classic" ? "friendly" : "classic"))}
-          >
-            <Icon icon={Palette} size={16} />
-            {style === "classic" ? t("palette.styleFriendly") : t("palette.styleClassic")}
-          </CommandItem>
+        </CommandGroup>
+
+        <CommandSeparator />
+
+        <CommandGroup heading={t("palette.groupStyle")}>
+          {STYLES.filter((s) => s !== style).map((s) => (
+            <CommandItem key={s} onSelect={() => run(() => setStyle(s))}>
+              <Icon icon={Palette} size={16} />
+              {t(`theme.style.${s}`)}
+            </CommandItem>
+          ))}
+        </CommandGroup>
+
+        <CommandSeparator />
+
+        <CommandGroup heading={t("palette.groupAccent")}>
+          {ACCENTS.filter((a) => a !== accent).map((a) => (
+            <CommandItem key={a} onSelect={() => run(() => setAccent(a))}>
+              <Icon icon={Circle} size={16} />
+              {t(`theme.accent.${a}`)}
+            </CommandItem>
+          ))}
+        </CommandGroup>
+
+        <CommandSeparator />
+
+        <CommandGroup heading={t("palette.groupDensity")}>
+          {DENSITIES.filter((d) => d !== density).map((d) => (
+            <CommandItem key={d} onSelect={() => run(() => setDensity(d))}>
+              <Icon icon={Ruler} size={16} />
+              {t(`theme.density.${d}`)}
+            </CommandItem>
+          ))}
         </CommandGroup>
 
         <CommandSeparator />

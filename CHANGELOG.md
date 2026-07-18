@@ -11,21 +11,28 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ### Added
 
-- **Friendly visual style (new default)** — a warmer, rounder, higher-contrast-focus-ring visual identity alongside the original, now called "Classic". Switchable and fully reversible from the theme menu, Settings → Appearance, or the command palette; persisted per device. Both styles pass the full WCAG AA/AAA token gate.
-- **Usage stats page** (`/stats`) — tool usage count, category usage count, trending (last 7 days), and most-used tools, aggregated from local counters only. Includes a one-click "Clear stats".
+- **Four visual styles** — Classic (the original), **Modern** (new default: warmer neutrals, rounder corners, a bolder focus ring), Minimal (near-grayscale, tightest radii, flat shadows), and Accessible (AAA contrast and bold borders by default, 4px focus ring). Switchable and fully reversible from the theme menu, Settings → Appearance, or the command palette; persisted per device. Every style clears the same WCAG AA/AAA gate.
+- **Five accent colors** — Indigo (default), Blue, Purple, Green, Orange — independent of style, so any style can wear any accent. 1,925 automated contrast assertions cover every style × accent × theme × contrast-mode combination.
+- **Density control** — Compact, Comfortable (default), or Large — scales shared control heights (buttons, inputs, selects) app-wide from one Settings switch, for bigger touch targets on demand.
+- **Expanded Settings** — restructured into General, Appearance (theme/style/density/accent), Accessibility (high-contrast toggle + a one-click Accessible-style shortcut), Language, and Behavior (auto-open Activity tray toggle) — each section a real, working setting, no placeholders.
+- **Platform Statistics page** (`/stats`, replacing the local usage-stats page) — General facts (tool count, category count, version, build date) always shown; Usage and Popularity (most-used tools/categories, total/average executions, trending) read from the platform's opt-in, anonymous, instance-wide analytics aggregate, with an honest explanation shown instead of data when analytics is off.
+- **`GET /api/v1/analytics/stats`** — read-only, unauthenticated aggregate endpoint over the existing `ToolEvent` table (decision D5); still off by default, still no per-user data.
+- **Copy Debug Information** on the About page — one click copies a short technical summary (version, commit, branch, mode, environment, Node, platform, service statuses) formatted for pasting into a bug report.
 
 ### Changed
 
-- **History removed from the UI.** The personal per-run log (`/history`: timestamps, statuses, re-downloads) is gone. Live job tracking during a run (the Activity tray, SSE progress, downloads) is unaffected — only the after-the-fact personal audit trail was removed, replaced by anonymous, aggregate usage stats.
+- **History removed from the UI.** The personal per-run log (`/history`: timestamps, statuses, re-downloads) is gone, along with the local per-device usage counters that briefly replaced it. Live job tracking during a run (the Activity tray, SSE progress, downloads) is unaffected — only the after-the-fact personal record was removed, in favor of anonymous platform-wide statistics.
+- The About page's Project/Runtime/Services sections were reorganized and now include an overall health summary.
 
 ### Security
 
-- Usage stats are local-only (`localStorage`, no server round trip) — a privacy tightening versus the removed history page, which round-tripped every job through the API.
+- Usage statistics never carry a per-user or per-run field — the `analytics.stats` response is limited to `{ toolId, count }`, and the underlying table has no user column at all, so this data cannot become personal even if multi-user mode is enabled later.
 
 ### Fixed
 
 - Markdown preview's inline code-span placeholder used a raw NUL byte as its delimiter, tripping `no-control-regex`; switched to an explicit U+E000 (Private Use Area) escape with no behavior change (7/7 tests unaffected).
 - Removed a vestigial `eslint-disable react-hooks/exhaustive-deps` comment in the password generator referencing a plugin that isn't part of the shared lint config, which failed lint outright.
+- The accent-color picker in Settings now implements real WAI-ARIA `radiogroup` keyboard navigation (roving tabindex, RTL-aware arrow keys) instead of a mouse-only control with unearned ARIA roles.
 
 ## [0.1.0-alpha.1] - 2026-07-18
 

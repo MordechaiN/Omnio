@@ -23,10 +23,12 @@ export const buttonVariants = cva(
         ghost: "text-text-secondary hover:bg-surface-raised hover:text-text",
         danger: "bg-danger text-danger-fg hover:opacity-92",
       },
+      // Heights read the density token (compact/comfortable/large) so every
+      // button on the page resizes together from one Settings control.
       size: {
-        sm: "h-7 px-2.5 text-sm",
-        md: "h-8 px-3 text-sm",
-        lg: "h-10 px-4 text-base",
+        sm: "h-(--control-h-sm) px-2.5 text-sm",
+        md: "h-(--control-h-md) px-3 text-sm",
+        lg: "h-(--control-h-lg) px-4 text-base",
       },
     },
     defaultVariants: {

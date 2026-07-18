@@ -98,8 +98,9 @@
     "contrastHigh": "Turn on high contrast",
     "contrastNormal": "Turn off high contrast",
     "goHome": "Home",
-    "styleFriendly": "Switch to friendly look",
-    "styleClassic": "Switch to classic look"
+    "groupStyle": "Style",
+    "groupAccent": "Accent color",
+    "groupDensity": "Density"
   },
   "theme": {
     "label": "Theme",
@@ -108,10 +109,36 @@
     "system": "System",
     "highContrast": "High contrast",
     "toggle": "Change theme",
-    "styleLabel": "Look",
-    "styleFriendly": "Friendly (default)",
-    "styleClassic": "Classic",
-    "styleDescription": "Friendly is the new default look. Switch to Classic any time to restore the original."
+    "moreAppearance": "More appearance settings…",
+    "style": {
+      "classic": "Classic",
+      "modern": "Modern",
+      "minimal": "Minimal",
+      "accessible": "Accessible"
+    },
+    "styleDescription": {
+      "classic": "The original look — cool tones, precise corners.",
+      "modern": "Warmer tones, rounder corners, a bolder focus ring. The default.",
+      "minimal": "Quiet and understated — near-grayscale, tight corners, nothing extra.",
+      "accessible": "Maximum contrast and bold borders by default, built for clarity."
+    },
+    "accent": {
+      "indigo": "Indigo",
+      "blue": "Blue",
+      "purple": "Purple",
+      "green": "Green",
+      "orange": "Orange"
+    },
+    "density": {
+      "compact": "Compact",
+      "comfortable": "Comfortable",
+      "large": "Large"
+    },
+    "densityDescription": {
+      "compact": "Smaller controls, more on screen.",
+      "comfortable": "Balanced spacing. The default.",
+      "large": "Bigger controls, easier to tap."
+    }
   },
   "locale": {
     "label": "Language",
@@ -229,8 +256,6 @@
   "about": {
     "title": "About Omnio",
     "subtitle": "System information for the version you are running.",
-    "generalSection": "General",
-    "deploymentSection": "Deployment",
     "runtimeSection": "Runtime",
     "servicesSection": "Services",
     "projectSection": "Project",
@@ -273,7 +298,11 @@
       "redis": "Redis",
       "worker": "Worker",
       "storage": "Storage"
-    }
+    },
+    "overallHealth": "Overall health",
+    "copyDebugInfo": "Copy debug information",
+    "copyDebugInfoHint": "Copies a short technical summary — paste it into a bug report.",
+    "debugCopied": "Debug information copied"
   },
   "changelog": {
     "title": "Changelog",
@@ -291,26 +320,44 @@
     }
   },
   "stats": {
-    "title": "Usage stats",
-    "subtitle": "How you've been using Omnio, counted on this device only.",
-    "privacyNote": "Nothing here is sent anywhere — clear it any time.",
-    "emptyTitle": "No stats yet",
-    "emptyBody": "Use a tool and it'll start showing up here.",
-    "emptyAction": "Browse tools",
-    "totalRuns": "Tools run",
-    "toolsUsed": "Different tools used",
-    "thisWeek": "Tools used this week",
-    "popularTitle": "Most used",
-    "popularEmpty": "Nothing used yet.",
-    "trendingTitle": "Trending this week",
+    "title": "Statistics",
+    "subtitle": "About the Omnio platform — never about you.",
+    "error": "Could not load statistics.",
+    "generalTitle": "General",
+    "toolCount": "Available tools",
+    "categoryCount": "Categories",
+    "version": "Version",
+    "buildDate": "Build date",
+    "usageTitle": "Usage",
+    "totalExecutions": "Total tool executions",
+    "averageExecutions": "Average executions per tool",
+    "mostUsedTools": "Most used tools",
+    "mostUsedCategories": "Most used categories",
+    "noDataYet": "No usage recorded yet.",
+    "trendingTools": "Trending this week",
     "trendingEmpty": "No activity in the last 7 days.",
-    "byCategoryTitle": "By category",
-    "byCategoryEmpty": "Nothing to show yet.",
-    "runsLabel": "{count} runs",
-    "clearButton": "Clear stats",
-    "clearConfirmTitle": "Clear usage stats?",
-    "clearConfirmBody": "This removes the counts stored on this device. It can't be undone.",
-    "clearConfirmAction": "Clear stats",
-    "clearedToast": "Usage stats cleared"
+    "analyticsOffTitle": "Usage analytics are off",
+    "analyticsOffBody": "This instance hasn't turned on anonymous usage analytics, so there's nothing to show here beyond the general facts above. No personal data is ever collected — only which tool ran, instance-wide."
+  },
+  "settings": {
+    "general": "General",
+    "deploymentMode": "Deployment mode",
+    "systemInfo": "System information",
+    "appearance": "Appearance",
+    "appearanceDescription": "How Omnio looks — every change here is instant and reversible.",
+    "style": "Style",
+    "density": "Density",
+    "accentColor": "Accent color",
+    "selected": "Selected",
+    "accessibility": "Accessibility",
+    "accessibilityDescription": "Every combination of style, accent and contrast meets WCAG AA — high contrast raises text to AAA.",
+    "accessibleStyle": "Accessible style",
+    "accessibleStyleDescription": "Bold borders and maximum contrast by default, without needing the switch above.",
+    "accessibleStyleActive": "Active",
+    "accessibleStyleApply": "Switch to Accessible",
+    "language": "Display language",
+    "behavior": "Behavior",
+    "autoOpenActivity": "Open Activity automatically",
+    "autoOpenActivityDescription": "Show the Activity tray as soon as a tool starts processing a file."
   }
 }

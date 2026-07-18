@@ -10,7 +10,7 @@ export interface InputProps extends React.ComponentProps<"input"> {
 }
 
 const fieldClasses = cn(
-  "h-8 w-full min-w-0 rounded-sm border border-border bg-surface px-2.5 text-sm text-text",
+  "h-(--control-h-md) w-full min-w-0 rounded-sm border border-border bg-surface px-2.5 text-sm text-text",
   "placeholder:text-text-muted",
   "transition-[border-color,box-shadow] duration-(--motion-fast) ease-(--ease-out)",
   "hover:border-border-strong",

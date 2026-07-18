@@ -1,8 +1,8 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Badge } from "@omnio/ui";
-import { ExternalLink } from "lucide-react";
+import { Badge, Button, toast } from "@omnio/ui";
+import { ClipboardCopy, ExternalLink } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import {
   buildInfo,
@@ -45,6 +45,8 @@ const STATUS_VARIANT: Record<ServiceHealth, "success" | "warning" | "danger"> = 
   offline: "danger",
 };
 
+const SERVICE_KEYS = ["api", "database", "redis", "worker", "storage"] as const;
+
 export function AboutContent() {
   const t = useTranslations("about");
   const { data, isError } = useVersion();
@@ -69,13 +71,43 @@ export function AboutContent() {
     return known[c] ?? c;
   };
 
-  const serviceKeys = ["api", "database", "redis", "worker", "storage"] as const;
   const statusLabel = (s: ServiceHealth): string =>
     s === "healthy" ? t("status.healthy") : s === "warning" ? t("status.warning") : t("status.offline");
 
+  const statusFor = (key: (typeof SERVICE_KEYS)[number]): ServiceHealth =>
+    services.data ? services.data[key] : services.isError ? "offline" : "warning";
+
+  const overallHealth: ServiceHealth = services.data
+    ? SERVICE_KEYS.some((k) => services.data![k] === "offline")
+      ? "offline"
+      : SERVICE_KEYS.some((k) => services.data![k] === "warning")
+        ? "warning"
+        : "healthy"
+    : services.isError
+      ? "offline"
+      : "warning";
+
+  function copyDebugInfo(): void {
+    const lines = [
+      `Omnio v${version}`,
+      `Commit: ${commit}`,
+      `Branch: ${branch}`,
+      `Mode: ${data?.mode ?? "—"}`,
+      `Environment: ${data?.environment ?? "—"}`,
+      `Node: ${data?.node ?? "—"}`,
+      `Platform: ${data?.os ?? "—"} (${data?.arch ?? "—"})`,
+      `Database: ${statusLabel(statusFor("database"))}`,
+      `Redis: ${statusLabel(statusFor("redis"))}${data?.redis ? ` (${data.redis})` : ""}`,
+      `Worker: ${statusLabel(statusFor("worker"))}`,
+      `Storage: ${statusLabel(statusFor("storage"))}`,
+    ];
+    void navigator.clipboard.writeText(lines.join("\n"));
+    toast.success(t("debugCopied"));
+  }
+
   return (
     <div className="flex flex-col gap-8">
-      <Section title={t("generalSection")}>
+      <Section title={t("projectSection")}>
         <Row label={t("version")}>
           <span className="flex items-center gap-2">
             <Badge variant="accent">v{version}</Badge>
@@ -94,58 +126,6 @@ export function AboutContent() {
         <Row label={t("buildDate")}>
           <Mono>{buildTimestamp}</Mono>
         </Row>
-      </Section>
-
-      <Section title={t("deploymentSection")}>
-        <Row label={t("mode")}>
-          {data ? (
-            <Badge variant="neutral">{t(data.mode === "personal" ? "modePersonal" : "modeMulti")}</Badge>
-          ) : (
-            "—"
-          )}
-        </Row>
-        <Row label={t("environment")}>{data ? <Mono>{data.environment}</Mono> : "—"}</Row>
-        <Row label={t("host")}>{data?.hostname ? <Mono>{data.hostname}</Mono> : "—"}</Row>
-        <Row label={t("dockerImage")}>
-          {data?.dockerImages?.length ? (
-            <span className="flex flex-col items-end gap-0.5">
-              {data.dockerImages.map((image) => (
-                <Mono key={image}>{image}</Mono>
-              ))}
-            </span>
-          ) : (
-            "—"
-          )}
-        </Row>
-        <Row label={t("platform")}>{data ? <Mono>{data.os}</Mono> : "—"}</Row>
-        <Row label={t("architecture")}>{data ? <Mono>{data.arch}</Mono> : "—"}</Row>
-      </Section>
-
-      <Section title={t("runtimeSection")}>
-        <Row label={t("node")}>{data ? <Mono>{data.node}</Mono> : "—"}</Row>
-        <Row label={t("pnpm")}>{data ? <Mono>{data.pnpm}</Mono> : "—"}</Row>
-      </Section>
-
-      <Section title={t("servicesSection")}>
-        {serviceKeys.map((key) => {
-          const status: ServiceHealth = services.data
-            ? services.data[key]
-            : services.isError
-              ? "offline"
-              : "warning";
-          const isRedis = key === "redis";
-          return (
-            <Row key={key} label={t(`services.${key}`)}>
-              <span className="flex items-center gap-2">
-                {isRedis && data?.redis ? <Mono>{data.redis}</Mono> : null}
-                <Badge variant={STATUS_VARIANT[status]}>{statusLabel(status)}</Badge>
-              </span>
-            </Row>
-          );
-        })}
-      </Section>
-
-      <Section title={t("projectSection")}>
         <Row label={t("license")}>
           <Mono>{OMNIO_LICENSE}</Mono>
         </Row>
@@ -169,11 +149,6 @@ export function AboutContent() {
             docs <ExternalLink size={13} aria-hidden />
           </a>
         </Row>
-        <Row label={t("changelog")}>
-          <Link href="/changelog" className="text-accent hover:underline">
-            {t("viewChangelog")}
-          </Link>
-        </Row>
         <Row label={t("releaseNotes")}>
           <a
             href={`${OMNIO_REPO_URL}/releases/tag/${versionLabel}`}
@@ -184,11 +159,66 @@ export function AboutContent() {
             {versionLabel} <ExternalLink size={13} aria-hidden />
           </a>
         </Row>
+        <Row label={t("changelog")}>
+          <Link href="/changelog" className="text-accent hover:underline">
+            {t("viewChangelog")}
+          </Link>
+        </Row>
       </Section>
 
-      {isError ? (
-        <p className="text-sm text-text-muted">{t("apiOffline")}</p>
-      ) : null}
+      <Section title={t("runtimeSection")}>
+        <Row label={t("environment")}>{data ? <Mono>{data.environment}</Mono> : "—"}</Row>
+        <Row label={t("mode")}>
+          {data ? (
+            <Badge variant="neutral">{t(data.mode === "personal" ? "modePersonal" : "modeMulti")}</Badge>
+          ) : (
+            "—"
+          )}
+        </Row>
+        <Row label={t("node")}>{data ? <Mono>{data.node}</Mono> : "—"}</Row>
+        <Row label={t("platform")}>{data ? <Mono>{data.os}</Mono> : "—"}</Row>
+        <Row label={t("architecture")}>{data ? <Mono>{data.arch}</Mono> : "—"}</Row>
+        <Row label={t("host")}>{data?.hostname ? <Mono>{data.hostname}</Mono> : "—"}</Row>
+        <Row label={t("dockerImage")}>
+          {data?.dockerImages?.length ? (
+            <span className="flex flex-col items-end gap-0.5">
+              {data.dockerImages.map((image) => (
+                <Mono key={image}>{image}</Mono>
+              ))}
+            </span>
+          ) : (
+            "—"
+          )}
+        </Row>
+      </Section>
+
+      <Section title={t("servicesSection")}>
+        <Row label={t("overallHealth")}>
+          <Badge variant={STATUS_VARIANT[overallHealth]}>{statusLabel(overallHealth)}</Badge>
+        </Row>
+        {SERVICE_KEYS.map((key) => {
+          const status = statusFor(key);
+          const isRedis = key === "redis";
+          return (
+            <Row key={key} label={t(`services.${key}`)}>
+              <span className="flex items-center gap-2">
+                {isRedis && data?.redis ? <Mono>{data.redis}</Mono> : null}
+                <Badge variant={STATUS_VARIANT[status]}>{statusLabel(status)}</Badge>
+              </span>
+            </Row>
+          );
+        })}
+      </Section>
+
+      <div className="flex flex-col gap-2">
+        <Button variant="secondary" size="sm" onClick={copyDebugInfo} className="self-start">
+          <ClipboardCopy size={14} />
+          {t("copyDebugInfo")}
+        </Button>
+        <p className="text-xs text-text-muted">{t("copyDebugInfoHint")}</p>
+      </div>
+
+      {isError ? <p className="text-sm text-text-muted">{t("apiOffline")}</p> : null}
     </div>
   );
 }

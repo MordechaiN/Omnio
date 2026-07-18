@@ -1,40 +1,20 @@
-import type { Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test } from "./fixtures";
+import { expect, mockJson, test } from "./fixtures";
 
-/** Seed the local usage-stats store before the app's first script runs. */
-async function seedUsage(page: Page, entries: Record<string, { count: number; lastUsedAt: number }>) {
-  const value = JSON.stringify({ v: 1, tools: entries });
-  await page.addInitScript((v) => window.localStorage.setItem("omnio.usage.v1", v), value);
-}
+const STATS_URL = "**/api/v1/analytics/stats";
 
 test.describe("stats", () => {
-  test("shows an empty state with no recorded usage", async ({ page }) => {
-    await page.goto("/stats");
-    await expect(page.getByText("No stats yet")).toBeVisible();
-    await expect(page.getByRole("link", { name: "Browse tools" })).toBeVisible();
-  });
-
-  test("shows aggregated counts, popular and by-category — never a per-run list", async ({
-    page,
-  }) => {
-    const now = Date.now();
-    await seedUsage(page, {
-      "case.uppercase": { count: 5, lastUsedAt: now },
-      "base64.base64": { count: 2, lastUsedAt: now - 30 * 24 * 60 * 60 * 1000 }, // over a month ago
-    });
+  test("shows general platform facts even when analytics is off", async ({ page }) => {
+    await mockJson(page, STATS_URL, 200, { enabled: false, totalEvents: 0, byTool: [], trending: [] });
 
     await page.goto("/stats");
 
-    await expect(page.getByRole("heading", { name: "Usage stats" })).toBeVisible();
-    // Aggregate totals, not a list of individual runs.
-    await expect(page.getByText("7", { exact: true })).toBeVisible(); // total runs
-    await expect(page.getByText("2", { exact: true }).first()).toBeVisible(); // distinct tools used
-
-    // Appears in both "Most used" and "Trending" — both rows are expected.
-    await expect(page.getByRole("link", { name: /Uppercase/i }).first()).toBeVisible();
-
-    // Nothing that looks like a per-run audit log (timestamps, download links, statuses).
+    await expect(page.getByRole("heading", { name: "Statistics" })).toBeVisible();
+    await expect(page.getByText("Available tools")).toBeVisible();
+    await expect(page.getByText("Usage analytics are off")).toBeVisible();
+    // The general facts are always present, even with analytics off.
+    await expect(page.getByText("Categories", { exact: true }).first()).toBeVisible();
+    // Never a personal history list — no timestamps, no per-run download links.
     await expect(page.getByRole("link", { name: /^Download$/i })).toHaveCount(0);
 
     const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
@@ -44,14 +24,24 @@ test.describe("stats", () => {
     expect(serious, serious.map((v) => v.id).join("\n")).toEqual([]);
   });
 
-  test("clearing stats returns to the empty state", async ({ page }) => {
-    await seedUsage(page, { "case.uppercase": { count: 3, lastUsedAt: Date.now() } });
+  test("shows anonymous aggregate usage when analytics is on", async ({ page }) => {
+    await mockJson(page, STATS_URL, 200, {
+      enabled: true,
+      totalEvents: 12,
+      byTool: [
+        { toolId: "case.uppercase", count: 7 },
+        { toolId: "base64.base64", count: 5 },
+      ],
+      trending: [{ toolId: "case.uppercase", count: 7 }],
+    });
+
     await page.goto("/stats");
 
-    await page.getByRole("button", { name: "Clear stats" }).click();
-    await page.getByRole("button", { name: "Clear stats" }).last().click();
-
-    await expect(page.getByText("No stats yet")).toBeVisible();
+    await expect(page.getByText("Most used tools")).toBeVisible();
+    await expect(page.getByText(/Uppercase/i).first()).toBeVisible();
+    await expect(page.getByText("Trending this week")).toBeVisible();
+    // Aggregate totals only, never a per-run breakdown.
+    await expect(page.getByRole("link", { name: /^Download$/i })).toHaveCount(0);
   });
 
   test("the sidebar links to Stats, not History", async ({ page }) => {

@@ -29,6 +29,9 @@ export {
   ToolEventInputSchema,
   ToolTierSchema,
   DurationBucketSchema,
+  ToolStatSchema,
+  AnalyticsStatsSchema,
   type ToolEventInput,
+  type AnalyticsStats,
 } from "./analytics.js";
 export { apiContract } from "./router.js";

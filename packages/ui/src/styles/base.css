@@ -26,16 +26,18 @@ body {
 }
 
 /* One focus style everywhere — visible, tokenized, never removed.
-   Width is itself a token (friendly: 3px, classic: 2px) so the "more
-   obvious interaction states" requirement is data, not a component edit. */
+   Width is itself a per-style token (classic/minimal: 2px, modern: 3px,
+   accessible: 4px) so "more obvious interaction states" is data, not a
+   component edit. */
 :focus-visible {
   outline: var(--focus-ring-width) solid var(--focus-ring);
   outline-offset: 2px;
   border-radius: var(--radius-xs);
 }
 
+/* High contrast never narrows the ring, only guarantees a floor. */
 [data-contrast="high"] :focus-visible {
-  outline-width: 3px;
+  outline-width: max(var(--focus-ring-width), 3px);
 }
 
 /* Quiet scrollbars that match the theme. */

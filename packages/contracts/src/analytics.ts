@@ -20,6 +20,21 @@ export const ToolEventInputSchema = z.object({
 });
 export type ToolEventInput = z.infer<typeof ToolEventInputSchema>;
 
+/**
+ * Anonymous, instance-wide aggregates — never per-user (decision D5; the
+ * underlying table has no user linkage at all, so this can only ever describe
+ * the platform, not a person). `enabled` lets the UI distinguish "off" from
+ * "on with no data yet".
+ */
+export const ToolStatSchema = z.object({ toolId: z.string(), count: z.number().int() });
+export const AnalyticsStatsSchema = z.object({
+  enabled: z.boolean(),
+  totalEvents: z.number().int(),
+  byTool: z.array(ToolStatSchema),
+  trending: z.array(ToolStatSchema),
+});
+export type AnalyticsStats = z.infer<typeof AnalyticsStatsSchema>;
+
 export const analyticsContract = c.router(
   {
     record: {
@@ -28,6 +43,12 @@ export const analyticsContract = c.router(
       body: ToolEventInputSchema,
       responses: { 204: z.void() },
       summary: "Record a tool-usage event (dropped unless analytics is enabled)",
+    },
+    stats: {
+      method: "GET",
+      path: "/api/v1/analytics/stats",
+      responses: { 200: AnalyticsStatsSchema },
+      summary: "Anonymous, instance-wide usage aggregates (all-time + last 7 days)",
     },
   },
   { strictStatusCodes: true },

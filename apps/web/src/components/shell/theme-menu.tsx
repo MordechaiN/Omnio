@@ -6,6 +6,7 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
@@ -13,17 +14,17 @@ import {
   DropdownMenuTrigger,
   IconButton,
   useContrast,
-  useStyle,
   useTheme,
-  type VisualStyle,
 } from "@omnio/ui";
 import { SunMoon } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 
+/** Quick theme + contrast toggle. Style, density and accent live in
+ * Settings → Appearance — a proper preview needs more room than a menu. */
 export function ThemeMenu() {
   const t = useTranslations("theme");
   const { theme, setTheme } = useTheme();
   const { contrast, setContrast } = useContrast();
-  const { style, setStyle } = useStyle();
 
   // Theme is client-only knowledge; render the control after mount to
   // keep server and client markup identical.
@@ -52,14 +53,9 @@ export function ThemeMenu() {
               {t("highContrast")}
             </DropdownMenuCheckboxItem>
             <DropdownMenuSeparator />
-            <DropdownMenuLabel>{t("styleLabel")}</DropdownMenuLabel>
-            <DropdownMenuRadioGroup
-              value={style}
-              onValueChange={(value) => setStyle(value as VisualStyle)}
-            >
-              <DropdownMenuRadioItem value="friendly">{t("styleFriendly")}</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="classic">{t("styleClassic")}</DropdownMenuRadioItem>
-            </DropdownMenuRadioGroup>
+            <DropdownMenuItem asChild>
+              <Link href="/settings">{t("moreAppearance")}</Link>
+            </DropdownMenuItem>
           </>
         ) : null}
       </DropdownMenuContent>

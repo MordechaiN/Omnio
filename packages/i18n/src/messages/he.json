@@ -98,8 +98,9 @@
     "contrastHigh": "הפעלת ניגודיות גבוהה",
     "contrastNormal": "כיבוי ניגודיות גבוהה",
     "goHome": "בית",
-    "styleFriendly": "מעבר למראה ידידותי",
-    "styleClassic": "מעבר למראה קלאסי"
+    "groupStyle": "מראה",
+    "groupAccent": "צבע דגש",
+    "groupDensity": "צפיפות"
   },
   "theme": {
     "label": "ערכת נושא",
@@ -108,10 +109,36 @@
     "system": "מערכת",
     "highContrast": "ניגודיות גבוהה",
     "toggle": "החלפת ערכת נושא",
-    "styleLabel": "מראה",
-    "styleFriendly": "ידידותי (ברירת מחדל)",
-    "styleClassic": "קלאסי",
-    "styleDescription": "ידידותי הוא המראה החדש כברירת מחדל. אפשר לחזור למראה הקלאסי בכל עת."
+    "moreAppearance": "עוד הגדרות מראה…",
+    "style": {
+      "classic": "קלאסי",
+      "modern": "מודרני",
+      "minimal": "מינימלי",
+      "accessible": "נגיש"
+    },
+    "styleDescription": {
+      "classic": "המראה המקורי — גוונים קרירים, פינות מדויקות.",
+      "modern": "גוונים חמים יותר, פינות מעוגלות, טבעת מיקוד בולטת. ברירת המחדל.",
+      "minimal": "שקט ומאופק — כמעט אפור, פינות חדות, בלי תוספות.",
+      "accessible": "ניגודיות מרבית ומסגרות בולטות כברירת מחדל, לבהירות מרבית."
+    },
+    "accent": {
+      "indigo": "אינדיגו",
+      "blue": "כחול",
+      "purple": "סגול",
+      "green": "ירוק",
+      "orange": "כתום"
+    },
+    "density": {
+      "compact": "צפוף",
+      "comfortable": "נוח",
+      "large": "גדול"
+    },
+    "densityDescription": {
+      "compact": "פקדים קטנים יותר, יותר תוכן על המסך.",
+      "comfortable": "ריווח מאוזן. ברירת המחדל.",
+      "large": "פקדים גדולים יותר, קלים יותר למגע."
+    }
   },
   "locale": {
     "label": "שפה",
@@ -229,8 +256,6 @@
   "about": {
     "title": "אודות Omnio",
     "subtitle": "פרטי מערכת של הגרסה שאתם מריצים.",
-    "generalSection": "כללי",
-    "deploymentSection": "פריסה",
     "runtimeSection": "סביבת ריצה",
     "servicesSection": "שירותים",
     "projectSection": "פרויקט",
@@ -273,7 +298,11 @@
       "redis": "Redis",
       "worker": "Worker",
       "storage": "אחסון"
-    }
+    },
+    "overallHealth": "מצב כללי",
+    "copyDebugInfo": "העתקת פרטי דיבוג",
+    "copyDebugInfoHint": "מעתיק תקציר טכני קצר — אפשר להדביק בדיווח על באג.",
+    "debugCopied": "פרטי הדיבוג הועתקו"
   },
   "changelog": {
     "title": "יומן שינויים",
@@ -291,26 +320,44 @@
     }
   },
   "stats": {
-    "title": "סטטיסטיקות שימוש",
-    "subtitle": "איך השתמשתם ב-Omnio, נספר במכשיר הזה בלבד.",
-    "privacyNote": "שום דבר כאן לא נשלח לשום מקום — אפשר לנקות בכל עת.",
-    "emptyTitle": "אין עדיין נתונים",
-    "emptyBody": "השתמשו בכלי כלשהו והוא יופיע כאן.",
-    "emptyAction": "עיון בכלים",
-    "totalRuns": "הרצות כלים",
-    "toolsUsed": "כלים שונים שנעשה בהם שימוש",
-    "thisWeek": "כלים בשימוש השבוע",
-    "popularTitle": "הכי בשימוש",
-    "popularEmpty": "עדיין לא נעשה שימוש בכלום.",
-    "trendingTitle": "פופולרי השבוע",
+    "title": "סטטיסטיקות",
+    "subtitle": "על פלטפורמת Omnio עצמה — לא עליכם.",
+    "error": "לא ניתן היה לטעון את הנתונים הסטטיסטיים.",
+    "generalTitle": "כללי",
+    "toolCount": "כלים זמינים",
+    "categoryCount": "קטגוריות",
+    "version": "גרסה",
+    "buildDate": "תאריך בנייה",
+    "usageTitle": "שימוש",
+    "totalExecutions": "סך הרצות הכלים",
+    "averageExecutions": "ממוצע הרצות לכלי",
+    "mostUsedTools": "הכלים הכי בשימוש",
+    "mostUsedCategories": "הקטגוריות הכי בשימוש",
+    "noDataYet": "עדיין לא נרשם שימוש.",
+    "trendingTools": "פופולרי השבוע",
     "trendingEmpty": "אין פעילות ב-7 הימים האחרונים.",
-    "byCategoryTitle": "לפי קטגוריה",
-    "byCategoryEmpty": "אין עדיין מה להציג.",
-    "runsLabel": "{count} הרצות",
-    "clearButton": "ניקוי נתונים",
-    "clearConfirmTitle": "לנקות את נתוני השימוש?",
-    "clearConfirmBody": "פעולה זו מוחקת את הספירות השמורות במכשיר הזה. לא ניתן לבטל.",
-    "clearConfirmAction": "ניקוי נתונים",
-    "clearedToast": "נתוני השימוש נוקו"
+    "analyticsOffTitle": "ניתוח שימוש כבוי",
+    "analyticsOffBody": "במופע הזה לא הופעל ניתוח שימוש אנונימי, ולכן אין מה להציג כאן מעבר לנתונים הכלליים למעלה. שום מידע אישי לעולם לא נאסף — רק אילו כלים הופעלו, ברמת המופע כולו."
+  },
+  "settings": {
+    "general": "כללי",
+    "deploymentMode": "מצב פריסה",
+    "systemInfo": "פרטי מערכת",
+    "appearance": "מראה",
+    "appearanceDescription": "איך Omnio נראה — כל שינוי כאן מיידי וניתן לביטול.",
+    "style": "מראה עיצובי",
+    "density": "צפיפות",
+    "accentColor": "צבע דגש",
+    "selected": "נבחר",
+    "accessibility": "נגישות",
+    "accessibilityDescription": "כל שילוב של מראה, צבע דגש וניגודיות עומד בתקן WCAG AA — ניגודיות גבוהה מעלה את הטקסט לרמת AAA.",
+    "accessibleStyle": "מראה נגיש",
+    "accessibleStyleDescription": "מסגרות בולטות וניגודיות מרבית כברירת מחדל, בלי צורך במתג שלמעלה.",
+    "accessibleStyleActive": "פעיל",
+    "accessibleStyleApply": "מעבר למראה נגיש",
+    "language": "שפת התצוגה",
+    "behavior": "התנהגות",
+    "autoOpenActivity": "פתיחת פעילות אוטומטית",
+    "autoOpenActivityDescription": "הצגת סרגל הפעילות ברגע שכלי מתחיל לעבד קובץ."
   }
 }

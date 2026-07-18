@@ -4,6 +4,7 @@ import { createContext, useCallback, useContext, useEffect, useRef, useState } f
 import { useTranslations } from "next-intl";
 import { toast } from "@omnio/ui";
 import { apiClient } from "@/lib/api/client";
+import { getAutoOpenActivity } from "@/lib/behavior-prefs";
 import { uploadFile } from "@/lib/api/files";
 import { createJob, jobEventsUrl } from "@/lib/api/jobs";
 
@@ -145,7 +146,7 @@ export function JobsProvider({ children }: { children: React.ReactNode }) {
         },
         ...current,
       ]);
-      setOpen(true);
+      if (getAutoOpenActivity()) setOpen(true);
 
       void (async () => {
         try {

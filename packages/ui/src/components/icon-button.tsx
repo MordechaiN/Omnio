@@ -22,9 +22,9 @@ const iconButtonVariants = cva(
         primary: "bg-accent text-accent-fg hover:bg-accent-hover active:bg-accent-active",
       },
       size: {
-        sm: "size-7",
-        md: "size-8",
-        lg: "size-10",
+        sm: "size-(--control-h-sm)",
+        md: "size-(--control-h-md)",
+        lg: "size-(--control-h-lg)",
       },
     },
     defaultVariants: {

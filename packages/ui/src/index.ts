@@ -16,6 +16,18 @@ export {
   styleInitScript,
   type VisualStyle,
 } from "./theme/style-provider.tsx";
+export {
+  AccentProvider,
+  useAccent,
+  accentInitScript,
+  type AccentColor,
+} from "./theme/accent-provider.tsx";
+export {
+  DensityProvider,
+  useDensity,
+  densityInitScript,
+  type Density,
+} from "./theme/density-provider.tsx";
 
 // primitives
 export { Icon, type IconProps, type IconSize } from "./components/icon.tsx";
