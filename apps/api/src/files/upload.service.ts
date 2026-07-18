@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { Transform } from "node:stream";
 import { BadRequestException, Inject, Injectable, PayloadTooLargeException } from "@nestjs/common";
 import type { FileObject } from "@omnio/db";
 import type { StorageDriver } from "@omnio/storage";
@@ -44,20 +45,30 @@ export class UploadService {
         let headLen = 0;
         let truncated = false;
 
-        stream.on("data", (chunk: Buffer) => {
-          hash.update(chunk);
-          if (headLen < HEAD_BYTES) {
-            const slice = chunk.subarray(0, HEAD_BYTES - headLen);
-            heads.push(slice);
-            headLen += slice.length;
-          }
-        });
         stream.on("limit", () => {
           truncated = true;
         });
 
+        // Tee hashing/head-sniffing through a Transform rather than a second
+        // `stream.on("data", ...)` listener: putting a raw listener on `stream`
+        // switches it to flowing mode immediately, and storage.put()'s internal
+        // pipeline attaches its own consumer only after an `await mkdir` — any
+        // bytes that arrive in that gap go only to the first listener and are
+        // lost for the write side. A Transform's output buffers safely instead.
+        const hashing = new Transform({
+          transform(chunk: Buffer, _encoding, callback) {
+            hash.update(chunk);
+            if (headLen < HEAD_BYTES) {
+              const slice = chunk.subarray(0, HEAD_BYTES - headLen);
+              heads.push(slice);
+              headLen += slice.length;
+            }
+            callback(null, chunk);
+          },
+        });
+
         this.storage
-          .put("scratch", key, stream)
+          .put("scratch", key, stream.pipe(hashing))
           .then(async (stat) => {
             if (truncated) {
               await this.cleanup(key);
