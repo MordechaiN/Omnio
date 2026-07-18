@@ -79,7 +79,9 @@
     "categories": "Categories",
     "files": "Files",
     "history": "History",
-    "settings": "Settings"
+    "settings": "Settings",
+    "about": "About",
+    "changelog": "Changelog"
   },
   "history": {
     "title": "History",
@@ -119,19 +121,58 @@
     "toggle": "Change language"
   },
   "categories": {
-    "images": { "name": "Images", "blurb": "Resize, convert, compress and edit pictures" },
-    "pdf": { "name": "PDF", "blurb": "View, merge, split and transform documents" },
-    "video": { "name": "Video", "blurb": "Convert, trim and compress footage" },
-    "audio": { "name": "Audio", "blurb": "Convert and extract sound" },
-    "office": { "name": "Office", "blurb": "Documents, spreadsheets and slides" },
-    "text": { "name": "Text", "blurb": "Format, compare and transform text" },
-    "developer": { "name": "Developer", "blurb": "JSON, hashes, encodings and more" },
-    "finance": { "name": "Finance", "blurb": "Everyday money calculators" },
-    "security": { "name": "Security", "blurb": "Passwords, hashes and inspection" },
-    "utilities": { "name": "Utilities", "blurb": "Small helpers for daily tasks" },
-    "ai": { "name": "AI", "blurb": "Local, private machine assistance" },
-    "archives": { "name": "Archives", "blurb": "Open and create compressed files" },
-    "networking": { "name": "Networking", "blurb": "Inspect addresses, DNS and URLs" }
+    "images": {
+      "name": "Images",
+      "blurb": "Resize, convert, compress and edit pictures"
+    },
+    "pdf": {
+      "name": "PDF",
+      "blurb": "View, merge, split and transform documents"
+    },
+    "video": {
+      "name": "Video",
+      "blurb": "Convert, trim and compress footage"
+    },
+    "audio": {
+      "name": "Audio",
+      "blurb": "Convert and extract sound"
+    },
+    "office": {
+      "name": "Office",
+      "blurb": "Documents, spreadsheets and slides"
+    },
+    "text": {
+      "name": "Text",
+      "blurb": "Format, compare and transform text"
+    },
+    "developer": {
+      "name": "Developer",
+      "blurb": "JSON, hashes, encodings and more"
+    },
+    "finance": {
+      "name": "Finance",
+      "blurb": "Everyday money calculators"
+    },
+    "security": {
+      "name": "Security",
+      "blurb": "Passwords, hashes and inspection"
+    },
+    "utilities": {
+      "name": "Utilities",
+      "blurb": "Small helpers for daily tasks"
+    },
+    "ai": {
+      "name": "AI",
+      "blurb": "Local, private machine assistance"
+    },
+    "archives": {
+      "name": "Archives",
+      "blurb": "Open and create compressed files"
+    },
+    "networking": {
+      "name": "Networking",
+      "blurb": "Inspect addresses, DNS and URLs"
+    }
   },
   "home": {
     "heroEyebrow": "Self-hosted · Privacy-first · Open source",
@@ -183,5 +224,50 @@
     "footerGitHub": "GitHub",
     "footerLicense": "AGPL-3.0 — self-hosted and open source",
     "statusBadge": "Under construction — milestone {milestone}"
+  },
+  "footer": {
+    "commit": "Commit {commit}",
+    "viewAbout": "About Omnio"
+  },
+  "about": {
+    "title": "About Omnio",
+    "subtitle": "Build and deployment details for the version you are running.",
+    "buildSection": "Build",
+    "deploymentSection": "Deployment",
+    "resourcesSection": "Resources",
+    "version": "Version",
+    "commit": "Git commit",
+    "branch": "Git branch",
+    "buildDate": "Build timestamp",
+    "buildNumber": "Build number",
+    "mode": "Deployment mode",
+    "environment": "Environment",
+    "buildStatus": "Build status",
+    "checking": "Checking…",
+    "operational": "Operational",
+    "unreachable": "API unreachable",
+    "mismatch": "Version mismatch",
+    "modePersonal": "Personal",
+    "modeMulti": "Multi-user",
+    "license": "License",
+    "repository": "Repository",
+    "documentation": "Documentation",
+    "releaseNotes": "Release notes",
+    "viewChangelog": "View changelog"
+  },
+  "changelog": {
+    "title": "Changelog",
+    "subtitle": "Everything that changed, release by release.",
+    "empty": "No releases recorded yet.",
+    "yanked": "Yanked",
+    "sections": {
+      "new": "New",
+      "changed": "Changed",
+      "fixed": "Fixed",
+      "security": "Security",
+      "removed": "Removed",
+      "deprecated": "Deprecated",
+      "known": "Known limitations"
+    }
   }
 }

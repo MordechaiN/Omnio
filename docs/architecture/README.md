@@ -13,5 +13,6 @@ Phase 1 deliverable: the complete architectural design for Omnio, produced befor
 | 06  | [Security](06-security.md)               | Threat model, worker sandbox, file handling rules, web/API security, secrets, disclosure                         |
 | 07  | [Roadmap](07-roadmap.md)                 | Milestones M0–M10 with exit criteria; explicit post-v1 scope                                                     |
 | 08  | [Decisions](08-decisions.md)             | Open decisions awaiting founder sign-off (D1–D7) and the settled decision index                                  |
+| 09  | [Releases](09-releases.md)               | Semantic versioning, embedded build metadata, changelog, and the permanent commit→deploy→verify→tag workflow     |
 
 **Current status:** M0 complete — package approved and decisions resolved 2026-07-11 (see [08-decisions.md](08-decisions.md)). Implementation is underway at M1 (repository & toolchain).

@@ -18,6 +18,7 @@ import { SettingsModule } from "./settings/settings.module";
 import { StorageModule } from "./storage/storage.module";
 import { SystemController } from "./system/system.controller";
 import { SystemService } from "./system/system.service";
+import { VersionController } from "./system/version.controller";
 
 @Module({})
 export class AppModule {
@@ -42,7 +43,7 @@ export class AppModule {
         JobsModule,
         AnalyticsModule,
       ],
-      controllers: [HealthController, SystemController],
+      controllers: [HealthController, SystemController, VersionController],
       providers: [SystemService],
     };
   }

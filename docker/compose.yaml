@@ -46,6 +46,15 @@ services:
     build:
       context: ..
       dockerfile: docker/images/api.Dockerfile
+      # Build & release metadata (docs/architecture/09-releases.md). Populated by
+      # the release tooling; safe zero-value defaults keep a plain `compose build`
+      # working for local/dev without any release step.
+      args:
+        OMNIO_VERSION: ${OMNIO_VERSION:-0.0.0-dev}
+        OMNIO_GIT_COMMIT: ${OMNIO_GIT_COMMIT:-unknown}
+        OMNIO_GIT_BRANCH: ${OMNIO_GIT_BRANCH:-unknown}
+        OMNIO_BUILD_DATE: ${OMNIO_BUILD_DATE:-unknown}
+        OMNIO_BUILD_NUMBER: ${OMNIO_BUILD_NUMBER:-unknown}
     restart: unless-stopped
     depends_on:
       postgres:
@@ -59,6 +68,7 @@ services:
       OMNIO_DATABASE_URL: postgresql://omnio:${POSTGRES_PASSWORD:-omnio}@postgres:5432/omnio
       OMNIO_REDIS_URL: redis://redis:6379
       OMNIO_MODE: ${OMNIO_MODE:-personal}
+      OMNIO_ENVIRONMENT: ${OMNIO_ENVIRONMENT:-production}
       # true by default: personal mode (the default above) has no login, so this
       # is what actually lets the container boot without extra config. Set to
       # false if you switch OMNIO_MODE to multi-user and want the stricter posture.
@@ -136,6 +146,11 @@ services:
       dockerfile: docker/images/web.Dockerfile
       args:
         NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-}
+        OMNIO_VERSION: ${OMNIO_VERSION:-0.0.0-dev}
+        OMNIO_GIT_COMMIT: ${OMNIO_GIT_COMMIT:-unknown}
+        OMNIO_GIT_BRANCH: ${OMNIO_GIT_BRANCH:-unknown}
+        OMNIO_BUILD_DATE: ${OMNIO_BUILD_DATE:-unknown}
+        OMNIO_BUILD_NUMBER: ${OMNIO_BUILD_NUMBER:-unknown}
     restart: unless-stopped
     depends_on:
       api:

@@ -21,6 +21,9 @@ const PUBLIC_SESSION_SECRETS = new Set([
 const EnvSchema = z
   .object({
     NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
+    /** Human-facing environment label for the About page / version endpoint
+     * (e.g. "production", "staging"). Defaults to NODE_ENV when unset. */
+    OMNIO_ENVIRONMENT: z.string().optional(),
     OMNIO_API_PORT: z.coerce.number().int().min(1).max(65535).default(4000),
     OMNIO_API_HOST: z.string().default("0.0.0.0"),
 

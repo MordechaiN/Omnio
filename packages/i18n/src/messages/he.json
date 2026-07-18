@@ -79,7 +79,9 @@
     "categories": "קטגוריות",
     "files": "קבצים",
     "history": "היסטוריה",
-    "settings": "הגדרות"
+    "settings": "הגדרות",
+    "about": "אודות",
+    "changelog": "יומן שינויים"
   },
   "history": {
     "title": "היסטוריה",
@@ -119,19 +121,58 @@
     "toggle": "החלפת שפה"
   },
   "categories": {
-    "images": { "name": "תמונות", "blurb": "שינוי גודל, המרה, דחיסה ועריכה של תמונות" },
-    "pdf": { "name": "PDF", "blurb": "צפייה, מיזוג, פיצול ועיבוד מסמכים" },
-    "video": { "name": "וידאו", "blurb": "המרה, חיתוך ודחיסה של סרטונים" },
-    "audio": { "name": "אודיו", "blurb": "המרה וחילוץ של קטעי שמע" },
-    "office": { "name": "מסמכי משרד", "blurb": "מסמכים, גיליונות ומצגות" },
-    "text": { "name": "טקסט", "blurb": "עיצוב, השוואה והמרה של טקסט" },
-    "developer": { "name": "כלי פיתוח", "blurb": "‏JSON, גיבובים, קידודים ועוד" },
-    "finance": { "name": "פיננסים", "blurb": "מחשבונים לחיי היומיום" },
-    "security": { "name": "אבטחה", "blurb": "סיסמאות, גיבובים ובדיקות" },
-    "utilities": { "name": "כלים שימושיים", "blurb": "עוזרים קטנים למשימות יומיומיות" },
-    "ai": { "name": "בינה מלאכותית", "blurb": "סיוע חכם, מקומי ופרטי" },
-    "archives": { "name": "ארכיונים", "blurb": "פתיחה ויצירה של קבצים דחוסים" },
-    "networking": { "name": "רשתות", "blurb": "בדיקת כתובות, DNS וכתובות אינטרנט" }
+    "images": {
+      "name": "תמונות",
+      "blurb": "שינוי גודל, המרה, דחיסה ועריכה של תמונות"
+    },
+    "pdf": {
+      "name": "PDF",
+      "blurb": "צפייה, מיזוג, פיצול ועיבוד מסמכים"
+    },
+    "video": {
+      "name": "וידאו",
+      "blurb": "המרה, חיתוך ודחיסה של סרטונים"
+    },
+    "audio": {
+      "name": "אודיו",
+      "blurb": "המרה וחילוץ של קטעי שמע"
+    },
+    "office": {
+      "name": "מסמכי משרד",
+      "blurb": "מסמכים, גיליונות ומצגות"
+    },
+    "text": {
+      "name": "טקסט",
+      "blurb": "עיצוב, השוואה והמרה של טקסט"
+    },
+    "developer": {
+      "name": "כלי פיתוח",
+      "blurb": "‏JSON, גיבובים, קידודים ועוד"
+    },
+    "finance": {
+      "name": "פיננסים",
+      "blurb": "מחשבונים לחיי היומיום"
+    },
+    "security": {
+      "name": "אבטחה",
+      "blurb": "סיסמאות, גיבובים ובדיקות"
+    },
+    "utilities": {
+      "name": "כלים שימושיים",
+      "blurb": "עוזרים קטנים למשימות יומיומיות"
+    },
+    "ai": {
+      "name": "בינה מלאכותית",
+      "blurb": "סיוע חכם, מקומי ופרטי"
+    },
+    "archives": {
+      "name": "ארכיונים",
+      "blurb": "פתיחה ויצירה של קבצים דחוסים"
+    },
+    "networking": {
+      "name": "רשתות",
+      "blurb": "בדיקת כתובות, DNS וכתובות אינטרנט"
+    }
   },
   "home": {
     "heroEyebrow": "אירוח עצמי · פרטיות תחילה · קוד פתוח",
@@ -183,5 +224,50 @@
     "footerGitHub": "GitHub",
     "footerLicense": "AGPL-3.0 — אירוח עצמי וקוד פתוח",
     "statusBadge": "בבנייה — אבן דרך {milestone}"
+  },
+  "footer": {
+    "commit": "Commit {commit}",
+    "viewAbout": "אודות Omnio"
+  },
+  "about": {
+    "title": "אודות Omnio",
+    "subtitle": "פרטי בנייה ופריסה של הגרסה שאתם מריצים.",
+    "buildSection": "בנייה",
+    "deploymentSection": "פריסה",
+    "resourcesSection": "משאבים",
+    "version": "גרסה",
+    "commit": "קומיט Git",
+    "branch": "ענף Git",
+    "buildDate": "חותמת זמן בנייה",
+    "buildNumber": "מספר בנייה",
+    "mode": "מצב פריסה",
+    "environment": "סביבה",
+    "buildStatus": "סטטוס בנייה",
+    "checking": "בודק…",
+    "operational": "תקין",
+    "unreachable": "API לא זמין",
+    "mismatch": "אי-התאמת גרסה",
+    "modePersonal": "אישי",
+    "modeMulti": "רב-משתמשים",
+    "license": "רישיון",
+    "repository": "מאגר",
+    "documentation": "תיעוד",
+    "releaseNotes": "הערות גרסה",
+    "viewChangelog": "הצגת יומן השינויים"
+  },
+  "changelog": {
+    "title": "יומן שינויים",
+    "subtitle": "כל מה שהשתנה, גרסה אחר גרסה.",
+    "empty": "עדיין לא תועדו גרסאות.",
+    "yanked": "הוסר",
+    "sections": {
+      "new": "חדש",
+      "changed": "שונה",
+      "fixed": "תוקן",
+      "security": "אבטחה",
+      "removed": "הוסר",
+      "deprecated": "יצא משימוש",
+      "known": "מגבלות ידועות"
+    }
   }
 }

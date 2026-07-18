@@ -49,5 +49,18 @@ COPY --from=build /app/packages ./packages
 RUN chown -R omnio:omnio /app
 USER omnio
 ENV NODE_ENV=production
+# Build & release metadata — supplied by the release tooling, never hand-edited
+# (docs/architecture/09-releases.md). Baked as ENV so `GET /api/version` reports
+# the exact build without reading the (excluded) .git tree at runtime.
+ARG OMNIO_VERSION=0.0.0-dev
+ARG OMNIO_GIT_COMMIT=unknown
+ARG OMNIO_GIT_BRANCH=unknown
+ARG OMNIO_BUILD_DATE=unknown
+ARG OMNIO_BUILD_NUMBER=unknown
+ENV OMNIO_VERSION=${OMNIO_VERSION}
+ENV OMNIO_GIT_COMMIT=${OMNIO_GIT_COMMIT}
+ENV OMNIO_GIT_BRANCH=${OMNIO_GIT_BRANCH}
+ENV OMNIO_BUILD_DATE=${OMNIO_BUILD_DATE}
+ENV OMNIO_BUILD_NUMBER=${OMNIO_BUILD_NUMBER}
 EXPOSE 4000
 CMD ["node", "apps/api/dist/main.js"]

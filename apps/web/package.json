@@ -1,6 +1,6 @@
 {
   "name": "@omnio/web",
-  "version": "0.1.0",
+  "version": "0.1.0-alpha.1",
   "private": true,
   "license": "AGPL-3.0-only",
   "description": "Omnio web app — the Next.js shell: navigation, command palette, theming, i18n.",

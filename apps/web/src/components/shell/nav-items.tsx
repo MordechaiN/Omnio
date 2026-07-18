@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { CATEGORY_IDS } from "@omnio/core";
 import { cn, Icon } from "@omnio/ui";
-import { History, Home, Settings } from "lucide-react";
+import { History, Home, Info, ScrollText, Settings } from "lucide-react";
 import { Link, usePathname } from "@/i18n/navigation";
 import { CATEGORY_ICONS } from "@/lib/category-icons";
 
@@ -53,6 +53,13 @@ export function NavItems({ onNavigate }: { onNavigate?: () => void }) {
           label={t("nav.settings")}
           onNavigate={onNavigate}
         />
+        <NavLink
+          href="/changelog"
+          icon={ScrollText}
+          label={t("nav.changelog")}
+          onNavigate={onNavigate}
+        />
+        <NavLink href="/about" icon={Info} label={t("nav.about")} onNavigate={onNavigate} />
       </nav>
       <nav aria-label={t("shell.categoriesNavigation")} className="flex flex-col gap-0.5">
         <p className="mb-1 px-2.5 text-xs font-medium text-text-muted">{t("nav.categories")}</p>
