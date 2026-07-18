@@ -1,0 +1,26 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "units",
+  "version": "1.0.0",
+  "category": "utilities",
+  "icon": "ruler",
+  "i18nNamespace": "mod-units",
+  "tools": [
+    {
+      "id": "unit-convert",
+      "tier": "browser",
+      "surface": "frontend/tools/unit-convert",
+      "keywords": [
+        "unit",
+        "length",
+        "weight",
+        "temperature",
+        "convert"
+      ]
+    }
+  ],
+  "capabilities": {
+    "fileActions": []
+  },
+  "permissions": []
+}

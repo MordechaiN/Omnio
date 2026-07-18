@@ -1,0 +1,34 @@
+{
+  "name": "ערכת צבעים",
+  "description": "המרת פורמטים של צבע ובדיקת ניגודיות WCAG.",
+  "tools": {
+    "color-convert": {
+      "name": "ממיר צבעים",
+      "description": "המרת צבעים בין hex, RGB ו-HSL במכשיר שלך."
+    },
+    "contrast": {
+      "name": "בודק ניגודיות",
+      "description": "בדיקת ניגודיות WCAG בין שני צבעים במכשיר שלך."
+    }
+  },
+  "ui": {
+    "pick": "בחירה",
+    "color": "צבע",
+    "placeholder": "‎#3b82f6 או rgb(59, 130, 246)",
+    "hex": "HEX",
+    "rgb": "RGB",
+    "hsl": "HSL",
+    "copied": "הועתק ללוח",
+    "invalid": "הזינו צבע תקין (hex או rgb).",
+    "foreground": "צבע טקסט",
+    "background": "צבע רקע",
+    "sample": "שועל חום זריז",
+    "ratio": "יחס ניגודיות",
+    "aaNormal": "AA — טקסט רגיל",
+    "aaLarge": "AA — טקסט גדול",
+    "aaaNormal": "AAA — טקסט רגיל",
+    "aaaLarge": "AAA — טקסט גדול",
+    "pass": "עובר",
+    "fail": "נכשל"
+  }
+}

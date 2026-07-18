@@ -1,0 +1,39 @@
+{
+  "name": "@omnio/mod-numbase",
+  "version": "1.0.0",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "description": "Numbase — browser-tier tools. Ships TypeScript source; the web app transpiles it.",
+  "type": "module",
+  "exports": {
+    "./module.json": "./module.json",
+    "./i18n/en": "./i18n/en.json",
+    "./i18n/he": "./i18n/he.json",
+    "./frontend/tools/number-base": "./frontend/tools/number-base.tsx"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@omnio/module-sdk": "workspace:*",
+    "@omnio/ui": "workspace:*",
+    "zod": "^3.25.0"
+  },
+  "peerDependencies": {
+    "next": "^15.5.0",
+    "next-intl": "^4.3.0",
+    "react": "^19.1.0"
+  },
+  "devDependencies": {
+    "@omnio/config": "workspace:*",
+    "@types/react": "^19.1.0",
+    "eslint": "^9.30.0",
+    "next": "^15.5.0",
+    "next-intl": "^4.3.0",
+    "react": "^19.1.0",
+    "typescript": "^5.8.0",
+    "vitest": "^3.2.0"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "name": "Finance",
+  "description": "Loan, VAT, percentage and tip calculators.",
+  "tools": {
+    "loan": {
+      "name": "Loan Calculator",
+      "description": "Calculate monthly loan payments and total interest on your device."
+    },
+    "vat": {
+      "name": "VAT Calculator",
+      "description": "Add or extract VAT / sales tax on your device."
+    },
+    "percentage": {
+      "name": "Percentage Calculator",
+      "description": "Work out percentages and percentage change on your device."
+    },
+    "tip": {
+      "name": "Tip Calculator",
+      "description": "Calculate a tip and split the bill on your device."
+    }
+  },
+  "ui": {
+    "principal": "Loan amount",
+    "annualRate": "Annual rate (%)",
+    "years": "Term (years)",
+    "monthlyPayment": "Monthly payment",
+    "totalPaid": "Total paid",
+    "totalInterest": "Total interest",
+    "add": "Add VAT",
+    "extract": "Extract VAT",
+    "netAmount": "Net amount",
+    "grossAmount": "Gross amount",
+    "vatRate": "VAT rate (%)",
+    "net": "Net",
+    "vat": "VAT",
+    "gross": "Gross",
+    "percentOfTitle": "What percent is X of Y?",
+    "part": "Value",
+    "whole": "Total",
+    "percentChangeTitle": "Percentage change",
+    "fromValue": "From",
+    "toValue": "To",
+    "bill": "Bill amount",
+    "tipPercent": "Tip (%)",
+    "people": "Split between",
+    "tip": "Tip",
+    "total": "Total",
+    "perPerson": "Per person"
+  }
+}

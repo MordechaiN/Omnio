@@ -1,0 +1,20 @@
+{
+  "name": "YAML ⇄ JSON",
+  "description": "Convert between YAML and JSON.",
+  "tools": {
+    "yaml-json": {
+      "name": "YAML ⇄ JSON",
+      "description": "Convert between YAML and JSON on your device."
+    }
+  },
+  "ui": {
+    "yamlToJson": "YAML → JSON",
+    "jsonToYaml": "JSON → YAML",
+    "input": "Input",
+    "output": "Output",
+    "yamlPlaceholder": "Paste YAML…",
+    "jsonPlaceholder": "Paste JSON…",
+    "copy": "Copy",
+    "copied": "Copied to clipboard"
+  }
+}

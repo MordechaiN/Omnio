@@ -1,0 +1,20 @@
+{
+  "name": "רשת משנה",
+  "description": "מחשבון CIDR / רשת משנה ל-IPv4.",
+  "tools": {
+    "cidr": {
+      "name": "מחשבון CIDR",
+      "description": "חישוב כתובת רשת, שידור, מסכה וטווח מארחים מ-CIDR של IPv4 במכשיר שלך."
+    }
+  },
+  "ui": {
+    "cidr": "בלוק CIDR",
+    "networkAddress": "כתובת רשת",
+    "broadcastAddress": "כתובת שידור",
+    "netmask": "מסכת רשת משנה",
+    "wildcard": "מסכת wildcard",
+    "firstHost": "מארח ראשון",
+    "lastHost": "מארח אחרון",
+    "hosts": "{total} כתובות · {usable} מארחים שמישים"
+  }
+}

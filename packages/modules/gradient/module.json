@@ -1,0 +1,26 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "gradient",
+  "version": "1.0.0",
+  "category": "utilities",
+  "icon": "paintbrush",
+  "i18nNamespace": "mod-gradient",
+  "tools": [
+    {
+      "id": "css-gradient",
+      "tier": "browser",
+      "surface": "frontend/tools/css-gradient",
+      "keywords": [
+        "gradient",
+        "css",
+        "linear",
+        "radial",
+        "color"
+      ]
+    }
+  ],
+  "capabilities": {
+    "fileActions": []
+  },
+  "permissions": []
+}

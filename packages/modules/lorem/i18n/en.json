@@ -1,0 +1,21 @@
+{
+  "name": "Lorem Ipsum",
+  "description": "Generate placeholder text.",
+  "tools": {
+    "lorem-ipsum": {
+      "name": "Lorem Ipsum Generator",
+      "description": "Generate placeholder words, sentences or paragraphs on your device."
+    }
+  },
+  "ui": {
+    "unit": "Generate",
+    "count": "Amount",
+    "words": "Words",
+    "sentences": "Sentences",
+    "paragraphs": "Paragraphs",
+    "shuffle": "Shuffle",
+    "output": "Generated text",
+    "copy": "Copy",
+    "copied": "Copied to clipboard"
+  }
+}

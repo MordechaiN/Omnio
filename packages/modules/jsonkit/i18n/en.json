@@ -1,0 +1,24 @@
+{
+  "name": "JSON Kit",
+  "description": "Format, validate and minify JSON.",
+  "tools": {
+    "json-format": {
+      "name": "JSON Formatter",
+      "description": "Pretty-print, validate or minify JSON entirely on your device."
+    }
+  },
+  "ui": {
+    "indent": "Indentation",
+    "spaces2": "2 spaces",
+    "spaces4": "4 spaces",
+    "tabs": "Tabs",
+    "minify": "Minify",
+    "input": "Input",
+    "output": "Output",
+    "copy": "Copy output",
+    "copied": "Copied to clipboard",
+    "placeholder": "Paste JSON here…",
+    "outputPlaceholder": "Formatted JSON appears here.",
+    "errorAt": "{message} (line {line}, column {column})"
+  }
+}

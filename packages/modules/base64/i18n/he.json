@@ -1,0 +1,20 @@
+{
+  "name": "Base64",
+  "description": "קידוד ופענוח של Base64.",
+  "tools": {
+    "base64": {
+      "name": "קידוד / פענוח Base64",
+      "description": "המרת טקסט אל וממחרוזת Base64 (תומך UTF-8) במכשיר שלך."
+    }
+  },
+  "ui": {
+    "encode": "קידוד",
+    "decode": "פענוח",
+    "urlSafe": "בטוח לכתובות URL",
+    "plainText": "טקסט",
+    "base64": "Base64",
+    "placeholder": "הקלידו או הדביקו כאן…",
+    "copy": "העתקה",
+    "copied": "הועתק ללוח"
+  }
+}

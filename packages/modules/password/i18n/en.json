@@ -1,0 +1,25 @@
+{
+  "name": "Password",
+  "description": "Generate strong passwords and passphrases.",
+  "tools": {
+    "password-generator": {
+      "name": "Password Generator",
+      "description": "Generate cryptographically strong passwords and passphrases on your device."
+    }
+  },
+  "ui": {
+    "password": "Password",
+    "passphrase": "Passphrase",
+    "result": "Generated password",
+    "copy": "Copy",
+    "regenerate": "Regenerate",
+    "entropy": "≈ {bits} bits of entropy",
+    "length": "Length: {length}",
+    "words": "Words: {count}",
+    "lowercase": "Lowercase (a–z)",
+    "uppercase": "Uppercase (A–Z)",
+    "digits": "Digits (0–9)",
+    "symbols": "Symbols",
+    "avoidAmbiguous": "Avoid ambiguous characters"
+  }
+}

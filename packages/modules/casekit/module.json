@@ -1,0 +1,28 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "casekit",
+  "version": "1.0.0",
+  "category": "text",
+  "icon": "case-sensitive",
+  "i18nNamespace": "mod-casekit",
+  "tools": [
+    {
+      "id": "case-convert",
+      "tier": "browser",
+      "surface": "frontend/tools/case-convert",
+      "keywords": [
+        "uppercase",
+        "lowercase",
+        "title",
+        "camel",
+        "snake",
+        "kebab",
+        "case"
+      ]
+    }
+  ],
+  "capabilities": {
+    "fileActions": []
+  },
+  "permissions": []
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "textbin",
+  "version": "1.0.0",
+  "category": "developer",
+  "icon": "binary",
+  "i18nNamespace": "mod-textbin",
+  "tools": [
+    {
+      "id": "text-binary",
+      "tier": "browser",
+      "surface": "frontend/tools/text-binary",
+      "keywords": [
+        "binary",
+        "ascii",
+        "text",
+        "bits",
+        "encode"
+      ]
+    }
+  ],
+  "capabilities": {
+    "fileActions": []
+  },
+  "permissions": []
+}

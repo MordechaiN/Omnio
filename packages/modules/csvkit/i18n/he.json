@@ -1,0 +1,20 @@
+{
+  "name": "CSV ⇄ JSON",
+  "description": "המרה בין CSV ל-JSON.",
+  "tools": {
+    "csv-json": {
+      "name": "CSV ⇄ JSON",
+      "description": "המרה בין CSV למערך אובייקטים ב-JSON במכשיר שלך."
+    }
+  },
+  "ui": {
+    "csvToJson": "מ-CSV ל-JSON",
+    "jsonToCsv": "מ-JSON ל-CSV",
+    "input": "קלט",
+    "output": "פלט",
+    "csvPlaceholder": "הדביקו CSV (שורה ראשונה = כותרות)…",
+    "jsonPlaceholder": "הדביקו מערך אובייקטים ב-JSON…",
+    "copy": "העתקה",
+    "copied": "הועתק ללוח"
+  }
+}

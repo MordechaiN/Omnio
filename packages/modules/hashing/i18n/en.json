@@ -1,0 +1,16 @@
+{
+  "name": "Hash",
+  "description": "Generate SHA hashes of text.",
+  "tools": {
+    "hash": {
+      "name": "Hash Generator",
+      "description": "Compute SHA-1, SHA-256, SHA-384 and SHA-512 hashes on your device."
+    }
+  },
+  "ui": {
+    "input": "Text",
+    "placeholder": "Type or paste text to hash…",
+    "copy": "Copy",
+    "copied": "Copied to clipboard"
+  }
+}

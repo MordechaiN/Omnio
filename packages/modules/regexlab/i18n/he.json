@@ -1,0 +1,21 @@
+{
+  "name": "מעבדת Regex",
+  "description": "בדיקת ביטויים רגולריים מול טקסט.",
+  "tools": {
+    "regex-tester": {
+      "name": "בודק Regex",
+      "description": "בדיקת ביטויים רגולריים עם התאמות וקבוצות בזמן אמת במכשיר שלך."
+    }
+  },
+  "ui": {
+    "pattern": "תבנית",
+    "patternPlaceholder": "לדוגמה \\d{4}-\\d{2}-\\d{2}",
+    "testString": "מחרוזת בדיקה",
+    "testPlaceholder": "טקסט לבדיקה מול התבנית…",
+    "ignoreCase": "התעלמות מרישיות",
+    "multiline": "רב-שורתי",
+    "dotAll": "נקודה כוללת שורה חדשה",
+    "unicode": "יוניקוד",
+    "matchCount": "{count} התאמות"
+  }
+}

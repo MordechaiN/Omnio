@@ -1,0 +1,28 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "hashing",
+  "version": "1.0.0",
+  "category": "security",
+  "icon": "fingerprint",
+  "i18nNamespace": "mod-hashing",
+  "tools": [
+    {
+      "id": "hash",
+      "tier": "browser",
+      "surface": "frontend/tools/hash",
+      "keywords": [
+        "sha",
+        "sha256",
+        "sha1",
+        "sha512",
+        "checksum",
+        "digest",
+        "hash"
+      ]
+    }
+  ],
+  "capabilities": {
+    "fileActions": []
+  },
+  "permissions": []
+}

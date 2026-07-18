@@ -1,0 +1,20 @@
+{
+  "name": "Subnet",
+  "description": "IPv4 CIDR / subnet calculator.",
+  "tools": {
+    "cidr": {
+      "name": "CIDR Calculator",
+      "description": "Calculate network, broadcast, mask and host range from an IPv4 CIDR on your device."
+    }
+  },
+  "ui": {
+    "cidr": "CIDR block",
+    "networkAddress": "Network address",
+    "broadcastAddress": "Broadcast address",
+    "netmask": "Subnet mask",
+    "wildcard": "Wildcard mask",
+    "firstHost": "First host",
+    "lastHost": "Last host",
+    "hosts": "{total} addresses · {usable} usable hosts"
+  }
+}

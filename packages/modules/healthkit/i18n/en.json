@@ -1,0 +1,23 @@
+{
+  "name": "BMI",
+  "description": "Calculate body mass index.",
+  "tools": {
+    "bmi": {
+      "name": "BMI Calculator",
+      "description": "Calculate body mass index in metric or imperial units on your device."
+    }
+  },
+  "ui": {
+    "metric": "Metric",
+    "imperial": "Imperial",
+    "weightKg": "Weight (kg)",
+    "weightLb": "Weight (lb)",
+    "heightCm": "Height (cm)",
+    "heightIn": "Height (in)",
+    "bmi": "BMI",
+    "underweight": "Underweight",
+    "normal": "Normal",
+    "overweight": "Overweight",
+    "obese": "Obese"
+  }
+}

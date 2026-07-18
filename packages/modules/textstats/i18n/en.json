@@ -1,0 +1,23 @@
+{
+  "name": "Text Stats",
+  "description": "Count words, characters and reading time.",
+  "tools": {
+    "text-stats": {
+      "name": "Word & Character Counter",
+      "description": "Count words, characters, sentences and reading time on your device."
+    }
+  },
+  "ui": {
+    "input": "Text",
+    "placeholder": "Type or paste text…",
+    "words": "Words",
+    "characters": "Characters",
+    "charactersNoSpaces": "Characters (no spaces)",
+    "sentences": "Sentences",
+    "paragraphs": "Paragraphs",
+    "lines": "Lines",
+    "readingTime": "Reading time",
+    "seconds": "{seconds}s",
+    "minutes": "{minutes} min"
+  }
+}

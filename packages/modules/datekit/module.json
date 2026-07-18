@@ -1,0 +1,36 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "datekit",
+  "version": "1.0.0",
+  "category": "utilities",
+  "icon": "calendar",
+  "i18nNamespace": "mod-datekit",
+  "tools": [
+    {
+      "id": "age",
+      "tier": "browser",
+      "surface": "frontend/tools/age",
+      "keywords": [
+        "age",
+        "birthday",
+        "years",
+        "calculator"
+      ]
+    },
+    {
+      "id": "date-duration",
+      "tier": "browser",
+      "surface": "frontend/tools/date-duration",
+      "keywords": [
+        "duration",
+        "between",
+        "days",
+        "difference"
+      ]
+    }
+  ],
+  "capabilities": {
+    "fileActions": []
+  },
+  "permissions": []
+}

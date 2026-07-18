@@ -1,0 +1,59 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "finance",
+  "version": "1.0.0",
+  "category": "finance",
+  "icon": "calculator",
+  "i18nNamespace": "mod-finance",
+  "tools": [
+    {
+      "id": "loan",
+      "tier": "browser",
+      "surface": "frontend/tools/loan",
+      "keywords": [
+        "loan",
+        "mortgage",
+        "payment",
+        "interest",
+        "amortization"
+      ]
+    },
+    {
+      "id": "vat",
+      "tier": "browser",
+      "surface": "frontend/tools/vat",
+      "keywords": [
+        "vat",
+        "tax",
+        "gst",
+        "sales"
+      ]
+    },
+    {
+      "id": "percentage",
+      "tier": "browser",
+      "surface": "frontend/tools/percentage",
+      "keywords": [
+        "percent",
+        "percentage",
+        "increase",
+        "decrease"
+      ]
+    },
+    {
+      "id": "tip",
+      "tier": "browser",
+      "surface": "frontend/tools/tip",
+      "keywords": [
+        "tip",
+        "gratuity",
+        "restaurant",
+        "split"
+      ]
+    }
+  ],
+  "capabilities": {
+    "fileActions": []
+  },
+  "permissions": []
+}

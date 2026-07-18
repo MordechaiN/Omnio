@@ -1,0 +1,19 @@
+{
+  "name": "ישויות HTML",
+  "description": "קידוד ופענוח של ישויות HTML.",
+  "tools": {
+    "html-entities": {
+      "name": "קידוד / פענוח ישויות HTML",
+      "description": "קידוד או פענוח של ישויות HTML במכשיר שלך."
+    }
+  },
+  "ui": {
+    "encode": "קידוד",
+    "decode": "פענוח",
+    "input": "קלט",
+    "output": "פלט",
+    "placeholder": "הקלידו או הדביקו כאן…",
+    "copy": "העתקה",
+    "copied": "הועתק ללוח"
+  }
+}

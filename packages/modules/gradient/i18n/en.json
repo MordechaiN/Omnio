@@ -1,0 +1,22 @@
+{
+  "name": "CSS Gradient",
+  "description": "Build CSS gradients with a live preview.",
+  "tools": {
+    "css-gradient": {
+      "name": "CSS Gradient Generator",
+      "description": "Build linear and radial CSS gradients with a live preview on your device."
+    }
+  },
+  "ui": {
+    "type": "Type",
+    "linear": "Linear",
+    "radial": "Radial",
+    "angle": "Angle (deg)",
+    "stops": "Color stops",
+    "stop": "Stop",
+    "addStop": "Add stop",
+    "remove": "Remove",
+    "copy": "Copy",
+    "copied": "Copied to clipboard"
+  }
+}

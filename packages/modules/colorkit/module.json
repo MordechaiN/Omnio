@@ -1,0 +1,38 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "colorkit",
+  "version": "1.0.0",
+  "category": "utilities",
+  "icon": "palette",
+  "i18nNamespace": "mod-colorkit",
+  "tools": [
+    {
+      "id": "color-convert",
+      "tier": "browser",
+      "surface": "frontend/tools/color-convert",
+      "keywords": [
+        "color",
+        "hex",
+        "rgb",
+        "hsl",
+        "convert"
+      ]
+    },
+    {
+      "id": "contrast",
+      "tier": "browser",
+      "surface": "frontend/tools/contrast",
+      "keywords": [
+        "contrast",
+        "wcag",
+        "accessibility",
+        "ratio",
+        "a11y"
+      ]
+    }
+  ],
+  "capabilities": {
+    "fileActions": []
+  },
+  "permissions": []
+}

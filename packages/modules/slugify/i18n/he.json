@@ -1,0 +1,20 @@
+{
+  "name": "Slugify",
+  "description": "הפיכת טקסט למזהי URL בטוחים.",
+  "tools": {
+    "slugify": {
+      "name": "מחולל Slug",
+      "description": "הפיכת כל טקסט ל-slug נקי ובטוח לכתובות URL במכשיר שלך."
+    }
+  },
+  "ui": {
+    "input": "טקסט",
+    "output": "Slug",
+    "separator": "מפריד",
+    "lowercase": "אותיות קטנות",
+    "unicode": "שמירת יוניקוד",
+    "placeholder": "הקלידו או הדביקו טקסט…",
+    "copy": "העתקה",
+    "copied": "הועתק ללוח"
+  }
+}

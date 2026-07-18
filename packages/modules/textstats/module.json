@@ -1,0 +1,27 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "textstats",
+  "version": "1.0.0",
+  "category": "text",
+  "icon": "text",
+  "i18nNamespace": "mod-textstats",
+  "tools": [
+    {
+      "id": "text-stats",
+      "tier": "browser",
+      "surface": "frontend/tools/text-stats",
+      "keywords": [
+        "word",
+        "count",
+        "characters",
+        "reading",
+        "lines",
+        "stats"
+      ]
+    }
+  ],
+  "capabilities": {
+    "fileActions": []
+  },
+  "permissions": []
+}

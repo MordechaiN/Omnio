@@ -1,0 +1,21 @@
+{
+  "name": "Number Base",
+  "description": "Convert numbers between binary, octal, decimal and hex.",
+  "tools": {
+    "number-base": {
+      "name": "Number Base Converter",
+      "description": "Convert integers between binary, octal, decimal and hex on your device."
+    }
+  },
+  "ui": {
+    "from": "Input base",
+    "value": "Value",
+    "binary": "Binary",
+    "octal": "Octal",
+    "decimal": "Decimal",
+    "hex": "Hexadecimal",
+    "placeholder": "Enter a number…",
+    "copy": "Copy",
+    "copied": "Copied to clipboard"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "roman",
+  "version": "1.0.0",
+  "category": "utilities",
+  "icon": "hash",
+  "i18nNamespace": "mod-roman",
+  "tools": [
+    {
+      "id": "roman-numeral",
+      "tier": "browser",
+      "surface": "frontend/tools/roman-numeral",
+      "keywords": [
+        "roman",
+        "numeral",
+        "number",
+        "convert"
+      ]
+    }
+  ],
+  "capabilities": {
+    "fileActions": []
+  },
+  "permissions": []
+}

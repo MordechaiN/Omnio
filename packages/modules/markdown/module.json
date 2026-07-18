@@ -1,0 +1,26 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "markdown",
+  "version": "1.0.0",
+  "category": "text",
+  "icon": "file-text",
+  "i18nNamespace": "mod-markdown",
+  "tools": [
+    {
+      "id": "markdown-preview",
+      "tier": "browser",
+      "surface": "frontend/tools/markdown-preview",
+      "keywords": [
+        "markdown",
+        "md",
+        "preview",
+        "render",
+        "gfm"
+      ]
+    }
+  ],
+  "capabilities": {
+    "fileActions": []
+  },
+  "permissions": []
+}

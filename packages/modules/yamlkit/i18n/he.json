@@ -1,0 +1,20 @@
+{
+  "name": "YAML ⇄ JSON",
+  "description": "המרה בין YAML ל-JSON.",
+  "tools": {
+    "yaml-json": {
+      "name": "YAML ⇄ JSON",
+      "description": "המרה בין YAML ל-JSON במכשיר שלך."
+    }
+  },
+  "ui": {
+    "yamlToJson": "מ-YAML ל-JSON",
+    "jsonToYaml": "מ-JSON ל-YAML",
+    "input": "קלט",
+    "output": "פלט",
+    "yamlPlaceholder": "הדביקו YAML…",
+    "jsonPlaceholder": "הדביקו JSON…",
+    "copy": "העתקה",
+    "copied": "הועתק ללוח"
+  }
+}

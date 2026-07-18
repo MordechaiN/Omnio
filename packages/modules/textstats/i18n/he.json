@@ -1,0 +1,23 @@
+{
+  "name": "סטטיסטיקת טקסט",
+  "description": "ספירת מילים, תווים וזמן קריאה.",
+  "tools": {
+    "text-stats": {
+      "name": "מונה מילים ותווים",
+      "description": "ספירת מילים, תווים, משפטים וזמן קריאה במכשיר שלך."
+    }
+  },
+  "ui": {
+    "input": "טקסט",
+    "placeholder": "הקלידו או הדביקו טקסט…",
+    "words": "מילים",
+    "characters": "תווים",
+    "charactersNoSpaces": "תווים (ללא רווחים)",
+    "sentences": "משפטים",
+    "paragraphs": "פסקאות",
+    "lines": "שורות",
+    "readingTime": "זמן קריאה",
+    "seconds": "{seconds} שנ׳",
+    "minutes": "{minutes} דק׳"
+  }
+}

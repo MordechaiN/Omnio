@@ -1,0 +1,16 @@
+{
+  "name": "Text Diff",
+  "description": "Compare two blocks of text.",
+  "tools": {
+    "text-diff": {
+      "name": "Text Diff",
+      "description": "Compare two blocks of text line by line on your device."
+    }
+  },
+  "ui": {
+    "original": "Original",
+    "changed": "Changed",
+    "placeholder": "Paste text…",
+    "summary": "{added} added, {removed} removed"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Roman Numerals",
+  "description": "Convert between numbers and Roman numerals.",
+  "tools": {
+    "roman-numeral": {
+      "name": "Roman Numeral Converter",
+      "description": "Convert between numbers and Roman numerals (1–3999) on your device."
+    }
+  },
+  "ui": {
+    "toRoman": "Number → Roman",
+    "fromRoman": "Roman → Number",
+    "number": "Number (1–3999)",
+    "numeral": "Roman numeral"
+  }
+}

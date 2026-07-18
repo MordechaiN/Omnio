@@ -1,0 +1,15 @@
+{
+  "name": "Markdown",
+  "description": "Preview Markdown as you type.",
+  "tools": {
+    "markdown-preview": {
+      "name": "Markdown Preview",
+      "description": "Preview Markdown safely as HTML on your device (raw HTML is escaped)."
+    }
+  },
+  "ui": {
+    "markdown": "Markdown",
+    "preview": "Preview",
+    "placeholder": "Write Markdown…"
+  }
+}

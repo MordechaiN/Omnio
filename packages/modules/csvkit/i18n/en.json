@@ -1,0 +1,20 @@
+{
+  "name": "CSV ⇄ JSON",
+  "description": "Convert between CSV and JSON.",
+  "tools": {
+    "csv-json": {
+      "name": "CSV ⇄ JSON",
+      "description": "Convert between CSV and a JSON array of objects on your device."
+    }
+  },
+  "ui": {
+    "csvToJson": "CSV → JSON",
+    "jsonToCsv": "JSON → CSV",
+    "input": "Input",
+    "output": "Output",
+    "csvPlaceholder": "Paste CSV (first row = header)…",
+    "jsonPlaceholder": "Paste a JSON array of objects…",
+    "copy": "Copy",
+    "copied": "Copied to clipboard"
+  }
+}

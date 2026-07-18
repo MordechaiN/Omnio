@@ -1,0 +1,21 @@
+{
+  "name": "Regex Lab",
+  "description": "Test regular expressions against text.",
+  "tools": {
+    "regex-tester": {
+      "name": "Regex Tester",
+      "description": "Test regular expressions with live matches and groups on your device."
+    }
+  },
+  "ui": {
+    "pattern": "Pattern",
+    "patternPlaceholder": "e.g. \\d{4}-\\d{2}-\\d{2}",
+    "testString": "Test string",
+    "testPlaceholder": "Text to match against…",
+    "ignoreCase": "Ignore case",
+    "multiline": "Multiline",
+    "dotAll": "Dot matches newline",
+    "unicode": "Unicode",
+    "matchCount": "{count} match(es)"
+  }
+}

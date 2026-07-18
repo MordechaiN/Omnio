@@ -1,0 +1,34 @@
+{
+  "name": "Color Kit",
+  "description": "Convert color formats and check WCAG contrast.",
+  "tools": {
+    "color-convert": {
+      "name": "Color Converter",
+      "description": "Convert colors between hex, RGB and HSL on your device."
+    },
+    "contrast": {
+      "name": "Contrast Checker",
+      "description": "Check WCAG contrast between two colors on your device."
+    }
+  },
+  "ui": {
+    "pick": "Pick",
+    "color": "Color",
+    "placeholder": "#3b82f6 or rgb(59, 130, 246)",
+    "hex": "HEX",
+    "rgb": "RGB",
+    "hsl": "HSL",
+    "copied": "Copied to clipboard",
+    "invalid": "Enter a valid color (hex or rgb).",
+    "foreground": "Text color",
+    "background": "Background color",
+    "sample": "The quick brown fox",
+    "ratio": "contrast ratio",
+    "aaNormal": "AA — normal text",
+    "aaLarge": "AA — large text",
+    "aaaNormal": "AAA — normal text",
+    "aaaLarge": "AAA — large text",
+    "pass": "Pass",
+    "fail": "Fail"
+  }
+}

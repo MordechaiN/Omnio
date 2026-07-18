@@ -1,0 +1,26 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "csvkit",
+  "version": "1.0.0",
+  "category": "developer",
+  "icon": "table",
+  "i18nNamespace": "mod-csvkit",
+  "tools": [
+    {
+      "id": "csv-json",
+      "tier": "browser",
+      "surface": "frontend/tools/csv-json",
+      "keywords": [
+        "csv",
+        "json",
+        "convert",
+        "table",
+        "spreadsheet"
+      ]
+    }
+  ],
+  "capabilities": {
+    "fileActions": []
+  },
+  "permissions": []
+}

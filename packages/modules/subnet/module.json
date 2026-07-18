@@ -1,0 +1,27 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "subnet",
+  "version": "1.0.0",
+  "category": "networking",
+  "icon": "network",
+  "i18nNamespace": "mod-subnet",
+  "tools": [
+    {
+      "id": "cidr",
+      "tier": "browser",
+      "surface": "frontend/tools/cidr",
+      "keywords": [
+        "cidr",
+        "subnet",
+        "ip",
+        "netmask",
+        "network",
+        "ipv4"
+      ]
+    }
+  ],
+  "capabilities": {
+    "fileActions": []
+  },
+  "permissions": []
+}

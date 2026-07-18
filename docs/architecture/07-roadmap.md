@@ -48,10 +48,10 @@ The first complete, API-backed workflow: first-run setup → login → workspace
 
 _Resequenced:_ the universal file viewer (former M6 flagship — zoom/pan, pdf.js, CodeMirror, tree/table views, sandboxed HTML/SVG, office→PDF) becomes a later flagship. The M5 viewer _foundation_ already covers on-device inline preview for the common types.
 
-## M7 — First tools: browser tier (~30 tools)
+## M7 — First tools: browser tier ✅ _(2026-07-18)_
 
-dev-tools, text, generators, calculators modules: JSON format/validate, YAML↔JSON, XML format, CSV viewer, Markdown preview, JWT decode, Base64/URL encode-decode, hash generator, UUID, password generator, Lorem Ipsum, regex tester, color picker, gradient generator, QR/barcode generator, timestamp/timezone converters, age/VAT/loan/percentage/BMI calculators, random/dice/coin, case converter, text diff.
-**Exit:** every tool: ToolShell surface, en+he, keyboard accessible, unit-tested logic, "runs on your device" badge.
+36 browser-tier tools across 31 modules, all running entirely on-device: **developer** (JSON format, YAML↔JSON, CSV↔JSON, JWT decode, Base64, URL encode, HTML entities, text↔binary, number base, UUID), **text** (case convert, Lorem Ipsum, text stats, text diff, slugify, regex tester, Markdown preview, line tools, and more), **security** (hash generator, password generator), **utilities** (unit/color/timestamp/date converters, contrast checker, CSS gradient, BMI, random numbers, Roman numerals), **finance** (loan, VAT, percentage, tip), **networking** (CIDR/subnet). Each module ships shared logic + unit tests, an accessible ToolShell surface, and en+he i18n with RTL; all auto-registered by `modgen` into search, categories, and the command palette.
+**Exit:** every tool — ToolShell surface, en+he parity, keyboard accessible, unit-tested logic, "runs on your device" badge, offline where possible. Full workspace test suite + web typecheck + production build green. Self-review: [../reviews/M7.md](../reviews/M7.md).
 
 ## M8 — First tools: worker tier (~20 tools)
 

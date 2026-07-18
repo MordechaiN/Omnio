@@ -1,0 +1,15 @@
+{
+  "name": "Markdown",
+  "description": "תצוגה מקדימה של Markdown תוך כדי כתיבה.",
+  "tools": {
+    "markdown-preview": {
+      "name": "תצוגת Markdown",
+      "description": "תצוגה מקדימה בטוחה של Markdown כ-HTML במכשיר שלך (HTML גולמי עובר escaping)."
+    }
+  },
+  "ui": {
+    "markdown": "Markdown",
+    "preview": "תצוגה מקדימה",
+    "placeholder": "כתבו Markdown…"
+  }
+}

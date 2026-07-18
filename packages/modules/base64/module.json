@@ -1,0 +1,26 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "base64",
+  "version": "1.0.0",
+  "category": "developer",
+  "icon": "binary",
+  "i18nNamespace": "mod-base64",
+  "tools": [
+    {
+      "id": "base64",
+      "tier": "browser",
+      "surface": "frontend/tools/base64",
+      "keywords": [
+        "base64",
+        "encode",
+        "decode",
+        "atob",
+        "btoa"
+      ]
+    }
+  ],
+  "capabilities": {
+    "fileActions": []
+  },
+  "permissions": []
+}

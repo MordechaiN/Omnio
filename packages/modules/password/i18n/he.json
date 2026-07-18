@@ -1,0 +1,25 @@
+{
+  "name": "סיסמה",
+  "description": "יצירת סיסמאות ומשפטי-סיסמה חזקים.",
+  "tools": {
+    "password-generator": {
+      "name": "מחולל סיסמאות",
+      "description": "יצירת סיסמאות ומשפטי-סיסמה חזקים קריפטוגרפית במכשיר שלך."
+    }
+  },
+  "ui": {
+    "password": "סיסמה",
+    "passphrase": "משפט-סיסמה",
+    "result": "הסיסמה שנוצרה",
+    "copy": "העתקה",
+    "regenerate": "יצירה מחדש",
+    "entropy": "‏≈ {bits} סיביות אנטרופיה",
+    "length": "אורך: {length}",
+    "words": "מילים: {count}",
+    "lowercase": "אותיות קטנות (a–z)",
+    "uppercase": "אותיות גדולות (A–Z)",
+    "digits": "ספרות (0–9)",
+    "symbols": "סמלים",
+    "avoidAmbiguous": "הימנעות מתווים דו-משמעיים"
+  }
+}

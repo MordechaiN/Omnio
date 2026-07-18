@@ -1,0 +1,26 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "healthkit",
+  "version": "1.0.0",
+  "category": "utilities",
+  "icon": "activity",
+  "i18nNamespace": "mod-healthkit",
+  "tools": [
+    {
+      "id": "bmi",
+      "tier": "browser",
+      "surface": "frontend/tools/bmi",
+      "keywords": [
+        "bmi",
+        "body",
+        "mass",
+        "weight",
+        "health"
+      ]
+    }
+  ],
+  "capabilities": {
+    "fileActions": []
+  },
+  "permissions": []
+}

@@ -1,0 +1,47 @@
+{
+  "name": "Unit Converter",
+  "description": "Convert length, mass, volume and temperature.",
+  "tools": {
+    "unit-convert": {
+      "name": "Unit Converter",
+      "description": "Convert length, mass, volume and temperature units on your device."
+    }
+  },
+  "ui": {
+    "category": "Category",
+    "from": "From",
+    "to": "To",
+    "cat": {
+      "length": "Length",
+      "mass": "Mass",
+      "volume": "Volume",
+      "temperature": "Temperature"
+    },
+    "unit": {
+      "m": "Meter (m)",
+      "km": "Kilometer (km)",
+      "cm": "Centimeter (cm)",
+      "mm": "Millimeter (mm)",
+      "mi": "Mile (mi)",
+      "yd": "Yard (yd)",
+      "ft": "Foot (ft)",
+      "in": "Inch (in)",
+      "kg": "Kilogram (kg)",
+      "g": "Gram (g)",
+      "mg": "Milligram (mg)",
+      "lb": "Pound (lb)",
+      "oz": "Ounce (oz)",
+      "t": "Tonne (t)",
+      "l": "Liter (L)",
+      "ml": "Milliliter (mL)",
+      "m3": "Cubic meter (m³)",
+      "gal": "Gallon (US)",
+      "qt": "Quart (US)",
+      "cup": "Cup (US)",
+      "floz": "Fluid ounce (US)",
+      "c": "Celsius (°C)",
+      "f": "Fahrenheit (°F)",
+      "k": "Kelvin (K)"
+    }
+  }
+}

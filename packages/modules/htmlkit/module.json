@@ -1,0 +1,26 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "htmlkit",
+  "version": "1.0.0",
+  "category": "developer",
+  "icon": "code",
+  "i18nNamespace": "mod-htmlkit",
+  "tools": [
+    {
+      "id": "html-entities",
+      "tier": "browser",
+      "surface": "frontend/tools/html-entities",
+      "keywords": [
+        "html",
+        "entities",
+        "escape",
+        "unescape",
+        "ampersand"
+      ]
+    }
+  ],
+  "capabilities": {
+    "fileActions": []
+  },
+  "permissions": []
+}

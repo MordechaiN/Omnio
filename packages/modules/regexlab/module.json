@@ -1,0 +1,26 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "regexlab",
+  "version": "1.0.0",
+  "category": "text",
+  "icon": "regex",
+  "i18nNamespace": "mod-regexlab",
+  "tools": [
+    {
+      "id": "regex-tester",
+      "tier": "browser",
+      "surface": "frontend/tools/regex-tester",
+      "keywords": [
+        "regex",
+        "regexp",
+        "pattern",
+        "match",
+        "test"
+      ]
+    }
+  ],
+  "capabilities": {
+    "fileActions": []
+  },
+  "permissions": []
+}

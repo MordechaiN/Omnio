@@ -1,0 +1,23 @@
+{
+  "name": "BMI",
+  "description": "חישוב מדד מסת גוף.",
+  "tools": {
+    "bmi": {
+      "name": "מחשבון BMI",
+      "description": "חישוב מדד מסת גוף ביחידות מטריות או אימפריאליות במכשיר שלך."
+    }
+  },
+  "ui": {
+    "metric": "מטרי",
+    "imperial": "אימפריאלי",
+    "weightKg": "משקל (ק\"ג)",
+    "weightLb": "משקל (ליברות)",
+    "heightCm": "גובה (ס\"מ)",
+    "heightIn": "גובה (אינץ')",
+    "bmi": "BMI",
+    "underweight": "תת-משקל",
+    "normal": "תקין",
+    "overweight": "עודף משקל",
+    "obese": "השמנה"
+  }
+}

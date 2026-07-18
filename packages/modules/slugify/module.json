@@ -1,0 +1,25 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "slugify",
+  "version": "1.0.0",
+  "category": "text",
+  "icon": "link-2",
+  "i18nNamespace": "mod-slugify",
+  "tools": [
+    {
+      "id": "slugify",
+      "tier": "browser",
+      "surface": "frontend/tools/slugify",
+      "keywords": [
+        "slug",
+        "url",
+        "permalink",
+        "seo"
+      ]
+    }
+  ],
+  "capabilities": {
+    "fileActions": []
+  },
+  "permissions": []
+}

@@ -1,0 +1,21 @@
+{
+  "name": "Unix Time",
+  "description": "Convert between Unix timestamps and dates.",
+  "tools": {
+    "unix-timestamp": {
+      "name": "Unix Timestamp Converter",
+      "description": "Convert Unix timestamps to dates and back on your device."
+    }
+  },
+  "ui": {
+    "timestamp": "Unix timestamp",
+    "timestampPlaceholder": "e.g. 1516239022",
+    "now": "Now",
+    "date": "Date",
+    "datePlaceholder": "e.g. 2018-01-18T01:30:22Z",
+    "iso": "ISO 8601",
+    "utc": "UTC",
+    "seconds": "Seconds",
+    "milliseconds": "Milliseconds"
+  }
+}

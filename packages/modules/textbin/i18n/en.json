@@ -1,0 +1,19 @@
+{
+  "name": "Text ⇄ Binary",
+  "description": "Convert text to and from binary.",
+  "tools": {
+    "text-binary": {
+      "name": "Text to Binary",
+      "description": "Convert text to and from 8-bit binary (UTF-8) on your device."
+    }
+  },
+  "ui": {
+    "encode": "Text → Binary",
+    "decode": "Binary → Text",
+    "text": "Text",
+    "binary": "Binary",
+    "placeholder": "Type or paste here…",
+    "copy": "Copy",
+    "copied": "Copied to clipboard"
+  }
+}

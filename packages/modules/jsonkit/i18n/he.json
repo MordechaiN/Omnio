@@ -1,0 +1,24 @@
+{
+  "name": "ערכת JSON",
+  "description": "עיצוב, אימות וכיווץ של JSON.",
+  "tools": {
+    "json-format": {
+      "name": "מעצב JSON",
+      "description": "עיצוב, אימות או כיווץ של JSON כולו במכשיר שלך."
+    }
+  },
+  "ui": {
+    "indent": "הזחה",
+    "spaces2": "2 רווחים",
+    "spaces4": "4 רווחים",
+    "tabs": "טאבים",
+    "minify": "כיווץ",
+    "input": "קלט",
+    "output": "פלט",
+    "copy": "העתקת הפלט",
+    "copied": "הועתק ללוח",
+    "placeholder": "הדביקו כאן JSON…",
+    "outputPlaceholder": "ה-JSON המעוצב יופיע כאן.",
+    "errorAt": "{message} (שורה {line}, עמודה {column})"
+  }
+}

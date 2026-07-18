@@ -1,0 +1,21 @@
+{
+  "name": "Lorem Ipsum",
+  "description": "יצירת טקסט ממלא מקום.",
+  "tools": {
+    "lorem-ipsum": {
+      "name": "מחולל Lorem Ipsum",
+      "description": "יצירת מילים, משפטים או פסקאות ממלאי מקום במכשיר שלך."
+    }
+  },
+  "ui": {
+    "unit": "יצירת",
+    "count": "כמות",
+    "words": "מילים",
+    "sentences": "משפטים",
+    "paragraphs": "פסקאות",
+    "shuffle": "ערבוב",
+    "output": "הטקסט שנוצר",
+    "copy": "העתקה",
+    "copied": "הועתק ללוח"
+  }
+}

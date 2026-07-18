@@ -1,0 +1,26 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "password",
+  "version": "1.0.0",
+  "category": "security",
+  "icon": "shield",
+  "i18nNamespace": "mod-password",
+  "tools": [
+    {
+      "id": "password-generator",
+      "tier": "browser",
+      "surface": "frontend/tools/password-generator",
+      "keywords": [
+        "password",
+        "random",
+        "secure",
+        "passphrase",
+        "generate"
+      ]
+    }
+  ],
+  "capabilities": {
+    "fileActions": []
+  },
+  "permissions": []
+}

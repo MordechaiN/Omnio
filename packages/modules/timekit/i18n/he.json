@@ -1,0 +1,21 @@
+{
+  "name": "זמן Unix",
+  "description": "המרה בין חותמות זמן Unix לתאריכים.",
+  "tools": {
+    "unix-timestamp": {
+      "name": "ממיר חותמת זמן Unix",
+      "description": "המרת חותמות זמן Unix לתאריכים ובחזרה במכשיר שלך."
+    }
+  },
+  "ui": {
+    "timestamp": "חותמת זמן Unix",
+    "timestampPlaceholder": "לדוגמה 1516239022",
+    "now": "עכשיו",
+    "date": "תאריך",
+    "datePlaceholder": "לדוגמה 2018-01-18T01:30:22Z",
+    "iso": "ISO 8601",
+    "utc": "UTC",
+    "seconds": "שניות",
+    "milliseconds": "מילישניות"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "URL Encode",
+  "description": "Percent-encode and decode URLs.",
+  "tools": {
+    "url-encode": {
+      "name": "URL Encode / Decode",
+      "description": "Percent-encode or decode URLs and query values on your device."
+    }
+  },
+  "ui": {
+    "encode": "Encode",
+    "decode": "Decode",
+    "scope": "Scope",
+    "component": "Component (query value)",
+    "full": "Full URL",
+    "input": "Input",
+    "output": "Output",
+    "placeholder": "Type or paste here…",
+    "copy": "Copy",
+    "copied": "Copied to clipboard"
+  }
+}

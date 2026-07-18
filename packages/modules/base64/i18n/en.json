@@ -1,0 +1,20 @@
+{
+  "name": "Base64",
+  "description": "Encode and decode Base64.",
+  "tools": {
+    "base64": {
+      "name": "Base64 Encode / Decode",
+      "description": "Convert text to and from Base64 (UTF-8 safe) on your device."
+    }
+  },
+  "ui": {
+    "encode": "Encode",
+    "decode": "Decode",
+    "urlSafe": "URL-safe",
+    "plainText": "Text",
+    "base64": "Base64",
+    "placeholder": "Type or paste here…",
+    "copy": "Copy",
+    "copied": "Copied to clipboard"
+  }
+}

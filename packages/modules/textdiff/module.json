@@ -1,0 +1,25 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "textdiff",
+  "version": "1.0.0",
+  "category": "text",
+  "icon": "git-compare",
+  "i18nNamespace": "mod-textdiff",
+  "tools": [
+    {
+      "id": "text-diff",
+      "tier": "browser",
+      "surface": "frontend/tools/text-diff",
+      "keywords": [
+        "diff",
+        "compare",
+        "changes",
+        "difference"
+      ]
+    }
+  ],
+  "capabilities": {
+    "fileActions": []
+  },
+  "permissions": []
+}

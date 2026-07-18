@@ -1,0 +1,19 @@
+{
+  "name": "HTML Entities",
+  "description": "Escape and unescape HTML entities.",
+  "tools": {
+    "html-entities": {
+      "name": "HTML Entity Encode / Decode",
+      "description": "Escape or unescape HTML entities on your device."
+    }
+  },
+  "ui": {
+    "encode": "Encode",
+    "decode": "Decode",
+    "input": "Input",
+    "output": "Output",
+    "placeholder": "Type or paste here…",
+    "copy": "Copy",
+    "copied": "Copied to clipboard"
+  }
+}

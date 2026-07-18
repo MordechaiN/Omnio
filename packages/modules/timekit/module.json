@@ -1,0 +1,26 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "timekit",
+  "version": "1.0.0",
+  "category": "utilities",
+  "icon": "clock",
+  "i18nNamespace": "mod-timekit",
+  "tools": [
+    {
+      "id": "unix-timestamp",
+      "tier": "browser",
+      "surface": "frontend/tools/unix-timestamp",
+      "keywords": [
+        "timestamp",
+        "unix",
+        "epoch",
+        "date",
+        "time"
+      ]
+    }
+  ],
+  "capabilities": {
+    "fileActions": []
+  },
+  "permissions": []
+}

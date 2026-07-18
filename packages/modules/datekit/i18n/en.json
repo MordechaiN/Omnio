@@ -1,0 +1,23 @@
+{
+  "name": "Date Kit",
+  "description": "Calculate age and duration between dates.",
+  "tools": {
+    "age": {
+      "name": "Age Calculator",
+      "description": "Calculate exact age in years, months and days on your device."
+    },
+    "date-duration": {
+      "name": "Date Duration",
+      "description": "Calculate the duration between two dates on your device."
+    }
+  },
+  "ui": {
+    "birthDate": "Date of birth",
+    "asOf": "As of",
+    "startDate": "Start date",
+    "endDate": "End date",
+    "ageResult": "{years} years, {months} months, {days} days",
+    "totalDays": "{days} days in total",
+    "invalid": "Enter a valid date."
+  }
+}

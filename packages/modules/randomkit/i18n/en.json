@@ -1,0 +1,20 @@
+{
+  "name": "Random Numbers",
+  "description": "Generate random integers with a strong RNG.",
+  "tools": {
+    "random": {
+      "name": "Random Number Generator",
+      "description": "Generate uniform random integers, optionally distinct, on your device."
+    }
+  },
+  "ui": {
+    "min": "Minimum",
+    "max": "Maximum",
+    "count": "How many",
+    "unique": "No repeats",
+    "generate": "Generate",
+    "result": "Result",
+    "copy": "Copy",
+    "copied": "Copied to clipboard"
+  }
+}

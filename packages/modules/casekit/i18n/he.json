@@ -1,0 +1,29 @@
+{
+  "name": "ממיר רישיות",
+  "description": "המרת טקסט בין סגנונות רישיות.",
+  "tools": {
+    "case-convert": {
+      "name": "ממיר רישיות",
+      "description": "המרת טקסט בין camelCase, snake_case, kebab-case ועוד במכשיר שלך."
+    }
+  },
+  "ui": {
+    "input": "קלט",
+    "output": "פלט",
+    "target": "המרה אל",
+    "placeholder": "הקלידו או הדביקו טקסט…",
+    "copy": "העתקה",
+    "copied": "הועתק ללוח",
+    "case": {
+      "upper": "UPPERCASE",
+      "lower": "lowercase",
+      "title": "Title Case",
+      "sentence": "Sentence case",
+      "camel": "camelCase",
+      "pascal": "PascalCase",
+      "snake": "snake_case",
+      "constant": "CONSTANT_CASE",
+      "kebab": "kebab-case"
+    }
+  }
+}

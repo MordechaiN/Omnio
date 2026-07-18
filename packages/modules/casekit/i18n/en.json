@@ -1,0 +1,29 @@
+{
+  "name": "Case Converter",
+  "description": "Convert text between naming cases.",
+  "tools": {
+    "case-convert": {
+      "name": "Case Converter",
+      "description": "Convert text between camelCase, snake_case, kebab-case and more on your device."
+    }
+  },
+  "ui": {
+    "input": "Input",
+    "output": "Output",
+    "target": "Convert to",
+    "placeholder": "Type or paste text…",
+    "copy": "Copy",
+    "copied": "Copied to clipboard",
+    "case": {
+      "upper": "UPPERCASE",
+      "lower": "lowercase",
+      "title": "Title Case",
+      "sentence": "Sentence case",
+      "camel": "camelCase",
+      "pascal": "PascalCase",
+      "snake": "snake_case",
+      "constant": "CONSTANT_CASE",
+      "kebab": "kebab-case"
+    }
+  }
+}

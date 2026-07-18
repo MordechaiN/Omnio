@@ -1,0 +1,25 @@
+{
+  "name": "Line Tools",
+  "description": "Sort, dedupe and reorder lines.",
+  "tools": {
+    "line-tools": {
+      "name": "Line Tools",
+      "description": "Sort, deduplicate, reverse or shuffle lines of text on your device."
+    }
+  },
+  "ui": {
+    "input": "Lines",
+    "placeholder": "One item per line…",
+    "sortAsc": "Sort A→Z",
+    "sortDesc": "Sort Z→A",
+    "dedupe": "Remove duplicates",
+    "reverse": "Reverse",
+    "shuffle": "Shuffle",
+    "removeBlank": "Remove blank lines",
+    "trim": "Trim whitespace",
+    "optTrim": "Ignore surrounding spaces",
+    "optCase": "Ignore case",
+    "copy": "Copy",
+    "copied": "Copied to clipboard"
+  }
+}

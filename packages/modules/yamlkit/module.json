@@ -1,0 +1,25 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "yamlkit",
+  "version": "1.0.0",
+  "category": "developer",
+  "icon": "file-code",
+  "i18nNamespace": "mod-yamlkit",
+  "tools": [
+    {
+      "id": "yaml-json",
+      "tier": "browser",
+      "surface": "frontend/tools/yaml-json",
+      "keywords": [
+        "yaml",
+        "json",
+        "convert",
+        "yml"
+      ]
+    }
+  ],
+  "capabilities": {
+    "fileActions": []
+  },
+  "permissions": []
+}

@@ -141,12 +141,99 @@ importers:
       '@omnio/i18n':
         specifier: workspace:*
         version: link:../../packages/i18n
+      '@omnio/mod-base64':
+        specifier: workspace:*
+        version: link:../../packages/modules/base64
       '@omnio/mod-case':
         specifier: workspace:*
         version: link:../../packages/modules/case
+      '@omnio/mod-casekit':
+        specifier: workspace:*
+        version: link:../../packages/modules/casekit
+      '@omnio/mod-colorkit':
+        specifier: workspace:*
+        version: link:../../packages/modules/colorkit
+      '@omnio/mod-csvkit':
+        specifier: workspace:*
+        version: link:../../packages/modules/csvkit
+      '@omnio/mod-datekit':
+        specifier: workspace:*
+        version: link:../../packages/modules/datekit
+      '@omnio/mod-finance':
+        specifier: workspace:*
+        version: link:../../packages/modules/finance
+      '@omnio/mod-gradient':
+        specifier: workspace:*
+        version: link:../../packages/modules/gradient
+      '@omnio/mod-hashing':
+        specifier: workspace:*
+        version: link:../../packages/modules/hashing
+      '@omnio/mod-healthkit':
+        specifier: workspace:*
+        version: link:../../packages/modules/healthkit
+      '@omnio/mod-htmlkit':
+        specifier: workspace:*
+        version: link:../../packages/modules/htmlkit
+      '@omnio/mod-jsonkit':
+        specifier: workspace:*
+        version: link:../../packages/modules/jsonkit
+      '@omnio/mod-jwt':
+        specifier: workspace:*
+        version: link:../../packages/modules/jwt
+      '@omnio/mod-linekit':
+        specifier: workspace:*
+        version: link:../../packages/modules/linekit
+      '@omnio/mod-lorem':
+        specifier: workspace:*
+        version: link:../../packages/modules/lorem
+      '@omnio/mod-markdown':
+        specifier: workspace:*
+        version: link:../../packages/modules/markdown
+      '@omnio/mod-numbase':
+        specifier: workspace:*
+        version: link:../../packages/modules/numbase
+      '@omnio/mod-password':
+        specifier: workspace:*
+        version: link:../../packages/modules/password
+      '@omnio/mod-randomkit':
+        specifier: workspace:*
+        version: link:../../packages/modules/randomkit
+      '@omnio/mod-regexlab':
+        specifier: workspace:*
+        version: link:../../packages/modules/regexlab
+      '@omnio/mod-roman':
+        specifier: workspace:*
+        version: link:../../packages/modules/roman
+      '@omnio/mod-slugify':
+        specifier: workspace:*
+        version: link:../../packages/modules/slugify
+      '@omnio/mod-subnet':
+        specifier: workspace:*
+        version: link:../../packages/modules/subnet
+      '@omnio/mod-textbin':
+        specifier: workspace:*
+        version: link:../../packages/modules/textbin
+      '@omnio/mod-textdiff':
+        specifier: workspace:*
+        version: link:../../packages/modules/textdiff
+      '@omnio/mod-textstats':
+        specifier: workspace:*
+        version: link:../../packages/modules/textstats
+      '@omnio/mod-timekit':
+        specifier: workspace:*
+        version: link:../../packages/modules/timekit
+      '@omnio/mod-units':
+        specifier: workspace:*
+        version: link:../../packages/modules/units
+      '@omnio/mod-urlkit':
+        specifier: workspace:*
+        version: link:../../packages/modules/urlkit
       '@omnio/mod-uuid':
         specifier: workspace:*
         version: link:../../packages/modules/uuid
+      '@omnio/mod-yamlkit':
+        specifier: workspace:*
+        version: link:../../packages/modules/yamlkit
       '@omnio/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -412,6 +499,43 @@ importers:
         specifier: ^3.2.0
         version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
 
+  packages/modules/base64:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
   packages/modules/case:
     dependencies:
       '@omnio/module-sdk':
@@ -452,6 +576,1005 @@ importers:
         specifier: ^3.2.0
         version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
 
+  packages/modules/casekit:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
+  packages/modules/colorkit:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
+  packages/modules/csvkit:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
+  packages/modules/datekit:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
+  packages/modules/finance:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
+  packages/modules/gradient:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
+  packages/modules/hashing:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
+  packages/modules/healthkit:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
+  packages/modules/htmlkit:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
+  packages/modules/jsonkit:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
+  packages/modules/jwt:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
+  packages/modules/linekit:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
+  packages/modules/lorem:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
+  packages/modules/markdown:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
+  packages/modules/numbase:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
+  packages/modules/password:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
+  packages/modules/randomkit:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
+  packages/modules/regexlab:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
+  packages/modules/roman:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
+  packages/modules/slugify:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
+  packages/modules/subnet:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
+  packages/modules/textbin:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
+  packages/modules/textdiff:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
+  packages/modules/textstats:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
+  packages/modules/timekit:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
+  packages/modules/units:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
+  packages/modules/urlkit:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
   packages/modules/uuid:
     dependencies:
       '@omnio/module-sdk':
@@ -460,6 +1583,46 @@ importers:
       '@omnio/ui':
         specifier: workspace:*
         version: link:../../ui
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
+  packages/modules/yamlkit:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      yaml:
+        specifier: ^2.6.0
+        version: 2.9.0
       zod:
         specifier: ^3.25.0
         version: 3.25.76
