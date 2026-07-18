@@ -13,10 +13,12 @@ Format: each decision has a recommendation and its reasoning. Overrides are welc
 **Recommendation: AGPL-3.0 for the platform; MIT for `@omnio/module-sdk` and `@omnio/contracts`.**
 AGPL is the proven defense for self-hosted products (Immich, Nextcloud, Grafana lineage): anyone may self-host, fork, and modify, but a cloud vendor reselling Omnio must publish their changes. MIT on the SDK/contracts means plugin and integration authors are never license-encumbered — their code is theirs. Alternative: MIT everywhere maximizes adoption but invites closed-source SaaS clones of the whole product; Apache-2.0 adds a patent grant but same clone exposure.
 
-### D2 · Authentication default for v1 — **DECIDED: single admin, on by default**
+### D2 · Authentication default for v1 — **REVERSED 2026-07-18: personal mode (no auth), on by default**
 
-**Recommendation: single-admin account, enabled by default; password set during a first-run setup screen; `OMNIO_AUTH=none` escape hatch for trusted LANs (with loud warnings, refusing non-local binds unless force-flagged).**
-Full rationale in [00-vision-review.md](00-vision-review.md) §1.1 and [06-security.md](06-security.md) §4. Alternative — auth off by default — is friendlier for first contact but indefensible the first time an instance on a VPS gets scraped.
+**Superseded.** Original decision below is preserved for history; the founder reversed it directly: Omnio is primarily a self-hosted *personal* workspace, and the default deployment must require no account, no login, and no setup wizard — open it and start using it. `OMNIO_MODE=personal` (default) is now the unauthenticated single-implicit-user posture; `OMNIO_MODE=multi-user` is the original single-admin-account-with-password model, opt-in for shared/multi-user installations. Both share one codebase (`apps/api/src/auth/`); personal mode still warns loudly on boot that the instance has no auth, but no longer refuses to boot on a non-local bind by default (the product's own Docker deployment always binds `0.0.0.0` internally, so that refusal blocked the default install path — see `OMNIO_AUTH_ALLOW_INSECURE`, now defaulted `true` at the deployment layer, `false` at the library layer).
+
+~~**Recommendation: single-admin account, enabled by default; password set during a first-run setup screen; `OMNIO_AUTH=none` escape hatch for trusted LANs (with loud warnings, refusing non-local binds unless force-flagged).**
+Full rationale in [00-vision-review.md](00-vision-review.md) §1.1 and [06-security.md](06-security.md) §4. Alternative — auth off by default — is friendlier for first contact but indefensible the first time an instance on a VPS gets scraped.~~
 
 ### D3 · File retention default — **DECIDED: ephemeral 24h + explicit keep**
 

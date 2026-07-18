@@ -8,8 +8,8 @@ import type { AuthedRequest } from "./types";
 
 /**
  * Global guard: every route is authenticated unless marked {@link Public}.
- * With `OMNIO_AUTH=none` it attaches the singleton admin so downstream
- * ownership still resolves (docs/architecture/06-security.md §1, §4).
+ * In personal mode (`OMNIO_MODE=personal`) it attaches the singleton system
+ * user so downstream ownership still resolves (docs/architecture/06-security.md §1, §4).
  */
 @Injectable()
 export class SessionGuard implements CanActivate {

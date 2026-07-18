@@ -21,4 +21,4 @@ Until 1.0, only the latest release receives security fixes. From 1.0 onward, the
 ## Scope notes
 
 - Vulnerabilities in bundled third-party processing tools (FFmpeg, ImageMagick, Ghostscript, …) are in scope when Omnio's sandboxing or configuration fails to contain them — that containment is our job.
-- `OMNIO_AUTH=none` deployments intentionally disable authentication; reports that assume that mode are out of scope unless they escape its documented constraints.
+- `OMNIO_MODE=personal` deployments (the default) intentionally disable authentication; reports that assume that mode are out of scope unless they escape its documented constraints.

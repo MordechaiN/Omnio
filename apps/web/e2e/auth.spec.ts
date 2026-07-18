@@ -12,16 +12,25 @@ function status(page: Page, body: unknown) {
   );
 }
 
-base.describe("authentication", () => {
+base.describe("authentication — personal mode (default)", () => {
+  base("skips straight to the workspace, no login UI", async ({ page }) => {
+    await status(page, { mode: "personal", needsSetup: false, authenticated: true, username: "admin" });
+    await page.goto("/");
+    await expect(page.getByRole("heading", { name: "Start with a tool" })).toBeVisible();
+    await expect(page.getByLabel("Account")).not.toBeVisible();
+  });
+});
+
+base.describe("authentication — multi-user mode", () => {
   base("first run shows the setup screen", async ({ page }) => {
-    await status(page, { needsSetup: true, authenticated: false, username: null });
+    await status(page, { mode: "multi-user", needsSetup: true, authenticated: false, username: null });
     await page.goto("/");
     await expect(page.getByRole("heading", { name: "Welcome to Omnio" })).toBeVisible();
     await expect(page.getByLabel("Password")).toBeVisible();
   });
 
   base("returning visitor sees the login screen", async ({ page }) => {
-    await status(page, { needsSetup: false, authenticated: false, username: null });
+    await status(page, { mode: "multi-user", needsSetup: false, authenticated: false, username: null });
     await page.goto("/");
     await expect(page.getByRole("heading", { name: "Welcome back" })).toBeVisible();
   });
@@ -39,6 +48,7 @@ base.describe("authentication", () => {
         status: 200,
         headers: CORS,
         body: JSON.stringify({
+          mode: "multi-user",
           needsSetup: false,
           authenticated,
           username: authenticated ? "admin" : null,

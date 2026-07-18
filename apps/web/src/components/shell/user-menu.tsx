@@ -20,6 +20,8 @@ export function UserMenu() {
 
   const username = status.data?.username ?? "";
   if (!status.data?.authenticated) return null;
+  // Personal mode has no session to sign out of and no other account to show.
+  if (status.data.mode === "personal") return null;
 
   return (
     <DropdownMenu>

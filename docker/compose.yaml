@@ -58,10 +58,13 @@ services:
       OMNIO_API_HOST: "0.0.0.0"
       OMNIO_DATABASE_URL: postgresql://omnio:${POSTGRES_PASSWORD:-omnio}@postgres:5432/omnio
       OMNIO_REDIS_URL: redis://redis:6379
-      OMNIO_AUTH: ${OMNIO_AUTH:-password}
+      OMNIO_MODE: ${OMNIO_MODE:-personal}
+      # true by default: personal mode (the default above) has no login, so this
+      # is what actually lets the container boot without extra config. Set to
+      # false if you switch OMNIO_MODE to multi-user and want the stricter posture.
+      OMNIO_AUTH_ALLOW_INSECURE: ${OMNIO_AUTH_ALLOW_INSECURE:-true}
       OMNIO_SESSION_SECRET: ${OMNIO_SESSION_SECRET:?OMNIO_SESSION_SECRET must be set — generate with: openssl rand -hex 32}
       OMNIO_SESSION_TTL_HOURS: ${OMNIO_SESSION_TTL_HOURS:-168}
-      OMNIO_AUTH_ALLOW_INSECURE: ${OMNIO_AUTH_ALLOW_INSECURE:-false}
       OMNIO_STORAGE_ROOT: /data
       OMNIO_MAX_UPLOAD_MB: ${OMNIO_MAX_UPLOAD_MB:-512}
       OMNIO_SCRATCH_TTL_HOURS: ${OMNIO_SCRATCH_TTL_HOURS:-24}

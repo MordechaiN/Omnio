@@ -14,8 +14,12 @@ export const UsernameSchema = z
 /** Admin passwords: long over complex. Enforced on setup and change. */
 export const PasswordSchema = z.string().min(12).max(256);
 
+export const DeploymentModeSchema = z.enum(["personal", "multi-user"]);
+export type DeploymentMode = z.infer<typeof DeploymentModeSchema>;
+
 export const AuthStatusSchema = z.object({
-  /** No admin exists yet — the first-run setup screen should be shown. */
+  mode: DeploymentModeSchema,
+  /** No admin exists yet — the first-run setup screen should be shown. Always false in personal mode. */
   needsSetup: z.boolean(),
   authenticated: z.boolean(),
   username: z.string().nullable(),

@@ -27,11 +27,13 @@ const EnvSchema = z
     OMNIO_DATABASE_URL: z.string().url(),
     OMNIO_REDIS_URL: z.string().url(),
 
-    /** Authentication posture (decision D2). */
-    OMNIO_AUTH: z.enum(["password", "none"]).default("password"),
+    /** Deployment mode (decision D2, reversed 2026-07-18): "personal" is a
+     * single implicit local user with no login; "multi-user" is the original
+     * single-admin-account-with-password model. */
+    OMNIO_MODE: z.enum(["personal", "multi-user"]).default("personal"),
     /** Required in production; a loud dev default keeps first-run friction low. */
     OMNIO_SESSION_SECRET: z.string().min(32).default(DEV_SESSION_SECRET),
-    /** Permit `OMNIO_AUTH=none` on a non-local bind. Off by default. */
+    /** Permit `OMNIO_MODE=personal` on a non-local bind. Off by default. */
     OMNIO_AUTH_ALLOW_INSECURE: z
       .enum(["true", "false"])
       .default("false")

@@ -41,7 +41,7 @@ Post-v1 hardening ladder (documented so it's a plan, not a hope): gVisor/Kata ru
 
 ## 4. Web/API security
 
-- **Auth (D2):** single-admin by default; Argon2id password hashing; server-side sessions in httpOnly, `SameSite=Lax`, `Secure` cookies; session rotation on login; constant-time comparisons. `OMNIO_AUTH=none` prints a loud boot warning and disables itself if the bind address is non-local unless force-flagged.
+- **Auth (D2, reversed 2026-07-18):** `OMNIO_MODE=personal` (default) — no accounts, no login, a singleton implicit user; always prints a loud boot warning. `OMNIO_MODE=multi-user` — single-admin account, Argon2id password hashing, server-side sessions in httpOnly, `SameSite=Lax`, `Secure` cookies, session rotation on login, constant-time comparisons.
 - **CSRF:** SameSite cookies + origin-check middleware on mutations (belt and suspenders; no token dance needed for same-origin SPA).
 - **Rate limiting:** Redis-backed, per-session and per-IP, tiered (auth endpoints strictest, job creation next, reads loosest). 429s carry Retry-After.
 - **CSP:** nonce-based strict policy — `default-src 'self'`; no `unsafe-inline` scripts; `frame-src` only for the sandboxed preview origin; `connect-src 'self'`. WASM enabled via `wasm-unsafe-eval` only (needed for browser-tier codecs, documented tradeoff).

@@ -15,7 +15,7 @@ That said, the vision as written has gaps that would become expensive later. Thi
 
 The vision specifies favorites, recents, history, settings, admin, and audit logs — all per-user state — but never mentions users, sessions, or login. A self-hosted app exposed beyond localhost without an auth story is a security incident waiting to happen (see the history of unauthenticated self-hosted dashboards being scanned and exploited).
 
-**Amendment:** v1 ships with a single-admin account (password set on first run) enabled by default, with an explicit `OMNIO_AUTH=none` escape hatch for trusted LANs. The data model is multi-user-ready from day one (every user-owned row has a `userId`), so multi-user + OIDC/SSO can land later without migrations that rewrite the world. See decision **D2** in [08-decisions.md](08-decisions.md).
+**Amendment (reversed 2026-07-18):** v1 ships in personal mode by default — no accounts, no login, immediate use — with `OMNIO_MODE=multi-user` as an opt-in single-admin-account (password set on first run) posture for shared installations. The data model is multi-user-ready from day one (every user-owned row has a `userId`, filled by a singleton implicit user in personal mode), so multi-user + OIDC/SSO can land later without migrations that rewrite the world. See decision **D2** in [08-decisions.md](08-decisions.md).
 
 ### 1.2 "Everything runs on the server" is the wrong default
 

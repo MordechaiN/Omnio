@@ -9,7 +9,7 @@ function env(overrides: Partial<Env>): Env {
     OMNIO_API_HOST: "0.0.0.0",
     OMNIO_DATABASE_URL: "postgresql://localhost/omnio",
     OMNIO_REDIS_URL: "redis://localhost:6379",
-    OMNIO_AUTH: "password",
+    OMNIO_MODE: "multi-user",
     OMNIO_SESSION_SECRET: "x".repeat(32),
     OMNIO_AUTH_ALLOW_INSECURE: false,
     OMNIO_STORAGE_ROOT: "./.omnio-data",
@@ -25,28 +25,28 @@ function env(overrides: Partial<Env>): Env {
 }
 
 describe("assertAuthPosture", () => {
-  it("does nothing when auth is enabled", () => {
+  it("does nothing in multi-user mode", () => {
     const warn = vi.fn();
-    assertAuthPosture(env({ OMNIO_AUTH: "password" }), warn);
+    assertAuthPosture(env({ OMNIO_MODE: "multi-user" }), warn);
     expect(warn).not.toHaveBeenCalled();
   });
 
-  it("warns but allows auth=none on a local bind", () => {
+  it("warns but allows personal mode on a local bind", () => {
     const warn = vi.fn();
-    assertAuthPosture(env({ OMNIO_AUTH: "none", OMNIO_API_HOST: "127.0.0.1" }), warn);
+    assertAuthPosture(env({ OMNIO_MODE: "personal", OMNIO_API_HOST: "127.0.0.1" }), warn);
     expect(warn).toHaveBeenCalledOnce();
   });
 
-  it("refuses auth=none on a non-local bind without the override", () => {
+  it("refuses personal mode on a non-local bind without the override", () => {
     expect(() =>
-      assertAuthPosture(env({ OMNIO_AUTH: "none", OMNIO_API_HOST: "0.0.0.0" }), vi.fn()),
+      assertAuthPosture(env({ OMNIO_MODE: "personal", OMNIO_API_HOST: "0.0.0.0" }), vi.fn()),
     ).toThrow(/refuses a non-local bind/);
   });
 
-  it("allows auth=none on a non-local bind when force-flagged", () => {
+  it("allows personal mode on a non-local bind when force-flagged", () => {
     const warn = vi.fn();
     assertAuthPosture(
-      env({ OMNIO_AUTH: "none", OMNIO_API_HOST: "0.0.0.0", OMNIO_AUTH_ALLOW_INSECURE: true }),
+      env({ OMNIO_MODE: "personal", OMNIO_API_HOST: "0.0.0.0", OMNIO_AUTH_ALLOW_INSECURE: true }),
       warn,
     );
     expect(warn).toHaveBeenCalledOnce();

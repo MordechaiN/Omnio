@@ -27,14 +27,17 @@ export interface IssuedSession {
 }
 
 /**
- * Single-admin authentication (decision D2). When `OMNIO_AUTH=none` the service
- * still provisions one real admin row so every user-owned record has a valid
- * owner (docs/architecture/01-system-overview.md §5), and the guard treats all
- * requests as that admin.
+ * Deployment-mode authentication (decision D2, reversed 2026-07-18: personal
+ * mode is the default). In personal mode the service still provisions one
+ * real system-user row so every user-owned record has a valid owner
+ * (docs/architecture/01-system-overview.md §5), and the guard treats all
+ * requests as that user — no login, no setup screen. Multi-user mode is the
+ * original single-admin-account-with-password model.
  */
 @Injectable()
 export class AuthService implements OnModuleInit {
   private readonly enabled: boolean;
+  private readonly mode: "personal" | "multi-user";
   private readonly ttlMs: number;
   /** Equalises login timing for unknown usernames (anti-enumeration). */
   private decoyHash: Promise<string> | null = null;
@@ -44,7 +47,8 @@ export class AuthService implements OnModuleInit {
     private readonly prisma: PrismaService,
     private readonly audit: AuditService,
   ) {
-    this.enabled = env.OMNIO_AUTH === "password";
+    this.mode = env.OMNIO_MODE;
+    this.enabled = env.OMNIO_MODE === "multi-user";
     this.ttlMs = env.OMNIO_SESSION_TTL_HOURS * 3_600_000;
   }
 
@@ -60,10 +64,11 @@ export class AuthService implements OnModuleInit {
 
   async status(current: AuthedUser | null): Promise<AuthStatus> {
     if (!this.enabled) {
-      return { needsSetup: false, authenticated: true, username: SYSTEM_USERNAME };
+      return { mode: this.mode, needsSetup: false, authenticated: true, username: SYSTEM_USERNAME };
     }
     const adminCount = await this.prisma.user.count();
     return {
+      mode: this.mode,
       needsSetup: adminCount === 0,
       authenticated: current !== null,
       username: current?.username ?? null,

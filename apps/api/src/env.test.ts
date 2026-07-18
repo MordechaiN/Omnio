@@ -10,7 +10,7 @@ describe("loadEnv", () => {
   it("applies defaults over the required connection URLs", () => {
     const env = loadEnv(base);
     expect(env.OMNIO_API_PORT).toBe(4000);
-    expect(env.OMNIO_AUTH).toBe("password");
+    expect(env.OMNIO_MODE).toBe("personal");
     expect(env.OMNIO_SCRATCH_TTL_HOURS).toBe(24);
     expect(env.OMNIO_AUTH_ALLOW_INSECURE).toBe(false);
   });
