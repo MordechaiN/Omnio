@@ -1,0 +1,18 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "chmod",
+  "version": "1.0.0",
+  "category": "utilities",
+  "icon": "file-lock",
+  "i18nNamespace": "mod-chmod",
+  "tools": [
+    {
+      "id": "chmod-calc",
+      "tier": "browser",
+      "surface": "frontend/tools/chmod-calc",
+      "keywords": ["chmod", "permissions", "unix", "linux", "octal", "file", "mode"]
+    }
+  ],
+  "capabilities": { "fileActions": [] },
+  "permissions": []
+}

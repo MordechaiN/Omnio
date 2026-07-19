@@ -1,0 +1,32 @@
+{
+  "name": "IP Addresses",
+  "description": "Inspect and convert IP addresses.",
+  "tools": {
+    "ip-inspect": {
+      "name": "IP Address Inspector",
+      "description": "Classify an IPv4 or IPv6 address and convert it between notations — on your device."
+    }
+  },
+  "ui": {
+    "address": "IP address",
+    "invalid": "That doesn't look like a valid IPv4 or IPv6 address.",
+    "integer": "Integer",
+    "hex": "Hexadecimal",
+    "binary": "Binary",
+    "expanded": "Expanded",
+    "compressed": "Compressed",
+    "kind": {
+      "private": "Private (RFC 1918)",
+      "loopback": "Loopback",
+      "linkLocal": "Link-local",
+      "multicast": "Multicast",
+      "broadcast": "Broadcast",
+      "unspecified": "Unspecified",
+      "cgnat": "Carrier-grade NAT (RFC 6598)",
+      "documentation": "Documentation range",
+      "public": "Public",
+      "uniqueLocal": "Unique local",
+      "global": "Global unicast"
+    }
+  }
+}

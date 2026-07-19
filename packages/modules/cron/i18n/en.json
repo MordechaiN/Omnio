@@ -1,0 +1,34 @@
+{
+  "name": "Cron",
+  "description": "Understand and preview crontab schedules.",
+  "tools": {
+    "cron-explain": {
+      "name": "Cron Explainer",
+      "description": "Break a cron expression into plain fields and preview its next run times — on your device."
+    }
+  },
+  "ui": {
+    "expression": "Cron expression",
+    "presets": "Try:",
+    "breakdown": "Field breakdown",
+    "nextRuns": "Next 5 runs (your local time)",
+    "neverRuns": "This expression never fires — the day and month combination doesn't exist.",
+    "errorShape": "A cron expression needs exactly five fields: minute, hour, day of month, month, day of week.",
+    "errorField": "Invalid {field} value: \"{token}\"",
+    "valuesTruncated": "{values} … +{more} more",
+    "field": {
+      "minute": "Minute",
+      "hour": "Hour",
+      "dayOfMonth": "Day of month",
+      "month": "Month",
+      "dayOfWeek": "Day of week"
+    },
+    "every": {
+      "minute": "Every minute",
+      "hour": "Every hour",
+      "dayOfMonth": "Every day of the month",
+      "month": "Every month",
+      "dayOfWeek": "Every day of the week"
+    }
+  }
+}

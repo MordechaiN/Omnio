@@ -11,6 +11,11 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ### Added
 
+- **Five new tools** — Cron Explainer (break a crontab expression into plain fields and preview its next runs), Permission Calculator (Unix chmod between octal, symbolic, and checkboxes), Compound Interest (savings growth with monthly contributions and a year-by-year table), IP Address Inspector (classify IPv4/IPv6 and convert between notations), and Image Resizer (resize and convert to PNG/JPEG/WebP entirely in the browser — images never leave the device). Every tool ships with English + Hebrew copy, RTL-aware layout, and unit tests, and appears in search, categories, and the command palette automatically.
+- **Emoji category tiles** — the home grid and category pages now carry one emoji per category as a recognition anchor (🖼️ 📝 💻 📈 🔐 🧰 🌐 …), always `aria-hidden` so screen readers hear only the category name. Compact navigation (sidebar, command palette) keeps monochrome icons.
+- **Changelog section accents** — Keep-a-Changelog sections are typed at a glance (✨ New, 🔧 Changed, 🐛 Fixed, 🔐 Security), and inline `code` and **bold** in entries now render instead of showing raw Markdown markers.
+- **A first-run favorites hint** — a brand-new install shows one quiet ⭐ hint that tools can be starred; it disappears as soon as anything is pinned or used.
+
 - **Four visual styles** — Classic (the original), **Modern** (new default: warmer neutrals, rounder corners, a bolder focus ring), Minimal (near-grayscale, tightest radii, flat shadows), and Accessible (AAA contrast and bold borders by default, 4px focus ring). Switchable and fully reversible from the theme menu, Settings → Appearance, or the command palette; persisted per device. Every style clears the same WCAG AA/AAA gate.
 - **Five accent colors** — Indigo (default), Blue, Purple, Green, Orange — independent of style, so any style can wear any accent. 1,925 automated contrast assertions cover every style × accent × theme × contrast-mode combination.
 - **Density control** — Compact, Comfortable (default), or Large — scales shared control heights (buttons, inputs, selects) app-wide from one Settings switch, for bigger touch targets on demand.
@@ -21,6 +26,8 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ### Changed
 
+- **Empty categories are hidden until they earn a tool.** Categories with nothing in them no longer appear on the home grid, the sidebar, or the command palette — visibility is derived from the tool registry, so a category reappears automatically the moment its first tool ships. Images is the first to graduate, unlocked by the Image Resizer.
+- The sidebar's category list now shows a per-category tool count, and the home header states Omnio's promise outright: everything runs in your browser — your data never leaves your device.
 - **History removed from the UI.** The personal per-run log (`/history`: timestamps, statuses, re-downloads) is gone, along with the local per-device usage counters that briefly replaced it. Live job tracking during a run (the Activity tray, SSE progress, downloads) is unaffected — only the after-the-fact personal record was removed, in favor of anonymous platform-wide statistics.
 - The About page's Project/Runtime/Services sections were reorganized and now include an overall health summary.
 

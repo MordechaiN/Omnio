@@ -1,0 +1,27 @@
+{
+  "name": "Images",
+  "description": "Resize and convert images in your browser.",
+  "tools": {
+    "image-resize": {
+      "name": "Image Resizer",
+      "description": "Resize an image and convert it to PNG, JPEG, or WebP — entirely on your device."
+    }
+  },
+  "ui": {
+    "dropLabel": "Choose or drop an image",
+    "dropTitle": "Drop an image here, or click to choose",
+    "dropReplace": "Drop a new image to replace the current one",
+    "dropHint": "PNG, JPEG, WebP, GIF, and anything else your browser can open.",
+    "width": "Width (px)",
+    "height": "Height (px)",
+    "lockAspect": "Keep aspect ratio",
+    "format": "Output format",
+    "quality": "Quality: {quality}%",
+    "download": "Resize & download",
+    "working": "Working…",
+    "privacy": "Your image never leaves this device — resizing happens in your browser.",
+    "errorUnsupported": "Couldn't open that file as an image. Try a PNG, JPEG, or WebP.",
+    "errorDimensions": "Width and height must be whole numbers between 1 and 20,000 pixels.",
+    "errorExport": "Export failed — this browser may not support encoding to the selected format."
+  }
+}

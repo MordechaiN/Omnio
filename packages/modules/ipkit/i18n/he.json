@@ -1,0 +1,32 @@
+{
+  "name": "כתובות IP",
+  "description": "בדיקה והמרה של כתובות IP.",
+  "tools": {
+    "ip-inspect": {
+      "name": "בודק כתובות IP",
+      "description": "סיווג כתובת IPv4 או IPv6 והמרה בין צורות כתיבה — במכשיר שלכם."
+    }
+  },
+  "ui": {
+    "address": "כתובת IP",
+    "invalid": "זו לא נראית כתובת IPv4 או IPv6 תקינה.",
+    "integer": "מספר שלם",
+    "hex": "הקסדצימלי",
+    "binary": "בינארי",
+    "expanded": "צורה מלאה",
+    "compressed": "צורה מקוצרת",
+    "kind": {
+      "private": "פרטית (RFC 1918)",
+      "loopback": "Loopback",
+      "linkLocal": "Link-local",
+      "multicast": "Multicast",
+      "broadcast": "Broadcast",
+      "unspecified": "לא מוגדרת",
+      "cgnat": "NAT ספקי (RFC 6598)",
+      "documentation": "טווח תיעוד",
+      "public": "ציבורית",
+      "uniqueLocal": "מקומית ייחודית",
+      "global": "Global unicast"
+    }
+  }
+}

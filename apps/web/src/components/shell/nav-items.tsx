@@ -1,21 +1,24 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { CATEGORY_IDS } from "@omnio/core";
 import { cn, Icon } from "@omnio/ui";
 import { BarChart3, Home, Info, ScrollText, Settings } from "lucide-react";
 import { Link, usePathname } from "@/i18n/navigation";
 import { CATEGORY_ICONS } from "@/lib/category-icons";
+import { ACTIVE_CATEGORY_IDS, TOOL_COUNT_BY_CATEGORY } from "@/lib/categories";
 
 function NavLink({
   href,
   icon,
   label,
+  count,
   onNavigate,
 }: {
   href: string;
   icon: React.ComponentProps<typeof Icon>["icon"];
   label: string;
+  /** Right-aligned tool count — category rows only. */
+  count?: number;
   onNavigate?: () => void;
 }) {
   const pathname = usePathname();
@@ -41,6 +44,16 @@ function NavLink({
     >
       <Icon icon={icon} size={16} className={active ? "text-accent" : "text-text-muted"} />
       <span className="truncate">{label}</span>
+      {count !== undefined ? (
+        <span
+          className={cn(
+            "ms-auto text-xs tabular-nums",
+            active ? "text-text-secondary" : "text-text-muted",
+          )}
+        >
+          {count}
+        </span>
+      ) : null}
     </Link>
   );
 }
@@ -71,12 +84,13 @@ export function NavItems({ onNavigate }: { onNavigate?: () => void }) {
         <p className="mb-1.5 px-2.5 text-xs font-semibold tracking-wide text-text-muted uppercase">
           {t("nav.categories")}
         </p>
-        {CATEGORY_IDS.map((id) => (
+        {ACTIVE_CATEGORY_IDS.map((id) => (
           <NavLink
             key={id}
             href={`/t/${id}`}
             icon={CATEGORY_ICONS[id]}
             label={t(`categories.${id}.name`)}
+            count={TOOL_COUNT_BY_CATEGORY.get(id)}
             onNavigate={onNavigate}
           />
         ))}

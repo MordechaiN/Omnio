@@ -56,6 +56,42 @@ export default async function ChangelogPage({
     return sectionNames[label.toLowerCase()] ?? label;
   };
 
+  // Typed accents for the Keep-a-Changelog sections — recognition at a glance
+  // when scanning releases. Decorative only, hence aria-hidden at the call site.
+  const sectionEmoji: Record<string, string> = {
+    new: "✨",
+    changed: "🔧",
+    fixed: "🐛",
+    security: "🔐",
+    removed: "🗑️",
+    deprecated: "⏳",
+    "known limitations": "⚠️",
+  };
+  const emojiFor = (type: string): string | null =>
+    sectionEmoji[sectionLabel(type).toLowerCase()] ?? null;
+
+  // CHANGELOG.md items use inline Markdown emphasis and code spans; render the
+  // two we actually write (**bold**, `code`) instead of showing raw markers.
+  const renderInline = (text: string): React.ReactNode =>
+    text.split("**").map((chunk, i) => {
+      const withCode = chunk.split("`").map((part, j) =>
+        j % 2 === 1 ? (
+          <code key={j} className="rounded-sm bg-surface-raised px-1 py-0.5 font-mono text-[0.8125rem]">
+            {part}
+          </code>
+        ) : (
+          part
+        ),
+      );
+      return i % 2 === 1 ? (
+        <strong key={i} className="font-medium text-text">
+          {withCode}
+        </strong>
+      ) : (
+        <span key={i}>{withCode}</span>
+      );
+    });
+
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-8 px-4 py-8 sm:px-6 lg:py-10">
       <header className="animate-rise flex flex-col gap-1">
@@ -70,8 +106,13 @@ export default async function ChangelogPage({
           {releases.map((release) => (
             <section key={release.version} className="flex flex-col gap-4">
               <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-b border-border-subtle pb-2">
-                <h2 dir="ltr" className="text-lg font-semibold tracking-tight">
-                  v{release.version}
+                <h2
+                  dir={release.version.toLowerCase() === "unreleased" ? undefined : "ltr"}
+                  className="text-lg font-semibold tracking-tight"
+                >
+                  {release.version.toLowerCase() === "unreleased"
+                    ? t("unreleased")
+                    : `v${release.version}`}
                 </h2>
                 {release.date ? (
                   <time className="text-sm text-text-muted">{release.date}</time>
@@ -82,12 +123,15 @@ export default async function ChangelogPage({
               </div>
               {release.sections.map((section) => (
                 <div key={section.type} className="flex flex-col gap-2">
-                  <h3 className="text-sm font-semibold text-text-secondary">
+                  <h3 className="flex items-center gap-1.5 text-sm font-semibold text-text-secondary">
+                    {emojiFor(section.type) ? (
+                      <span aria-hidden="true">{emojiFor(section.type)}</span>
+                    ) : null}
                     {localizedLabel(section.type)}
                   </h3>
                   <ul className="flex list-disc flex-col gap-1 ps-5 text-sm text-text-secondary">
                     {section.items.map((item, index) => (
-                      <li key={index}>{item}</li>
+                      <li key={index}>{renderInline(item)}</li>
                     ))}
                   </ul>
                 </div>

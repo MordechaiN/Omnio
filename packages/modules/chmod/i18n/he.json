@@ -1,0 +1,30 @@
+{
+  "name": "הרשאות",
+  "description": "עבודה עם הרשאות קבצים ב-Unix.",
+  "tools": {
+    "chmod-calc": {
+      "name": "מחשבון הרשאות",
+      "description": "המרת הרשאות קבצים ב-Unix בין אוקטלי, סימבולי ותיבות סימון — במכשיר שלכם."
+    }
+  },
+  "ui": {
+    "octal": "אוקטלי",
+    "symbolic": "סימבולי",
+    "octalInvalid": "הזינו שלוש ספרות אוקטליות, למשל 644 או 755.",
+    "symbolicInvalid": "הזינו תשעה תווים של rwx או מקפים, למשל rw-r--r--.",
+    "matrixCaption": "מטריצת הרשאות לפי תפקיד",
+    "role": "תפקיד",
+    "roleName": {
+      "owner": "בעלים",
+      "group": "קבוצה",
+      "others": "אחרים"
+    },
+    "permission": {
+      "read": "קריאה",
+      "write": "כתיבה",
+      "execute": "הרצה"
+    },
+    "cellLabel": "{role}: {permission}",
+    "commandHint": "החלה באמצעות:"
+  }
+}

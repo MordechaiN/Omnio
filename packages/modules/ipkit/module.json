@@ -1,0 +1,18 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "ipkit",
+  "version": "1.0.0",
+  "category": "networking",
+  "icon": "globe",
+  "i18nNamespace": "mod-ipkit",
+  "tools": [
+    {
+      "id": "ip-inspect",
+      "tier": "browser",
+      "surface": "frontend/tools/ip-inspect",
+      "keywords": ["ip", "ipv4", "ipv6", "address", "private", "public", "binary", "hex"]
+    }
+  ],
+  "capabilities": { "fileActions": [] },
+  "permissions": []
+}

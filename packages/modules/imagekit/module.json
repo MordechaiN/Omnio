@@ -1,0 +1,18 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "imagekit",
+  "version": "1.0.0",
+  "category": "images",
+  "icon": "image",
+  "i18nNamespace": "mod-imagekit",
+  "tools": [
+    {
+      "id": "image-resize",
+      "tier": "browser",
+      "surface": "frontend/tools/image-resize",
+      "keywords": ["image", "resize", "convert", "png", "jpeg", "webp", "compress", "photo"]
+    }
+  ],
+  "capabilities": { "fileActions": [] },
+  "permissions": []
+}

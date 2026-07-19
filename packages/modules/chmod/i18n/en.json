@@ -1,0 +1,30 @@
+{
+  "name": "Permissions",
+  "description": "Work with Unix file permissions.",
+  "tools": {
+    "chmod-calc": {
+      "name": "Permission Calculator",
+      "description": "Convert Unix file permissions between octal, symbolic, and checkboxes — on your device."
+    }
+  },
+  "ui": {
+    "octal": "Octal",
+    "symbolic": "Symbolic",
+    "octalInvalid": "Enter three octal digits, like 644 or 755.",
+    "symbolicInvalid": "Enter nine characters of rwx or dashes, like rw-r--r--.",
+    "matrixCaption": "Permission matrix by role",
+    "role": "Role",
+    "roleName": {
+      "owner": "Owner",
+      "group": "Group",
+      "others": "Others"
+    },
+    "permission": {
+      "read": "Read",
+      "write": "Write",
+      "execute": "Execute"
+    },
+    "cellLabel": "{role}: {permission}",
+    "commandHint": "Apply with:"
+  }
+}

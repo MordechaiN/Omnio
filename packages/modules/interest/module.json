@@ -1,0 +1,18 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "interest",
+  "version": "1.0.0",
+  "category": "finance",
+  "icon": "trending-up",
+  "i18nNamespace": "mod-interest",
+  "tools": [
+    {
+      "id": "compound-interest",
+      "tier": "browser",
+      "surface": "frontend/tools/compound-interest",
+      "keywords": ["interest", "compound", "savings", "investment", "growth", "apy"]
+    }
+  ],
+  "capabilities": { "fileActions": [] },
+  "permissions": []
+}

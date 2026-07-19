@@ -4,7 +4,9 @@ test.describe("app shell & landing", () => {
   test("home is the category browser, not a marketing page (en)", async ({ page }) => {
     await page.goto("/");
     await expect(page.getByRole("heading", { level: 1 })).toContainText("Categories");
-    await expect(page.getByRole("link", { name: "PDF", exact: true }).first()).toBeVisible();
+    await expect(page.getByRole("link", { name: "Developer" }).first()).toBeVisible();
+    // Empty categories are hidden until they have tools — no dead-end cards.
+    await expect(page.getByRole("link", { name: "PDF", exact: true })).toHaveCount(0);
     // The old landing-page sections must be gone.
     await expect(page.getByText("Why Omnio")).toHaveCount(0);
     await expect(page.getByText("Questions, answered")).toHaveCount(0);
@@ -31,7 +33,8 @@ test.describe("app shell & landing", () => {
   });
 
   test("an empty category shows an honest empty state, not a placeholder", async ({ page }) => {
-    await page.goto("/t/images");
+    // Empty categories are hidden from navigation but stay URL-reachable.
+    await page.goto("/t/pdf");
     await expect(page.getByText("No tools here yet")).toBeVisible();
   });
 
@@ -50,8 +53,10 @@ test.describe("command palette", () => {
     await expect(input).toBeVisible();
     await expect(input).toBeFocused();
 
+    // Select the category option explicitly: "images" also matches the Image
+    // Resizer tool, and fuzzy ranking between them is not part of this contract.
     await input.fill("images");
-    await page.keyboard.press("Enter");
+    await page.getByRole("option", { name: "Images", exact: true }).click();
     await expect(page).toHaveURL(/\/t\/images$/);
   });
 

@@ -3,8 +3,9 @@ import { setRequestLocale } from "next-intl/server";
 import { hasLocale, useTranslations } from "next-intl";
 import { use } from "react";
 import { CATEGORY_IDS, isCategoryId, type CategoryId } from "@omnio/core";
-import { EmptyState, Icon } from "@omnio/ui";
+import { EmptyState } from "@omnio/ui";
 import { routing } from "@/i18n/routing";
+import { CATEGORY_EMOJI } from "@/lib/category-emoji";
 import { CATEGORY_ICONS } from "@/lib/category-icons";
 import { SEARCH_ENTRIES } from "@/generated/registry.search";
 import { ToolGrid } from "@/components/workspace/tool-grid";
@@ -34,8 +35,11 @@ function CategoryContent({ category }: { category: CategoryId }) {
   return (
     <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-8 sm:px-6 lg:py-10">
       <header className="animate-rise flex items-center gap-4">
-        <span className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-accent-subtle text-accent-subtle-fg">
-          <Icon icon={CATEGORY_ICONS[category]} size={24} />
+        <span
+          aria-hidden="true"
+          className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-accent-subtle text-2xl leading-none"
+        >
+          {CATEGORY_EMOJI[category]}
         </span>
         <div className="flex flex-col gap-0.5">
           <h1 className="text-xl font-semibold tracking-tight">

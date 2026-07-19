@@ -1,0 +1,26 @@
+{
+  "name": "Interest",
+  "description": "Project savings and investment growth.",
+  "tools": {
+    "compound-interest": {
+      "name": "Compound Interest",
+      "description": "See how a balance grows with monthly contributions and compound interest — on your device."
+    }
+  },
+  "ui": {
+    "principal": "Starting amount",
+    "monthly": "Monthly contribution",
+    "rate": "Annual interest rate (%)",
+    "years": "Years",
+    "invalid": "Check your numbers — amounts can't be negative, the rate must be 0–100%, and years must be 1–100.",
+    "finalBalance": "Final balance",
+    "totalContributed": "Total paid in",
+    "totalInterest": "Interest earned",
+    "tableCaption": "Year-by-year growth",
+    "year": "Year",
+    "contributed": "Paid in",
+    "interest": "Interest",
+    "balance": "Balance",
+    "disclaimer": "Interest compounds monthly; contributions are added at the end of each month. This is a projection, not financial advice."
+  }
+}

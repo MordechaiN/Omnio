@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { SEARCH_ENTRIES, type SearchEntry } from "@/generated/registry.search";
 import { useFavorites, useRecentTools } from "@/lib/preferences";
@@ -15,15 +16,26 @@ function resolve(ids: string[]): SearchEntry[] {
 
 /**
  * The personal top of the workspace — a returning user sees their pinned and
- * recently used tools first. Renders nothing until there is something to show
- * (and nothing on the server, so there is no hydration flash).
+ * recently used tools first. A brand-new visitor instead gets one quiet hint
+ * that favoriting exists (the star is hover-revealed, so otherwise invisible);
+ * nothing renders on the server, so there is no hydration flash.
  */
 export function PersonalSections() {
   const t = useTranslations("home");
   const favorites = resolve(useFavorites());
   const recents = resolve(useRecentTools());
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
-  if (favorites.length === 0 && recents.length === 0) return null;
+  if (favorites.length === 0 && recents.length === 0) {
+    if (!mounted) return null;
+    return (
+      <p className="animate-rise flex items-center gap-2 rounded-lg border border-dashed border-border px-4 py-3 text-sm text-text-muted">
+        <span aria-hidden="true">⭐</span>
+        {t("favoritesHint")}
+      </p>
+    );
+  }
 
   return (
     <div className="animate-rise flex flex-col gap-8">

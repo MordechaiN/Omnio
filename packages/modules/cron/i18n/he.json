@@ -1,0 +1,34 @@
+{
+  "name": "Cron",
+  "description": "הבנה ותצוגה מקדימה של תזמוני crontab.",
+  "tools": {
+    "cron-explain": {
+      "name": "מפענח Cron",
+      "description": "פירוק ביטוי cron לשדות ברורים ותצוגה מקדימה של מועדי הריצה הבאים — במכשיר שלכם."
+    }
+  },
+  "ui": {
+    "expression": "ביטוי Cron",
+    "presets": "נסו:",
+    "breakdown": "פירוק שדות",
+    "nextRuns": "5 הריצות הבאות (בשעון המקומי שלכם)",
+    "neverRuns": "הביטוי הזה לעולם לא ירוץ — שילוב היום והחודש אינו קיים.",
+    "errorShape": "ביטוי cron דורש בדיוק חמישה שדות: דקה, שעה, יום בחודש, חודש, יום בשבוע.",
+    "errorField": "ערך {field} לא תקין: \"{token}\"",
+    "valuesTruncated": "{values} … ועוד {more}",
+    "field": {
+      "minute": "דקה",
+      "hour": "שעה",
+      "dayOfMonth": "יום בחודש",
+      "month": "חודש",
+      "dayOfWeek": "יום בשבוע"
+    },
+    "every": {
+      "minute": "כל דקה",
+      "hour": "כל שעה",
+      "dayOfMonth": "כל יום בחודש",
+      "month": "כל חודש",
+      "dayOfWeek": "כל יום בשבוע"
+    }
+  }
+}

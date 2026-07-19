@@ -1,7 +1,6 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { CATEGORY_IDS } from "@omnio/core";
 import { locales, localeNames, type Locale } from "@omnio/i18n";
 import {
   CommandDialog,
@@ -39,6 +38,7 @@ import {
 } from "lucide-react";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { CATEGORY_ICONS } from "@/lib/category-icons";
+import { ACTIVE_CATEGORY_IDS } from "@/lib/categories";
 import { SEARCH_ENTRIES } from "@/generated/registry.search";
 import { useCommandPalette } from "./palette-context";
 
@@ -115,7 +115,7 @@ export function CommandPalette() {
         <CommandSeparator />
 
         <CommandGroup heading={t("palette.groupCategories")}>
-          {CATEGORY_IDS.map((id) => (
+          {ACTIVE_CATEGORY_IDS.map((id) => (
             <CommandItem key={id} onSelect={() => run(() => router.push(`/t/${id}`))}>
               <Icon icon={CATEGORY_ICONS[id]} size={16} />
               {t(`categories.${id}.name`)}
