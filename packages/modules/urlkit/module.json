@@ -18,6 +18,20 @@
         "escape",
         "uri"
       ]
+    },
+    {
+      "id": "url-inspect",
+      "tier": "browser",
+      "surface": "frontend/tools/url-inspect",
+      "keywords": [
+        "url",
+        "parse",
+        "query",
+        "params",
+        "inspect",
+        "editor",
+        "link"
+      ]
     }
   ],
   "capabilities": {

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "devlookup",
+  "version": "1.0.0",
+  "category": "developer",
+  "icon": "book-open",
+  "i18nNamespace": "mod-devlookup",
+  "tools": [
+    {
+      "id": "http-status",
+      "tier": "browser",
+      "surface": "frontend/tools/http-status",
+      "keywords": ["http", "status", "code", "404", "500", "rest", "error"]
+    },
+    {
+      "id": "mime-lookup",
+      "tier": "browser",
+      "surface": "frontend/tools/mime-lookup",
+      "keywords": ["mime", "content type", "extension", "media type", "file type"]
+    }
+  ],
+  "capabilities": { "fileActions": [] },
+  "permissions": []
+}

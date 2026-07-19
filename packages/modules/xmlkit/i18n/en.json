@@ -1,0 +1,22 @@
+{
+  "name": "XML",
+  "description": "Format, minify, and validate XML.",
+  "tools": {
+    "xml-format": {
+      "name": "XML Formatter",
+      "description": "Pretty-print, minify, or validate XML and SVG — on your device."
+    }
+  },
+  "ui": {
+    "inputLabel": "XML input",
+    "outputLabel": "Result",
+    "placeholder": "<root>\n  …\n</root>",
+    "format": "Format",
+    "minify": "Minify",
+    "validate": "Validate",
+    "valid": "Valid XML",
+    "invalid": "Invalid",
+    "copy": "Copy result",
+    "copied": "Copied"
+  }
+}

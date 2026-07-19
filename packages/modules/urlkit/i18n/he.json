@@ -5,6 +5,10 @@
     "url-encode": {
       "name": "קידוד / פענוח URL",
       "description": "קידוד או פענוח של כתובות URL וערכי שאילתה במכשיר שלך."
+    },
+    "url-inspect": {
+      "name": "בודק כתובות URL",
+      "description": "פירוק כתובת URL לחלקים ועריכת פרמטרים — במכשיר שלכם."
     }
   },
   "ui": {
@@ -17,6 +21,21 @@
     "output": "פלט",
     "placeholder": "הקלידו או הדביקו כאן…",
     "copy": "העתקה",
-    "copied": "הועתק ללוח"
+    "copied": "הכתובת הועתקה",
+    "urlLabel": "כתובת URL",
+    "urlInvalid": "זו לא נראית כתובת URL תקינה — כללו את הסכימה, למשל //:https.",
+    "defaultPort": "ברירת מחדל",
+    "part": {
+      "protocol": "סכימה",
+      "host": "מארח",
+      "port": "פורט",
+      "path": "נתיב",
+      "hash": "מקטע"
+    },
+    "paramsTitle": "פרמטרים",
+    "noParams": "אין פרמטרים.",
+    "paramValue": "ערך של {key}",
+    "removeParam": "הסרת {key}",
+    "copyUrl": "העתקת הכתובת"
   }
 }

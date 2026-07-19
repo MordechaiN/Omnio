@@ -5,6 +5,10 @@
     "unix-timestamp": {
       "name": "ממיר חותמת זמן Unix",
       "description": "המרת חותמות זמן Unix לתאריכים ובחזרה במכשיר שלך."
+    },
+    "timezone-convert": {
+      "name": "ממיר אזורי זמן",
+      "description": "בחרו רגע באזור זמן אחד וראו אותו בכל העולם."
     }
   },
   "ui": {
@@ -16,6 +20,10 @@
     "iso": "ISO 8601",
     "utc": "UTC",
     "seconds": "שניות",
-    "milliseconds": "מילישניות"
+    "milliseconds": "מילישניות",
+    "tzWhen": "תאריך ושעה",
+    "tzFrom": "באזור זמן",
+    "tzResults": "מסביב לעולם",
+    "tzInvalid": "בחרו תאריך ושעה תקינים."
   }
 }

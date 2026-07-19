@@ -50,6 +50,19 @@
         "restaurant",
         "split"
       ]
+    },
+    {
+      "id": "salary",
+      "tier": "browser",
+      "surface": "frontend/tools/salary",
+      "keywords": [
+        "salary",
+        "wage",
+        "hourly",
+        "annual",
+        "income",
+        "pay"
+      ]
     }
   ],
   "capabilities": {

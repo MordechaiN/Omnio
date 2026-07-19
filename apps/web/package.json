@@ -38,6 +38,7 @@
     "@omnio/mod-cron": "workspace:*",
     "@omnio/mod-csvkit": "workspace:*",
     "@omnio/mod-datekit": "workspace:*",
+    "@omnio/mod-devlookup": "workspace:*",
     "@omnio/mod-finance": "workspace:*",
     "@omnio/mod-gradient": "workspace:*",
     "@omnio/mod-hashing": "workspace:*",
@@ -54,6 +55,7 @@
     "@omnio/mod-numbase": "workspace:*",
     "@omnio/mod-password": "workspace:*",
     "@omnio/mod-pdfkit": "workspace:*",
+    "@omnio/mod-qrkit": "workspace:*",
     "@omnio/mod-randomkit": "workspace:*",
     "@omnio/mod-regexlab": "workspace:*",
     "@omnio/mod-roman": "workspace:*",
@@ -66,6 +68,7 @@
     "@omnio/mod-units": "workspace:*",
     "@omnio/mod-urlkit": "workspace:*",
     "@omnio/mod-uuid": "workspace:*",
+    "@omnio/mod-xmlkit": "workspace:*",
     "@omnio/mod-yamlkit": "workspace:*",
     "@omnio/mod-zipkit": "workspace:*"
   },

@@ -50,6 +50,14 @@
     "image-metadata": {
       "name": "מציג מטא-נתונים",
       "description": "צפייה בממדים, פורמט ופרטי EXIF של תמונה — כולל האם מוטמעים בה נתוני מיקום."
+    },
+    "image-batch": {
+      "name": "עיבוד קבוצתי",
+      "description": "שינוי גודל, המרה ודחיסה של תמונות רבות בבת אחת, והורדת הכול כ-ZIP אחד — במכשיר שלכם."
+    },
+    "favicon-generate": {
+      "name": "מחולל Favicon",
+      "description": "הפיכת תמונה אחת לסט favicon מלא (16–512 פיקסלים) עם קטע HTML מוכן — ב-ZIP."
     }
   },
   "ui": {
@@ -135,6 +143,21 @@
     "metaSoftware": "תוכנה",
     "metaOrientation": "כיוון",
     "metaGpsWarning": "בתמונה מוטמעות קואורדינטות GPS. השתמשו בהסרת EXIF לפני שיתוף אם זה משנה.",
-    "metaNoExif": "לא נמצאו מטא-נתוני EXIF — קובצי PNG ו-WebP בדרך כלל לא נושאים כאלה, וזה טוב לפרטיות."
+    "metaNoExif": "לא נמצאו מטא-נתוני EXIF — קובצי PNG ו-WebP בדרך כלל לא נושאים כאלה, וזה טוב לפרטיות.",
+    "batchDropTitle": "גררו תמונות לכאן — כמה שתרצו",
+    "batchDropMore": "גררו תמונות נוספות, או לחצו להוספה",
+    "batchDropHint": "סט כללים אחד, מוחל על כל תמונה. שום דבר לא מועלה.",
+    "batchMaxDimension": "הצלע הארוכה (פיקסלים)",
+    "batchKeepFormat": "שמירת הפורמט המקורי",
+    "batchRun": "עיבוד {count, plural, one {תמונה אחת} other {# תמונות}}",
+    "batchRunning": "מעבד…",
+    "batchZip": "הורדת ZIP ({count})",
+    "batchClear": "ניקוי הכול",
+    "batchFailed": "נכשל",
+    "batchRemove": "הסרה מהרשימה",
+    "batchPrivacy": "כל תמונה מעובדת בדפדפן — הקידוד מחדש גם מסיר את כל המטא-נתונים.",
+    "chainTitle": "המשיכו עם:",
+    "faviconExplain": "התמונה נחתכת לריבוע ממורכז ומצוירת ב-16, 32, 48, 180, 192 ו-512 פיקסלים, עם קטע HTML מוכן להדבקה.",
+    "faviconDownload": "יצירה והורדת ZIP"
   }
 }

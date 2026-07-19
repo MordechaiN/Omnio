@@ -50,6 +50,14 @@
     "image-metadata": {
       "name": "Metadata Viewer",
       "description": "See an image's dimensions, format, and JPEG EXIF details — including whether location data is embedded."
+    },
+    "image-batch": {
+      "name": "Batch Processor",
+      "description": "Resize, convert, and compress many images at once, then download them all as one ZIP — on your device."
+    },
+    "favicon-generate": {
+      "name": "Favicon Generator",
+      "description": "Turn one image into the full favicon set (16–512px) plus a ready HTML snippet — zipped."
     }
   },
   "ui": {
@@ -135,6 +143,21 @@
     "metaSoftware": "Software",
     "metaOrientation": "Orientation",
     "metaGpsWarning": "This photo embeds GPS coordinates. Use the EXIF Remover before sharing it if that matters.",
-    "metaNoExif": "No EXIF metadata found — PNGs and WebP images usually carry none, and that's a good thing for privacy."
+    "metaNoExif": "No EXIF metadata found — PNGs and WebP images usually carry none, and that's a good thing for privacy.",
+    "batchDropTitle": "Drop images here — as many as you like",
+    "batchDropMore": "Drop more images, or click to add",
+    "batchDropHint": "One set of rules, applied to every image. Nothing is uploaded.",
+    "batchMaxDimension": "Longest side (px)",
+    "batchKeepFormat": "Keep original format",
+    "batchRun": "Process {count, plural, one {# image} other {# images}}",
+    "batchRunning": "Processing…",
+    "batchZip": "Download ZIP ({count})",
+    "batchClear": "Clear all",
+    "batchFailed": "Failed",
+    "batchRemove": "Remove from list",
+    "batchPrivacy": "Every image is processed in your browser — re-encoding also strips all metadata.",
+    "chainTitle": "Continue with:",
+    "faviconExplain": "The image is center-cropped to a square and rendered at 16, 32, 48, 180, 192, and 512 pixels, with a ready-to-paste HTML snippet included.",
+    "faviconDownload": "Generate & download ZIP"
   }
 }

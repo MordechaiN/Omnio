@@ -6,6 +6,7 @@ import { Button, Input, Label } from "@omnio/ui";
 import { outputFilename } from "../../shared/resize.ts";
 import { centeredAspectCrop, clampCrop, type CropRect } from "../../shared/transform.ts";
 import { downloadBlob, ImageDropZone, useImageFile } from "../lib/image-file.tsx";
+import { SendTo } from "../lib/send-to.tsx";
 
 const PRESETS: Array<{ key: string; ratio: [number, number] | null }> = [
   { key: "free", ratio: null },
@@ -121,6 +122,22 @@ export default function ImageCropTool() {
               {t("ui.cropDownload", { width: rect.width, height: rect.height })}
             </Button>
           </div>
+
+          <SendTo
+            produce={async () => {
+              const canvas = document.createElement("canvas");
+              canvas.width = rect.width;
+              canvas.height = rect.height;
+              canvas
+                .getContext("2d")
+                ?.drawImage(image.bitmap, rect.x, rect.y, rect.width, rect.height, 0, 0, rect.width, rect.height);
+              const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/png"));
+              return blob
+                ? { blob, name: outputFilename(image.name, { width: rect.width, height: rect.height }, "image/png") }
+                : null;
+            }}
+            targets={["image-resize", "image-compress", "image-watermark"]}
+          />
           <p className="text-sm text-text-muted">{t("ui.privacy")}</p>
         </>
       ) : null}

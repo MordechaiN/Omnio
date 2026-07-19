@@ -10,6 +10,10 @@
         "2": "Aim for at least 80 bits of entropy for anything important.",
         "3": "Avoid-ambiguous mode helps when someone has to read the password aloud."
       }
+    },
+    "password-strength": {
+      "name": "Password Strength",
+      "description": "Estimate a password's entropy and rough crack time — nothing leaves your device."
     }
   },
   "ui": {
@@ -25,6 +29,24 @@
     "uppercase": "Uppercase (A–Z)",
     "digits": "Digits (0–9)",
     "symbols": "Symbols",
-    "avoidAmbiguous": "Avoid ambiguous characters"
+    "avoidAmbiguous": "Avoid ambiguous characters",
+    "strengthLabel": "Password to check",
+    "strengthPlaceholder": "Type or paste a password…",
+    "strengthPrivacy": "Checked on this device only — never sent, never stored.",
+    "level": {
+      "veryWeak": "Very weak",
+      "weak": "Weak",
+      "fair": "Fair",
+      "strong": "Strong",
+      "excellent": "Excellent"
+    },
+    "crackTime": "Offline crack estimate",
+    "crackInstant": "Instant",
+    "crackMinutes": "Minutes",
+    "crackDays": "Days",
+    "crackYears": "Years",
+    "crackCenturies": "Centuries",
+    "characterMix": "Character mix",
+    "strengthAdvice": "Longer beats fancier: adding a few words helps more than swapping letters for symbols."
   }
 }

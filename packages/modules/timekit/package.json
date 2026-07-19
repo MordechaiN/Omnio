@@ -9,7 +9,8 @@
     "./module.json": "./module.json",
     "./i18n/en": "./i18n/en.json",
     "./i18n/he": "./i18n/he.json",
-    "./frontend/tools/unix-timestamp": "./frontend/tools/unix-timestamp.tsx"
+    "./frontend/tools/unix-timestamp": "./frontend/tools/unix-timestamp.tsx",
+    "./frontend/tools/timezone-convert": "./frontend/tools/timezone-convert.tsx"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

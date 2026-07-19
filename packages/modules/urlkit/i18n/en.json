@@ -5,6 +5,10 @@
     "url-encode": {
       "name": "URL Encode / Decode",
       "description": "Percent-encode or decode URLs and query values on your device."
+    },
+    "url-inspect": {
+      "name": "URL Inspector",
+      "description": "Break a URL into parts and edit its query parameters — on your device."
     }
   },
   "ui": {
@@ -17,6 +21,21 @@
     "output": "Output",
     "placeholder": "Type or paste here…",
     "copy": "Copy",
-    "copied": "Copied to clipboard"
+    "copied": "URL copied",
+    "urlLabel": "URL",
+    "urlInvalid": "That doesn't look like a valid URL — include the scheme, like https://.",
+    "defaultPort": "default",
+    "part": {
+      "protocol": "Scheme",
+      "host": "Host",
+      "port": "Port",
+      "path": "Path",
+      "hash": "Fragment"
+    },
+    "paramsTitle": "Query parameters",
+    "noParams": "No query parameters.",
+    "paramValue": "Value of {key}",
+    "removeParam": "Remove {key}",
+    "copyUrl": "Copy URL"
   }
 }

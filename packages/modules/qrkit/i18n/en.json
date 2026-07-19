@@ -1,0 +1,18 @@
+{
+  "name": "QR Codes",
+  "description": "Generate QR codes for links and text.",
+  "tools": {
+    "qr-generate": {
+      "name": "QR Generator",
+      "description": "Turn any link or text into a crisp QR code PNG — on your device."
+    }
+  },
+  "ui": {
+    "textLabel": "Link or text",
+    "sizeLabel": "Download size",
+    "download": "Download PNG",
+    "previewAlt": "QR code preview",
+    "tooLong": "That's too much data for a QR code — shorten it.",
+    "privacy": "Rendered in your browser — nothing is sent anywhere."
+  }
+}

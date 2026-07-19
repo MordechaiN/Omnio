@@ -1,0 +1,19 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "xmlkit",
+  "version": "1.0.0",
+  "category": "developer",
+  "icon": "code-xml",
+  "i18nNamespace": "mod-xmlkit",
+  "tools": [
+    {
+      "id": "xml-format",
+      "tier": "browser",
+      "surface": "frontend/tools/xml-format",
+      "keywords": ["xml", "format", "pretty", "validate", "beautify", "svg"],
+      "accepts": [{ "mime": ["application/xml", "text/xml", "image/svg+xml"], "priority": 88 }]
+    }
+  ],
+  "capabilities": { "fileActions": [] },
+  "permissions": []
+}

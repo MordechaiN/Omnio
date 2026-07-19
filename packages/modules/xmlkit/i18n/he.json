@@ -1,0 +1,22 @@
+{
+  "name": "XML",
+  "description": "עיצוב, כיווץ ואימות XML.",
+  "tools": {
+    "xml-format": {
+      "name": "מעצב XML",
+      "description": "עיצוב, כיווץ או אימות של XML ו-SVG — במכשיר שלכם."
+    }
+  },
+  "ui": {
+    "inputLabel": "קלט XML",
+    "outputLabel": "תוצאה",
+    "placeholder": "<root>\n  …\n</root>",
+    "format": "עיצוב",
+    "minify": "כיווץ",
+    "validate": "אימות",
+    "valid": "XML תקין",
+    "invalid": "לא תקין",
+    "copy": "העתקת התוצאה",
+    "copied": "הועתק"
+  }
+}

@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { Badge, Button, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@omnio/ui";
 import { formatBytes, outputFilename, type OutputFormat } from "../../shared/resize.ts";
 import { downloadBlob, ImageDropZone, useImageFile } from "../lib/image-file.tsx";
+import { SendTo } from "../lib/send-to.tsx";
 
 const LOSSY: Array<Exclude<OutputFormat, "image/png">> = ["image/jpeg", "image/webp"];
 
@@ -130,6 +131,26 @@ export default function ImageCompressTool() {
               {t("ui.download")}
             </Button>
           </div>
+
+          {result ? (
+            <SendTo
+              produce={() =>
+                Promise.resolve(
+                  result
+                    ? {
+                        blob: result,
+                        name: outputFilename(
+                          image.name,
+                          { width: image.bitmap.width, height: image.bitmap.height },
+                          format,
+                        ),
+                      }
+                    : null,
+                )
+              }
+              targets={["image-resize", "exif-remove", "image-watermark"]}
+            />
+          ) : null}
           <p className="text-sm text-text-muted">{t("ui.privacy")}</p>
         </>
       ) : null}

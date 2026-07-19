@@ -1,0 +1,68 @@
+{
+  "name": "Dev Reference",
+  "description": "Quick lookups developers reach for daily.",
+  "tools": {
+    "http-status": {
+      "name": "HTTP Status Codes",
+      "description": "Every HTTP status with a plain-language one-liner — searchable by code, name, or class."
+    },
+    "mime-lookup": {
+      "name": "MIME Types",
+      "description": "Extension ⇄ content-type lookup with copy-ready values."
+    }
+  },
+  "ui": {
+    "statusSearch": "Search codes",
+    "mimeSearch": "Search types",
+    "noMatches": "No matches — try a code, a word, or a class like 4xx.",
+    "copy": "Copy",
+    "copiedMime": "Copied {mime}"
+  },
+  "status": {
+    "100": "Keep going — the server got the headers and wants the body.",
+    "101": "The server agrees to switch protocols (e.g. to WebSocket).",
+    "200": "Success — the request worked and the response carries the result.",
+    "201": "Created — a new resource now exists (usually with its URL in Location).",
+    "202": "Accepted — queued for processing, not finished yet.",
+    "204": "Success with nothing to return.",
+    "206": "Partial content — a byte range, used by downloads and video seeking.",
+    "301": "Moved permanently — update links; browsers cache this hard.",
+    "302": "Found — temporary redirect; keep using the original URL.",
+    "303": "See other — fetch the result with GET at another URL.",
+    "304": "Not modified — your cached copy is still good.",
+    "307": "Temporary redirect that keeps the method and body.",
+    "308": "Permanent redirect that keeps the method and body.",
+    "400": "Bad request — the server can't parse or accept what was sent.",
+    "401": "Unauthenticated — log in (the name is misleading).",
+    "402": "Reserved for payment flows; some APIs use it for quota.",
+    "403": "Forbidden — identity known, permission denied.",
+    "404": "Not found — the URL doesn't map to anything.",
+    "405": "Method not allowed — e.g. POST where only GET works.",
+    "406": "Not acceptable — can't satisfy the Accept headers.",
+    "408": "The server gave up waiting for the request.",
+    "409": "Conflict — the request clashes with current state (e.g. stale edit).",
+    "410": "Gone — existed once, deliberately removed.",
+    "411": "Length required — send Content-Length.",
+    "412": "A precondition header (If-Match, …) failed.",
+    "413": "Payload too large for the server's limits.",
+    "415": "Unsupported media type — wrong Content-Type.",
+    "416": "Requested byte range can't be served.",
+    "418": "An April Fools' classic (RFC 2324) that stuck around.",
+    "422": "Understood the request, but the content fails validation.",
+    "425": "Too early — replay risk during TLS early data.",
+    "426": "Upgrade required — switch protocols to continue.",
+    "428": "Precondition required — send If-Match to avoid lost updates.",
+    "429": "Too many requests — back off (check Retry-After).",
+    "431": "Headers too large — often oversized cookies.",
+    "451": "Blocked for legal reasons.",
+    "500": "Generic server crash — the classic 'something broke'.",
+    "501": "The server doesn't implement this method at all.",
+    "502": "Bad gateway — an upstream server answered garbage.",
+    "503": "Unavailable — overloaded or down for maintenance.",
+    "504": "Gateway timeout — an upstream server never answered.",
+    "505": "HTTP version not supported.",
+    "507": "Insufficient storage on the server (WebDAV).",
+    "508": "Infinite loop detected while processing (WebDAV).",
+    "511": "A captive portal wants you to sign in first."
+  }
+}

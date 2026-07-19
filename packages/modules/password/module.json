@@ -17,6 +17,19 @@
         "passphrase",
         "generate"
       ]
+    },
+    {
+      "id": "password-strength",
+      "tier": "browser",
+      "surface": "frontend/tools/password-strength",
+      "keywords": [
+        "password",
+        "strength",
+        "entropy",
+        "crack",
+        "security",
+        "checker"
+      ]
     }
   ],
   "capabilities": {

@@ -17,6 +17,19 @@
         "date",
         "time"
       ]
+    },
+    {
+      "id": "timezone-convert",
+      "tier": "browser",
+      "surface": "frontend/tools/timezone-convert",
+      "keywords": [
+        "timezone",
+        "time zone",
+        "convert",
+        "utc",
+        "meeting",
+        "world clock"
+      ]
     }
   ],
   "capabilities": {

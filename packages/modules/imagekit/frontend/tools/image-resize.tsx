@@ -2,7 +2,9 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
+import { takePendingFiles } from "@omnio/module-sdk";
 import { Badge, Button, Input, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Switch } from "@omnio/ui";
+import { SendTo } from "../lib/send-to.tsx";
 import {
   formatBytes,
   isValidDimension,
@@ -83,25 +85,38 @@ export default function ImageResizeTool() {
     );
   }
 
+  // Universal drop zone hand-off — open the file the shell (or a sibling
+  // tool's chain) brought along.
+  useEffect(() => {
+    const handed = takePendingFiles()?.[0];
+    if (handed) void load(handed);
+  }, [load]);
+
+  async function produce(): Promise<{ blob: Blob; name: string } | null> {
+    if (!image) return null;
+    const canvas = document.createElement("canvas");
+    canvas.width = target.width;
+    canvas.height = target.height;
+    const context = canvas.getContext("2d");
+    if (!context) return null;
+    context.drawImage(image.bitmap, 0, 0, target.width, target.height);
+    const blob = await new Promise<Blob | null>((resolve) =>
+      canvas.toBlob(resolve, format, format === "image/png" ? undefined : quality / 100),
+    );
+    return blob ? { blob, name: outputFilename(image.name, target, format) } : null;
+  }
+
   async function download() {
     if (!image) return;
     setBusy(true);
     setError(null);
     try {
-      const canvas = document.createElement("canvas");
-      canvas.width = target.width;
-      canvas.height = target.height;
-      const context = canvas.getContext("2d");
-      if (!context) throw new Error("no 2d context");
-      context.drawImage(image.bitmap, 0, 0, target.width, target.height);
-      const blob = await new Promise<Blob | null>((resolve) =>
-        canvas.toBlob(resolve, format, format === "image/png" ? undefined : quality / 100),
-      );
-      if (!blob) throw new Error("encode failed");
-      const url = URL.createObjectURL(blob);
+      const output = await produce();
+      if (!output) throw new Error("encode failed");
+      const url = URL.createObjectURL(output.blob);
       const anchor = document.createElement("a");
       anchor.href = url;
-      anchor.download = outputFilename(image.name, target, format);
+      anchor.download = output.name;
       anchor.click();
       URL.revokeObjectURL(url);
     } catch {
@@ -269,6 +284,10 @@ export default function ImageResizeTool() {
               {busy ? t("ui.working") : t("ui.download")}
             </Button>
           </div>
+
+          {valid ? (
+            <SendTo produce={produce} targets={["image-compress", "exif-remove", "image-watermark"]} />
+          ) : null}
 
           <p className="text-sm text-text-muted">{t("ui.privacy")}</p>
         </>

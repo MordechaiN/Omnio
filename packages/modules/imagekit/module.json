@@ -29,6 +29,29 @@
       ]
     },
     {
+      "id": "image-batch",
+      "tier": "browser",
+      "surface": "frontend/tools/image-batch",
+      "keywords": [
+        "batch",
+        "bulk",
+        "multiple",
+        "resize all",
+        "compress all",
+        "convert all",
+        "many"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "image/*"
+          ],
+          "multiple": true,
+          "priority": 95
+        }
+      ]
+    },
+    {
       "id": "image-crop",
       "tier": "browser",
       "surface": "frontend/tools/image-crop",
@@ -231,6 +254,27 @@
             "image/*"
           ],
           "priority": 78
+        }
+      ]
+    },
+    {
+      "id": "favicon-generate",
+      "tier": "browser",
+      "surface": "frontend/tools/favicon-generate",
+      "keywords": [
+        "favicon",
+        "icon",
+        "apple touch",
+        "website",
+        "tab icon",
+        "pwa"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "image/*"
+          ],
+          "priority": 40
         }
       ]
     }

@@ -9,7 +9,8 @@
     "./module.json": "./module.json",
     "./i18n/en": "./i18n/en.json",
     "./i18n/he": "./i18n/he.json",
-    "./frontend/tools/password-generator": "./frontend/tools/password-generator.tsx"
+    "./frontend/tools/password-generator": "./frontend/tools/password-generator.tsx",
+    "./frontend/tools/password-strength": "./frontend/tools/password-strength.tsx"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

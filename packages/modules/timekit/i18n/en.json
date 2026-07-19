@@ -5,6 +5,10 @@
     "unix-timestamp": {
       "name": "Unix Timestamp Converter",
       "description": "Convert Unix timestamps to dates and back on your device."
+    },
+    "timezone-convert": {
+      "name": "Timezone Converter",
+      "description": "Pick a moment in one timezone and see it across the world."
     }
   },
   "ui": {
@@ -16,6 +20,10 @@
     "iso": "ISO 8601",
     "utc": "UTC",
     "seconds": "Seconds",
-    "milliseconds": "Milliseconds"
+    "milliseconds": "Milliseconds",
+    "tzWhen": "Date & time",
+    "tzFrom": "In timezone",
+    "tzResults": "Around the world",
+    "tzInvalid": "Pick a valid date and time."
   }
 }

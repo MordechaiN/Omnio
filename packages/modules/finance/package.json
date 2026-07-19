@@ -12,7 +12,8 @@
     "./frontend/tools/loan": "./frontend/tools/loan.tsx",
     "./frontend/tools/vat": "./frontend/tools/vat.tsx",
     "./frontend/tools/percentage": "./frontend/tools/percentage.tsx",
-    "./frontend/tools/tip": "./frontend/tools/tip.tsx"
+    "./frontend/tools/tip": "./frontend/tools/tip.tsx",
+    "./frontend/tools/salary": "./frontend/tools/salary.tsx"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

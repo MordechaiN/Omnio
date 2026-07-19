@@ -11,6 +11,11 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ### Added
 
+- **📚 Batch Processor for images** — drop dozens of images, set one rule set (longest side, output format, quality), and process them all with live progress. Download everything as one ZIP or file by file; re-encoding strips metadata across the whole batch. The universal drop zone routes multiple images straight to it.
+- **🔗 Workflow chaining** — after cropping, resizing, or compressing an image, a "Continue with" row sends the *result* straight into the next tool (compress → remove metadata → watermark …) with the file already loaded. No re-download, no reopening tools.
+- **Ten more tools** (69 total): Batch Processor, Favicon Generator (full 16–512px set + HTML snippet, zipped), QR Generator, XML Formatter & validator, HTTP Status Codes (all 46 with plain-language one-liners in both languages), MIME Types lookup, URL Inspector (parse + edit query parameters), Password Strength (entropy + crack-time, never leaves the device), Timezone Converter, and Salary Converter.
+- **Search, rounder** — "picture" and "photo" find image tools, "resize" surfaces the compressors (and vice versa), plus aliases for QR, favicon, timezone, MIME, and friends.
+
 - **🪄 Universal File Intelligence** — Omnio's signature move. Drag a file anywhere in the app (or paste an image or screenshot) and Omnio inspects it on the spot — type, size, dimensions, page count, archive contents, audio duration, JSON validity, embedded location data — then suggests an ordered list of everything it can do, with plain-language recommendations ("Large file — worth compressing", "Strips the embedded location data"). Choosing an action opens the tool with the file already loaded. Every suggestion comes from the modules' own declared file support, and every byte stays on your device.
 
 - **🔎 Typo-tolerant search** — the palette now ranks results on a real scoring ladder (exact → prefix → word-prefix → substring → in-order letters → typo within one or two edits), so "pasword", "regx", or "cronn" still land on the right tool. Favorited and recently used tools get a small boost among equals.

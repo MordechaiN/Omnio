@@ -8,6 +8,7 @@
   "exports": {
     "./module.json": "./module.json",
     "./frontend/tools/image-resize": "./frontend/tools/image-resize.tsx",
+    "./frontend/tools/image-batch": "./frontend/tools/image-batch.tsx",
     "./frontend/tools/image-crop": "./frontend/tools/image-crop.tsx",
     "./frontend/tools/image-rotate": "./frontend/tools/image-rotate.tsx",
     "./frontend/tools/image-compress": "./frontend/tools/image-compress.tsx",
@@ -20,7 +21,8 @@
     "./frontend/tools/image-metadata": "./frontend/tools/image-metadata.tsx",
     "./shared/exif": "./shared/exif.ts",
     "./i18n/en": "./i18n/en.json",
-    "./i18n/he": "./i18n/he.json"
+    "./i18n/he": "./i18n/he.json",
+    "./frontend/tools/favicon-generate": "./frontend/tools/favicon-generate.tsx"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
@@ -29,7 +31,9 @@
   },
   "dependencies": {
     "@omnio/module-sdk": "workspace:*",
-    "@omnio/ui": "workspace:*"
+    "@omnio/ui": "workspace:*",
+    "fflate": "^0.8.2",
+    "lucide-react": "^0.525.0"
   },
   "peerDependencies": {
     "next": "^15.5.0",

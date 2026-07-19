@@ -17,6 +17,10 @@
     "tip": {
       "name": "Tip Calculator",
       "description": "Calculate a tip and split the bill on your device."
+    },
+    "salary": {
+      "name": "Salary Converter",
+      "description": "Convert an hourly rate into weekly, monthly, and yearly pay."
     }
   },
   "ui": {
@@ -45,6 +49,13 @@
     "people": "Split between",
     "tip": "Tip",
     "total": "Total",
-    "perPerson": "Per person"
+    "perPerson": "Per person",
+    "salaryHourly": "Hourly rate",
+    "salaryHours": "Hours per week",
+    "salaryWeekly": "Per week",
+    "salaryMonthly": "Per month",
+    "salaryYearly": "Per year",
+    "salaryInvalid": "Check the numbers — rate can't be negative, hours must be 1–100.",
+    "salaryNote": "Gross figures over 52 weeks, before tax and deductions."
   }
 }
