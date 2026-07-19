@@ -11,6 +11,13 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ### Added
 
+- **🗂️ Collections** — group tools your way (💼 Work, 🖼️ Photo prep, anything). Create, rename, and delete from the dashboard; add or remove any tool from its page header. Collections appear on the dashboard, in the sidebar, and in the command palette — stored only on this device.
+- **⚡ Workflows** — chain tools into a repeatable routine (Resize → Compress → EXIF Remove) and run it as a guided sequence: each tool page shows the workflow strip with progress dots and Back / Next step / Exit. Local-only, like everything personal.
+- **Four more tools** — Watermark (text overlay with position/size/opacity), Image Compare (slider divider between two images), Metadata Viewer (file facts plus a dependency-free JPEG EXIF reader that flags embedded GPS data), and Reorder Pages for PDFs. The library now counts 56 tools.
+- **🧩 Modules page** — every module listed with its version, category, status, and tool count; the layout is ready for community modules when the ecosystem opens.
+- **Smarter search** — the palette now understands aliases and synonyms: "guid" finds the UUID generator, "regexp" finds the regex tester, "optimize" finds the compressors.
+- **Tool page quick actions** — copy a link to any tool, add it to a collection, or star it, straight from the header; flagship tools now carry a short 💡 Tips section.
+
 - **Home is now a real dashboard** — 👋 a short welcome that states the local-first promise, ⭐ favorites, 🕘 recently used (with when and from which category), 🔥 frequently used, 🆕 what's new pulled straight from this changelog, and 📂 the category grid. All personal sections come from this device's local storage only.
 - **A full Images toolbox** — Crop (aspect presets + live preview), Rotate & Flip, Compressor (live before/after size), Filters (grayscale/blur/sharpen), Color Picker with dominant-palette extraction, EXIF Remover, and an Aspect Ratio calculator join the Resizer. Eight tools, all canvas-based, all entirely on your device.
 - **The PDF category opens** — Merge (reorderable list), Extract Pages, Rotate, and Delete Pages, powered by pdf-lib running in the browser. Documents never leave the device.

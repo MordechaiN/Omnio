@@ -40,7 +40,9 @@ import { usePathname, useRouter } from "@/i18n/navigation";
 import { CATEGORY_ICONS } from "@/lib/category-icons";
 import { ACTIVE_CATEGORY_IDS } from "@/lib/categories";
 import { SEARCH_ENTRIES } from "@/generated/registry.search";
-import { useFavorites } from "@/lib/preferences";
+import { useCollections, useFavorites, useWorkflows } from "@/lib/preferences";
+import { expandKeywords } from "@/lib/search-synonyms";
+import { workflowStepHref } from "@/components/workspace/workflows-section";
 import { useCommandPalette } from "./palette-context";
 
 const BY_ID = new Map(SEARCH_ENTRIES.map((entry) => [entry.id, entry]));
@@ -68,6 +70,8 @@ export function CommandPalette() {
   const favorites = useFavorites()
     .map((id) => BY_ID.get(id))
     .filter((entry): entry is NonNullable<typeof entry> => entry !== undefined);
+  const collections = useCollections();
+  const workflows = useWorkflows();
 
   function run(action: () => void) {
     setOpen(false);
@@ -106,7 +110,7 @@ export function CommandPalette() {
                 return (
                   <CommandItem
                     key={`fav-${entry.id}`}
-                    keywords={[name, ...entry.keywords]}
+                    keywords={[name, ...expandKeywords(entry.id, entry.keywords)]}
                     onSelect={() => run(() => router.push(entry.href))}
                   >
                     <DynamicIcon name={entry.icon as IconName} size={16} />
@@ -115,6 +119,38 @@ export function CommandPalette() {
                 );
               })}
             </CommandGroup>
+          </>
+        ) : null}
+
+        {collections.length > 0 || workflows.length > 0 ? (
+          <>
+            <CommandSeparator />
+            {collections.length > 0 ? (
+              <CommandGroup heading={t("palette.groupCollections")}>
+                {collections.map((collection) => (
+                  <CommandItem
+                    key={`col-${collection.id}`}
+                    onSelect={() => run(() => router.push(`/#c-${collection.id}`))}
+                  >
+                    <span aria-hidden="true">{collection.emoji}</span>
+                    {collection.name}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            ) : null}
+            {workflows.length > 0 ? (
+              <CommandGroup heading={t("palette.groupWorkflows")}>
+                {workflows.map((workflow) => (
+                  <CommandItem
+                    key={`wf-${workflow.id}`}
+                    onSelect={() => run(() => router.push(workflowStepHref(workflow, 0)))}
+                  >
+                    <span aria-hidden="true">{workflow.emoji}</span>
+                    {workflow.name}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            ) : null}
           </>
         ) : null}
 
@@ -129,7 +165,7 @@ export function CommandPalette() {
                 return (
                   <CommandItem
                     key={entry.id}
-                    keywords={[name, ...entry.keywords]}
+                    keywords={[name, ...expandKeywords(entry.id, entry.keywords)]}
                     onSelect={() => run(() => router.push(entry.href))}
                   >
                     <DynamicIcon name={entry.icon as IconName} size={16} />

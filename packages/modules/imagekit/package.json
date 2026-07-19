@@ -15,6 +15,9 @@
     "./frontend/tools/image-colors": "./frontend/tools/image-colors.tsx",
     "./frontend/tools/exif-remove": "./frontend/tools/exif-remove.tsx",
     "./frontend/tools/aspect-ratio": "./frontend/tools/aspect-ratio.tsx",
+    "./frontend/tools/image-watermark": "./frontend/tools/image-watermark.tsx",
+    "./frontend/tools/image-compare": "./frontend/tools/image-compare.tsx",
+    "./frontend/tools/image-metadata": "./frontend/tools/image-metadata.tsx",
     "./i18n/en": "./i18n/en.json",
     "./i18n/he": "./i18n/he.json"
   },

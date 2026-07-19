@@ -4,7 +4,12 @@
   "tools": {
     "password-generator": {
       "name": "Password Generator",
-      "description": "Generate cryptographically strong passwords and passphrases on your device."
+      "description": "Generate cryptographically strong passwords and passphrases on your device.",
+      "tips": {
+        "1": "Passphrases are easier to type on phones and just as strong at 5+ words.",
+        "2": "Aim for at least 80 bits of entropy for anything important.",
+        "3": "Avoid-ambiguous mode helps when someone has to read the password aloud."
+      }
     }
   },
   "ui": {

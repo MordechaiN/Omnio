@@ -11,6 +11,7 @@
     "./frontend/tools/pdf-split": "./frontend/tools/pdf-split.tsx",
     "./frontend/tools/pdf-rotate": "./frontend/tools/pdf-rotate.tsx",
     "./frontend/tools/pdf-delete": "./frontend/tools/pdf-delete.tsx",
+    "./frontend/tools/pdf-reorder": "./frontend/tools/pdf-reorder.tsx",
     "./i18n/en": "./i18n/en.json",
     "./i18n/he": "./i18n/he.json"
   },

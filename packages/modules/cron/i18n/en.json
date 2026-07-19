@@ -4,7 +4,12 @@
   "tools": {
     "cron-explain": {
       "name": "Cron Explainer",
-      "description": "Break a cron expression into plain fields and preview its next run times — on your device."
+      "description": "Break a cron expression into plain fields and preview its next run times — on your device.",
+      "tips": {
+        "1": "Names work everywhere numbers do — try mon-fri or jan,jul.",
+        "2": "@daily, @hourly, and @weekly expand to full expressions.",
+        "3": "When both day fields are set, cron fires when either matches."
+      }
     }
   },
   "ui": {

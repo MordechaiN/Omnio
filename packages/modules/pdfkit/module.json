@@ -10,27 +10,66 @@
       "id": "pdf-merge",
       "tier": "browser",
       "surface": "frontend/tools/pdf-merge",
-      "keywords": ["pdf", "merge", "combine", "join", "concatenate"]
+      "keywords": [
+        "pdf",
+        "merge",
+        "combine",
+        "join",
+        "concatenate"
+      ]
     },
     {
       "id": "pdf-split",
       "tier": "browser",
       "surface": "frontend/tools/pdf-split",
-      "keywords": ["pdf", "split", "extract", "pages", "range"]
+      "keywords": [
+        "pdf",
+        "split",
+        "extract",
+        "pages",
+        "range"
+      ]
     },
     {
       "id": "pdf-rotate",
       "tier": "browser",
       "surface": "frontend/tools/pdf-rotate",
-      "keywords": ["pdf", "rotate", "turn", "orientation", "pages"]
+      "keywords": [
+        "pdf",
+        "rotate",
+        "turn",
+        "orientation",
+        "pages"
+      ]
     },
     {
       "id": "pdf-delete",
       "tier": "browser",
       "surface": "frontend/tools/pdf-delete",
-      "keywords": ["pdf", "delete", "remove", "pages", "clean"]
+      "keywords": [
+        "pdf",
+        "delete",
+        "remove",
+        "pages",
+        "clean"
+      ]
+    },
+    {
+      "id": "pdf-reorder",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-reorder",
+      "keywords": [
+        "pdf",
+        "reorder",
+        "rearrange",
+        "sort",
+        "move",
+        "pages"
+      ]
     }
   ],
-  "capabilities": { "fileActions": [] },
+  "capabilities": {
+    "fileActions": []
+  },
   "permissions": []
 }

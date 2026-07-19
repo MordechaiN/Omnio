@@ -9,9 +9,14 @@ import { ChevronRight } from "lucide-react";
 import { routing } from "@/i18n/routing";
 import { Link } from "@/i18n/navigation";
 import { TOOL_SURFACES, WEB_TOOLS, type WebToolMeta } from "@/generated/registry.web";
+import { Suspense } from "react";
 import { RecordRecentTool } from "@/components/workspace/record-recent-tool";
 import { RelatedTools } from "@/components/workspace/related-tools";
 import { FavoriteButton } from "@/components/workspace/favorite-button";
+import { CollectionMenu } from "@/components/workspace/collection-menu";
+import { CopyLinkButton } from "@/components/workspace/copy-link-button";
+import { ToolTips } from "@/components/workspace/tool-tips";
+import { WorkflowBar } from "@/components/workspace/workflow-bar";
 import { WorkerToolLauncher } from "@/components/jobs/worker-tool-launcher";
 
 export function generateStaticParams() {
@@ -58,13 +63,20 @@ function ToolView({ meta, Surface }: { meta: WebToolMeta; Surface: ComponentType
         meta.tier === "browser" ? <Badge variant="accent">{t("common.onDevice")}</Badge> : null
       }
       actions={
-        <FavoriteButton
-          id={`${meta.moduleId}.${meta.toolId}`}
-          className="size-9 opacity-100"
-        />
+        <>
+          <CopyLinkButton />
+          <CollectionMenu toolId={`${meta.moduleId}.${meta.toolId}`} />
+          <FavoriteButton
+            id={`${meta.moduleId}.${meta.toolId}`}
+            className="size-9 opacity-100"
+          />
+        </>
       }
       footer={
-        <RelatedTools category={category} excludeId={`${meta.moduleId}.${meta.toolId}`} />
+        <div className="flex flex-col gap-6">
+          <ToolTips namespace={meta.i18nNamespace} toolId={meta.toolId} />
+          <RelatedTools category={category} excludeId={`${meta.moduleId}.${meta.toolId}`} />
+        </div>
       }
       breadcrumb={
         <nav aria-label={t("shell.breadcrumb")} className="flex items-center gap-1.5">
@@ -79,6 +91,9 @@ function ToolView({ meta, Surface }: { meta: WebToolMeta; Surface: ComponentType
       }
     >
       <RecordRecentTool id={`${meta.moduleId}.${meta.toolId}`} />
+      <Suspense fallback={null}>
+        <WorkflowBar currentToolId={`${meta.moduleId}.${meta.toolId}`} />
+      </Suspense>
       {meta.tier === "browser" ? (
         <Surface />
       ) : (

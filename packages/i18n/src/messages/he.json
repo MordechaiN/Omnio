@@ -85,6 +85,7 @@
     "settings": "הגדרות",
     "about": "אודות",
     "changelog": "יומן שינויים",
+    "modules": "מודולים",
     "stats": "סטטיסטיקות"
   },
   "palette": {
@@ -97,6 +98,8 @@
     "groupLanguage": "שפה",
     "groupNavigation": "מעבר אל",
     "groupFavorites": "מועדפים",
+    "groupCollections": "אוספים",
+    "groupWorkflows": "תהליכי עבודה",
     "hintNavigate": "ניווט",
     "hintSelect": "בחירה",
     "hintClose": "סגירה",
@@ -331,6 +334,56 @@
     "emptyBody": "הקטגוריה הזו נמצאת במפת הדרכים. החיפוש (⌘K) תמיד מציג את מה שזמין היום."
   },
   "toolPage": {
-    "related": "כלים קשורים"
+    "related": "כלים קשורים",
+    "copyLink": "העתקת קישור לכלי",
+    "linkCopied": "הקישור הועתק",
+    "tips": "טיפים"
+  },
+  "collections": {
+    "title": "אוספים",
+    "new": "חדש",
+    "newTitle": "אוסף חדש",
+    "newEllipsis": "אוסף חדש…",
+    "create": "יצירה",
+    "cancel": "ביטול",
+    "save": "שמירה",
+    "rename": "שינוי שם",
+    "renameTitle": "שינוי שם האוסף",
+    "delete": "מחיקה",
+    "addTo": "הוספה לאוסף",
+    "emptyHint": "קבצו כלים בדרך שלכם — סט לעבודה, ערכת לימודים, חבילת נסיעות. אוספים נשמרים רק במכשיר הזה.",
+    "emptyCollection": "אין כאן כלים עדיין — הוסיפו מכל עמוד כלי.",
+    "nameLabel": "שם",
+    "emojiLabel": "סמל"
+  },
+  "workflows": {
+    "title": "תהליכי עבודה",
+    "new": "חדש",
+    "newTitle": "תהליך עבודה חדש",
+    "start": "התחלה",
+    "delete": "מחיקה",
+    "addStep": "הוספת שלב",
+    "addStepPlaceholder": "חיפוש כלים…",
+    "stepsHint": "בחרו לפחות שני כלים — Omnio יוביל אתכם דרכם לפי הסדר.",
+    "moveUp": "העברה למעלה",
+    "moveDown": "העברה למטה",
+    "removeStep": "הסרת שלב",
+    "runnerLabel": "תהליך עבודה: {name}",
+    "stepOf": "שלב {current} מתוך {total}",
+    "previous": "חזרה",
+    "next": "השלב הבא",
+    "finish": "סיום",
+    "exit": "יציאה",
+    "emptyHint": "שרשרו כלים לשגרה חוזרת — שינוי גודל, דחיסה, המרה — והריצו שלב אחר שלב."
+  },
+  "modules": {
+    "title": "מודולים",
+    "subtitle": "כל כלי ב-Omnio מגיע בתוך מודול — חבילה עצמאית עם כלים, תרגומים ובדיקות משלה. זהו הבסיס שעליו ייבנה המערך העתידי.",
+    "builtinTitle": "מודולים מובנים",
+    "count": "{count} מודולים",
+    "toolCount": "{count, plural, one {כלי אחד} other {# כלים}}",
+    "statusActive": "פעיל",
+    "communityTitle": "מודולים קהילתיים",
+    "communityBody": "בהמשך: התקנת מודולים שנבנו על ידי אחרים, מקטלוג פתוח — עם אותם כללי פרטיות במכשיר כמו כל מה שמובנה."
   }
 }

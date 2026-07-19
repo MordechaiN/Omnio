@@ -11,6 +11,8 @@ import { ACTIVE_CATEGORY_IDS, TOOL_COUNT_BY_CATEGORY } from "@/lib/categories";
 import { parseChangelog, type Release } from "@/lib/changelog";
 import { SEARCH_ENTRIES } from "@/generated/registry.search";
 import { PersonalSections } from "@/components/workspace/personal-sections";
+import { CollectionsSection } from "@/components/workspace/collections-section";
+import { WorkflowsSection } from "@/components/workspace/workflows-section";
 
 /** Latest changelog entries for the What's New card — read at build time. */
 function loadLatestRelease(): Release | null {
@@ -60,6 +62,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* ⭐ Favorites, 🕘 Recent, 🔥 Popular — local-only, renders a single
           onboarding hint for a brand-new visitor. */}
       <PersonalSections />
+
+      {/* 🗂️ Collections + ⚡ Workflows — the user's own structure, local-only. */}
+      <div className="animate-rise flex flex-col gap-10">
+        <CollectionsSection />
+        <WorkflowsSection />
+      </div>
 
       {/* 🆕 What's new — pulled straight from the changelog at build time. */}
       {highlights.length > 0 ? (

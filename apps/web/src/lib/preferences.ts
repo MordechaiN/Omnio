@@ -11,7 +11,7 @@ import { useSyncExternalStore } from "react";
  * — still fully local, never sent anywhere.
  */
 const STORAGE_KEY = "omnio.preferences.v1";
-const SCHEMA_VERSION = 2;
+const SCHEMA_VERSION = 3;
 /** How many tools we keep usage entries for (display slices are smaller). */
 const MAX_TRACKED = 30;
 
@@ -23,13 +23,37 @@ export interface UsageEntry {
   count: number;
 }
 
+export interface Collection {
+  id: string;
+  name: string;
+  /** Single emoji accent, chosen from a small preset list. */
+  emoji: string;
+  toolIds: string[];
+}
+
+export interface Workflow {
+  id: string;
+  name: string;
+  emoji: string;
+  /** Ordered tool ids — a guided sequence, stepped through one at a time. */
+  steps: string[];
+}
+
 interface Preferences {
   v: number;
   favorites: string[];
   usage: UsageEntry[];
+  collections: Collection[];
+  workflows: Workflow[];
 }
 
-const DEFAULT: Preferences = { v: SCHEMA_VERSION, favorites: [], usage: [] };
+const DEFAULT: Preferences = {
+  v: SCHEMA_VERSION,
+  favorites: [],
+  usage: [],
+  collections: [],
+  workflows: [],
+};
 
 let state: Preferences = DEFAULT;
 let initialized = false;
@@ -45,6 +69,28 @@ function isUsageEntry(value: unknown): value is UsageEntry {
   );
 }
 
+function isCollection(value: unknown): value is Collection {
+  if (typeof value !== "object" || value === null) return false;
+  const c = value as Record<string, unknown>;
+  return (
+    typeof c.id === "string" &&
+    typeof c.name === "string" &&
+    typeof c.emoji === "string" &&
+    Array.isArray(c.toolIds)
+  );
+}
+
+function isWorkflow(value: unknown): value is Workflow {
+  if (typeof value !== "object" || value === null) return false;
+  const w = value as Record<string, unknown>;
+  return (
+    typeof w.id === "string" &&
+    typeof w.name === "string" &&
+    typeof w.emoji === "string" &&
+    Array.isArray(w.steps)
+  );
+}
+
 function read(): Preferences {
   if (typeof window === "undefined") return DEFAULT;
   try {
@@ -54,17 +100,30 @@ function read(): Preferences {
     const favorites = Array.isArray(parsed.favorites)
       ? parsed.favorites.filter((f): f is string => typeof f === "string")
       : [];
-    // v1 → v2: old plain-id recents become usage entries; order carried over
+    // v1 → old plain-id recents become usage entries; order carried over
     // as recency, counts start at 1 (we can't reconstruct history).
+    let usage: UsageEntry[] = [];
     if (parsed.v === 1 && Array.isArray(parsed.recents)) {
       const now = Date.now();
-      const usage = (parsed.recents as unknown[])
+      usage = (parsed.recents as unknown[])
         .filter((r): r is string => typeof r === "string")
         .map((id, index) => ({ id, lastUsed: now - index, count: 1 }));
-      return { v: SCHEMA_VERSION, favorites, usage };
+    } else if (
+      (parsed.v === 2 || parsed.v === SCHEMA_VERSION) &&
+      Array.isArray(parsed.usage)
+    ) {
+      usage = parsed.usage.filter(isUsageEntry);
+    } else {
+      return DEFAULT;
     }
-    if (parsed.v !== SCHEMA_VERSION || !Array.isArray(parsed.usage)) return DEFAULT;
-    return { v: SCHEMA_VERSION, favorites, usage: parsed.usage.filter(isUsageEntry) };
+    // v2 → v3 simply adds the (empty) collections and workflows lists.
+    const collections = Array.isArray(parsed.collections)
+      ? parsed.collections.filter(isCollection)
+      : [];
+    const workflows = Array.isArray(parsed.workflows)
+      ? parsed.workflows.filter(isWorkflow)
+      : [];
+    return { v: SCHEMA_VERSION, favorites, usage, collections, workflows };
   } catch {
     return DEFAULT;
   }
@@ -151,4 +210,80 @@ export function recordRecentTool(id: string): void {
   };
   const usage = [entry, ...state.usage.filter((other) => other.id !== id)].slice(0, MAX_TRACKED);
   commit({ ...state, usage });
+}
+
+/* ------------------------------ Collections ------------------------------ */
+
+export function useCollections(): Collection[] {
+  return usePreferences().collections;
+}
+
+function newId(): string {
+  return crypto.randomUUID().slice(0, 8);
+}
+
+export function createCollection(name: string, emoji: string): string {
+  ensureInit();
+  const id = newId();
+  commit({
+    ...state,
+    collections: [...state.collections, { id, name, emoji, toolIds: [] }],
+  });
+  return id;
+}
+
+export function updateCollection(id: string, patch: Partial<Pick<Collection, "name" | "emoji">>): void {
+  ensureInit();
+  commit({
+    ...state,
+    collections: state.collections.map((c) => (c.id === id ? { ...c, ...patch } : c)),
+  });
+}
+
+export function deleteCollection(id: string): void {
+  ensureInit();
+  commit({ ...state, collections: state.collections.filter((c) => c.id !== id) });
+}
+
+export function toggleToolInCollection(collectionId: string, toolId: string): void {
+  ensureInit();
+  commit({
+    ...state,
+    collections: state.collections.map((c) => {
+      if (c.id !== collectionId) return c;
+      const toolIds = c.toolIds.includes(toolId)
+        ? c.toolIds.filter((t) => t !== toolId)
+        : [...c.toolIds, toolId];
+      return { ...c, toolIds };
+    }),
+  });
+}
+
+/* ------------------------------- Workflows -------------------------------- */
+
+export function useWorkflows(): Workflow[] {
+  return usePreferences().workflows;
+}
+
+export function createWorkflow(name: string, emoji: string, steps: string[]): string {
+  ensureInit();
+  const id = newId();
+  commit({ ...state, workflows: [...state.workflows, { id, name, emoji, steps }] });
+  return id;
+}
+
+export function updateWorkflow(
+  id: string,
+  patch: Partial<Pick<Workflow, "name" | "emoji" | "steps">>,
+): void {
+  ensureInit();
+  commit({
+    ...state,
+    workflows: state.workflows.map((w) => (w.id === id ? { ...w, ...patch } : w)),
+  });
+}
+
+export function deleteWorkflow(id: string): void {
+  ensureInit();
+  commit({ ...state, workflows: state.workflows.filter((w) => w.id !== id) });
 }

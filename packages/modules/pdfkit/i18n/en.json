@@ -17,6 +17,10 @@
     "pdf-delete": {
       "name": "Delete Pages",
       "description": "Remove unwanted pages and keep the rest — on your device."
+    },
+    "pdf-reorder": {
+      "name": "Reorder Pages",
+      "description": "Rearrange a PDF's pages into a new order — on your device."
     }
   },
   "ui": {
@@ -45,6 +49,8 @@
     "working": "Working…",
     "errorLoad": "Couldn't open that file as a PDF. It may be corrupted or password-protected.",
     "errorSave": "Couldn't produce the new PDF. The file may use features this tool can't rewrite.",
-    "privacy": "Your documents never leave this device — everything happens in your browser."
+    "privacy": "Your documents never leave this device — everything happens in your browser.",
+    "originalPage": "Page {page}",
+    "reorderAction": "Save new order"
   }
 }

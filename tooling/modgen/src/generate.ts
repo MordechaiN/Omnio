@@ -116,6 +116,20 @@ function generateWeb(tools: FlatTool[]): string {
         )}, i18nNamespace: ${JSON.stringify(tool.i18nNamespace)} },`,
     )
     .join("\n");
+  const moduleIds = [...new Set(tools.map((tool) => tool.moduleId))];
+  const moduleMeta = moduleIds
+    .map((moduleId) => {
+      const moduleTools = tools.filter((tool) => tool.moduleId === moduleId);
+      const first = moduleTools[0]!;
+      return `  { id: ${JSON.stringify(moduleId)}, version: ${JSON.stringify(
+        first.manifest.version,
+      )}, icon: ${JSON.stringify(first.icon)}, category: ${JSON.stringify(
+        first.category,
+      )}, i18nNamespace: ${JSON.stringify(first.i18nNamespace)}, toolCount: ${
+        moduleTools.length
+      } },`;
+    })
+    .join("\n");
   return `${HEADER}
 import dynamic from "next/dynamic";
 import type { ComponentType } from "react";
@@ -136,6 +150,19 @@ export interface WebToolMeta {
 export const WEB_TOOLS: Record<string, WebToolMeta> = {
 ${meta}
 };
+
+export interface WebModuleMeta {
+  id: string;
+  version: string;
+  icon: string;
+  category: string;
+  i18nNamespace: string;
+  toolCount: number;
+}
+
+export const WEB_MODULES: WebModuleMeta[] = [
+${moduleMeta}
+];
 `;
 }
 

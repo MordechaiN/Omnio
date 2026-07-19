@@ -85,6 +85,7 @@
     "settings": "Settings",
     "about": "About",
     "changelog": "Changelog",
+    "modules": "Modules",
     "stats": "Stats"
   },
   "palette": {
@@ -97,6 +98,8 @@
     "groupLanguage": "Language",
     "groupNavigation": "Go to",
     "groupFavorites": "Favorites",
+    "groupCollections": "Collections",
+    "groupWorkflows": "Workflows",
     "hintNavigate": "Navigate",
     "hintSelect": "Select",
     "hintClose": "Close",
@@ -331,6 +334,56 @@
     "emptyBody": "This category is on the roadmap. Search (⌘K) always shows what's available today."
   },
   "toolPage": {
-    "related": "Related tools"
+    "related": "Related tools",
+    "copyLink": "Copy link to this tool",
+    "linkCopied": "Link copied",
+    "tips": "Tips"
+  },
+  "collections": {
+    "title": "Collections",
+    "new": "New",
+    "newTitle": "New collection",
+    "newEllipsis": "New collection…",
+    "create": "Create",
+    "cancel": "Cancel",
+    "save": "Save",
+    "rename": "Rename",
+    "renameTitle": "Rename collection",
+    "delete": "Delete",
+    "addTo": "Add to collection",
+    "emptyHint": "Group tools your way — a Work set, a study kit, a travel pack. Collections live only on this device.",
+    "emptyCollection": "No tools here yet — add some from any tool page.",
+    "nameLabel": "Name",
+    "emojiLabel": "Icon"
+  },
+  "workflows": {
+    "title": "Workflows",
+    "new": "New",
+    "newTitle": "New workflow",
+    "start": "Start",
+    "delete": "Delete",
+    "addStep": "Add a step",
+    "addStepPlaceholder": "Search tools…",
+    "stepsHint": "Pick at least two tools — Omnio will walk you through them in order.",
+    "moveUp": "Move up",
+    "moveDown": "Move down",
+    "removeStep": "Remove step",
+    "runnerLabel": "Workflow: {name}",
+    "stepOf": "Step {current} of {total}",
+    "previous": "Back",
+    "next": "Next step",
+    "finish": "Finish",
+    "exit": "Exit",
+    "emptyHint": "Chain tools into a repeatable routine — resize, then compress, then convert — and run it step by step."
+  },
+  "modules": {
+    "title": "Modules",
+    "subtitle": "Every tool in Omnio ships inside a module — a self-contained package with its own tools, translations, and tests. This is the foundation the future ecosystem builds on.",
+    "builtinTitle": "Built-in modules",
+    "count": "{count} modules",
+    "toolCount": "{count, plural, one {# tool} other {# tools}}",
+    "statusActive": "Active",
+    "communityTitle": "Community modules",
+    "communityBody": "Coming later: install modules built by others, from an open catalog — with the same on-device privacy rules as everything built in."
   }
 }

@@ -2,13 +2,13 @@
 
 import { useTranslations } from "next-intl";
 import { cn, Icon } from "@omnio/ui";
-import { BarChart3, Home, Info, ScrollText, Settings, Star } from "lucide-react";
+import { BarChart3, Blocks, Home, Info, ScrollText, Settings, Star } from "lucide-react";
 import { DynamicIcon, type IconName } from "lucide-react/dynamic";
 import { Link, usePathname } from "@/i18n/navigation";
 import { CATEGORY_ICONS } from "@/lib/category-icons";
 import { ACTIVE_CATEGORY_IDS, TOOL_COUNT_BY_CATEGORY } from "@/lib/categories";
 import { SEARCH_ENTRIES } from "@/generated/registry.search";
-import { useFavorites } from "@/lib/preferences";
+import { useCollections, useFavorites } from "@/lib/preferences";
 
 const BY_ID = new Map(SEARCH_ENTRIES.map((entry) => [entry.id, entry]));
 
@@ -80,6 +80,7 @@ export function NavItems({ onNavigate }: { onNavigate?: () => void }) {
     .map((id) => BY_ID.get(id))
     .filter((entry): entry is NonNullable<typeof entry> => entry !== undefined)
     .slice(0, 6);
+  const collections = useCollections();
   return (
     <div className="flex flex-col gap-6">
       <nav aria-label={t("shell.primaryNavigation")} className="flex flex-col gap-0.5">
@@ -97,6 +98,12 @@ export function NavItems({ onNavigate }: { onNavigate?: () => void }) {
           label={t("nav.changelog")}
           onNavigate={onNavigate}
         />
+        <NavLink
+          href="/modules"
+          icon={Blocks}
+          label={t("nav.modules")}
+          onNavigate={onNavigate}
+        />
         <NavLink href="/about" icon={Info} label={t("nav.about")} onNavigate={onNavigate} />
       </nav>
       {favorites.length > 0 ? (
@@ -111,6 +118,28 @@ export function NavItems({ onNavigate }: { onNavigate?: () => void }) {
               href={entry.href}
               iconNode={<DynamicIcon name={entry.icon as IconName} size={16} />}
               label={t(`${entry.i18nNamespace}.${entry.nameKey}` as Parameters<typeof t>[0])}
+              onNavigate={onNavigate}
+            />
+          ))}
+        </nav>
+      ) : null}
+
+      {collections.length > 0 ? (
+        <nav aria-label={t("collections.title")} className="flex flex-col gap-0.5">
+          <p className="mb-1.5 px-2.5 text-xs font-semibold tracking-wide text-text-muted uppercase">
+            {t("collections.title")}
+          </p>
+          {collections.map((collection) => (
+            <NavLink
+              key={collection.id}
+              href={`/#c-${collection.id}`}
+              iconNode={
+                <span aria-hidden="true" className="text-base leading-none">
+                  {collection.emoji}
+                </span>
+              }
+              label={collection.name}
+              count={collection.toolIds.length}
               onNavigate={onNavigate}
             />
           ))}
