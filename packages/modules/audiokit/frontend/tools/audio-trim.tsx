@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
+import { takePendingFiles } from "@omnio/module-sdk";
 import { Badge, Button, Label } from "@omnio/ui";
 import { clampTrimRange, encodeWav } from "../../shared/wav.ts";
 
@@ -34,6 +35,12 @@ export default function AudioTrimTool() {
     },
     [],
   );
+
+  // Universal drop zone hand-off — open the file the shell brought along.
+  useEffect(() => {
+    const handed = takePendingFiles()?.[0];
+    if (handed) void open(handed);
+  }, []);
 
   async function open(file: File) {
     setFailed(false);

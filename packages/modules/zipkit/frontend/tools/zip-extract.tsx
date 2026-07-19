@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
+import { takePendingFiles } from "@omnio/module-sdk";
 import { unzip } from "fflate";
 import { Badge, Button } from "@omnio/ui";
 import { downloadName, sanitizeEntryName } from "../../shared/entries.ts";
@@ -54,6 +55,12 @@ export default function ZipExtractTool() {
       setArchive(null);
     }
   }
+
+  // Universal drop zone hand-off — open the file the shell brought along.
+  useEffect(() => {
+    const handed = takePendingFiles()?.[0];
+    if (handed) void open(handed);
+  }, []);
 
   return (
     <div className="flex flex-col gap-5">

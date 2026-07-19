@@ -18,6 +18,7 @@
     "./frontend/tools/image-watermark": "./frontend/tools/image-watermark.tsx",
     "./frontend/tools/image-compare": "./frontend/tools/image-compare.tsx",
     "./frontend/tools/image-metadata": "./frontend/tools/image-metadata.tsx",
+    "./shared/exif": "./shared/exif.ts",
     "./i18n/en": "./i18n/en.json",
     "./i18n/he": "./i18n/he.json"
   },

@@ -11,6 +11,8 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ### Added
 
+- **🪄 Universal File Intelligence** — Omnio's signature move. Drag a file anywhere in the app (or paste an image or screenshot) and Omnio inspects it on the spot — type, size, dimensions, page count, archive contents, audio duration, JSON validity, embedded location data — then suggests an ordered list of everything it can do, with plain-language recommendations ("Large file — worth compressing", "Strips the embedded location data"). Choosing an action opens the tool with the file already loaded. Every suggestion comes from the modules' own declared file support, and every byte stays on your device.
+
 - **🔎 Typo-tolerant search** — the palette now ranks results on a real scoring ladder (exact → prefix → word-prefix → substring → in-order letters → typo within one or two edits), so "pasword", "regx", or "cronn" still land on the right tool. Favorited and recently used tools get a small boost among equals.
 - **⌨️ Keyboard shortcuts reference** — a quiet card listing every global shortcut, one palette command away.
 - **Palette upgrades** — a Recently-used group at the top, and a no-results state that offers category shortcuts and a search tip instead of a dead end.

@@ -16,6 +16,15 @@
         "convert",
         "table",
         "spreadsheet"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "text/csv",
+            "application/csv"
+          ],
+          "priority": 90
+        }
       ]
     }
   ],

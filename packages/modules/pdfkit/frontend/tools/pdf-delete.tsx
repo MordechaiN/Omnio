@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { PDFDocument } from "pdf-lib";
 import { Badge, Button, Input, Label } from "@omnio/ui";
 import { parsePageRanges, pdfFilename, remainingPages } from "../../shared/pages.ts";
-import { downloadPdf, loadPdf, PdfDropZone, type LoadedPdf } from "../lib/pdf-file.tsx";
+import { downloadPdf, loadPdf, PdfDropZone, usePendingPdf, type LoadedPdf } from "../lib/pdf-file.tsx";
 
 /** Delete pages — remove a selection and keep the rest. */
 export default function PdfDeleteTool() {
@@ -44,6 +44,8 @@ export default function PdfDeleteTool() {
       setBusy(false);
     }
   }
+
+  usePendingPdf((files) => void open(files));
 
   return (
     <div className="flex flex-col gap-5">

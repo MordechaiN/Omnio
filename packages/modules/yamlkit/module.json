@@ -15,6 +15,16 @@
         "json",
         "convert",
         "yml"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "application/yaml",
+            "text/yaml",
+            "application/x-yaml"
+          ],
+          "priority": 88
+        }
       ]
     }
   ],

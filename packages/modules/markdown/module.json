@@ -16,6 +16,14 @@
         "preview",
         "render",
         "gfm"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "text/markdown"
+          ],
+          "priority": 88
+        }
       ]
     }
   ],

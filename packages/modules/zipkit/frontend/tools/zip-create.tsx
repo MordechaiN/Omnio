@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
+import { takePendingFiles } from "@omnio/module-sdk";
 import { zip, type Zippable } from "fflate";
 import { Badge, Button, IconButton, Input, Label } from "@omnio/ui";
 import { X } from "lucide-react";
@@ -27,6 +28,12 @@ export default function ZipCreateTool() {
     if (!list) return;
     setFiles((previous) => [...previous, ...list]);
   }
+
+  // Universal drop zone hand-off — start the list with the file(s) brought along.
+  useEffect(() => {
+    const handed = takePendingFiles();
+    if (handed) setFiles((previous) => [...previous, ...handed]);
+  }, []);
 
   async function create() {
     setBusy(true);

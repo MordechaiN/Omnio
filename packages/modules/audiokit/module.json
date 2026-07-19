@@ -10,9 +10,28 @@
       "id": "audio-trim",
       "tier": "browser",
       "surface": "frontend/tools/audio-trim",
-      "keywords": ["audio", "trim", "cut", "clip", "wav", "mp3", "sound", "ringtone"]
+      "keywords": [
+        "audio",
+        "trim",
+        "cut",
+        "clip",
+        "wav",
+        "mp3",
+        "sound",
+        "ringtone"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "audio/*"
+          ],
+          "priority": 90
+        }
+      ]
     }
   ],
-  "capabilities": { "fileActions": [] },
+  "capabilities": {
+    "fileActions": []
+  },
   "permissions": []
 }

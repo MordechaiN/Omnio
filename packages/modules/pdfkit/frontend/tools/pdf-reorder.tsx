@@ -6,7 +6,7 @@ import { PDFDocument } from "pdf-lib";
 import { Badge, Button, IconButton } from "@omnio/ui";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { pdfFilename } from "../../shared/pages.ts";
-import { downloadPdf, loadPdf, PdfDropZone, type LoadedPdf } from "../lib/pdf-file.tsx";
+import { downloadPdf, loadPdf, PdfDropZone, usePendingPdf, type LoadedPdf } from "../lib/pdf-file.tsx";
 
 /** Reorder — move pages up and down, then save the new order. */
 export default function PdfReorderTool() {
@@ -54,6 +54,8 @@ export default function PdfReorderTool() {
   }
 
   const dirty = order.some((original, index) => original !== index);
+
+  usePendingPdf((files) => void open(files));
 
   return (
     <div className="flex flex-col gap-5">

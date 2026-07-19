@@ -125,6 +125,28 @@
     "moveFocus": "Move keyboard focus",
     "hint": "Everything in Omnio is reachable by keyboard — the palette is the fastest way in."
   },
+  "dropzone": {
+    "veilTitle": "Drop it — Omnio's got it",
+    "veilBody": "Any image, PDF, archive, audio, or text file. Nothing is uploaded.",
+    "inspecting": "Taking a look…",
+    "dialogTitle": "Here's what Omnio can do",
+    "actionsTitle": "Suggested actions",
+    "noActions": "Omnio doesn't have a tool for this file type yet — it stays on your device either way.",
+    "pages": "{count, plural, one {# page} other {# pages}}",
+    "files": "{count, plural, one {# file} other {# files}}",
+    "invalidJson": "Invalid JSON",
+    "hasExif": "Contains location data",
+    "privacy": "Inspected right here in your browser — the file never left your device.",
+    "reasons": {
+      "largeImage": "Large file — worth compressing",
+      "hugeDimensions": "Very large — consider resizing",
+      "exifPresent": "Strips the embedded location data",
+      "pngToWebp": "WebP could be much smaller",
+      "hugePdf": "Big document — split it down",
+      "invalidJson": "Fix the syntax here",
+      "longAudio": "Long recording — trim it down"
+    }
+  },
   "theme": {
     "label": "Theme",
     "light": "Light",

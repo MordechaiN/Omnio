@@ -125,6 +125,28 @@
     "moveFocus": "העברת מיקוד המקלדת",
     "hint": "הכול ב-Omnio נגיש במקלדת — לוח הפקודות הוא הדרך המהירה ביותר."
   },
+  "dropzone": {
+    "veilTitle": "שחררו — Omnio על זה",
+    "veilBody": "כל תמונה, PDF, ארכיון, אודיו או קובץ טקסט. שום דבר לא מועלה.",
+    "inspecting": "רגע, בודקים…",
+    "dialogTitle": "הנה מה ש-Omnio יכול לעשות",
+    "actionsTitle": "פעולות מוצעות",
+    "noActions": "ל-Omnio אין עדיין כלי לסוג הקובץ הזה — בכל מקרה הוא נשאר במכשיר שלכם.",
+    "pages": "{count, plural, one {עמוד אחד} other {# עמודים}}",
+    "files": "{count, plural, one {קובץ אחד} other {# קבצים}}",
+    "invalidJson": "JSON לא תקין",
+    "hasExif": "מכיל נתוני מיקום",
+    "privacy": "נבדק כאן בדפדפן — הקובץ לא עזב את המכשיר שלכם.",
+    "reasons": {
+      "largeImage": "קובץ גדול — כדאי לדחוס",
+      "hugeDimensions": "גדול מאוד — שקלו שינוי גודל",
+      "exifPresent": "מסיר את נתוני המיקום המוטמעים",
+      "pngToWebp": "WebP יכול להיות קטן בהרבה",
+      "hugePdf": "מסמך גדול — פצלו אותו",
+      "invalidJson": "תקנו את התחביר כאן",
+      "longAudio": "הקלטה ארוכה — קצרו אותה"
+    }
+  },
   "theme": {
     "label": "ערכת נושא",
     "light": "בהירה",

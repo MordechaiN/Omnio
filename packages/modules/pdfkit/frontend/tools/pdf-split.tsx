@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { PDFDocument } from "pdf-lib";
 import { Badge, Button, Input, Label } from "@omnio/ui";
 import { parsePageRanges, pdfFilename } from "../../shared/pages.ts";
-import { downloadPdf, loadPdf, PdfDropZone, type LoadedPdf } from "../lib/pdf-file.tsx";
+import { downloadPdf, loadPdf, PdfDropZone, usePendingPdf, type LoadedPdf } from "../lib/pdf-file.tsx";
 
 /** Split — extract a page selection ("1-3,7,9-") into a new PDF. */
 export default function PdfSplitTool() {
@@ -42,6 +42,8 @@ export default function PdfSplitTool() {
       setBusy(false);
     }
   }
+
+  usePendingPdf((files) => void open(files));
 
   return (
     <div className="flex flex-col gap-5">

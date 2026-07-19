@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
+import { takePendingFiles } from "@omnio/module-sdk";
 import { Badge } from "@omnio/ui";
 import { formatBytes } from "../../shared/resize.ts";
 
@@ -44,6 +45,13 @@ export function useImageFile() {
       setError(true);
     }
   }, []);
+
+  // Universal drop zone hand-off: if the shell navigated here with a file,
+  // open it immediately — the user already chose what to do with it.
+  useEffect(() => {
+    const handed = takePendingFiles()?.[0];
+    if (handed) void load(handed);
+  }, [load]);
 
   return { image, load, error };
 }

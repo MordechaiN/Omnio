@@ -17,6 +17,15 @@
         "minify",
         "validate",
         "prettify"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "application/json",
+            "text/json"
+          ],
+          "priority": 90
+        }
       ]
     }
   ],

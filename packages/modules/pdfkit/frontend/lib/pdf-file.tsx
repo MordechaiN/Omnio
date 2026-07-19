@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
+import { takePendingFiles } from "@omnio/module-sdk";
 import { PDFDocument } from "pdf-lib";
 
 export interface LoadedPdf {
@@ -16,6 +17,19 @@ export async function loadPdf(file: File): Promise<LoadedPdf> {
   // ignoreEncryption: viewer-encrypted files still open; edit fails loudly later.
   const doc = await PDFDocument.load(bytes, { ignoreEncryption: true });
   return { name: file.name, size: file.size, doc, pageCount: doc.getPageCount() };
+}
+
+/**
+ * Universal drop zone hand-off: when the shell navigated here with file(s),
+ * open them immediately — the user already chose this tool for them.
+ */
+export function usePendingPdf(onFiles: (files: File[]) => void): void {
+  const handler = useRef(onFiles);
+  handler.current = onFiles;
+  useEffect(() => {
+    const handed = takePendingFiles();
+    if (handed && handed.length > 0) handler.current(handed);
+  }, []);
 }
 
 export function downloadPdf(bytes: Uint8Array, filename: string): void {

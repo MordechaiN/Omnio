@@ -18,6 +18,14 @@
         "jpeg",
         "webp",
         "photo"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "image/*"
+          ],
+          "priority": 88
+        }
       ]
     },
     {
@@ -31,6 +39,14 @@
         "cut",
         "aspect",
         "photo"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "image/*"
+          ],
+          "priority": 90
+        }
       ]
     },
     {
@@ -44,6 +60,14 @@
         "mirror",
         "turn",
         "photo"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "image/*"
+          ],
+          "priority": 82
+        }
       ]
     },
     {
@@ -57,6 +81,14 @@
         "shrink",
         "quality",
         "size"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "image/*"
+          ],
+          "priority": 86
+        }
       ]
     },
     {
@@ -70,6 +102,14 @@
         "blur",
         "sharpen",
         "effect"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "image/*"
+          ],
+          "priority": 66
+        }
       ]
     },
     {
@@ -84,6 +124,14 @@
         "dominant",
         "eyedropper",
         "hex"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "image/*"
+          ],
+          "priority": 70
+        }
       ]
     },
     {
@@ -97,6 +145,16 @@
         "gps",
         "strip",
         "clean"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "image/jpeg",
+            "image/tiff",
+            "image/*"
+          ],
+          "priority": 76
+        }
       ]
     },
     {
@@ -123,6 +181,14 @@
         "text",
         "brand",
         "copyright"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "image/*"
+          ],
+          "priority": 62
+        }
       ]
     },
     {
@@ -136,6 +202,15 @@
         "slider",
         "diff",
         "side by side"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "image/*"
+          ],
+          "multiple": true,
+          "priority": 58
+        }
       ]
     },
     {
@@ -149,6 +224,14 @@
         "gps",
         "camera",
         "info"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "image/*"
+          ],
+          "priority": 78
+        }
       ]
     }
   ],

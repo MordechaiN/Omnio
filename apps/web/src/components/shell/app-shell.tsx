@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { SkipLink } from "@omnio/ui";
 import { Link } from "@/i18n/navigation";
 import { CommandPalette } from "./command-palette";
+import { FileIntelligence } from "./file-intelligence";
 import { LocaleMenu } from "./locale-menu";
 import { MobileNav } from "./mobile-nav";
 import { NavItems } from "./nav-items";
@@ -11,7 +12,6 @@ import { PaletteProvider } from "./palette-context";
 import { SearchButton } from "./search-button";
 import { ThemeMenu } from "./theme-menu";
 import { UserMenu } from "./user-menu";
-import { FileDropProvider } from "@/components/files/file-drop-provider";
 import { JobsProvider } from "@/components/jobs/jobs-provider";
 import { JobsTray } from "@/components/jobs/jobs-tray";
 
@@ -46,7 +46,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <JobsProvider>
       <PaletteProvider>
-        <FileDropProvider>
           <SkipLink>{t("shell.skipToContent")}</SkipLink>
           <div className="flex min-h-dvh bg-bg">
             {/* Sidebar — desktop only; the same tree lives in MobileNav's sheet. */}
@@ -81,7 +80,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </div>
           </div>
           <CommandPalette />
-        </FileDropProvider>
+          <FileIntelligence />
       </PaletteProvider>
     </JobsProvider>
   );

@@ -32,6 +32,7 @@ interface FlatTool {
   icon: string;
   i18nNamespace: string;
   keywords: string[];
+  accepts: Array<{ mime: string[]; multiple?: boolean; maxSizeMB?: number; priority?: number }>;
 }
 
 function flattenTools(modules: LoadedModule[]): FlatTool[] {
@@ -48,6 +49,7 @@ function flattenTools(modules: LoadedModule[]): FlatTool[] {
         icon: manifest.icon,
         i18nNamespace: manifest.i18nNamespace,
         keywords: tool.keywords ?? [],
+        accepts: tool.accepts ?? [],
       });
     }
   }
@@ -69,12 +71,21 @@ function generateSearch(tools: FlatTool[]): string {
         `    nameKey: ${JSON.stringify(`tools.${tool.toolId}.name`)},`,
         `    descriptionKey: ${JSON.stringify(`tools.${tool.toolId}.description`)},`,
         `    keywords: ${JSON.stringify(tool.keywords)},`,
+        `    accepts: ${JSON.stringify(tool.accepts)},`,
         `    href: ${JSON.stringify(`/tool/${tool.moduleId}/${tool.toolId}`)},`,
         "  },",
       ].join("\n"),
     )
     .join("\n");
   return `${HEADER}
+export interface ToolAccept {
+  mime: string[];
+  multiple?: boolean;
+  maxSizeMB?: number;
+  /** Smart-action ordering weight (0–100, higher first). */
+  priority?: number;
+}
+
 export interface SearchEntry {
   id: string;
   moduleId: string;
@@ -86,6 +97,7 @@ export interface SearchEntry {
   nameKey: string;
   descriptionKey: string;
   keywords: string[];
+  accepts: ToolAccept[];
   href: string;
 }
 

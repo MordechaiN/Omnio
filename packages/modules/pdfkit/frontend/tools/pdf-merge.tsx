@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { PDFDocument } from "pdf-lib";
 import { Badge, Button, IconButton } from "@omnio/ui";
 import { ArrowDown, ArrowUp, X } from "lucide-react";
-import { downloadPdf, loadPdf, PdfDropZone, type LoadedPdf } from "../lib/pdf-file.tsx";
+import { downloadPdf, loadPdf, PdfDropZone, usePendingPdf, type LoadedPdf } from "../lib/pdf-file.tsx";
 
 /** Merge PDFs — order the list, then combine into one document. */
 export default function PdfMergeTool() {
@@ -54,6 +54,8 @@ export default function PdfMergeTool() {
   }
 
   const totalPages = files.reduce((sum, file) => sum + file.pageCount, 0);
+
+  usePendingPdf((files) => void add(files));
 
   return (
     <div className="flex flex-col gap-5">

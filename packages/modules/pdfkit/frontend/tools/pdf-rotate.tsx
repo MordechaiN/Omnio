@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { degrees } from "pdf-lib";
 import { Badge, Button, Input, Label } from "@omnio/ui";
 import { parsePageRanges, pdfFilename } from "../../shared/pages.ts";
-import { downloadPdf, loadPdf, PdfDropZone, type LoadedPdf } from "../lib/pdf-file.tsx";
+import { downloadPdf, loadPdf, PdfDropZone, usePendingPdf, type LoadedPdf } from "../lib/pdf-file.tsx";
 
 const ANGLES = [90, 180, 270] as const;
 
@@ -51,6 +51,8 @@ export default function PdfRotateTool() {
       setBusy(false);
     }
   }
+
+  usePendingPdf((files) => void open(files));
 
   return (
     <div className="flex flex-col gap-5">

@@ -14,6 +14,8 @@ export const AcceptSchema = z.object({
   mime: z.array(z.string().min(1)).min(1),
   multiple: z.boolean().optional(),
   maxSizeMB: z.number().positive().optional(),
+  /** Smart-action ordering weight (0–100, higher first) for this file shape. */
+  priority: z.number().int().min(0).max(100).optional(),
 });
 
 export const ProduceSchema = z.object({ mime: z.string().min(1) });

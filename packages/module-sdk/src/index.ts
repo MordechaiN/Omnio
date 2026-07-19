@@ -30,3 +30,4 @@ export type {
 } from "./tools.js";
 
 export type { Exec, ExecOptions, ExecResult, ToolLogger } from "./exec.js";
+export { setPendingFiles, takePendingFiles } from "./pending-file.js";

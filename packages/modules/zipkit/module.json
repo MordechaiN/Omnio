@@ -10,15 +10,48 @@
       "id": "zip-create",
       "tier": "browser",
       "surface": "frontend/tools/zip-create",
-      "keywords": ["zip", "archive", "compress", "bundle", "pack"]
+      "keywords": [
+        "zip",
+        "archive",
+        "compress",
+        "bundle",
+        "pack"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "*/*"
+          ],
+          "multiple": true,
+          "priority": 25
+        }
+      ]
     },
     {
       "id": "zip-extract",
       "tier": "browser",
       "surface": "frontend/tools/zip-extract",
-      "keywords": ["zip", "unzip", "extract", "archive", "open", "unpack"]
+      "keywords": [
+        "zip",
+        "unzip",
+        "extract",
+        "archive",
+        "open",
+        "unpack"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "application/zip",
+            "application/x-zip-compressed"
+          ],
+          "priority": 92
+        }
+      ]
     }
   ],
-  "capabilities": { "fileActions": [] },
+  "capabilities": {
+    "fileActions": []
+  },
   "permissions": []
 }

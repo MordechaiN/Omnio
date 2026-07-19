@@ -17,6 +17,15 @@
         "reading",
         "lines",
         "stats"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "text/plain",
+            "text/markdown"
+          ],
+          "priority": 60
+        }
       ]
     }
   ],
