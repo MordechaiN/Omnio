@@ -1,0 +1,24 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "zipkit",
+  "version": "1.0.0",
+  "category": "archives",
+  "icon": "folder-archive",
+  "i18nNamespace": "mod-zipkit",
+  "tools": [
+    {
+      "id": "zip-create",
+      "tier": "browser",
+      "surface": "frontend/tools/zip-create",
+      "keywords": ["zip", "archive", "compress", "bundle", "pack"]
+    },
+    {
+      "id": "zip-extract",
+      "tier": "browser",
+      "surface": "frontend/tools/zip-extract",
+      "keywords": ["zip", "unzip", "extract", "archive", "open", "unpack"]
+    }
+  ],
+  "capabilities": { "fileActions": [] },
+  "permissions": []
+}

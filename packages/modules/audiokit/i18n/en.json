@@ -1,0 +1,23 @@
+{
+  "name": "Audio",
+  "description": "Trim and convert audio clips in your browser.",
+  "tools": {
+    "audio-trim": {
+      "name": "Audio Trimmer",
+      "description": "Cut a clip out of any audio file and save it as WAV — entirely on your device."
+    }
+  },
+  "ui": {
+    "dropLabel": "Choose or drop an audio file",
+    "dropTitle": "Drop an audio file here, or click to choose",
+    "dropReplace": "Drop another file to replace this one",
+    "dropHint": "MP3, WAV, OGG, M4A — anything your browser can decode.",
+    "start": "Start: {time}",
+    "end": "End: {time}",
+    "preview": "Preview selection",
+    "stop": "Stop",
+    "export": "Export WAV ({time})",
+    "errorDecode": "Couldn't decode that file as audio. Try an MP3, WAV, or OGG.",
+    "privacy": "Your audio never leaves this device — trimming happens in your browser."
+  }
+}

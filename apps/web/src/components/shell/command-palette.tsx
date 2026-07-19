@@ -28,6 +28,7 @@ import {
   Circle,
   Contrast,
   Home,
+  Keyboard,
   Languages,
   Moon,
   Monitor,
@@ -36,13 +37,21 @@ import {
   Settings,
   Sun,
 } from "lucide-react";
+import { useState } from "react";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { CATEGORY_ICONS } from "@/lib/category-icons";
 import { ACTIVE_CATEGORY_IDS } from "@/lib/categories";
 import { SEARCH_ENTRIES } from "@/generated/registry.search";
-import { useCollections, useFavorites, useWorkflows } from "@/lib/preferences";
+import {
+  useCollections,
+  useFavorites,
+  useRecentTools,
+  useWorkflows,
+} from "@/lib/preferences";
 import { expandKeywords } from "@/lib/search-synonyms";
+import { makePaletteFilter } from "@/lib/search-score";
 import { workflowStepHref } from "@/components/workspace/workflows-section";
+import { ShortcutsDialog } from "./shortcuts-dialog";
 import { useCommandPalette } from "./palette-context";
 
 const BY_ID = new Map(SEARCH_ENTRIES.map((entry) => [entry.id, entry]));
@@ -72,6 +81,23 @@ export function CommandPalette() {
     .filter((entry): entry is NonNullable<typeof entry> => entry !== undefined);
   const collections = useCollections();
   const workflows = useWorkflows();
+  const recentIds = useRecentTools();
+  const [shortcutsOpen, setShortcutsOpen] = useState(false);
+
+  const toolName = (entry: (typeof SEARCH_ENTRIES)[number]) =>
+    t(`${entry.i18nNamespace}.${entry.nameKey}` as Parameters<typeof t>[0]);
+
+  const recents = recentIds
+    .map((id) => BY_ID.get(id))
+    .filter((entry): entry is NonNullable<typeof entry> => entry !== undefined)
+    .slice(0, 4);
+
+  // Typo-tolerant, tiered ranking with personal boosts (lib/search-score).
+  // Rebuilt per render — a few dozen names, negligible next to cmdk's own work.
+  const filter = makePaletteFilter({
+    favorites: new Set(favorites.map((entry) => toolName(entry).toLowerCase())),
+    recents: recents.map((entry) => toolName(entry).toLowerCase()),
+  });
 
   function run(action: () => void) {
     setOpen(false);
@@ -79,10 +105,29 @@ export function CommandPalette() {
   }
 
   return (
-    <CommandDialog open={open} onOpenChange={setOpen} title={t("palette.title")}>
+    <>
+    <CommandDialog open={open} onOpenChange={setOpen} title={t("palette.title")} filter={filter}>
       <CommandInput placeholder={t("palette.placeholder")} />
       <CommandList>
-        <CommandEmpty>{t("palette.empty")}</CommandEmpty>
+        <CommandEmpty>
+          {/* A dead end becomes a fork: explain, then offer somewhere to go. */}
+          <div className="flex flex-col items-center gap-3 px-4 py-2">
+            <p>{t("palette.empty")}</p>
+            <div className="flex flex-wrap justify-center gap-1.5">
+              {ACTIVE_CATEGORY_IDS.slice(0, 5).map((id) => (
+                <button
+                  key={id}
+                  type="button"
+                  onClick={() => run(() => router.push(`/t/${id}`))}
+                  className="rounded-md border border-border-subtle px-2 py-1 text-xs text-text-secondary transition-colors duration-(--motion-fast) hover:border-border hover:bg-surface-raised hover:text-text"
+                >
+                  {t(`categories.${id}.name`)}
+                </button>
+              ))}
+            </div>
+            <p className="text-xs text-text-muted">{t("palette.emptyTip")}</p>
+          </div>
+        </CommandEmpty>
 
         <CommandGroup heading={t("palette.groupNavigation")}>
           <CommandItem onSelect={() => run(() => router.push("/"))}>
@@ -97,7 +142,32 @@ export function CommandPalette() {
             <Icon icon={BarChart3} size={16} />
             {t("nav.stats")}
           </CommandItem>
+          <CommandItem onSelect={() => run(() => setShortcutsOpen(true))}>
+            <Icon icon={Keyboard} size={16} />
+            {t("shortcuts.title")}
+          </CommandItem>
         </CommandGroup>
+
+        {recents.length > 0 ? (
+          <>
+            <CommandSeparator />
+            <CommandGroup heading={t("palette.groupRecent")}>
+              {recents.map((entry) => {
+                const name = toolName(entry);
+                return (
+                  <CommandItem
+                    key={`rec-${entry.id}`}
+                    keywords={[name, ...expandKeywords(entry.id, entry.keywords)]}
+                    onSelect={() => run(() => router.push(entry.href))}
+                  >
+                    <DynamicIcon name={entry.icon as IconName} size={16} />
+                    {name}
+                  </CommandItem>
+                );
+              })}
+            </CommandGroup>
+          </>
+        ) : null}
 
         {favorites.length > 0 ? (
           <>
@@ -264,5 +334,7 @@ export function CommandPalette() {
         <CommandFooterHint keys={["esc"]} label={t("palette.hintClose")} />
       </CommandFooter>
     </CommandDialog>
+    <ShortcutsDialog open={shortcutsOpen} onOpenChange={setShortcutsOpen} />
+    </>
   );
 }

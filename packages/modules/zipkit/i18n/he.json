@@ -1,0 +1,34 @@
+{
+  "name": "ZIP",
+  "description": "יצירה ופתיחה של ארכיוני ZIP בדפדפן.",
+  "tools": {
+    "zip-create": {
+      "name": "יצירת ZIP",
+      "description": "אריזת קבצים לארכיון ZIP — כולו במכשיר שלכם."
+    },
+    "zip-extract": {
+      "name": "חילוץ ZIP",
+      "description": "פתיחת ZIP, עיון בתוכן ושמירת הקבצים הדרושים — במכשיר שלכם."
+    }
+  },
+  "ui": {
+    "dropLabel": "בחירת או גרירת קבצים",
+    "dropTitle": "גררו קבצים לכאן, או לחצו לבחירה",
+    "dropMore": "גררו קבצים נוספים, או לחצו להוספה",
+    "dropHint": "הכול נארז כאן — שום דבר לא מועלה לשרת.",
+    "extractDropLabel": "בחירת או גרירת ארכיון ZIP",
+    "extractDropTitle": "גררו ZIP לכאן, או לחצו לבחירה",
+    "extractDropReplace": "גררו ZIP אחר כדי להחליף את הנוכחי",
+    "archiveName": "שם הארכיון",
+    "remove": "הסרה מהרשימה",
+    "createAction": "יצירת ZIP ({count, plural, one {קובץ אחד} other {# קבצים}}, {size})",
+    "working": "עובד…",
+    "entryCount": "{count, plural, one {קובץ אחד} other {# קבצים}}",
+    "emptyArchive": "הארכיון הזה ריק.",
+    "saveEntry": "שמירה",
+    "saveAll": "שמירת כל {count} הקבצים",
+    "errorCreate": "לא ניתן לבנות את הארכיון — ייתכן שאחד הקבצים אינו קריא.",
+    "errorExtract": "לא ניתן לפתוח את הקובץ כ-ZIP. ייתכן שהוא פגום או מוצפן.",
+    "privacy": "הקבצים שלכם לעולם לא עוזבים את המכשיר — האריזה מתבצעת בדפדפן."
+  }
+}

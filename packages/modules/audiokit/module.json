@@ -1,0 +1,18 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "audiokit",
+  "version": "1.0.0",
+  "category": "audio",
+  "icon": "audio-waveform",
+  "i18nNamespace": "mod-audiokit",
+  "tools": [
+    {
+      "id": "audio-trim",
+      "tier": "browser",
+      "surface": "frontend/tools/audio-trim",
+      "keywords": ["audio", "trim", "cut", "clip", "wav", "mp3", "sound", "ringtone"]
+    }
+  ],
+  "capabilities": { "fileActions": [] },
+  "permissions": []
+}

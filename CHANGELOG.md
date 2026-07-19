@@ -11,6 +11,12 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ### Added
 
+- **🔎 Typo-tolerant search** — the palette now ranks results on a real scoring ladder (exact → prefix → word-prefix → substring → in-order letters → typo within one or two edits), so "pasword", "regx", or "cronn" still land on the right tool. Favorited and recently used tools get a small boost among equals.
+- **⌨️ Keyboard shortcuts reference** — a quiet card listing every global shortcut, one palette command away.
+- **Palette upgrades** — a Recently-used group at the top, and a no-results state that offers category shortcuts and a search tip instead of a dead end.
+- **📦 Archives opens** — Create ZIP (bundle any files, duplicate names auto-suffixed) and Extract ZIP (browse entries, save one or all), via fflate in the browser. Entry names are sanitized against path-traversal tricks.
+- **🎵 Audio opens** — Audio Trimmer: decode any browser-supported format, pick a start and end, preview the selection, export 16-bit WAV. The encoder is dependency-free and unit-tested.
+
 - **🗂️ Collections** — group tools your way (💼 Work, 🖼️ Photo prep, anything). Create, rename, and delete from the dashboard; add or remove any tool from its page header. Collections appear on the dashboard, in the sidebar, and in the command palette — stored only on this device.
 - **⚡ Workflows** — chain tools into a repeatable routine (Resize → Compress → EXIF Remove) and run it as a guided sequence: each tool page shows the workflow strip with progress dots and Back / Next step / Exit. Local-only, like everything personal.
 - **Four more tools** — Watermark (text overlay with position/size/opacity), Image Compare (slider divider between two images), Metadata Viewer (file facts plus a dependency-free JPEG EXIF reader that flags embedded GPS data), and Reorder Pages for PDFs. The library now counts 56 tools.

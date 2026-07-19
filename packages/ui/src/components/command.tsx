@@ -27,9 +27,11 @@ export interface CommandDialogProps extends DialogPrimitive.DialogProps {
   /** Accessible dialog title (not visually rendered). */
   title: string;
   className?: string;
+  /** Custom cmdk ranking function (query, value, keywords) → score, 0 filters out. */
+  filter?: React.ComponentProps<typeof CommandPrimitive>["filter"];
 }
 
-export function CommandDialog({ title, children, className, ...props }: CommandDialogProps) {
+export function CommandDialog({ title, children, className, filter, ...props }: CommandDialogProps) {
   return (
     <DialogPrimitive.Root {...props}>
       <DialogPrimitive.Portal>
@@ -48,7 +50,7 @@ export function CommandDialog({ title, children, className, ...props }: CommandD
             <DialogPrimitive.Title>{title}</DialogPrimitive.Title>
           </VisuallyHidden>
           {/* The cmdk root — Input/List children get their store from here. */}
-          <Command>{children}</Command>
+          <Command filter={filter}>{children}</Command>
         </DialogPrimitive.Content>
       </DialogPrimitive.Portal>
     </DialogPrimitive.Root>

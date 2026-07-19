@@ -1,0 +1,34 @@
+{
+  "name": "ZIP",
+  "description": "Create and open ZIP archives in your browser.",
+  "tools": {
+    "zip-create": {
+      "name": "Create ZIP",
+      "description": "Bundle any files into a ZIP archive — entirely on your device."
+    },
+    "zip-extract": {
+      "name": "Extract ZIP",
+      "description": "Open a ZIP, browse what's inside, and save the files you need — on your device."
+    }
+  },
+  "ui": {
+    "dropLabel": "Choose or drop files",
+    "dropTitle": "Drop files here, or click to choose",
+    "dropMore": "Drop more files, or click to add",
+    "dropHint": "Everything is packed right here — nothing is uploaded.",
+    "extractDropLabel": "Choose or drop a ZIP archive",
+    "extractDropTitle": "Drop a ZIP here, or click to choose",
+    "extractDropReplace": "Drop another ZIP to replace this one",
+    "archiveName": "Archive name",
+    "remove": "Remove from list",
+    "createAction": "Create ZIP ({count, plural, one {# file} other {# files}}, {size})",
+    "working": "Working…",
+    "entryCount": "{count, plural, one {# file} other {# files}}",
+    "emptyArchive": "This archive is empty.",
+    "saveEntry": "Save",
+    "saveAll": "Save all {count} files",
+    "errorCreate": "Couldn't build the archive — one of the files may be unreadable.",
+    "errorExtract": "Couldn't open that file as a ZIP. It may be corrupted or encrypted.",
+    "privacy": "Your files never leave this device — archiving happens in your browser."
+  }
+}
