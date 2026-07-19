@@ -1,0 +1,4 @@
+{
+  "extends": "@omnio/config/tsconfig/react-library.json",
+  "include": ["frontend", "shared"]
+}

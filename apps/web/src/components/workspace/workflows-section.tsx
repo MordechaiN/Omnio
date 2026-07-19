@@ -14,12 +14,13 @@ import {
   Label,
 } from "@omnio/ui";
 import { DynamicIcon, type IconName } from "lucide-react/dynamic";
-import { ArrowDown, ArrowUp, Play, Plus, Trash2, X } from "lucide-react";
+import { ArrowDown, ArrowUp, Copy, Pencil, Play, Plus, Trash2, X } from "lucide-react";
 import { useRouter } from "@/i18n/navigation";
 import { SEARCH_ENTRIES, type SearchEntry } from "@/generated/registry.search";
 import {
   createWorkflow,
   deleteWorkflow,
+  updateWorkflow,
   useWorkflows,
   type Workflow,
 } from "@/lib/preferences";
@@ -55,18 +56,21 @@ const TEMPLATES: Array<{ key: string; emoji: string; steps: string[] }> = [
   },
 ];
 
-/** Builder dialog: name, emoji, and an ordered list of steps. */
+/** Builder dialog: name, emoji, and an ordered list of steps. Editing an
+ * existing workflow seeds the form and saves in place. */
 function WorkflowDialog({
   open,
   onOpenChange,
+  editing,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  editing?: Workflow;
 }) {
   const t = useTranslations();
-  const [name, setName] = useState("");
-  const [emoji, setEmoji] = useState<string>(EMOJI_PRESETS[6]);
-  const [steps, setSteps] = useState<string[]>([]);
+  const [name, setName] = useState(editing?.name ?? "");
+  const [emoji, setEmoji] = useState<string>(editing?.emoji ?? EMOJI_PRESETS[6]);
+  const [steps, setSteps] = useState<string[]>(editing?.steps ?? []);
   const [query, setQuery] = useState("");
 
   const matches =
@@ -92,7 +96,11 @@ function WorkflowDialog({
 
   function submit() {
     if (name.trim() === "" || steps.length < 2) return;
-    createWorkflow(name.trim(), emoji, steps);
+    if (editing) {
+      updateWorkflow(editing.id, { name: name.trim(), emoji, steps });
+    } else {
+      createWorkflow(name.trim(), emoji, steps);
+    }
     onOpenChange(false);
     setName("");
     setSteps([]);
@@ -212,6 +220,19 @@ function WorkflowDialog({
                       onClick={() => move(index, 1)}
                     />
                     <IconButton
+                      aria-label={t("workflows.duplicateStep")}
+                      icon={Copy}
+                      size="sm"
+                      variant="ghost"
+                      onClick={() =>
+                        setSteps((previous) => [
+                          ...previous.slice(0, index + 1),
+                          previous[index]!,
+                          ...previous.slice(index + 1),
+                        ])
+                      }
+                    />
+                    <IconButton
                       aria-label={t("workflows.removeStep")}
                       icon={X}
                       size="sm"
@@ -248,6 +269,8 @@ export function WorkflowsSection() {
   const router = useRouter();
   const workflows = useWorkflows();
   const [creating, setCreating] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const editing = workflows.find((workflow) => workflow.id === editingId);
 
   return (
     <section className="flex flex-col gap-3" aria-labelledby="workflows-title">
@@ -305,6 +328,13 @@ export function WorkflowsSection() {
                   {t("workflows.start")}
                 </Button>
                 <IconButton
+                  aria-label={t("workflows.edit")}
+                  icon={Pencil}
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => setEditingId(workflow.id)}
+                />
+                <IconButton
                   aria-label={t("workflows.delete")}
                   icon={Trash2}
                   size="sm"
@@ -318,6 +348,14 @@ export function WorkflowsSection() {
       )}
 
       <WorkflowDialog open={creating} onOpenChange={setCreating} />
+      {editing ? (
+        <WorkflowDialog
+          key={editing.id}
+          open
+          onOpenChange={(open) => !open && setEditingId(null)}
+          editing={editing}
+        />
+      ) : null}
     </section>
   );
 }

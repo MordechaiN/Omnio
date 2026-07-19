@@ -21,6 +21,18 @@
     "pdf-reorder": {
       "name": "Reorder Pages",
       "description": "Rearrange a PDF's pages into a new order — on your device."
+    },
+    "pdf-watermark": {
+      "name": "Watermark PDF",
+      "description": "Stamp diagonal text across every page — on your device."
+    },
+    "pdf-pagenum": {
+      "name": "Number Pages",
+      "description": "Add n / total page numbers to every page — on your device."
+    },
+    "pdf-metadata": {
+      "name": "PDF Metadata",
+      "description": "See a document's title, author, dates, and producer — nothing leaves your device."
     }
   },
   "ui": {
@@ -51,6 +63,25 @@
     "errorSave": "Couldn't produce the new PDF. The file may use features this tool can't rewrite.",
     "privacy": "Your documents never leave this device — everything happens in your browser.",
     "originalPage": "Page {page}",
-    "reorderAction": "Save new order"
+    "reorderAction": "Save new order",
+    "wmText": "Watermark text",
+    "wmOpacity": "Opacity: {percent}%",
+    "wmAction": "Watermark & download",
+    "pnPosition": "Position",
+    "pnPositions": {
+      "bottomCenter": "Bottom center",
+      "bottomEnd": "Bottom corner",
+      "topEnd": "Top corner"
+    },
+    "pnAction": "Number pages & download",
+    "metaNone": "This document carries no metadata — that's often intentional.",
+    "metaTitle": "Title",
+    "metaAuthor": "Author",
+    "metaSubject": "Subject",
+    "metaKeywords": "Keywords",
+    "metaCreator": "Created with",
+    "metaProducer": "Producer",
+    "metaCreated": "Created",
+    "metaModified": "Modified"
   }
 }

@@ -53,6 +53,7 @@
     "@omnio/mod-lorem": "workspace:*",
     "@omnio/mod-markdown": "workspace:*",
     "@omnio/mod-numbase": "workspace:*",
+    "@omnio/mod-officekit": "workspace:*",
     "@omnio/mod-password": "workspace:*",
     "@omnio/mod-pdfkit": "workspace:*",
     "@omnio/mod-qrkit": "workspace:*",
@@ -68,6 +69,7 @@
     "@omnio/mod-units": "workspace:*",
     "@omnio/mod-urlkit": "workspace:*",
     "@omnio/mod-uuid": "workspace:*",
+    "@omnio/mod-videokit": "workspace:*",
     "@omnio/mod-xmlkit": "workspace:*",
     "@omnio/mod-yamlkit": "workspace:*",
     "@omnio/mod-zipkit": "workspace:*"

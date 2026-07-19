@@ -13,7 +13,10 @@
     "./frontend/tools/pdf-delete": "./frontend/tools/pdf-delete.tsx",
     "./frontend/tools/pdf-reorder": "./frontend/tools/pdf-reorder.tsx",
     "./i18n/en": "./i18n/en.json",
-    "./i18n/he": "./i18n/he.json"
+    "./i18n/he": "./i18n/he.json",
+    "./frontend/tools/pdf-watermark": "./frontend/tools/pdf-watermark.tsx",
+    "./frontend/tools/pdf-pagenum": "./frontend/tools/pdf-pagenum.tsx",
+    "./frontend/tools/pdf-metadata": "./frontend/tools/pdf-metadata.tsx"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

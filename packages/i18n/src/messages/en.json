@@ -169,7 +169,22 @@
     "clear": "Clear session",
     "remove": "Remove",
     "output": "Output",
-    "hint": "Files live in memory only — reloading starts a fresh session. Click any row to see what Omnio can do with it."
+    "hint": "Files live in memory only — reloading starts a fresh session. Click any row to see what Omnio can do with it.",
+    "saveWorkspace": "Save as workspace",
+    "saveTitle": "Save workspace",
+    "saveAction": "Save",
+    "saved": "Saved “{name}”"
+  },
+  "savedWorkspaces": {
+    "title": "Saved workspaces",
+    "meta": "{count, plural, one {# file} other {# files}} · {size}",
+    "open": "Open",
+    "rename": "Rename",
+    "renameTitle": "Rename workspace",
+    "duplicate": "Duplicate",
+    "copySuffix": "(copy)",
+    "delete": "Delete",
+    "save": "Save"
   },
   "theme": {
     "label": "Theme",
@@ -438,7 +453,9 @@
       "imageOptimization": "Image Optimization",
       "pdfCleanup": "PDF Cleanup",
       "shareSafely": "Share Safely"
-    }
+    },
+    "edit": "Edit",
+    "duplicateStep": "Duplicate step"
   },
   "modules": {
     "title": "Modules",

@@ -107,6 +107,67 @@
           "priority": 76
         }
       ]
+    },
+    {
+      "id": "pdf-watermark",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-watermark",
+      "keywords": [
+        "pdf",
+        "watermark",
+        "stamp",
+        "confidential",
+        "draft"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "application/pdf"
+          ],
+          "priority": 70
+        }
+      ]
+    },
+    {
+      "id": "pdf-pagenum",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-pagenum",
+      "keywords": [
+        "pdf",
+        "page numbers",
+        "numbering",
+        "paginate",
+        "footer"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "application/pdf"
+          ],
+          "priority": 66
+        }
+      ]
+    },
+    {
+      "id": "pdf-metadata",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-metadata",
+      "keywords": [
+        "pdf",
+        "metadata",
+        "title",
+        "author",
+        "properties",
+        "info"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "application/pdf"
+          ],
+          "priority": 62
+        }
+      ]
     }
   ],
   "capabilities": {

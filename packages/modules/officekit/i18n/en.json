@@ -1,0 +1,17 @@
+{
+  "name": "Office",
+  "description": "Read and preview spreadsheet data.",
+  "tools": {
+    "csv-table": {
+      "name": "CSV Table",
+      "description": "Paste or drop a CSV and read it as a clean table — quotes, commas, and newlines handled properly."
+    }
+  },
+  "ui": {
+    "csvInput": "CSV content",
+    "csvRows": "{count, plural, one {# row} other {# rows}}",
+    "csvColumns": "{count, plural, one {# column} other {# columns}}",
+    "csvTruncated": "Showing first {max}",
+    "privacy": "Parsed in your browser — the data never leaves your device."
+  }
+}

@@ -1,10 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { Badge, IconButton } from "@omnio/ui";
-import { FileText, Sparkles, Trash2, X } from "lucide-react";
-import { clearSession, removeSessionFile, useSessionFiles } from "@/lib/session-workspace";
+import { Badge, IconButton, toast } from "@omnio/ui";
+import { FileText, Save, Sparkles, Trash2, X } from "lucide-react";
+import { clearSession, getSessionFiles, removeSessionFile, useSessionFiles } from "@/lib/session-workspace";
+import { saveWorkspace } from "@/lib/saved-workspaces";
 import { formatRelativeTime } from "@/lib/relative-time";
+import { NameEmojiDialog } from "./collection-dialog";
 
 function formatBytes(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
@@ -21,6 +24,7 @@ export function SessionStrip() {
   const t = useTranslations("workspaceSession");
   const locale = useLocale();
   const files = useSessionFiles();
+  const [saving, setSaving] = useState(false);
 
   if (files.length === 0) return null;
 
@@ -36,14 +40,35 @@ export function SessionStrip() {
           </span>
           {t("title")}
         </h2>
-        <IconButton
-          aria-label={t("clear")}
-          icon={Trash2}
-          size="sm"
-          variant="ghost"
-          onClick={clearSession}
-        />
+        <div className="flex items-center gap-1">
+          <IconButton
+            aria-label={t("saveWorkspace")}
+            icon={Save}
+            size="sm"
+            variant="ghost"
+            onClick={() => setSaving(true)}
+          />
+          <IconButton
+            aria-label={t("clear")}
+            icon={Trash2}
+            size="sm"
+            variant="ghost"
+            onClick={clearSession}
+          />
+        </div>
       </div>
+      <NameEmojiDialog
+        open={saving}
+        onOpenChange={setSaving}
+        title={t("saveTitle")}
+        submitLabel={t("saveAction")}
+        onSubmit={(name) => {
+          void saveWorkspace(
+            name,
+            getSessionFiles().map(({ file, origin }) => ({ file, origin })),
+          ).then(() => toast(t("saved", { name })));
+        }}
+      />
       <ul className="flex flex-col gap-1.5">
         {files.slice(0, 6).map((entry) => (
           <li key={entry.id} className="flex items-center gap-2">

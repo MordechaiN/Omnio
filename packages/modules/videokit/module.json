@@ -1,0 +1,19 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "videokit",
+  "version": "1.0.0",
+  "category": "video",
+  "icon": "film",
+  "i18nNamespace": "mod-videokit",
+  "tools": [
+    {
+      "id": "frame-extract",
+      "tier": "browser",
+      "surface": "frontend/tools/frame-extract",
+      "keywords": ["video", "frame", "extract", "screenshot", "still", "thumbnail"],
+      "accepts": [{ "mime": ["video/*"], "priority": 90 }]
+    }
+  ],
+  "capabilities": { "fileActions": [] },
+  "permissions": []
+}

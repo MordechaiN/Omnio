@@ -11,8 +11,46 @@ import { downloadBlob } from "../lib/image-file.tsx";
 
 interface BatchItem {
   file: File;
+  /** Folder-relative path (e.g. "trip/day1/a.png") — flat drops use the name. */
+  relativePath: string;
   status: "pending" | "done" | "failed";
   output?: { blob: Blob; name: string; width: number; height: number };
+}
+
+/** Recursively collect image files (with paths) from a drop's directory entries. */
+async function collectEntries(items: DataTransferItemList): Promise<Array<{ file: File; path: string }>> {
+  const out: Array<{ file: File; path: string }> = [];
+  async function walk(entry: FileSystemEntry, prefix: string): Promise<void> {
+    if (entry.isFile) {
+      const file = await new Promise<File>((resolve, reject) =>
+        (entry as FileSystemFileEntry).file(resolve, reject),
+      );
+      if (file.type.startsWith("image/")) out.push({ file, path: prefix + file.name });
+    } else if (entry.isDirectory) {
+      const reader = (entry as FileSystemDirectoryEntry).createReader();
+      for (;;) {
+        const batch = await new Promise<FileSystemEntry[]>((resolve, reject) =>
+          reader.readEntries(resolve, reject),
+        );
+        if (batch.length === 0) break;
+        for (const child of batch) await walk(child, `${prefix}${entry.name}/`);
+      }
+    }
+  }
+  const entries = [...items]
+    .map((item) => item.webkitGetAsEntry?.())
+    .filter((entry): entry is FileSystemEntry => entry !== null && entry !== undefined);
+  for (const entry of entries) await walk(entry, "");
+  return out;
+}
+
+/** Apply the output naming template to a base name (no extension). */
+function applyTemplate(template: string, baseName: string, index: number): string {
+  const applied = template
+    .replaceAll("{name}", baseName)
+    .replaceAll("{index}", String(index + 1))
+    .trim();
+  return applied === "" ? baseName : applied;
 }
 
 const FORMATS: Array<{ value: OutputFormat | "keep"; label: string }> = [
@@ -30,10 +68,12 @@ const FORMATS: Array<{ value: OutputFormat | "keep"; label: string }> = [
 export default function ImageBatchTool() {
   const t = useTranslations("mod-imagekit");
   const inputRef = useRef<HTMLInputElement>(null);
+  const folderRef = useRef<HTMLInputElement>(null);
   const [items, setItems] = useState<BatchItem[]>([]);
   const [maxDimension, setMaxDimension] = useState("2000");
   const [format, setFormat] = useState<OutputFormat | "keep">("keep");
   const [quality, setQuality] = useState(85);
+  const [template, setTemplate] = useState("{name}");
   const [running, setRunning] = useState(false);
   const [progress, setProgress] = useState(0);
   const [dragOver, setDragOver] = useState(false);
@@ -43,7 +83,19 @@ export default function ImageBatchTool() {
     const images = [...list].filter((file) => file.type.startsWith("image/"));
     setItems((previous) => [
       ...previous,
-      ...images.map((file) => ({ file, status: "pending" as const })),
+      ...images.map((file) => ({
+        file,
+        // webkitdirectory picks carry webkitRelativePath; flat picks don't.
+        relativePath: (file as File & { webkitRelativePath?: string }).webkitRelativePath || file.name,
+        status: "pending" as const,
+      })),
+    ]);
+  }
+
+  function addWithPaths(collected: Array<{ file: File; path: string }>) {
+    setItems((previous) => [
+      ...previous,
+      ...collected.map(({ file, path }) => ({ file, relativePath: path, status: "pending" as const })),
     ]);
   }
 
@@ -52,7 +104,7 @@ export default function ImageBatchTool() {
     if (handed) add(handed);
   }, []);
 
-  async function processOne(item: BatchItem): Promise<BatchItem> {
+  async function processOne(item: BatchItem, index: number): Promise<BatchItem> {
     try {
       const bitmap = await createImageBitmap(item.file);
       const limit = Math.max(16, Number(maxDimension) || 100000);
@@ -78,12 +130,18 @@ export default function ImageBatchTool() {
         canvas.toBlob(resolve, outFormat, outFormat === "image/png" ? undefined : quality / 100),
       );
       if (!blob) throw new Error("encode failed");
+      const dir = item.relativePath.includes("/")
+        ? item.relativePath.slice(0, item.relativePath.lastIndexOf("/") + 1)
+        : "";
+      const base = item.file.name.replace(/\.[^.]+$/, "") || "image";
+      const templated = applyTemplate(template, base, index);
+      const named = outputFilename(`${templated}.x`, target, outFormat);
       return {
         ...item,
         status: "done",
         output: {
           blob,
-          name: outputFilename(item.file.name, target, outFormat),
+          name: dir + named,
           width: target.width,
           height: target.height,
         },
@@ -98,7 +156,7 @@ export default function ImageBatchTool() {
     setProgress(0);
     const next = [...items];
     for (let i = 0; i < next.length; i += 1) {
-      next[i] = await processOne({ ...next[i]!, status: "pending", output: undefined });
+      next[i] = await processOne({ ...next[i]!, status: "pending", output: undefined }, i);
       setItems([...next]);
       setProgress(Math.round(((i + 1) / next.length) * 100));
     }
@@ -142,7 +200,14 @@ export default function ImageBatchTool() {
         onDrop={(event) => {
           event.preventDefault();
           setDragOver(false);
-          add(event.dataTransfer.files);
+          // Folder drops walk the directory tree and keep relative paths;
+          // plain file drops fall back to the flat list.
+          const items = event.dataTransfer.items;
+          if (items && [...items].some((item) => item.webkitGetAsEntry?.()?.isDirectory)) {
+            void collectEntries(items).then(addWithPaths);
+          } else {
+            add(event.dataTransfer.files);
+          }
         }}
         className={`flex cursor-pointer flex-col items-center justify-center gap-1.5 rounded-xl border-2 border-dashed text-center transition-colors duration-(--motion-fast) ${
           items.length > 0 ? "px-4 py-3" : "p-8"
@@ -165,6 +230,24 @@ export default function ImageBatchTool() {
             event.target.value = "";
           }}
         />
+      </div>
+
+      <div className="flex items-center gap-2">
+        <Button type="button" variant="ghost" size="sm" onClick={() => folderRef.current?.click()}>
+          {t("ui.batchAddFolder")}
+        </Button>
+        <input
+          ref={folderRef}
+          type="file"
+          className="sr-only"
+          // Non-standard but universal in practice; keeps relative paths.
+          {...({ webkitdirectory: "" } as Record<string, string>)}
+          onChange={(event) => {
+            add(event.target.files);
+            event.target.value = "";
+          }}
+        />
+        <span className="text-xs text-text-muted">{t("ui.batchFolderHint")}</span>
       </div>
 
       {items.length > 0 ? (
@@ -208,6 +291,18 @@ export default function ImageBatchTool() {
                 onChange={(event) => setQuality(Number(event.target.value))}
                 className="accent-accent"
               />
+            </div>
+            <div className="flex flex-col gap-1.5 sm:col-span-3">
+              <Label htmlFor="batch-template">{t("ui.batchTemplate")}</Label>
+              <Input
+                id="batch-template"
+                dir="ltr"
+                className="max-w-xs font-mono"
+                value={template}
+                spellCheck={false}
+                onChange={(event) => setTemplate(event.target.value)}
+              />
+              <p className="text-xs text-text-muted">{t("ui.batchTemplateHint")}</p>
             </div>
           </div>
 

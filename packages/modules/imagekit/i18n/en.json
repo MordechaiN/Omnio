@@ -159,6 +159,10 @@
     "chainTitle": "Continue with:",
     "faviconExplain": "The image is center-cropped to a square and rendered at 16, 32, 48, 180, 192, and 512 pixels, with a ready-to-paste HTML snippet included.",
     "faviconDownload": "Generate & download ZIP",
-    "compareOriginal": "Compare with original"
+    "compareOriginal": "Compare with original",
+    "batchAddFolder": "Add a folder…",
+    "batchFolderHint": "Folders keep their structure — drop them straight onto the zone too.",
+    "batchTemplate": "Output name template",
+    "batchTemplateHint": "{name} = original name, {index} = position. Dimensions and format are appended automatically."
   }
 }

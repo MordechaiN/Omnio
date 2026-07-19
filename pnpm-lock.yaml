@@ -213,6 +213,9 @@ importers:
       '@omnio/mod-numbase':
         specifier: workspace:*
         version: link:../../packages/modules/numbase
+      '@omnio/mod-officekit':
+        specifier: workspace:*
+        version: link:../../packages/modules/officekit
       '@omnio/mod-password':
         specifier: workspace:*
         version: link:../../packages/modules/password
@@ -258,6 +261,9 @@ importers:
       '@omnio/mod-uuid':
         specifier: workspace:*
         version: link:../../packages/modules/uuid
+      '@omnio/mod-videokit':
+        specifier: workspace:*
+        version: link:../../packages/modules/videokit
       '@omnio/mod-xmlkit':
         specifier: workspace:*
         version: link:../../packages/modules/xmlkit
@@ -1420,6 +1426,40 @@ importers:
         specifier: ^3.2.0
         version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
 
+  packages/modules/officekit:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
   packages/modules/password:
     dependencies:
       '@omnio/module-sdk':
@@ -1958,6 +1998,46 @@ importers:
       zod:
         specifier: ^3.25.0
         version: 3.25.76
+    devDependencies:
+      '@omnio/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.17
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
+      next:
+        specifier: ^15.5.0
+        version: 15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next-intl:
+        specifier: ^4.3.0
+        version: 4.13.2(next@15.5.20(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.7
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0)
+
+  packages/modules/videokit:
+    dependencies:
+      '@omnio/module-sdk':
+        specifier: workspace:*
+        version: link:../../module-sdk
+      '@omnio/ui':
+        specifier: workspace:*
+        version: link:../../ui
+      fflate:
+        specifier: ^0.8.2
+        version: 0.8.3
+      lucide-react:
+        specifier: ^0.525.0
+        version: 0.525.0(react@19.2.7)
     devDependencies:
       '@omnio/config':
         specifier: workspace:*

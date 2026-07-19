@@ -34,7 +34,7 @@ test.describe("app shell & landing", () => {
 
   test("an empty category shows an honest empty state, not a placeholder", async ({ page }) => {
     // Empty categories are hidden from navigation but stay URL-reachable.
-    await page.goto("/t/video");
+    await page.goto("/t/ai");
     await expect(page.getByText("No tools here yet")).toBeVisible();
   });
 

@@ -21,6 +21,18 @@
     "pdf-reorder": {
       "name": "סידור עמודים מחדש",
       "description": "שינוי סדר העמודים בקובץ PDF — במכשיר שלכם."
+    },
+    "pdf-watermark": {
+      "name": "סימן מים ל-PDF",
+      "description": "הטבעת טקסט אלכסוני על כל עמוד — במכשיר שלכם."
+    },
+    "pdf-pagenum": {
+      "name": "מספור עמודים",
+      "description": "הוספת מספרי עמוד n / total לכל עמוד — במכשיר שלכם."
+    },
+    "pdf-metadata": {
+      "name": "מטא-נתוני PDF",
+      "description": "צפייה בכותרת, מחבר, תאריכים ומפיק של מסמך — שום דבר לא עוזב את המכשיר."
     }
   },
   "ui": {
@@ -51,6 +63,25 @@
     "errorSave": "לא ניתן ליצור את ה-PDF החדש. ייתכן שהקובץ משתמש ביכולות שהכלי אינו יודע לשכתב.",
     "privacy": "המסמכים שלכם לעולם לא עוזבים את המכשיר — הכול קורה בדפדפן.",
     "originalPage": "עמוד {page}",
-    "reorderAction": "שמירת הסדר החדש"
+    "reorderAction": "שמירת הסדר החדש",
+    "wmText": "טקסט סימן המים",
+    "wmOpacity": "שקיפות: {percent}%",
+    "wmAction": "הטבעה והורדה",
+    "pnPosition": "מיקום",
+    "pnPositions": {
+      "bottomCenter": "מרכז תחתון",
+      "bottomEnd": "פינה תחתונה",
+      "topEnd": "פינה עליונה"
+    },
+    "pnAction": "מספור והורדה",
+    "metaNone": "המסמך אינו נושא מטא-נתונים — לעיתים בכוונה.",
+    "metaTitle": "כותרת",
+    "metaAuthor": "מחבר",
+    "metaSubject": "נושא",
+    "metaKeywords": "מילות מפתח",
+    "metaCreator": "נוצר באמצעות",
+    "metaProducer": "מפיק",
+    "metaCreated": "נוצר",
+    "metaModified": "עודכן"
   }
 }

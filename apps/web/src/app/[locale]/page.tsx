@@ -12,6 +12,7 @@ import { parseChangelog, type Release } from "@/lib/changelog";
 import { SEARCH_ENTRIES } from "@/generated/registry.search";
 import { PersonalSections } from "@/components/workspace/personal-sections";
 import { SessionStrip } from "@/components/workspace/session-strip";
+import { WorkspacesSection } from "@/components/workspace/workspaces-section";
 import { CollectionsSection } from "@/components/workspace/collections-section";
 import { WorkflowsSection } from "@/components/workspace/workflows-section";
 
@@ -64,6 +65,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           onboarding hint for a brand-new visitor. */}
       {/* 🗃️ This session's files — memory only, gone on reload. */}
       <SessionStrip />
+
+      {/* 💾 Saved workspaces — sessions made durable in IndexedDB. */}
+      <WorkspacesSection />
 
       <PersonalSections />
 

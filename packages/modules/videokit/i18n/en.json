@@ -1,0 +1,25 @@
+{
+  "name": "Video",
+  "description": "Capture stills and work with video in your browser.",
+  "tools": {
+    "frame-extract": {
+      "name": "Frame Extractor",
+      "description": "Scrub any video and save crisp PNG stills of the frames you want — on your device."
+    }
+  },
+  "ui": {
+    "dropLabel": "Choose or drop a video",
+    "dropTitle": "Drop a video here, or click to choose",
+    "dropReplace": "Drop another video to replace this one",
+    "dropHint": "MP4, WebM, MOV — anything your browser can play.",
+    "capture": "Capture this frame",
+    "captureHint": "Pause where you want, then capture.",
+    "saveFrame": "Save",
+    "removeFrame": "Remove frame",
+    "saveAll": "Save all ({count}) as ZIP",
+    "working": "Working…",
+    "frameAlt": "Captured frame at {time}",
+    "errorDecode": "This browser can't play that file — try MP4 or WebM.",
+    "privacy": "Your video never leaves this device — frames are captured in your browser."
+  }
+}

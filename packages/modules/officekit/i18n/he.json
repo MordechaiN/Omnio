@@ -1,0 +1,17 @@
+{
+  "name": "משרד",
+  "description": "קריאה ותצוגה של נתוני גיליונות.",
+  "tools": {
+    "csv-table": {
+      "name": "טבלת CSV",
+      "description": "הדביקו או גררו CSV וקראו אותו כטבלה נקייה — מרכאות, פסיקים ושורות חדשות מטופלים כראוי."
+    }
+  },
+  "ui": {
+    "csvInput": "תוכן CSV",
+    "csvRows": "{count, plural, one {שורה אחת} other {# שורות}}",
+    "csvColumns": "{count, plural, one {עמודה אחת} other {# עמודות}}",
+    "csvTruncated": "מוצגות {max} הראשונות",
+    "privacy": "מפוענח בדפדפן — הנתונים לעולם לא עוזבים את המכשיר."
+  }
+}

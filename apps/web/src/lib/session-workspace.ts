@@ -44,6 +44,23 @@ export function clearSession(): void {
   emit();
 }
 
+/** Replace the session with a saved workspace's contents (newest first kept). */
+export function restoreSession(entries: Array<{ file: File; origin: SessionFile["origin"] }>): void {
+  const now = Date.now();
+  files = entries.slice(0, MAX_FILES).map((entry, index) => ({
+    id: crypto.randomUUID().slice(0, 8),
+    file: entry.file,
+    origin: entry.origin,
+    at: now - index,
+  }));
+  emit();
+}
+
+/** Snapshot for saving. */
+export function getSessionFiles(): SessionFile[] {
+  return files;
+}
+
 function subscribe(listener: () => void): () => void {
   listeners.add(listener);
   return () => listeners.delete(listener);

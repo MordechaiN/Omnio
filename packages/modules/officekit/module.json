@@ -1,0 +1,19 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "officekit",
+  "version": "1.0.0",
+  "category": "office",
+  "icon": "table",
+  "i18nNamespace": "mod-officekit",
+  "tools": [
+    {
+      "id": "csv-table",
+      "tier": "browser",
+      "surface": "frontend/tools/csv-table",
+      "keywords": ["csv", "table", "preview", "spreadsheet", "viewer", "columns"],
+      "accepts": [{ "mime": ["text/csv", "application/csv"], "priority": 85 }]
+    }
+  ],
+  "capabilities": { "fileActions": [] },
+  "permissions": []
+}

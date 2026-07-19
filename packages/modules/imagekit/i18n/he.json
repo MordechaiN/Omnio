@@ -159,6 +159,10 @@
     "chainTitle": "המשיכו עם:",
     "faviconExplain": "התמונה נחתכת לריבוע ממורכז ומצוירת ב-16, 32, 48, 180, 192 ו-512 פיקסלים, עם קטע HTML מוכן להדבקה.",
     "faviconDownload": "יצירה והורדת ZIP",
-    "compareOriginal": "השוואה למקור"
+    "compareOriginal": "השוואה למקור",
+    "batchAddFolder": "הוספת תיקייה…",
+    "batchFolderHint": "תיקיות שומרות על המבנה שלהן — אפשר גם לגרור אותן ישירות לאזור.",
+    "batchTemplate": "תבנית שם הפלט",
+    "batchTemplateHint": "{name} = השם המקורי, {index} = המיקום. ממדים ופורמט מתווספים אוטומטית."
   }
 }
