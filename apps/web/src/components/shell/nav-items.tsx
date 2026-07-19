@@ -2,20 +2,28 @@
 
 import { useTranslations } from "next-intl";
 import { cn, Icon } from "@omnio/ui";
-import { BarChart3, Home, Info, ScrollText, Settings } from "lucide-react";
+import { BarChart3, Home, Info, ScrollText, Settings, Star } from "lucide-react";
+import { DynamicIcon, type IconName } from "lucide-react/dynamic";
 import { Link, usePathname } from "@/i18n/navigation";
 import { CATEGORY_ICONS } from "@/lib/category-icons";
 import { ACTIVE_CATEGORY_IDS, TOOL_COUNT_BY_CATEGORY } from "@/lib/categories";
+import { SEARCH_ENTRIES } from "@/generated/registry.search";
+import { useFavorites } from "@/lib/preferences";
+
+const BY_ID = new Map(SEARCH_ENTRIES.map((entry) => [entry.id, entry]));
 
 function NavLink({
   href,
   icon,
+  iconNode,
   label,
   count,
   onNavigate,
 }: {
   href: string;
-  icon: React.ComponentProps<typeof Icon>["icon"];
+  icon?: React.ComponentProps<typeof Icon>["icon"];
+  /** Pre-rendered icon (e.g. a DynamicIcon for registry tools) — used when `icon` is absent. */
+  iconNode?: React.ReactNode;
   label: string;
   /** Right-aligned tool count — category rows only. */
   count?: number;
@@ -42,7 +50,13 @@ function NavLink({
           : "text-text-secondary before:opacity-0 hover:bg-surface-raised hover:text-text",
       )}
     >
-      <Icon icon={icon} size={16} className={active ? "text-accent" : "text-text-muted"} />
+      {icon ? (
+        <Icon icon={icon} size={16} className={active ? "text-accent" : "text-text-muted"} />
+      ) : (
+        <span className={cn("flex shrink-0", active ? "text-accent" : "text-text-muted")}>
+          {iconNode}
+        </span>
+      )}
       <span className="truncate">{label}</span>
       {count !== undefined ? (
         <span
@@ -61,6 +75,11 @@ function NavLink({
 /** The navigation tree — shared by the desktop sidebar and the mobile sheet. */
 export function NavItems({ onNavigate }: { onNavigate?: () => void }) {
   const t = useTranslations();
+  // Pinned tools, straight from local preferences — appears once anything is starred.
+  const favorites = useFavorites()
+    .map((id) => BY_ID.get(id))
+    .filter((entry): entry is NonNullable<typeof entry> => entry !== undefined)
+    .slice(0, 6);
   return (
     <div className="flex flex-col gap-6">
       <nav aria-label={t("shell.primaryNavigation")} className="flex flex-col gap-0.5">
@@ -80,6 +99,24 @@ export function NavItems({ onNavigate }: { onNavigate?: () => void }) {
         />
         <NavLink href="/about" icon={Info} label={t("nav.about")} onNavigate={onNavigate} />
       </nav>
+      {favorites.length > 0 ? (
+        <nav aria-label={t("nav.favorites")} className="flex flex-col gap-0.5">
+          <p className="mb-1.5 flex items-center gap-1.5 px-2.5 text-xs font-semibold tracking-wide text-text-muted uppercase">
+            <Star size={12} aria-hidden="true" />
+            {t("nav.favorites")}
+          </p>
+          {favorites.map((entry) => (
+            <NavLink
+              key={entry.id}
+              href={entry.href}
+              iconNode={<DynamicIcon name={entry.icon as IconName} size={16} />}
+              label={t(`${entry.i18nNamespace}.${entry.nameKey}` as Parameters<typeof t>[0])}
+              onNavigate={onNavigate}
+            />
+          ))}
+        </nav>
+      ) : null}
+
       <nav aria-label={t("shell.categoriesNavigation")} className="flex flex-col gap-0.5">
         <p className="mb-1.5 px-2.5 text-xs font-semibold tracking-wide text-text-muted uppercase">
           {t("nav.categories")}

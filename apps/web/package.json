@@ -48,6 +48,7 @@
     "@omnio/mod-markdown": "workspace:*",
     "@omnio/mod-numbase": "workspace:*",
     "@omnio/mod-password": "workspace:*",
+    "@omnio/mod-pdfkit": "workspace:*",
     "@omnio/mod-randomkit": "workspace:*",
     "@omnio/mod-regexlab": "workspace:*",
     "@omnio/mod-roman": "workspace:*",

@@ -8,6 +8,13 @@
   "exports": {
     "./module.json": "./module.json",
     "./frontend/tools/image-resize": "./frontend/tools/image-resize.tsx",
+    "./frontend/tools/image-crop": "./frontend/tools/image-crop.tsx",
+    "./frontend/tools/image-rotate": "./frontend/tools/image-rotate.tsx",
+    "./frontend/tools/image-compress": "./frontend/tools/image-compress.tsx",
+    "./frontend/tools/image-filters": "./frontend/tools/image-filters.tsx",
+    "./frontend/tools/image-colors": "./frontend/tools/image-colors.tsx",
+    "./frontend/tools/exif-remove": "./frontend/tools/exif-remove.tsx",
+    "./frontend/tools/aspect-ratio": "./frontend/tools/aspect-ratio.tsx",
     "./i18n/en": "./i18n/en.json",
     "./i18n/he": "./i18n/he.json"
   },

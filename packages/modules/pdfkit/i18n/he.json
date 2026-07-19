@@ -1,0 +1,50 @@
+{
+  "name": "PDF",
+  "description": "מיזוג, פיצול וארגון מחדש של קובצי PDF בדפדפן.",
+  "tools": {
+    "pdf-merge": {
+      "name": "מיזוג PDF",
+      "description": "איחוד כמה קובצי PDF לקובץ אחד, בסדר שתבחרו — במכשיר שלכם."
+    },
+    "pdf-split": {
+      "name": "חילוץ עמודים",
+      "description": "שליפת בחירת עמודים מקובץ PDF לקובץ חדש — במכשיר שלכם."
+    },
+    "pdf-rotate": {
+      "name": "סיבוב PDF",
+      "description": "סיבוב כל העמודים או בחירה מהם ב-90, 180 או 270 מעלות — במכשיר שלכם."
+    },
+    "pdf-delete": {
+      "name": "מחיקת עמודים",
+      "description": "הסרת עמודים מיותרים ושמירת השאר — במכשיר שלכם."
+    }
+  },
+  "ui": {
+    "dropLabel": "בחירת או גרירת PDF",
+    "dropTitle": "גררו PDF לכאן, או לחצו לבחירה",
+    "dropTitleMany": "גררו קובצי PDF לכאן, או לחצו לבחירה",
+    "dropMore": "גררו PDF נוסף, או לחצו להוספה",
+    "dropHint": "הקבצים מעובדים כאן — שום דבר לא מועלה לשרת.",
+    "pageCount": "{count, plural, one {עמוד אחד} other {# עמודים}}",
+    "rangeLabel": "עמודים לחילוץ",
+    "rangeOptionalLabel": "עמודים לסיבוב",
+    "rangeAllPlaceholder": "כל העמודים",
+    "deleteLabel": "עמודים למחיקה",
+    "rangeHint": "השתמשו במספרי עמודים וטווחים, למשל -12 ,7 ,3-1 (בקובץ יש {count}).",
+    "rangeInvalid": "הבחירה אינה תואמת את עמודי המסמך.",
+    "deleteAllInvalid": "זה ימחק את כל העמודים — PDF חייב עמוד אחד לפחות.",
+    "angleLabel": "סיבוב ב:",
+    "moveUp": "העברה למעלה",
+    "moveDown": "העברה למטה",
+    "remove": "הסרה מהרשימה",
+    "mergeNeedTwo": "הוסיפו לפחות שני קובצי PDF למיזוג.",
+    "mergeAction": "מיזוג ל-PDF אחד ({count, plural, one {עמוד אחד} other {# עמודים}})",
+    "splitAction": "חילוץ {count, plural, one {עמוד אחד} other {# עמודים}}",
+    "rotateAction": "סיבוב {count, plural, one {עמוד אחד} other {# עמודים}} והורדה",
+    "deleteAction": "מחיקת {removed, plural, one {עמוד אחד} other {# עמודים}}, שמירת {kept}",
+    "working": "עובד…",
+    "errorLoad": "לא ניתן לפתוח את הקובץ כ-PDF. ייתכן שהוא פגום או מוגן בסיסמה.",
+    "errorSave": "לא ניתן ליצור את ה-PDF החדש. ייתכן שהקובץ משתמש ביכולות שהכלי אינו יודע לשכתב.",
+    "privacy": "המסמכים שלכם לעולם לא עוזבים את המכשיר — הכול קורה בדפדפן."
+  }
+}

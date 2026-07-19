@@ -40,7 +40,10 @@ import { usePathname, useRouter } from "@/i18n/navigation";
 import { CATEGORY_ICONS } from "@/lib/category-icons";
 import { ACTIVE_CATEGORY_IDS } from "@/lib/categories";
 import { SEARCH_ENTRIES } from "@/generated/registry.search";
+import { useFavorites } from "@/lib/preferences";
 import { useCommandPalette } from "./palette-context";
+
+const BY_ID = new Map(SEARCH_ENTRIES.map((entry) => [entry.id, entry]));
 
 const STYLES: VisualStyle[] = ["classic", "modern", "minimal", "accessible"];
 const ACCENTS: AccentColor[] = ["indigo", "blue", "purple", "green", "orange"];
@@ -62,6 +65,9 @@ export function CommandPalette() {
   const { style, setStyle } = useStyle();
   const { accent, setAccent } = useAccent();
   const { density, setDensity } = useDensity();
+  const favorites = useFavorites()
+    .map((id) => BY_ID.get(id))
+    .filter((entry): entry is NonNullable<typeof entry> => entry !== undefined);
 
   function run(action: () => void) {
     setOpen(false);
@@ -88,6 +94,29 @@ export function CommandPalette() {
             {t("nav.stats")}
           </CommandItem>
         </CommandGroup>
+
+        {favorites.length > 0 ? (
+          <>
+            <CommandSeparator />
+            <CommandGroup heading={t("palette.groupFavorites")}>
+              {favorites.map((entry) => {
+                const name = t(
+                  `${entry.i18nNamespace}.${entry.nameKey}` as Parameters<typeof t>[0],
+                );
+                return (
+                  <CommandItem
+                    key={`fav-${entry.id}`}
+                    keywords={[name, ...entry.keywords]}
+                    onSelect={() => run(() => router.push(entry.href))}
+                  >
+                    <DynamicIcon name={entry.icon as IconName} size={16} />
+                    {name}
+                  </CommandItem>
+                );
+              })}
+            </CommandGroup>
+          </>
+        ) : null}
 
         {SEARCH_ENTRIES.length > 0 ? (
           <>

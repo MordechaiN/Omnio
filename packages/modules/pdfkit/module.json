@@ -1,0 +1,36 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "pdfkit",
+  "version": "1.0.0",
+  "category": "pdf",
+  "icon": "file-text",
+  "i18nNamespace": "mod-pdfkit",
+  "tools": [
+    {
+      "id": "pdf-merge",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-merge",
+      "keywords": ["pdf", "merge", "combine", "join", "concatenate"]
+    },
+    {
+      "id": "pdf-split",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-split",
+      "keywords": ["pdf", "split", "extract", "pages", "range"]
+    },
+    {
+      "id": "pdf-rotate",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-rotate",
+      "keywords": ["pdf", "rotate", "turn", "orientation", "pages"]
+    },
+    {
+      "id": "pdf-delete",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-delete",
+      "keywords": ["pdf", "delete", "remove", "pages", "clean"]
+    }
+  ],
+  "capabilities": { "fileActions": [] },
+  "permissions": []
+}

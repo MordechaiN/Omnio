@@ -10,6 +10,8 @@ import { routing } from "@/i18n/routing";
 import { Link } from "@/i18n/navigation";
 import { TOOL_SURFACES, WEB_TOOLS, type WebToolMeta } from "@/generated/registry.web";
 import { RecordRecentTool } from "@/components/workspace/record-recent-tool";
+import { RelatedTools } from "@/components/workspace/related-tools";
+import { FavoriteButton } from "@/components/workspace/favorite-button";
 import { WorkerToolLauncher } from "@/components/jobs/worker-tool-launcher";
 
 export function generateStaticParams() {
@@ -54,6 +56,15 @@ function ToolView({ meta, Surface }: { meta: WebToolMeta; Surface: ComponentType
       icon={<DynamicIcon name={meta.icon as IconName} size={24} />}
       badge={
         meta.tier === "browser" ? <Badge variant="accent">{t("common.onDevice")}</Badge> : null
+      }
+      actions={
+        <FavoriteButton
+          id={`${meta.moduleId}.${meta.toolId}`}
+          className="size-9 opacity-100"
+        />
+      }
+      footer={
+        <RelatedTools category={category} excludeId={`${meta.moduleId}.${meta.toolId}`} />
       }
       breadcrumb={
         <nav aria-label={t("shell.breadcrumb")} className="flex items-center gap-1.5">

@@ -79,6 +79,7 @@
   },
   "nav": {
     "home": "בית",
+    "favorites": "מועדפים",
     "categories": "קטגוריות",
     "files": "קבצים",
     "settings": "הגדרות",
@@ -95,6 +96,7 @@
     "groupTheme": "ערכת נושא",
     "groupLanguage": "שפה",
     "groupNavigation": "מעבר אל",
+    "groupFavorites": "מועדפים",
     "hintNavigate": "ניווט",
     "hintSelect": "בחירה",
     "hintClose": "סגירה",
@@ -206,9 +208,13 @@
   },
   "home": {
     "favoritesTitle": "המועדפים שלכם",
+    "welcomeTitle": "ברוכים הבאים ל-Omnio",
+    "welcomeBody": "ארגז כלים פרטי עם {count} כלים — הכול רץ בדפדפן, והנתונים שלכם לעולם לא עוזבים את המכשיר.",
     "recentTitle": "בשימוש לאחרונה",
+    "popularTitle": "בשימוש תדיר",
+    "whatsNewTitle": "מה חדש",
+    "whatsNewMore": "לצפייה ביומן השינויים המלא",
     "categoriesTitle": "קטגוריות",
-    "tagline": "הכול רץ בדפדפן — הנתונים שלכם לעולם לא עוזבים את המכשיר.",
     "toolCount": "{count} כלים",
     "favoritesHint": "סמנו כלי בכוכב כדי להצמיד אותו כאן לגישה מהירה."
   },
@@ -323,5 +329,8 @@
   "categoryPage": {
     "emptyTitle": "אין עדיין כלים כאן",
     "emptyBody": "הקטגוריה הזו נמצאת במפת הדרכים. החיפוש (⌘K) תמיד מציג את מה שזמין היום."
+  },
+  "toolPage": {
+    "related": "כלים קשורים"
   }
 }

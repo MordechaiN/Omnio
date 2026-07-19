@@ -1,10 +1,38 @@
 {
   "name": "Images",
-  "description": "Resize and convert images in your browser.",
+  "description": "Resize, convert, and edit images in your browser.",
   "tools": {
     "image-resize": {
       "name": "Image Resizer",
       "description": "Resize an image and convert it to PNG, JPEG, or WebP — entirely on your device."
+    },
+    "image-crop": {
+      "name": "Image Crop",
+      "description": "Crop an image with aspect presets and a live preview — on your device."
+    },
+    "image-rotate": {
+      "name": "Rotate & Flip",
+      "description": "Rotate an image in quarter turns or mirror it horizontally and vertically — on your device."
+    },
+    "image-compress": {
+      "name": "Image Compressor",
+      "description": "Shrink an image's file size with a live before/after comparison — on your device."
+    },
+    "image-filters": {
+      "name": "Image Filters",
+      "description": "Apply grayscale, blur, or sharpen with a live preview — on your device."
+    },
+    "image-colors": {
+      "name": "Color Picker",
+      "description": "Pick any pixel's color and extract an image's dominant palette — on your device."
+    },
+    "exif-remove": {
+      "name": "EXIF Remover",
+      "description": "Strip location, camera, and editing metadata from a photo before sharing it — on your device."
+    },
+    "aspect-ratio": {
+      "name": "Aspect Ratio",
+      "description": "Simplify a resolution to its ratio and solve the missing side when scaling."
     }
   },
   "ui": {
@@ -17,11 +45,50 @@
     "lockAspect": "Keep aspect ratio",
     "format": "Output format",
     "quality": "Quality: {quality}%",
-    "download": "Resize & download",
+    "download": "Download",
     "working": "Working…",
-    "privacy": "Your image never leaves this device — resizing happens in your browser.",
+    "privacy": "Your image never leaves this device — everything happens in your browser.",
     "errorUnsupported": "Couldn't open that file as an image. Try a PNG, JPEG, or WebP.",
     "errorDimensions": "Width and height must be whole numbers between 1 and 20,000 pixels.",
-    "errorExport": "Export failed — this browser may not support encoding to the selected format."
+    "errorExport": "Export failed — this browser may not support encoding to the selected format.",
+    "previewAlt": "Preview of the edited image",
+    "rotateCw": "Rotate right 90°",
+    "rotateCcw": "Rotate left 90°",
+    "flipH": "Flip horizontal",
+    "flipV": "Flip vertical",
+    "original": "Original",
+    "compressed": "Compressed",
+    "savings": "−{percent}%",
+    "grayscale": "Grayscale",
+    "blur": "Blur: {px}px",
+    "sharpen": "Sharpen: {percent}%",
+    "pickAlt": "Loaded image — click to sample a color",
+    "pickHint": "Click anywhere on the image to sample that pixel's color.",
+    "copy": "Copy",
+    "copied": "Copied {value}",
+    "dominant": "Dominant colors",
+    "copySwatch": "Copy {value}",
+    "cropPresets": "Presets:",
+    "cropPreset": {
+      "free": "Full image",
+      "square": "1:1",
+      "fourThree": "4:3",
+      "sixteenNine": "16:9",
+      "threeTwo": "3:2"
+    },
+    "crop": {
+      "x": "From left (px)",
+      "y": "From top (px)",
+      "width": "Width (px)",
+      "height": "Height (px)"
+    },
+    "cropDownload": "Crop to {width}×{height} & download",
+    "exifHow": "The image is redrawn from its pixels, so the saved copy carries no metadata at all — no location, camera model, timestamps, or editing history.",
+    "exifDownload": "Download clean copy",
+    "ratioLabel": "Simplified ratio",
+    "ratioInvalid": "Enter a width and height greater than zero.",
+    "solveTitle": "Scale to a new size",
+    "solveWidth": "New width (px)",
+    "solveResult": "Matching height: {height}px"
   }
 }

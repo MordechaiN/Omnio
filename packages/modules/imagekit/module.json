@@ -10,7 +10,49 @@
       "id": "image-resize",
       "tier": "browser",
       "surface": "frontend/tools/image-resize",
-      "keywords": ["image", "resize", "convert", "png", "jpeg", "webp", "compress", "photo"]
+      "keywords": ["image", "resize", "convert", "png", "jpeg", "webp", "photo"]
+    },
+    {
+      "id": "image-crop",
+      "tier": "browser",
+      "surface": "frontend/tools/image-crop",
+      "keywords": ["image", "crop", "trim", "cut", "aspect", "photo"]
+    },
+    {
+      "id": "image-rotate",
+      "tier": "browser",
+      "surface": "frontend/tools/image-rotate",
+      "keywords": ["image", "rotate", "flip", "mirror", "turn", "photo"]
+    },
+    {
+      "id": "image-compress",
+      "tier": "browser",
+      "surface": "frontend/tools/image-compress",
+      "keywords": ["image", "compress", "optimize", "shrink", "quality", "size"]
+    },
+    {
+      "id": "image-filters",
+      "tier": "browser",
+      "surface": "frontend/tools/image-filters",
+      "keywords": ["image", "filter", "grayscale", "blur", "sharpen", "effect"]
+    },
+    {
+      "id": "image-colors",
+      "tier": "browser",
+      "surface": "frontend/tools/image-colors",
+      "keywords": ["image", "color", "picker", "palette", "dominant", "eyedropper", "hex"]
+    },
+    {
+      "id": "exif-remove",
+      "tier": "browser",
+      "surface": "frontend/tools/exif-remove",
+      "keywords": ["exif", "metadata", "privacy", "gps", "strip", "clean"]
+    },
+    {
+      "id": "aspect-ratio",
+      "tier": "browser",
+      "surface": "frontend/tools/aspect-ratio",
+      "keywords": ["aspect", "ratio", "resolution", "scale", "dimensions", "16:9"]
     }
   ],
   "capabilities": { "fileActions": [] },

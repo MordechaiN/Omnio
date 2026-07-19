@@ -79,6 +79,7 @@
   },
   "nav": {
     "home": "Home",
+    "favorites": "Favorites",
     "categories": "Categories",
     "files": "Files",
     "settings": "Settings",
@@ -95,6 +96,7 @@
     "groupTheme": "Theme",
     "groupLanguage": "Language",
     "groupNavigation": "Go to",
+    "groupFavorites": "Favorites",
     "hintNavigate": "Navigate",
     "hintSelect": "Select",
     "hintClose": "Close",
@@ -206,9 +208,13 @@
   },
   "home": {
     "favoritesTitle": "Your favorites",
+    "welcomeTitle": "Welcome to Omnio",
+    "welcomeBody": "A private toolbox of {count} tools — everything runs in your browser, and your data never leaves your device.",
     "recentTitle": "Recently used",
+    "popularTitle": "Frequently used",
+    "whatsNewTitle": "What's new",
+    "whatsNewMore": "View the full changelog",
     "categoriesTitle": "Categories",
-    "tagline": "Everything runs in your browser — your data never leaves your device.",
     "toolCount": "{count} tools",
     "favoritesHint": "Star any tool to pin it here for quick access."
   },
@@ -323,5 +329,8 @@
   "categoryPage": {
     "emptyTitle": "No tools here yet",
     "emptyBody": "This category is on the roadmap. Search (⌘K) always shows what's available today."
+  },
+  "toolPage": {
+    "related": "Related tools"
   }
 }

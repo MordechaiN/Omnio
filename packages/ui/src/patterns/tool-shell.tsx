@@ -8,8 +8,12 @@ export interface ToolShellProps {
   icon?: ReactNode;
   /** Trailing header slot — e.g. the "runs on your device" privacy badge. */
   badge?: ReactNode;
+  /** Header action slot next to the badge — e.g. a favorite toggle. */
+  actions?: ReactNode;
   /** Optional breadcrumb above the title (e.g. "Developer / JSON Format"). */
   breadcrumb?: ReactNode;
+  /** Rendered after the tool body — e.g. related tools. */
+  footer?: ReactNode;
   children: ReactNode;
   className?: string;
 }
@@ -25,14 +29,16 @@ export function ToolShell({
   description,
   icon,
   badge,
+  actions,
   breadcrumb,
+  footer,
   children,
   className,
 }: ToolShellProps) {
   return (
     <div
       className={cn(
-        "animate-rise mx-auto flex w-full max-w-4xl flex-col gap-6 px-4 py-8 sm:px-6",
+        "animate-rise mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-8 sm:px-6",
         className,
       )}
     >
@@ -48,10 +54,14 @@ export function ToolShell({
             <h1 className="text-2xl font-semibold tracking-tight text-text">{name}</h1>
             <p className="text-text-muted">{description}</p>
           </div>
-          {badge ? <div className="shrink-0">{badge}</div> : null}
+          <div className="flex shrink-0 items-center gap-2">
+            {actions}
+            {badge}
+          </div>
         </header>
       </div>
       <section className="flex flex-col gap-4">{children}</section>
+      {footer}
     </div>
   );
 }

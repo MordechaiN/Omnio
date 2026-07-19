@@ -11,6 +11,12 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ### Added
 
+- **Home is now a real dashboard** — 👋 a short welcome that states the local-first promise, ⭐ favorites, 🕘 recently used (with when and from which category), 🔥 frequently used, 🆕 what's new pulled straight from this changelog, and 📂 the category grid. All personal sections come from this device's local storage only.
+- **A full Images toolbox** — Crop (aspect presets + live preview), Rotate & Flip, Compressor (live before/after size), Filters (grayscale/blur/sharpen), Color Picker with dominant-palette extraction, EXIF Remover, and an Aspect Ratio calculator join the Resizer. Eight tools, all canvas-based, all entirely on your device.
+- **The PDF category opens** — Merge (reorderable list), Extract Pages, Rotate, and Delete Pages, powered by pdf-lib running in the browser. Documents never leave the device.
+- **Favorites everywhere** — star a tool from its page header or any card; pinned tools now appear on the home dashboard, in their own sidebar section, and as a command-palette group. Stored locally, no account involved.
+- **Related tools** under every tool page — up to four siblings from the same category, so finishing one task flows into the next.
+
 - **Five new tools** — Cron Explainer (break a crontab expression into plain fields and preview its next runs), Permission Calculator (Unix chmod between octal, symbolic, and checkboxes), Compound Interest (savings growth with monthly contributions and a year-by-year table), IP Address Inspector (classify IPv4/IPv6 and convert between notations), and Image Resizer (resize and convert to PNG/JPEG/WebP entirely in the browser — images never leave the device). Every tool ships with English + Hebrew copy, RTL-aware layout, and unit tests, and appears in search, categories, and the command palette automatically.
 - **Emoji category tiles** — the home grid and category pages now carry one emoji per category as a recognition anchor (🖼️ 📝 💻 📈 🔐 🧰 🌐 …), always `aria-hidden` so screen readers hear only the category name. Compact navigation (sidebar, command palette) keeps monochrome icons.
 - **Changelog section accents** — Keep-a-Changelog sections are typed at a glance (✨ New, 🔧 Changed, 🐛 Fixed, 🔐 Security), and inline `code` and **bold** in entries now render instead of showing raw Markdown markers.
@@ -26,6 +32,8 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ### Changed
 
+- Tool pages use more of the screen (wider frame) and carry a favorite star and related-tools footer.
+- Recently-used tracking now remembers when and how often each tool was launched (still local-only), powering the dashboard's Recent and Frequent sections.
 - **Empty categories are hidden until they earn a tool.** Categories with nothing in them no longer appear on the home grid, the sidebar, or the command palette — visibility is derived from the tool registry, so a category reappears automatically the moment its first tool ships. Images is the first to graduate, unlocked by the Image Resizer.
 - The sidebar's category list now shows a per-category tool count, and the home header states Omnio's promise outright: everything runs in your browser — your data never leaves your device.
 - **History removed from the UI.** The personal per-run log (`/history`: timestamps, statuses, re-downloads) is gone, along with the local per-device usage counters that briefly replaced it. Live job tracking during a run (the Activity tray, SSE progress, downloads) is unaffected — only the after-the-fact personal record was removed, in favor of anonymous platform-wide statistics.

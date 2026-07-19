@@ -1,0 +1,50 @@
+{
+  "name": "PDF",
+  "description": "Merge, split, and reorganize PDFs in your browser.",
+  "tools": {
+    "pdf-merge": {
+      "name": "Merge PDFs",
+      "description": "Combine several PDFs into one, in the order you choose — on your device."
+    },
+    "pdf-split": {
+      "name": "Extract Pages",
+      "description": "Pull a page selection out of a PDF into a new file — on your device."
+    },
+    "pdf-rotate": {
+      "name": "Rotate PDF",
+      "description": "Turn all pages or a selection by 90, 180, or 270 degrees — on your device."
+    },
+    "pdf-delete": {
+      "name": "Delete Pages",
+      "description": "Remove unwanted pages and keep the rest — on your device."
+    }
+  },
+  "ui": {
+    "dropLabel": "Choose or drop a PDF",
+    "dropTitle": "Drop a PDF here, or click to choose",
+    "dropTitleMany": "Drop PDFs here, or click to choose",
+    "dropMore": "Drop another PDF, or click to add more",
+    "dropHint": "Files are processed right here — nothing is uploaded.",
+    "pageCount": "{count, plural, one {# page} other {# pages}}",
+    "rangeLabel": "Pages to extract",
+    "rangeOptionalLabel": "Pages to rotate",
+    "rangeAllPlaceholder": "All pages",
+    "deleteLabel": "Pages to delete",
+    "rangeHint": "Use page numbers and ranges, like 1-3, 7, 12- (this file has {count}).",
+    "rangeInvalid": "That selection doesn't match this document's pages.",
+    "deleteAllInvalid": "That would delete every page — a PDF needs at least one.",
+    "angleLabel": "Rotate by:",
+    "moveUp": "Move up",
+    "moveDown": "Move down",
+    "remove": "Remove from list",
+    "mergeNeedTwo": "Add at least two PDFs to merge.",
+    "mergeAction": "Merge into one PDF ({count, plural, one {# page} other {# pages}})",
+    "splitAction": "Extract {count, plural, one {# page} other {# pages}}",
+    "rotateAction": "Rotate {count, plural, one {# page} other {# pages}} & download",
+    "deleteAction": "Delete {removed, plural, one {# page} other {# pages}}, keep {kept}",
+    "working": "Working…",
+    "errorLoad": "Couldn't open that file as a PDF. It may be corrupted or password-protected.",
+    "errorSave": "Couldn't produce the new PDF. The file may use features this tool can't rewrite.",
+    "privacy": "Your documents never leave this device — everything happens in your browser."
+  }
+}
