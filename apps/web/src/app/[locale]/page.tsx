@@ -11,6 +11,7 @@ import { ACTIVE_CATEGORY_IDS, TOOL_COUNT_BY_CATEGORY } from "@/lib/categories";
 import { parseChangelog, type Release } from "@/lib/changelog";
 import { SEARCH_ENTRIES } from "@/generated/registry.search";
 import { PersonalSections } from "@/components/workspace/personal-sections";
+import { SessionStrip } from "@/components/workspace/session-strip";
 import { CollectionsSection } from "@/components/workspace/collections-section";
 import { WorkflowsSection } from "@/components/workspace/workflows-section";
 
@@ -61,6 +62,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
       {/* ⭐ Favorites, 🕘 Recent, 🔥 Popular — local-only, renders a single
           onboarding hint for a brand-new visitor. */}
+      {/* 🗃️ This session's files — memory only, gone on reload. */}
+      <SessionStrip />
+
       <PersonalSections />
 
       {/* 🗂️ Collections + ⚡ Workflows — the user's own structure, local-only. */}

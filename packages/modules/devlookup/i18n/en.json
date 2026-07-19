@@ -9,6 +9,14 @@
     "mime-lookup": {
       "name": "MIME Types",
       "description": "Extension ⇄ content-type lookup with copy-ready values."
+    },
+    "header-parse": {
+      "name": "HTTP Header Parser",
+      "description": "Paste raw HTTP headers and get a readable table with plain-language explanations."
+    },
+    "robots-test": {
+      "name": "robots.txt Tester",
+      "description": "Paste robots.txt rules and check whether a crawler may fetch a path — RFC 9309 longest-match."
     }
   },
   "ui": {
@@ -16,7 +24,16 @@
     "mimeSearch": "Search types",
     "noMatches": "No matches — try a code, a word, or a class like 4xx.",
     "copy": "Copy",
-    "copiedMime": "Copied {mime}"
+    "copiedMime": "Copied {mime}",
+    "headersLabel": "Raw headers",
+    "headersNone": "No header lines recognized — paste Name: value pairs.",
+    "robotsLabel": "robots.txt content",
+    "robotsPath": "Path to test",
+    "robotsAgent": "User-agent",
+    "robotsAllowed": "Allowed",
+    "robotsBlocked": "Blocked",
+    "robotsNoRule": "No rule matched — allowed by default.",
+    "robotsNote": "Longest matching rule wins; Allow beats Disallow on ties (RFC 9309). Wildcards * and end anchors $ supported."
   },
   "status": {
     "100": "Keep going — the server got the headers and wants the body.",
@@ -64,5 +81,32 @@
     "507": "Insufficient storage on the server (WebDAV).",
     "508": "Infinite loop detected while processing (WebDAV).",
     "511": "A captive portal wants you to sign in first."
+  },
+  "header": {
+    "content-type": "What the body is (MIME type and charset).",
+    "content-length": "Body size in bytes.",
+    "cache-control": "How long and where this response may be cached.",
+    "etag": "Version fingerprint — pairs with If-None-Match for cheap revalidation.",
+    "last-modified": "When the resource last changed.",
+    "location": "Where a redirect or new resource lives.",
+    "set-cookie": "Stores a cookie in the browser.",
+    "authorization": "Credentials for this request (careful when sharing logs).",
+    "content-encoding": "Compression applied to the body (gzip, br…).",
+    "access-control-allow-origin": "Which origins may read this response (CORS).",
+    "strict-transport-security": "Forces HTTPS for future visits (HSTS).",
+    "content-security-policy": "Which sources scripts, styles, and frames may load from.",
+    "x-frame-options": "Whether the page may be embedded in an iframe.",
+    "x-content-type-options": "nosniff — stops MIME-type guessing.",
+    "referrer-policy": "How much of the current URL leaks to other sites.",
+    "retry-after": "When to try again after 429/503.",
+    "vary": "Request headers that change the cached response.",
+    "server": "Server software (often intentionally vague).",
+    "user-agent": "Who is asking — browser or bot identity.",
+    "accept": "Response formats the client can handle.",
+    "origin": "Where a cross-site request came from.",
+    "host": "The domain being requested.",
+    "cookie": "Cookies sent back to the server.",
+    "if-none-match": "Cached ETag — server answers 304 if unchanged.",
+    "transfer-encoding": "How the body is framed on the wire (chunked…)."
   }
 }

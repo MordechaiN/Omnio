@@ -145,7 +145,31 @@
       "hugePdf": "Big document — split it down",
       "invalidJson": "Fix the syntax here",
       "longAudio": "Long recording — trim it down"
+    },
+    "multiTitle": "{count} files — here's what Omnio can do together",
+    "multiTotal": "Total size",
+    "multiAverage": "Average size",
+    "multiNoActions": "No tool takes this exact mix — drop one file at a time for individual suggestions.",
+    "kind": {
+      "image": "Images",
+      "pdf": "PDFs",
+      "zip": "Archives",
+      "audio": "Audio",
+      "video": "Video",
+      "json": "JSON",
+      "csv": "CSV",
+      "yaml": "YAML",
+      "markdown": "Markdown",
+      "text": "Text",
+      "other": "Other"
     }
+  },
+  "workspaceSession": {
+    "title": "This session",
+    "clear": "Clear session",
+    "remove": "Remove",
+    "output": "Output",
+    "hint": "Files live in memory only — reloading starts a fresh session. Click any row to see what Omnio can do with it."
   },
   "theme": {
     "label": "Theme",
@@ -408,7 +432,13 @@
     "next": "Next step",
     "finish": "Finish",
     "exit": "Exit",
-    "emptyHint": "Chain tools into a repeatable routine — resize, then compress, then convert — and run it step by step."
+    "emptyHint": "Chain tools into a repeatable routine — resize, then compress, then convert — and run it step by step.",
+    "templatesLabel": "Start from:",
+    "templates": {
+      "imageOptimization": "Image Optimization",
+      "pdfCleanup": "PDF Cleanup",
+      "shareSafely": "Share Safely"
+    }
   },
   "modules": {
     "title": "Modules",

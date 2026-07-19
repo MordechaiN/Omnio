@@ -11,6 +11,12 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ### Added
 
+- **🗃️ Session workspace** — every file you drop (and every output a chain produces) is remembered for the current session and listed on the dashboard. Click a row to re-open its smart actions — nothing has to be dragged twice. Memory only: a reload starts fresh, nothing is stored or uploaded.
+- **Multi-file intelligence** — drop several files at once and get a project-style summary (count, total and average size, largest/smallest, type breakdown) plus the actions that take the whole set: Batch Processor, Merge PDFs, Create ZIP, Image Compare.
+- **🔍 Compare with original** — after compressing an image, one click opens Image Compare with the original on one side and your result on the other, divider ready.
+- **Pipeline templates** — the workflow builder now starts from ready-made pipelines (🖼️ Image Optimization, 📄 PDF Cleanup, 🔐 Share Safely), fully editable before saving.
+- **Three more tools** (72 total): HTTP Header Parser (25 well-known headers explained in plain language, en+he), robots.txt Tester (RFC 9309 longest-match with wildcards and anchors, unit-tested), and Filename Cleaner (cross-platform-safe names, reserved-name guards).
+
 - **📚 Batch Processor for images** — drop dozens of images, set one rule set (longest side, output format, quality), and process them all with live progress. Download everything as one ZIP or file by file; re-encoding strips metadata across the whole batch. The universal drop zone routes multiple images straight to it.
 - **🔗 Workflow chaining** — after cropping, resizing, or compressing an image, a "Continue with" row sends the *result* straight into the next tool (compress → remove metadata → watermark …) with the file already loaded. No re-download, no reopening tools.
 - **Ten more tools** (69 total): Batch Processor, Favicon Generator (full 16–512px set + HTML snippet, zipped), QR Generator, XML Formatter & validator, HTTP Status Codes (all 46 with plain-language one-liners in both languages), MIME Types lookup, URL Inspector (parse + edit query parameters), Password Strength (entropy + crack-time, never leaves the device), Timezone Converter, and Salary Converter.

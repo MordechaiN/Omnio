@@ -9,7 +9,8 @@
     "./module.json": "./module.json",
     "./i18n/en": "./i18n/en.json",
     "./i18n/he": "./i18n/he.json",
-    "./frontend/tools/slugify": "./frontend/tools/slugify.tsx"
+    "./frontend/tools/slugify": "./frontend/tools/slugify.tsx",
+    "./frontend/tools/filename-clean": "./frontend/tools/filename-clean.tsx"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

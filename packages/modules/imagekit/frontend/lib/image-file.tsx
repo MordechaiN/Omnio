@@ -11,12 +11,18 @@ export interface LoadedImage {
   size: number;
   type: string;
   bitmap: ImageBitmap;
+  /** The original File — kept so chains can compare results against it. */
+  file: File;
   /** Object URL for previews. */
   previewUrl: string;
 }
 
-/** Load state + revocation handling shared by every imagekit surface. */
-export function useImageFile() {
+/**
+ * Load state + revocation handling shared by every imagekit surface.
+ * `autoClaim: false` opts out of the pending-file hand-off — surfaces with
+ * several slots (compare) claim and distribute the files themselves.
+ */
+export function useImageFile(autoClaim = true) {
   const [image, setImage] = useState<LoadedImage | null>(null);
   const [error, setError] = useState<boolean>(false);
 
@@ -38,6 +44,7 @@ export function useImageFile() {
           size: file.size,
           type: file.type,
           bitmap,
+          file,
           previewUrl: URL.createObjectURL(file),
         };
       });
@@ -49,9 +56,10 @@ export function useImageFile() {
   // Universal drop zone hand-off: if the shell navigated here with a file,
   // open it immediately — the user already chose what to do with it.
   useEffect(() => {
+    if (!autoClaim) return;
     const handed = takePendingFiles()?.[0];
     if (handed) void load(handed);
-  }, [load]);
+  }, [autoClaim, load]);
 
   return { image, load, error };
 }

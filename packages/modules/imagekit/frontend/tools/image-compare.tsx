@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Badge, Label } from "@omnio/ui";
+import { takePendingFiles } from "@omnio/module-sdk";
 import { formatBytes } from "../../shared/resize.ts";
 import { ImageDropZone, useImageFile } from "../lib/image-file.tsx";
 
@@ -12,12 +13,20 @@ import { ImageDropZone, useImageFile } from "../lib/image-file.tsx";
  */
 export default function ImageCompareTool() {
   const t = useTranslations("mod-imagekit");
-  const first = useImageFile();
-  const second = useImageFile();
+  const first = useImageFile(false);
+  const second = useImageFile(false);
   const [split, setSplit] = useState(50);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => setSplit(50), [first.image, second.image]);
+
+  // Hand-off with two slots: [original, processed] fills both sides at once.
+  useEffect(() => {
+    const handed = takePendingFiles();
+    if (!handed) return;
+    if (handed[0]) void first.load(handed[0]);
+    if (handed[1]) void second.load(handed[1]);
+  }, []);
 
   return (
     <div className="flex flex-col gap-5">

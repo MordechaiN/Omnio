@@ -16,6 +16,19 @@
         "permalink",
         "seo"
       ]
+    },
+    {
+      "id": "filename-clean",
+      "tier": "browser",
+      "surface": "frontend/tools/filename-clean",
+      "keywords": [
+        "filename",
+        "sanitize",
+        "clean",
+        "rename",
+        "safe",
+        "invalid characters"
+      ]
     }
   ],
   "capabilities": {

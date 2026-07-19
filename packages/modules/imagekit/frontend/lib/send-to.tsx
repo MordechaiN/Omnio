@@ -21,9 +21,12 @@ function siblingHref(toolId: string): string {
 export function SendTo({
   produce,
   targets,
+  original,
 }: {
   produce: () => Promise<{ blob: Blob; name: string } | null>;
   targets: string[];
+  /** When provided, adds "Compare with original" sending [original, result]. */
+  original?: File;
 }) {
   const t = useTranslations("mod-imagekit");
   const router = useRouter();
@@ -34,7 +37,10 @@ export function SendTo({
     try {
       const output = await produce();
       if (!output) return;
-      setPendingFiles([new File([output.blob], output.name, { type: output.blob.type })]);
+      const file = new File([output.blob], output.name, { type: output.blob.type });
+      // Let the shell's session workspace remember this output.
+      window.dispatchEvent(new CustomEvent("omnio:session-file", { detail: file }));
+      setPendingFiles([file]);
       router.push(siblingHref(toolId));
     } finally {
       setBusy(false);
@@ -59,6 +65,31 @@ export function SendTo({
           {t(`tools.${toolId}.name` as Parameters<typeof t>[0])}
         </Button>
       ))}
+      {original ? (
+        <Button
+          type="button"
+          variant="secondary"
+          size="sm"
+          disabled={busy}
+          onClick={() =>
+            void (async () => {
+              setBusy(true);
+              try {
+                const output = await produce();
+                if (!output) return;
+                const file = new File([output.blob], output.name, { type: output.blob.type });
+                window.dispatchEvent(new CustomEvent("omnio:session-file", { detail: file }));
+                setPendingFiles([original, file]);
+                router.push(siblingHref("image-compare"));
+              } finally {
+                setBusy(false);
+              }
+            })()
+          }
+        >
+          {t("ui.compareOriginal")}
+        </Button>
+      ) : null}
     </div>
   );
 }

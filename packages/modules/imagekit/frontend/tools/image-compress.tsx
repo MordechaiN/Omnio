@@ -149,6 +149,7 @@ export default function ImageCompressTool() {
                 )
               }
               targets={["image-resize", "exif-remove", "image-watermark"]}
+              original={image.file}
             />
           ) : null}
           <p className="text-sm text-text-muted">{t("ui.privacy")}</p>

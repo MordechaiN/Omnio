@@ -12,9 +12,19 @@ import {
   Spinner,
 } from "@omnio/ui";
 import { DynamicIcon, type IconName } from "lucide-react/dynamic";
-import { ChevronRight, FileQuestion, Sparkles } from "lucide-react";
+import { ChevronRight, FileQuestion, Files, Sparkles } from "lucide-react";
 import { useRouter } from "@/i18n/navigation";
-import { inspectFile, smartActions, type FileIntel } from "@/lib/file-intel";
+import {
+  classifyKind,
+  inspectFile,
+  mimeMatches,
+  normalizeMime,
+  smartActions,
+  type FileIntel,
+  type FileKind,
+} from "@/lib/file-intel";
+import { SEARCH_ENTRIES, type SearchEntry } from "@/generated/registry.search";
+import { recordSessionFile } from "@/lib/session-workspace";
 
 function formatBytes(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
@@ -28,30 +38,78 @@ function formatDuration(seconds: number): string {
   return `${m}:${String(s).padStart(2, "0")}`;
 }
 
+interface MultiIntel {
+  files: File[];
+  totalSize: number;
+  kinds: Map<FileKind, number>;
+  largest: File;
+  smallest: File;
+}
+
+function buildMulti(files: File[]): MultiIntel {
+  const kinds = new Map<FileKind, number>();
+  let largest = files[0]!;
+  let smallest = files[0]!;
+  let totalSize = 0;
+  for (const file of files) {
+    const kind = classifyKind(normalizeMime(file.type, file.name), "");
+    kinds.set(kind, (kinds.get(kind) ?? 0) + 1);
+    totalSize += file.size;
+    if (file.size > largest.size) largest = file;
+    if (file.size < smallest.size) smallest = file;
+  }
+  return { files, totalSize, kinds, largest, smallest };
+}
+
+/** Tools whose accepts declare multiple and cover every file in the set. */
+function multiActions(files: File[]): Array<{ entry: SearchEntry; score: number }> {
+  const mimes = files.map((file) => normalizeMime(file.type, file.name));
+  const actions: Array<{ entry: SearchEntry; score: number }> = [];
+  for (const entry of SEARCH_ENTRIES) {
+    if (entry.tier !== "browser") continue;
+    const matched = entry.accepts.find(
+      (accept) =>
+        accept.multiple === true &&
+        mimes.every((mime) => accept.mime.some((pattern) => mimeMatches(pattern, mime))),
+    );
+    if (matched) actions.push({ entry, score: matched.priority ?? 50 });
+  }
+  return actions.sort((a, b) => b.score - a.score);
+}
+
 /**
- * 🪄 Omnio's signature move: drop (or paste) any file anywhere, and the app
- * says what it can do. A full-window drop veil invites the drop; the
- * intelligence sheet previews the file with plain-language facts and an
- * ordered, registry-driven action list. Choosing an action hands the file to
- * the tool, already loaded. Everything happens on this device.
+ * 🪄 Omnio's signature move: drop (or paste) anything, anywhere. One file gets
+ * the full inspection; several files get a project-style summary and the
+ * batch-capable actions. Every file that passes through is remembered in the
+ * session workspace (memory only). Modules chime in via events:
+ * `omnio:inspect` re-opens files, `omnio:session-file` records an output.
  */
 export function FileIntelligence() {
   const t = useTranslations();
   const router = useRouter();
   const [dragging, setDragging] = useState(false);
   const [intel, setIntel] = useState<FileIntel | null>(null);
+  const [multi, setMulti] = useState<MultiIntel | null>(null);
   const [inspecting, setInspecting] = useState(false);
 
-  const openFile = useCallback(async (file: File) => {
-    setInspecting(true);
-    try {
-      const next = await inspectFile(file);
-      setIntel((previous) => {
-        if (previous?.previewUrl) URL.revokeObjectURL(previous.previewUrl);
-        return next;
-      });
-    } finally {
-      setInspecting(false);
+  const openFiles = useCallback(async (incoming: File[], record: boolean) => {
+    if (incoming.length === 0) return;
+    if (record) for (const file of incoming) recordSessionFile(file, "dropped");
+    if (incoming.length === 1) {
+      setInspecting(true);
+      try {
+        const next = await inspectFile(incoming[0]!);
+        setMulti(null);
+        setIntel((previous) => {
+          if (previous?.previewUrl) URL.revokeObjectURL(previous.previewUrl);
+          return next;
+        });
+      } finally {
+        setInspecting(false);
+      }
+    } else {
+      setIntel(null);
+      setMulti(buildMulti(incoming));
     }
   }, []);
 
@@ -78,19 +136,27 @@ export function FileIntelligence() {
       event.preventDefault();
       depth = 0;
       setDragging(false);
-      const file = event.dataTransfer?.files[0];
-      if (file) void openFile(file);
+      const dropped = [...(event.dataTransfer?.files ?? [])];
+      void openFiles(dropped, true);
     };
     const onPaste = (event: ClipboardEvent) => {
-      // Only intercept pastes carrying files (screenshots, copied images) —
-      // text pastes into inputs stay untouched.
-      const file = [...(event.clipboardData?.items ?? [])]
-        .find((item) => item.kind === "file")
-        ?.getAsFile();
-      if (file) {
+      const pasted = [...(event.clipboardData?.items ?? [])]
+        .filter((item) => item.kind === "file")
+        .map((item) => item.getAsFile())
+        .filter((file): file is File => file !== null);
+      if (pasted.length > 0) {
         event.preventDefault();
-        void openFile(file);
+        void openFiles(pasted, true);
       }
+    };
+    // Session workspace hooks: strip rows re-open files; module chains report outputs.
+    const onInspect = (event: Event) => {
+      const detail = (event as CustomEvent<File[]>).detail;
+      if (Array.isArray(detail)) void openFiles(detail, false);
+    };
+    const onSessionFile = (event: Event) => {
+      const detail = (event as CustomEvent<File>).detail;
+      if (detail instanceof File) recordSessionFile(detail, "output");
     };
 
     window.addEventListener("dragenter", onDragEnter);
@@ -98,50 +164,49 @@ export function FileIntelligence() {
     window.addEventListener("dragover", onDragOver);
     window.addEventListener("drop", onDrop);
     window.addEventListener("paste", onPaste);
+    window.addEventListener("omnio:inspect", onInspect);
+    window.addEventListener("omnio:session-file", onSessionFile);
     return () => {
       window.removeEventListener("dragenter", onDragEnter);
       window.removeEventListener("dragleave", onDragLeave);
       window.removeEventListener("dragover", onDragOver);
       window.removeEventListener("drop", onDrop);
       window.removeEventListener("paste", onPaste);
+      window.removeEventListener("omnio:inspect", onInspect);
+      window.removeEventListener("omnio:session-file", onSessionFile);
     };
-  }, [openFile]);
+  }, [openFiles]);
 
-  const actions = intel ? smartActions(intel).slice(0, 8) : [];
+  const singleActions = intel ? smartActions(intel).slice(0, 8) : [];
+  const groupActions = multi ? multiActions(multi.files) : [];
 
-  function launch(href: string) {
-    if (intel) setPendingFiles([intel.file]);
-    setIntel(null);
+  function launch(href: string, payload: File[]) {
+    setPendingFiles(payload);
+    close();
     router.push(href);
   }
 
   function close() {
     if (intel?.previewUrl) URL.revokeObjectURL(intel.previewUrl);
     setIntel(null);
+    setMulti(null);
   }
 
   const facts: string[] = [];
   if (intel) {
     facts.push(formatBytes(intel.size));
-    if (intel.facts.width && intel.facts.height) {
-      facts.push(`${intel.facts.width}×${intel.facts.height}`);
-    }
-    if (intel.facts.pageCount !== undefined) {
-      facts.push(t("dropzone.pages", { count: intel.facts.pageCount }));
-    }
-    if (intel.facts.entries) {
-      facts.push(t("dropzone.files", { count: intel.facts.entries.length }));
-    }
-    if (intel.facts.duration !== undefined) {
-      facts.push(formatDuration(intel.facts.duration));
-    }
+    if (intel.facts.width && intel.facts.height) facts.push(`${intel.facts.width}×${intel.facts.height}`);
+    if (intel.facts.pageCount !== undefined) facts.push(t("dropzone.pages", { count: intel.facts.pageCount }));
+    if (intel.facts.entries) facts.push(t("dropzone.files", { count: intel.facts.entries.length }));
+    if (intel.facts.duration !== undefined) facts.push(formatDuration(intel.facts.duration));
     if (intel.facts.jsonValid === false) facts.push(t("dropzone.invalidJson"));
     if (intel.facts.hasExif) facts.push(t("dropzone.hasExif"));
   }
 
+  const open = intel !== null || multi !== null;
+
   return (
     <>
-      {/* Full-window drop veil. */}
       {dragging ? (
         <div
           aria-hidden="true"
@@ -162,7 +227,7 @@ export function FileIntelligence() {
         </div>
       ) : null}
 
-      <Dialog open={intel !== null} onOpenChange={(open) => !open && close()}>
+      <Dialog open={open} onOpenChange={(next) => !next && close()}>
         <DialogContent className="max-w-lg">
           {intel ? (
             <>
@@ -173,11 +238,9 @@ export function FileIntelligence() {
                 </DialogTitle>
               </DialogHeader>
 
-              {/* Preview + facts */}
               <div className="flex items-start gap-4">
                 <div className="flex size-20 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border-subtle bg-surface-raised">
                   {intel.kind === "image" && intel.previewUrl ? (
-                    /* Local object URL — nothing for next/image to optimize. */
                     <img src={intel.previewUrl} alt="" className="size-full object-cover" />
                   ) : (
                     <FileQuestion size={28} className="text-text-muted" aria-hidden="true" />
@@ -209,7 +272,10 @@ export function FileIntelligence() {
                 </pre>
               ) : null}
               {intel.facts.entries && intel.facts.entries.length > 0 ? (
-                <ul dir="ltr" className="max-h-28 overflow-hidden rounded-lg border border-border-subtle bg-surface-raised p-3 text-start font-mono text-xs text-text-secondary">
+                <ul
+                  dir="ltr"
+                  className="max-h-28 overflow-hidden rounded-lg border border-border-subtle bg-surface-raised p-3 text-start font-mono text-xs text-text-secondary"
+                >
                   {intel.facts.entries.map((name) => (
                     <li key={name} className="truncate">
                       {name}
@@ -218,19 +284,16 @@ export function FileIntelligence() {
                 </ul>
               ) : null}
 
-              {/* Smart actions */}
-              {actions.length > 0 ? (
+              {singleActions.length > 0 ? (
                 <div className="flex flex-col gap-1.5" role="list" aria-label={t("dropzone.actionsTitle")}>
-                  {actions.map(({ entry, reasonKey }) => {
-                    const name = t(
-                      `${entry.i18nNamespace}.${entry.nameKey}` as Parameters<typeof t>[0],
-                    );
+                  {singleActions.map(({ entry, reasonKey }) => {
+                    const name = t(`${entry.i18nNamespace}.${entry.nameKey}` as Parameters<typeof t>[0]);
                     return (
                       <button
                         key={entry.id}
                         type="button"
                         role="listitem"
-                        onClick={() => launch(entry.href)}
+                        onClick={() => launch(entry.href, [intel.file])}
                         className="group flex items-center gap-3 rounded-lg border border-border-subtle bg-surface px-3 py-2.5 text-start transition-[border-color,background-color] duration-(--motion-fast) ease-(--ease-out) hover:border-border hover:bg-surface-raised"
                       >
                         <span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-accent-subtle text-accent-subtle-fg">
@@ -257,6 +320,74 @@ export function FileIntelligence() {
                 </p>
               )}
 
+              <p className="text-xs text-text-muted">{t("dropzone.privacy")}</p>
+            </>
+          ) : multi ? (
+            <>
+              <DialogHeader>
+                <DialogTitle className="flex items-center gap-2">
+                  <Files size={16} className="text-accent" aria-hidden="true" />
+                  {t("dropzone.multiTitle", { count: multi.files.length })}
+                </DialogTitle>
+              </DialogHeader>
+
+              {/* Project-style summary before any processing. */}
+              <dl className="grid grid-cols-2 gap-3">
+                <div className="flex flex-col gap-0.5 rounded-lg border border-border-subtle bg-surface p-3">
+                  <dt className="text-xs text-text-muted">{t("dropzone.multiTotal")}</dt>
+                  <dd dir="ltr" className="text-start text-lg font-semibold tabular-nums">
+                    {formatBytes(multi.totalSize)}
+                  </dd>
+                </div>
+                <div className="flex flex-col gap-0.5 rounded-lg border border-border-subtle bg-surface p-3">
+                  <dt className="text-xs text-text-muted">{t("dropzone.multiAverage")}</dt>
+                  <dd dir="ltr" className="text-start text-lg font-semibold tabular-nums">
+                    {formatBytes(Math.round(multi.totalSize / multi.files.length))}
+                  </dd>
+                </div>
+              </dl>
+              <div className="flex flex-wrap gap-1.5">
+                {[...multi.kinds.entries()].map(([kind, count]) => (
+                  <Badge key={kind} variant="neutral">
+                    {t(`dropzone.kind.${kind}` as Parameters<typeof t>[0])} × {count}
+                  </Badge>
+                ))}
+              </div>
+              <p dir="ltr" className="text-start text-xs text-text-muted">
+                ↑ {multi.largest.name} ({formatBytes(multi.largest.size)}) · ↓ {multi.smallest.name} (
+                {formatBytes(multi.smallest.size)})
+              </p>
+
+              {groupActions.length > 0 ? (
+                <div className="flex flex-col gap-1.5" role="list" aria-label={t("dropzone.actionsTitle")}>
+                  {groupActions.map(({ entry }) => {
+                    const name = t(`${entry.i18nNamespace}.${entry.nameKey}` as Parameters<typeof t>[0]);
+                    return (
+                      <button
+                        key={entry.id}
+                        type="button"
+                        role="listitem"
+                        onClick={() => launch(entry.href, multi.files)}
+                        className="group flex items-center gap-3 rounded-lg border border-border-subtle bg-surface px-3 py-2.5 text-start transition-[border-color,background-color] duration-(--motion-fast) ease-(--ease-out) hover:border-border hover:bg-surface-raised"
+                      >
+                        <span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-accent-subtle text-accent-subtle-fg">
+                          <DynamicIcon name={entry.icon as IconName} size={16} />
+                        </span>
+                        <span className="min-w-0 flex-1 truncate text-sm font-medium">{name}</span>
+                        <ChevronRight
+                          size={16}
+                          aria-hidden="true"
+                          className="shrink-0 text-text-disabled transition-transform duration-(--motion-fast) group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5"
+                        />
+                      </button>
+                    );
+                  })}
+                </div>
+              ) : (
+                <p className="rounded-lg border border-dashed border-border px-4 py-3 text-sm text-text-muted">
+                  {t("dropzone.multiNoActions")}
+                </p>
+              )}
               <p className="text-xs text-text-muted">{t("dropzone.privacy")}</p>
             </>
           ) : null}

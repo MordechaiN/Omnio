@@ -5,6 +5,10 @@
     "slugify": {
       "name": "Slug Generator",
       "description": "Turn any text into a clean URL-safe slug on your device."
+    },
+    "filename-clean": {
+      "name": "Filename Cleaner",
+      "description": "Make any list of filenames safe for Windows, macOS, Linux, and the web."
     }
   },
   "ui": {
@@ -15,6 +19,13 @@
     "unicode": "Keep Unicode",
     "placeholder": "Type or paste text…",
     "copy": "Copy",
-    "copied": "Copied to clipboard"
+    "copied": "Copied to clipboard",
+    "fnInput": "Filenames (one per line)",
+    "fnOutput": "Cleaned names",
+    "fnLowercase": "Lowercase",
+    "fnDashes": "Spaces → dashes",
+    "fnCopy": "Copy all",
+    "fnCopied": "Copied",
+    "fnNote": "Removes characters that break on some systems, collapses spaces, and guards reserved Windows names like CON."
   }
 }

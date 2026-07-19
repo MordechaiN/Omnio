@@ -9,6 +9,14 @@
     "mime-lookup": {
       "name": "סוגי MIME",
       "description": "חיפוש סיומת ⇄ סוג תוכן עם ערכים מוכנים להעתקה."
+    },
+    "header-parse": {
+      "name": "מפענח כותרות HTTP",
+      "description": "הדביקו כותרות HTTP גולמיות וקבלו טבלה קריאה עם הסברים בשפה פשוטה."
+    },
+    "robots-test": {
+      "name": "בודק robots.txt",
+      "description": "הדביקו כללי robots.txt ובדקו אם זחלן רשאי לגשת לנתיב — התאמה ארוכה לפי RFC 9309."
     }
   },
   "ui": {
@@ -16,7 +24,16 @@
     "mimeSearch": "חיפוש סוגים",
     "noMatches": "אין התאמות — נסו קוד, מילה או מחלקה כמו 4xx.",
     "copy": "העתקה",
-    "copiedMime": "הועתק {mime}"
+    "copiedMime": "הועתק {mime}",
+    "headersLabel": "כותרות גולמיות",
+    "headersNone": "לא זוהו שורות כותרת — הדביקו זוגות של Name: value.",
+    "robotsLabel": "תוכן robots.txt",
+    "robotsPath": "נתיב לבדיקה",
+    "robotsAgent": "User-agent",
+    "robotsAllowed": "מותר",
+    "robotsBlocked": "חסום",
+    "robotsNoRule": "אף כלל לא תאם — מותר כברירת מחדל.",
+    "robotsNote": "הכלל הארוך ביותר מנצח; Allow גובר על Disallow בשוויון (RFC 9309). נתמכים * ו-$."
   },
   "status": {
     "100": "המשיכו — השרת קיבל את הכותרות ומחכה לגוף הבקשה.",
@@ -64,5 +81,32 @@
     "507": "אין מספיק אחסון בשרת (WebDAV).",
     "508": "זוהתה לולאה אינסופית בעיבוד (WebDAV).",
     "511": "פורטל שבוי מבקש התחברות קודם."
+  },
+  "header": {
+    "content-type": "מה הגוף מכיל (סוג MIME וקידוד).",
+    "content-length": "גודל הגוף בבייטים.",
+    "cache-control": "כמה זמן והיכן מותר לשמור את התשובה במטמון.",
+    "etag": "טביעת גרסה — עובדת עם If-None-Match לרענון זול.",
+    "last-modified": "מתי המשאב השתנה לאחרונה.",
+    "location": "לאן ההפניה או המשאב החדש מובילים.",
+    "set-cookie": "שומר עוגייה בדפדפן.",
+    "authorization": "אישורי הבקשה (זהירות בשיתוף לוגים).",
+    "content-encoding": "דחיסה שהוחלה על הגוף (gzip, br…).",
+    "access-control-allow-origin": "אילו מקורות רשאים לקרוא את התשובה (CORS).",
+    "strict-transport-security": "מחייב HTTPS בביקורים הבאים (HSTS).",
+    "content-security-policy": "מאילו מקורות מותר לטעון סקריפטים, עיצוב ומסגרות.",
+    "x-frame-options": "האם מותר להטמיע את העמוד ב-iframe.",
+    "x-content-type-options": "nosniff — מונע ניחוש סוגי MIME.",
+    "referrer-policy": "כמה מהכתובת הנוכחית דולף לאתרים אחרים.",
+    "retry-after": "מתי לנסות שוב אחרי 429/503.",
+    "vary": "כותרות בקשה שמשנות את התשובה במטמון.",
+    "server": "תוכנת השרת (לרוב מעורפל בכוונה).",
+    "user-agent": "מי שואל — זהות הדפדפן או הבוט.",
+    "accept": "פורמטים שהלקוח מסוגל לקבל.",
+    "origin": "מהיכן הגיעה בקשה חוצת-אתרים.",
+    "host": "הדומיין המבוקש.",
+    "cookie": "עוגיות שנשלחות חזרה לשרת.",
+    "if-none-match": "ה-ETag שבמטמון — השרת עונה 304 אם לא השתנה.",
+    "transfer-encoding": "איך הגוף ממוסגר ברשת (chunked…)."
   }
 }

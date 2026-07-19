@@ -36,6 +36,25 @@ function toolName(t: ReturnType<typeof useTranslations<never>>, entry: SearchEnt
   return t(`${entry.i18nNamespace}.${entry.nameKey}` as Parameters<typeof t>[0]);
 }
 
+/** Ready-made pipelines — one click seeds the builder, everything editable. */
+const TEMPLATES: Array<{ key: string; emoji: string; steps: string[] }> = [
+  {
+    key: "imageOptimization",
+    emoji: "🖼️",
+    steps: ["imagekit.image-resize", "imagekit.image-compress", "imagekit.exif-remove"],
+  },
+  {
+    key: "pdfCleanup",
+    emoji: "📄",
+    steps: ["pdfkit.pdf-rotate", "pdfkit.pdf-delete", "pdfkit.pdf-merge"],
+  },
+  {
+    key: "shareSafely",
+    emoji: "🔐",
+    steps: ["imagekit.exif-remove", "imagekit.image-compress", "zipkit.zip-create"],
+  },
+];
+
 /** Builder dialog: name, emoji, and an ordered list of steps. */
 function WorkflowDialog({
   open,
@@ -87,6 +106,25 @@ function WorkflowDialog({
           <DialogTitle>{t("workflows.newTitle")}</DialogTitle>
         </DialogHeader>
         <div className="flex flex-col gap-4">
+          <div className="flex flex-wrap items-center gap-1.5">
+            <span className="text-sm text-text-muted">{t("workflows.templatesLabel")}</span>
+            {TEMPLATES.map((template) => (
+              <button
+                key={template.key}
+                type="button"
+                onClick={() => {
+                  setName(t(`workflows.templates.${template.key}` as Parameters<typeof t>[0]));
+                  setEmoji(template.emoji);
+                  setSteps(template.steps.filter((id) => BY_ID.has(id)));
+                }}
+                className="flex items-center gap-1 rounded-md border border-border-subtle px-2 py-1 text-xs transition-colors duration-(--motion-fast) hover:border-border hover:bg-surface-raised"
+              >
+                <span aria-hidden="true">{template.emoji}</span>
+                {t(`workflows.templates.${template.key}` as Parameters<typeof t>[0])}
+              </button>
+            ))}
+          </div>
+
           <div className="flex items-end gap-3">
             <div className="flex flex-1 flex-col gap-1.5">
               <Label htmlFor="wf-name">{t("collections.nameLabel")}</Label>

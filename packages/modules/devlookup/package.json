@@ -10,7 +10,9 @@
     "./i18n/en": "./i18n/en.json",
     "./i18n/he": "./i18n/he.json",
     "./frontend/tools/http-status": "./frontend/tools/http-status.tsx",
-    "./frontend/tools/mime-lookup": "./frontend/tools/mime-lookup.tsx"
+    "./frontend/tools/mime-lookup": "./frontend/tools/mime-lookup.tsx",
+    "./frontend/tools/header-parse": "./frontend/tools/header-parse.tsx",
+    "./frontend/tools/robots-test": "./frontend/tools/robots-test.tsx"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

@@ -158,6 +158,7 @@
     "batchPrivacy": "Every image is processed in your browser — re-encoding also strips all metadata.",
     "chainTitle": "Continue with:",
     "faviconExplain": "The image is center-cropped to a square and rendered at 16, 32, 48, 180, 192, and 512 pixels, with a ready-to-paste HTML snippet included.",
-    "faviconDownload": "Generate & download ZIP"
+    "faviconDownload": "Generate & download ZIP",
+    "compareOriginal": "Compare with original"
   }
 }

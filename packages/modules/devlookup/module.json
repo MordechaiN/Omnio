@@ -10,15 +10,58 @@
       "id": "http-status",
       "tier": "browser",
       "surface": "frontend/tools/http-status",
-      "keywords": ["http", "status", "code", "404", "500", "rest", "error"]
+      "keywords": [
+        "http",
+        "status",
+        "code",
+        "404",
+        "500",
+        "rest",
+        "error"
+      ]
     },
     {
       "id": "mime-lookup",
       "tier": "browser",
       "surface": "frontend/tools/mime-lookup",
-      "keywords": ["mime", "content type", "extension", "media type", "file type"]
+      "keywords": [
+        "mime",
+        "content type",
+        "extension",
+        "media type",
+        "file type"
+      ]
+    },
+    {
+      "id": "header-parse",
+      "tier": "browser",
+      "surface": "frontend/tools/header-parse",
+      "keywords": [
+        "http",
+        "headers",
+        "parse",
+        "response",
+        "request",
+        "cache",
+        "cors"
+      ]
+    },
+    {
+      "id": "robots-test",
+      "tier": "browser",
+      "surface": "frontend/tools/robots-test",
+      "keywords": [
+        "robots",
+        "robots.txt",
+        "crawler",
+        "seo",
+        "disallow",
+        "googlebot"
+      ]
     }
   ],
-  "capabilities": { "fileActions": [] },
+  "capabilities": {
+    "fileActions": []
+  },
   "permissions": []
 }
