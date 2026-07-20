@@ -107,17 +107,7 @@ export default function FrameExtractTool() {
 
   return (
     <div className="flex flex-col gap-5">
-      <div
-        role="button"
-        tabIndex={0}
-        aria-label={t("ui.dropLabel")}
-        onClick={() => inputRef.current?.click()}
-        onKeyDown={(event) => {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            inputRef.current?.click();
-          }
-        }}
+      <label
         onDragOver={(event) => {
           event.preventDefault();
           setDragOver(true);
@@ -139,6 +129,7 @@ export default function FrameExtractTool() {
           ref={inputRef}
           type="file"
           accept="video/*"
+          aria-label={t("ui.dropLabel")}
           className="sr-only"
           onChange={(event) => {
             const file = event.target.files?.[0];
@@ -146,7 +137,7 @@ export default function FrameExtractTool() {
             event.target.value = "";
           }}
         />
-      </div>
+      </label>
 
       {source ? (
         <>

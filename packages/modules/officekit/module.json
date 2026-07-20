@@ -10,10 +10,65 @@
       "id": "csv-table",
       "tier": "browser",
       "surface": "frontend/tools/csv-table",
-      "keywords": ["csv", "table", "preview", "spreadsheet", "viewer", "columns"],
-      "accepts": [{ "mime": ["text/csv", "application/csv"], "priority": 85 }]
+      "keywords": [
+        "csv",
+        "table",
+        "preview",
+        "spreadsheet",
+        "viewer",
+        "columns"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "text/csv",
+            "application/csv"
+          ],
+          "priority": 85
+        }
+      ]
+    },
+    {
+      "id": "tsv-table",
+      "tier": "browser",
+      "surface": "frontend/tools/tsv-table",
+      "keywords": [
+        "tsv",
+        "tab separated",
+        "table",
+        "preview"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "text/tab-separated-values"
+          ],
+          "priority": 82
+        }
+      ]
+    },
+    {
+      "id": "html-preview",
+      "tier": "browser",
+      "surface": "frontend/tools/html-preview",
+      "keywords": [
+        "html",
+        "preview",
+        "render",
+        "sandbox"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "text/html"
+          ],
+          "priority": 80
+        }
+      ]
     }
   ],
-  "capabilities": { "fileActions": [] },
+  "capabilities": {
+    "fileActions": []
+  },
   "permissions": []
 }

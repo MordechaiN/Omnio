@@ -10,7 +10,8 @@
     "./frontend/tools/frame-extract": "./frontend/tools/frame-extract.tsx",
     "./i18n/en": "./i18n/en.json",
     "./i18n/he": "./i18n/he.json",
-    "./frontend/tools/thumbnail-sheet": "./frontend/tools/thumbnail-sheet.tsx"
+    "./frontend/tools/thumbnail-sheet": "./frontend/tools/thumbnail-sheet.tsx",
+    "./frontend/tools/video-inspect": "./frontend/tools/video-inspect.tsx"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

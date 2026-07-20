@@ -131,17 +131,7 @@ export default function ImageResizeTool() {
   return (
     <div className="flex flex-col gap-5">
       {/* Drop zone / file picker */}
-      <div
-        role="button"
-        tabIndex={0}
-        aria-label={t("ui.dropLabel")}
-        onClick={() => inputRef.current?.click()}
-        onKeyDown={(event) => {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            inputRef.current?.click();
-          }
-        }}
+      <label
         onDragOver={(event) => {
           event.preventDefault();
           setDragOver(true);
@@ -163,6 +153,7 @@ export default function ImageResizeTool() {
           ref={inputRef}
           type="file"
           accept="image/*"
+          aria-label={t("ui.dropLabel")}
           className="sr-only"
           onChange={(event) => {
             const file = event.target.files?.[0];
@@ -170,7 +161,7 @@ export default function ImageResizeTool() {
             event.target.value = "";
           }}
         />
-      </div>
+      </label>
 
       {error === "unsupported" ? (
         <p role="alert" className="text-sm text-danger">

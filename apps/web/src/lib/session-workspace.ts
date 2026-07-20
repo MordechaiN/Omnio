@@ -12,6 +12,8 @@ export interface SessionFile {
   /** "dropped" came from the user; "output" was produced by a tool chain. */
   origin: "dropped" | "output";
   at: number;
+  /** Pinned files are never dropped by the MAX_FILES cap or "clear except pinned". */
+  pinned: boolean;
 }
 
 const MAX_FILES = 20;
@@ -29,8 +31,20 @@ export function recordSessionFile(file: File, origin: SessionFile["origin"]): vo
     file,
     origin,
     at: Date.now(),
+    pinned: false,
   };
-  files = [entry, ...files].slice(0, MAX_FILES);
+  const next = [entry, ...files];
+  // The cap never evicts a pinned file — trim from the unpinned tail instead.
+  if (next.length > MAX_FILES) {
+    let overflow = next.length - MAX_FILES;
+    for (let i = next.length - 1; i >= 0 && overflow > 0; i -= 1) {
+      if (!next[i]!.pinned) {
+        next.splice(i, 1);
+        overflow -= 1;
+      }
+    }
+  }
+  files = next;
   emit();
 }
 
@@ -39,8 +53,25 @@ export function removeSessionFile(id: string): void {
   emit();
 }
 
+export function removeSessionFiles(ids: readonly string[]): void {
+  const set = new Set(ids);
+  files = files.filter((entry) => !set.has(entry.id));
+  emit();
+}
+
+export function togglePinned(id: string): void {
+  files = files.map((entry) => (entry.id === id ? { ...entry, pinned: !entry.pinned } : entry));
+  emit();
+}
+
 export function clearSession(): void {
   files = [];
+  emit();
+}
+
+/** Remove every unpinned file, keeping pinned ones in place. */
+export function clearExceptPinned(): void {
+  files = files.filter((entry) => entry.pinned);
   emit();
 }
 
@@ -52,6 +83,7 @@ export function restoreSession(entries: Array<{ file: File; origin: SessionFile[
     file: entry.file,
     origin: entry.origin,
     at: now - index,
+    pinned: false,
   }));
   emit();
 }

@@ -9,6 +9,10 @@
     "filename-clean": {
       "name": "Filename Cleaner",
       "description": "Make any list of filenames safe for Windows, macOS, Linux, and the web."
+    },
+    "bulk-rename": {
+      "name": "Bulk Rename",
+      "description": "Stack find/replace, case, and numbering rules and preview the result on a whole list of filenames."
     }
   },
   "ui": {
@@ -26,6 +30,18 @@
     "fnDashes": "Spaces → dashes",
     "fnCopy": "Copy all",
     "fnCopied": "Copied",
-    "fnNote": "Removes characters that break on some systems, collapses spaces, and guards reserved Windows names like CON."
+    "fnNote": "Removes characters that break on some systems, collapses spaces, and guards reserved Windows names like CON.",
+    "brNames": "Filenames (one per line)",
+    "brFind": "Find",
+    "brReplace": "Replace with",
+    "brRegex": "Treat find as regex",
+    "brCase": "Case",
+    "brCaseNone": "Unchanged",
+    "brCaseLower": "lowercase",
+    "brCaseUpper": "UPPERCASE",
+    "brCaseTitle": "Title Case",
+    "brSequence": "Add numbering",
+    "brPreview": "Preview",
+    "brCopyAll": "Copy all new names"
   }
 }

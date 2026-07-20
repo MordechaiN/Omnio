@@ -74,17 +74,7 @@ export default function ZipCreateTool() {
 
   return (
     <div className="flex flex-col gap-5">
-      <div
-        role="button"
-        tabIndex={0}
-        aria-label={t("ui.dropLabel")}
-        onClick={() => inputRef.current?.click()}
-        onKeyDown={(event) => {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            inputRef.current?.click();
-          }
-        }}
+      <label
         onDragOver={(event) => {
           event.preventDefault();
           setDragOver(true);
@@ -107,13 +97,14 @@ export default function ZipCreateTool() {
           ref={inputRef}
           type="file"
           multiple
+          aria-label={t("ui.dropLabel")}
           className="sr-only"
           onChange={(event) => {
             add(event.target.files);
             event.target.value = "";
           }}
         />
-      </div>
+      </label>
 
       {files.length > 0 ? (
         <>

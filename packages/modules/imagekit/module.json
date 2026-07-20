@@ -320,6 +320,82 @@
           "priority": 50
         }
       ]
+    },
+    {
+      "id": "image-histogram",
+      "tier": "browser",
+      "surface": "frontend/tools/image-histogram",
+      "keywords": [
+        "histogram",
+        "tonal",
+        "exposure",
+        "levels",
+        "distribution"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "image/*"
+          ],
+          "priority": 45
+        }
+      ]
+    },
+    {
+      "id": "color-blindness",
+      "tier": "browser",
+      "surface": "frontend/tools/color-blindness",
+      "keywords": [
+        "color blindness",
+        "colorblind",
+        "protanopia",
+        "deuteranopia",
+        "tritanopia",
+        "accessibility",
+        "cvd"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "image/*"
+          ],
+          "priority": 44
+        }
+      ]
+    },
+    {
+      "id": "palette-export",
+      "tier": "browser",
+      "surface": "frontend/tools/palette-export",
+      "keywords": [
+        "palette",
+        "export",
+        "css variables",
+        "scss",
+        "color",
+        "swatches"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "image/*"
+          ],
+          "priority": 48
+        }
+      ]
+    },
+    {
+      "id": "ico-tools",
+      "tier": "browser",
+      "surface": "frontend/tools/ico-tools",
+      "keywords": [
+        "ico",
+        "icon",
+        "favicon",
+        "extract",
+        "viewer",
+        "windows icon"
+      ]
     }
   ],
   "capabilities": {

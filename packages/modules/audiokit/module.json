@@ -28,6 +28,47 @@
           "priority": 90
         }
       ]
+    },
+    {
+      "id": "waveform-view",
+      "tier": "browser",
+      "surface": "frontend/tools/waveform-view",
+      "keywords": [
+        "waveform",
+        "audio",
+        "visualize",
+        "amplitude",
+        "preview"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "audio/*"
+          ],
+          "priority": 55
+        }
+      ]
+    },
+    {
+      "id": "audio-fade",
+      "tier": "browser",
+      "surface": "frontend/tools/audio-fade",
+      "keywords": [
+        "fade",
+        "fade in",
+        "fade out",
+        "audio",
+        "smooth",
+        "envelope"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "audio/*"
+          ],
+          "priority": 60
+        }
+      ]
     }
   ],
   "capabilities": {

@@ -5,12 +5,23 @@
     "hash": {
       "name": "Hash Generator",
       "description": "Compute SHA-1, SHA-256, SHA-384 and SHA-512 hashes on your device."
+    },
+    "checksum-compare": {
+      "name": "Checksum Compare",
+      "description": "Verify two files match, or check one against a known SHA-256 checksum — on your device."
     }
   },
   "ui": {
     "input": "Text",
     "placeholder": "Type or paste text to hash…",
     "copy": "Copy",
-    "copied": "Copied to clipboard"
+    "copied": "Copied to clipboard",
+    "checksumFileA": "First file",
+    "checksumFileB": "Second file",
+    "checksumMatch": "Match",
+    "checksumMismatch": "Does not match",
+    "checksumExpected": "Or compare the first file against a known checksum",
+    "checksumPrivacy": "Files are hashed in your browser — nothing is uploaded.",
+    "working": "Working…"
   }
 }

@@ -5,12 +5,23 @@
     "hash": {
       "name": "מחולל גיבוב",
       "description": "חישוב גיבובי SHA-1, SHA-256, SHA-384 ו-SHA-512 במכשיר שלך."
+    },
+    "checksum-compare": {
+      "name": "השוואת סכומי ביקורת",
+      "description": "אימות התאמה בין שני קבצים, או בדיקת קובץ מול סכום ביקורת SHA-256 ידוע — במכשיר שלכם."
     }
   },
   "ui": {
     "input": "טקסט",
     "placeholder": "הקלידו או הדביקו טקסט לגיבוב…",
     "copy": "העתקה",
-    "copied": "הועתק ללוח"
+    "copied": "הועתק ללוח",
+    "checksumFileA": "קובץ ראשון",
+    "checksumFileB": "קובץ שני",
+    "checksumMatch": "תואם",
+    "checksumMismatch": "לא תואם",
+    "checksumExpected": "או השוו את הקובץ הראשון לסכום ביקורת ידוע",
+    "checksumPrivacy": "הקבצים מגובבים בדפדפן — שום דבר לא מועלה.",
+    "working": "עובד…"
   }
 }

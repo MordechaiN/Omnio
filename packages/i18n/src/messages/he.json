@@ -144,7 +144,11 @@
       "pngToWebp": "WebP יכול להיות קטן בהרבה",
       "hugePdf": "מסמך גדול — פצלו אותו",
       "invalidJson": "תקנו את התחביר כאן",
-      "longAudio": "הקלטה ארוכה — קצרו אותה"
+      "longAudio": "הקלטה ארוכה — קצרו אותה",
+      "transparentPng": "יש שקיפות — השאירו PNG או WebP, לא JPEG",
+      "oversizedPdf": "גדול מאוד — פצלו לחלקים קטנים יותר",
+      "hugeZip": "ארכיון גדול — עיינו לפני חילוץ הכול",
+      "duplicateNames": "חלק מהשמות חוזרים על עצמם — נקו אותם קודם"
     },
     "multiTitle": "{count} קבצים — הנה מה ש-Omnio יכול לעשות איתם יחד",
     "multiTotal": "גודל כולל",
@@ -173,7 +177,15 @@
     "saveWorkspace": "שמירה כסביבת עבודה",
     "saveTitle": "שמירת סביבת עבודה",
     "saveAction": "שמירה",
-    "saved": "נשמר “{name}”"
+    "saved": "נשמר “{name}”",
+    "pin": "נעיצה",
+    "unpin": "ביטול נעיצה",
+    "clearExceptPinned": "ניקוי חוץ מנעוצים",
+    "selectFile": "בחירת {name}",
+    "selectedCount": "{count} נבחרו",
+    "downloadSelected": "הורדה",
+    "removeSelected": "הסרה",
+    "moreFiles": "עוד {count} בהפעלה זו"
   },
   "savedWorkspaces": {
     "title": "סביבות עבודה שמורות",

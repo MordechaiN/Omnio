@@ -93,17 +93,12 @@ export function ImageDropZone({
 
   return (
     <div className="flex flex-col gap-3">
-      <div
-        role="button"
-        tabIndex={0}
-        aria-label={t("ui.dropLabel")}
-        onClick={() => inputRef.current?.click()}
-        onKeyDown={(event) => {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            inputRef.current?.click();
-          }
-        }}
+      {/* A <label> wrapping the real input is natively clickable and
+          keyboard-operable (Enter/Space via the input itself) — no role,
+          tabIndex, or key handler needed, and no interactive-in-interactive
+          nesting for axe to flag. Drag handlers stay on the label since
+          drag-and-drop has no native form-control equivalent. */}
+      <label
         onDragOver={(event) => {
           event.preventDefault();
           setDragOver(true);
@@ -125,6 +120,7 @@ export function ImageDropZone({
           ref={inputRef}
           type="file"
           accept="image/*"
+          aria-label={t("ui.dropLabel")}
           className="sr-only"
           onChange={(event) => {
             const file = event.target.files?.[0];
@@ -132,7 +128,7 @@ export function ImageDropZone({
             event.target.value = "";
           }}
         />
-      </div>
+      </label>
 
       {error ? (
         <p role="alert" className="text-sm text-danger">

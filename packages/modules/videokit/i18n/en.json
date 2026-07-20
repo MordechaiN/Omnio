@@ -9,6 +9,10 @@
     "thumbnail-sheet": {
       "name": "Thumbnail Sheet",
       "description": "Sample a video at even intervals into one timestamped storyboard PNG — on your device."
+    },
+    "video-inspect": {
+      "name": "Video Inspector",
+      "description": "Duration, resolution, aspect ratio, and file details for any video — on your device."
     }
   },
   "ui": {
@@ -26,6 +30,12 @@
     "errorDecode": "This browser can't play that file — try MP4 or WebM.",
     "privacy": "Your video never leaves this device — frames are captured in your browser.",
     "thumbCount": "Thumbnails: {count}",
-    "thumbGenerate": "Generate storyboard"
+    "thumbGenerate": "Generate storyboard",
+    "duration": "Duration",
+    "resolution": "Resolution",
+    "aspectRatio": "Aspect ratio",
+    "fileSize": "File size",
+    "container": "Format",
+    "unknown": "Unknown"
   }
 }

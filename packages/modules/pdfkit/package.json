@@ -16,7 +16,9 @@
     "./i18n/he": "./i18n/he.json",
     "./frontend/tools/pdf-watermark": "./frontend/tools/pdf-watermark.tsx",
     "./frontend/tools/pdf-pagenum": "./frontend/tools/pdf-pagenum.tsx",
-    "./frontend/tools/pdf-metadata": "./frontend/tools/pdf-metadata.tsx"
+    "./frontend/tools/pdf-metadata": "./frontend/tools/pdf-metadata.tsx",
+    "./frontend/tools/pdf-split-size": "./frontend/tools/pdf-split-size.tsx",
+    "./frontend/tools/pdf-metadata-edit": "./frontend/tools/pdf-metadata-edit.tsx"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

@@ -9,6 +9,14 @@
     "token-estimate": {
       "name": "Token Estimator",
       "description": "Estimate how many tokens a text costs and whether it fits common context windows — on your device."
+    },
+    "prompt-diff": {
+      "name": "Prompt Diff",
+      "description": "Compare two prompt drafts line by line and see exactly what changed."
+    },
+    "prompt-format": {
+      "name": "Prompt Formatter",
+      "description": "Clean up whitespace — blank lines, indentation, wrapping — before pasting a prompt anywhere."
     }
   },
   "ui": {
@@ -25,6 +33,14 @@
     "words": "Words",
     "tokens": "Tokens (est.)",
     "contextTitle": "Fits in a context window of…",
-    "disclaimer": "Estimated with a character/word heuristic (±15% for typical prose) — exact counts depend on each model's tokenizer. Nothing is sent anywhere."
+    "disclaimer": "Estimated with a character/word heuristic (±15% for typical prose) — exact counts depend on each model's tokenizer. Nothing is sent anywhere.",
+    "diffBefore": "Before",
+    "diffAfter": "After",
+    "formatInput": "Prompt",
+    "formatOutput": "Formatted",
+    "formatCollapseBlank": "Collapse extra blank lines",
+    "formatTrimTrailing": "Trim trailing spaces",
+    "formatDedent": "Remove common indentation",
+    "formatWrap": "Wrap at width"
   }
 }

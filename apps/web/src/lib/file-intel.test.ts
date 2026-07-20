@@ -134,6 +134,46 @@ describe("recommendationNudges", () => {
       recommendationNudges({ kind: "text", mime: "text/plain", size: 10, facts: {} }),
     ).toEqual([]);
   });
+
+  it("flags a transparent PNG toward compress, favoring format-safety over pngToWebp", () => {
+    const nudges = recommendationNudges({
+      kind: "image",
+      mime: "image/png",
+      size: 500_000,
+      facts: { hasAlpha: true },
+    });
+    expect(nudges).toEqual([{ toolId: "image-compress", boost: 8, reasonKey: "transparentPng" }]);
+  });
+
+  it("does not suggest pngToWebp for a transparent PNG (would lose transparency semantics)", () => {
+    const nudges = recommendationNudges({
+      kind: "image",
+      mime: "image/png",
+      size: 2 * 1024 * 1024,
+      facts: { hasAlpha: true },
+    });
+    expect(nudges.some((n) => n.reasonKey === "pngToWebp")).toBe(false);
+  });
+
+  it("flags an oversized PDF toward split-by-size", () => {
+    const nudges = recommendationNudges({
+      kind: "pdf",
+      mime: "application/pdf",
+      size: 20 * 1024 * 1024,
+      facts: {},
+    });
+    expect(nudges).toEqual([{ toolId: "pdf-split-size", boost: 22, reasonKey: "oversizedPdf" }]);
+  });
+
+  it("flags a huge ZIP toward extract", () => {
+    const nudges = recommendationNudges({
+      kind: "zip",
+      mime: "application/zip",
+      size: 60 * 1024 * 1024,
+      facts: {},
+    });
+    expect(nudges).toEqual([{ toolId: "zip-extract", boost: 6, reasonKey: "hugeZip" }]);
+  });
 });
 
 describe("fileExtension", () => {

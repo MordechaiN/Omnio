@@ -24,7 +24,11 @@
     "./i18n/he": "./i18n/he.json",
     "./frontend/tools/favicon-generate": "./frontend/tools/favicon-generate.tsx",
     "./frontend/tools/svg-optimize": "./frontend/tools/svg-optimize.tsx",
-    "./frontend/tools/contact-sheet": "./frontend/tools/contact-sheet.tsx"
+    "./frontend/tools/contact-sheet": "./frontend/tools/contact-sheet.tsx",
+    "./frontend/tools/image-histogram": "./frontend/tools/image-histogram.tsx",
+    "./frontend/tools/color-blindness": "./frontend/tools/color-blindness.tsx",
+    "./frontend/tools/palette-export": "./frontend/tools/palette-export.tsx",
+    "./frontend/tools/ico-tools": "./frontend/tools/ico-tools.tsx"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

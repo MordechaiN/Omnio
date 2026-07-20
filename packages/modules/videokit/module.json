@@ -47,6 +47,28 @@
           "priority": 80
         }
       ]
+    },
+    {
+      "id": "video-inspect",
+      "tier": "browser",
+      "surface": "frontend/tools/video-inspect",
+      "keywords": [
+        "video",
+        "metadata",
+        "resolution",
+        "duration",
+        "inspector",
+        "codec",
+        "aspect"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "video/*"
+          ],
+          "priority": 85
+        }
+      ]
     }
   ],
   "capabilities": {

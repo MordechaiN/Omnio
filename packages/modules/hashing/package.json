@@ -9,7 +9,8 @@
     "./module.json": "./module.json",
     "./i18n/en": "./i18n/en.json",
     "./i18n/he": "./i18n/he.json",
-    "./frontend/tools/hash": "./frontend/tools/hash.tsx"
+    "./frontend/tools/hash": "./frontend/tools/hash.tsx",
+    "./frontend/tools/checksum-compare": "./frontend/tools/checksum-compare.tsx"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

@@ -10,7 +10,8 @@
     "./i18n/en": "./i18n/en.json",
     "./i18n/he": "./i18n/he.json",
     "./frontend/tools/slugify": "./frontend/tools/slugify.tsx",
-    "./frontend/tools/filename-clean": "./frontend/tools/filename-clean.tsx"
+    "./frontend/tools/filename-clean": "./frontend/tools/filename-clean.tsx",
+    "./frontend/tools/bulk-rename": "./frontend/tools/bulk-rename.tsx"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

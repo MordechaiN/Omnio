@@ -11,6 +11,14 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ### Added
 
+- **17 more tools** (98 total): Histogram, Color Blindness Simulator, Palette Export, ICO Viewer & Extractor, PDF Split by Size, Edit PDF Metadata, Video Inspector, Waveform Viewer, Audio Fade, TSV Table, HTML Preview, Checksum Compare, Bulk Rename, Prompt Diff, and Prompt Formatter — plus folder support in the Batch Processor. Every tool ships in English and Hebrew, runs entirely on-device, and is wired into search, categories, and Smart Actions through the same registry-driven `accepts` declarations as everything else.
+- **Session workspace improvements** — pin any file (survives the size cap and "clear except pinned"), multi-select rows for bulk download or removal, and a visible count for anything beyond the first eight.
+- **Smarter Smart Actions** — a transparent PNG now nudges toward keeping PNG/WebP instead of JPEG, an oversized PDF (>15MB) nudges toward Split by Size, a large ZIP (>50MB) nudges toward browsing before extracting everything, and dropping several files with repeated names nudges toward Bulk Rename.
+
+### Fixed
+
+- **Every drop zone in the app relabeled for accessibility.** Roughly twenty tools nested a keyboard-focusable file input inside a decorative `role="button"` div with no accessible name on the input itself — both real WCAG failures, confirmed by axe on every affected page. Replaced with a `<label>` wrapping the input: natively clickable and keyboard-operable with no ARIA or key handling needed, and no interactive-in-interactive nesting. Drag-and-drop, click-to-browse, and keyboard activation were all re-verified working after the change.
+
 - **📦 Universal export & import** — Settings → Backup & restore downloads your favorites, collections, and workflows as one portable JSON; importing restores them. Saved workspaces export individually as `.omnio.zip` (manifest + files) and import back complete. Everything stays local — the backup file goes wherever you put it, nowhere else.
 - **✨ AI category opens (local-first)** — Prompt Variables (write a template with {{placeholders}}, fill the generated form, copy the finished prompt) and Token Estimator (characters, words, heuristic token count, and whether it fits common context windows). No cloud calls — the template/estimate contracts are designed so providers can plug in later without a UI redesign. **All 13 categories now have working tools.**
 - **Five more tools** (82 total): SVG Optimizer (safe cleanups only — comments, metadata, editor cruft; paths untouched; unit-tested), Contact Sheet (labeled image grid PNG), Video Thumbnail Sheet (evenly sampled, timestamped storyboard), plus the two prompt tools.

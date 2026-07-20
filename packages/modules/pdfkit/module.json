@@ -168,6 +168,47 @@
           "priority": 62
         }
       ]
+    },
+    {
+      "id": "pdf-split-size",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-split-size",
+      "keywords": [
+        "pdf",
+        "split",
+        "size",
+        "chunk",
+        "email limit"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "application/pdf"
+          ],
+          "priority": 68
+        }
+      ]
+    },
+    {
+      "id": "pdf-metadata-edit",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-metadata-edit",
+      "keywords": [
+        "pdf",
+        "metadata",
+        "edit",
+        "title",
+        "author",
+        "properties"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "application/pdf"
+          ],
+          "priority": 60
+        }
+      ]
     }
   ],
   "capabilities": {

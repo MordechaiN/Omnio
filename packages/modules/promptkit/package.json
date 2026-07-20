@@ -3,14 +3,16 @@
   "version": "1.0.0",
   "private": true,
   "license": "AGPL-3.0-only",
-  "description": "Prompt tooling \u2014 templates with variables and token estimation, all local. Built so cloud providers can plug in later without UI redesign.",
+  "description": "Prompt tooling — templates with variables and token estimation, all local. Built so cloud providers can plug in later without UI redesign.",
   "type": "module",
   "exports": {
     "./module.json": "./module.json",
     "./frontend/tools/prompt-vars": "./frontend/tools/prompt-vars.tsx",
     "./frontend/tools/token-estimate": "./frontend/tools/token-estimate.tsx",
     "./i18n/en": "./i18n/en.json",
-    "./i18n/he": "./i18n/he.json"
+    "./i18n/he": "./i18n/he.json",
+    "./frontend/tools/prompt-diff": "./frontend/tools/prompt-diff.tsx",
+    "./frontend/tools/prompt-format": "./frontend/tools/prompt-format.tsx"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

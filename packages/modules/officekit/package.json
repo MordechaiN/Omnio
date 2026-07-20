@@ -9,7 +9,9 @@
     "./module.json": "./module.json",
     "./frontend/tools/csv-table": "./frontend/tools/csv-table.tsx",
     "./i18n/en": "./i18n/en.json",
-    "./i18n/he": "./i18n/he.json"
+    "./i18n/he": "./i18n/he.json",
+    "./frontend/tools/tsv-table": "./frontend/tools/tsv-table.tsx",
+    "./frontend/tools/html-preview": "./frontend/tools/html-preview.tsx"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

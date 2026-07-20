@@ -5,6 +5,14 @@
     "csv-table": {
       "name": "CSV Table",
       "description": "Paste or drop a CSV and read it as a clean table — quotes, commas, and newlines handled properly."
+    },
+    "tsv-table": {
+      "name": "TSV Table",
+      "description": "Paste or drop tab-separated data and read it as a clean table."
+    },
+    "html-preview": {
+      "name": "HTML Preview",
+      "description": "Render HTML in a sandboxed frame — scripts blocked unless you allow them."
     }
   },
   "ui": {
@@ -12,6 +20,10 @@
     "csvRows": "{count, plural, one {# row} other {# rows}}",
     "csvColumns": "{count, plural, one {# column} other {# columns}}",
     "csvTruncated": "Showing first {max}",
-    "privacy": "Parsed in your browser — the data never leaves your device."
+    "privacy": "Parsed in your browser — the data never leaves your device.",
+    "tsvInput": "TSV content",
+    "htmlInput": "HTML source",
+    "htmlPreviewTitle": "Preview",
+    "htmlAllowScripts": "Allow scripts to run in the preview"
   }
 }

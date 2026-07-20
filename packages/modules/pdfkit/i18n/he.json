@@ -33,6 +33,14 @@
     "pdf-metadata": {
       "name": "מטא-נתוני PDF",
       "description": "צפייה בכותרת, מחבר, תאריכים ומפיק של מסמך — שום דבר לא עוזב את המכשיר."
+    },
+    "pdf-split-size": {
+      "name": "פיצול לפי גודל",
+      "description": "פיצול PDF לחלקים שכל אחד נשאר מתחת לגודל קובץ יעד — במכשיר שלכם."
+    },
+    "pdf-metadata-edit": {
+      "name": "עריכת מטא-נתוני PDF",
+      "description": "שינוי כותרת, מחבר, נושא ומילות מפתח של מסמך, ושמירה — במכשיר שלכם."
     }
   },
   "ui": {
@@ -78,10 +86,15 @@
     "metaTitle": "כותרת",
     "metaAuthor": "מחבר",
     "metaSubject": "נושא",
-    "metaKeywords": "מילות מפתח",
+    "metaKeywords": "מילות מפתח (מופרדות בפסיק)",
     "metaCreator": "נוצר באמצעות",
     "metaProducer": "מפיק",
     "metaCreated": "נוצר",
-    "metaModified": "עודכן"
+    "metaModified": "עודכן",
+    "splitSizeLabel": "גודל יעד לכל חלק (MB)",
+    "splitSizeAction": "פיצול לפי גודל",
+    "splitSizeProgress": "עמוד {done} מתוך {total}…",
+    "splitSizeNote": "כל חלק יורד בנפרד ברגע שהוא מוכן.",
+    "metaEditAction": "שמירה והורדה"
   }
 }

@@ -9,7 +9,9 @@
     "./module.json": "./module.json",
     "./frontend/tools/audio-trim": "./frontend/tools/audio-trim.tsx",
     "./i18n/en": "./i18n/en.json",
-    "./i18n/he": "./i18n/he.json"
+    "./i18n/he": "./i18n/he.json",
+    "./frontend/tools/waveform-view": "./frontend/tools/waveform-view.tsx",
+    "./frontend/tools/audio-fade": "./frontend/tools/audio-fade.tsx"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

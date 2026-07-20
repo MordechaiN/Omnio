@@ -33,6 +33,14 @@
     "pdf-metadata": {
       "name": "PDF Metadata",
       "description": "See a document's title, author, dates, and producer — nothing leaves your device."
+    },
+    "pdf-split-size": {
+      "name": "Split by Size",
+      "description": "Break a PDF into parts that each stay under a target file size — on your device."
+    },
+    "pdf-metadata-edit": {
+      "name": "Edit PDF Metadata",
+      "description": "Change a document's title, author, subject, and keywords, then save — on your device."
     }
   },
   "ui": {
@@ -78,10 +86,15 @@
     "metaTitle": "Title",
     "metaAuthor": "Author",
     "metaSubject": "Subject",
-    "metaKeywords": "Keywords",
+    "metaKeywords": "Keywords (comma-separated)",
     "metaCreator": "Created with",
     "metaProducer": "Producer",
     "metaCreated": "Created",
-    "metaModified": "Modified"
+    "metaModified": "Modified",
+    "splitSizeLabel": "Target size per part (MB)",
+    "splitSizeAction": "Split by size",
+    "splitSizeProgress": "Page {done} of {total}…",
+    "splitSizeNote": "Each part downloads separately as soon as it's ready.",
+    "metaEditAction": "Save & download"
   }
 }

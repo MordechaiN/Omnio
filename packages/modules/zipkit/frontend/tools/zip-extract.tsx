@@ -64,17 +64,7 @@ export default function ZipExtractTool() {
 
   return (
     <div className="flex flex-col gap-5">
-      <div
-        role="button"
-        tabIndex={0}
-        aria-label={t("ui.extractDropLabel")}
-        onClick={() => inputRef.current?.click()}
-        onKeyDown={(event) => {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            inputRef.current?.click();
-          }
-        }}
+      <label
         onDragOver={(event) => {
           event.preventDefault();
           setDragOver(true);
@@ -98,6 +88,7 @@ export default function ZipExtractTool() {
           ref={inputRef}
           type="file"
           accept=".zip,application/zip"
+          aria-label={t("ui.extractDropLabel")}
           className="sr-only"
           onChange={(event) => {
             const file = event.target.files?.[0];
@@ -105,7 +96,7 @@ export default function ZipExtractTool() {
             event.target.value = "";
           }}
         />
-      </div>
+      </label>
 
       {failed ? (
         <p role="alert" className="text-sm text-danger">

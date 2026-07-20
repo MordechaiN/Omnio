@@ -29,6 +29,28 @@
         "safe",
         "invalid characters"
       ]
+    },
+    {
+      "id": "bulk-rename",
+      "tier": "browser",
+      "surface": "frontend/tools/bulk-rename",
+      "keywords": [
+        "bulk rename",
+        "rename",
+        "rules",
+        "batch",
+        "filenames",
+        "sequence"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "*/*"
+          ],
+          "multiple": true,
+          "priority": 5
+        }
+      ]
     }
   ],
   "capabilities": {

@@ -5,6 +5,14 @@
     "audio-trim": {
       "name": "Audio Trimmer",
       "description": "Cut a clip out of any audio file and save it as WAV — entirely on your device."
+    },
+    "waveform-view": {
+      "name": "Waveform Viewer",
+      "description": "See an audio file's amplitude over time — on your device."
+    },
+    "audio-fade": {
+      "name": "Audio Fade",
+      "description": "Smooth the start and end of a clip with a fade, then export WAV — on your device."
     }
   },
   "ui": {
@@ -18,6 +26,15 @@
     "stop": "Stop",
     "export": "Export WAV ({time})",
     "errorDecode": "Couldn't decode that file as audio. Try an MP3, WAV, or OGG.",
-    "privacy": "Your audio never leaves this device — trimming happens in your browser."
+    "privacy": "Your audio never leaves this device — trimming happens in your browser.",
+    "waveformAlt": "Waveform of {name}, {duration} long",
+    "mono": "Mono",
+    "stereo": "Stereo",
+    "fadeIn": "Fade in: {seconds}s",
+    "fadeOut": "Fade out: {seconds}s",
+    "fadeCurve": "Curve",
+    "curveLinear": "Linear",
+    "curveEqualPower": "Equal-power (smoother)",
+    "fadeDownload": "Apply & export WAV"
   }
 }

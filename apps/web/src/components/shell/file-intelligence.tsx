@@ -61,10 +61,24 @@ function buildMulti(files: File[]): MultiIntel {
   return { files, totalSize, kinds, largest, smallest };
 }
 
+/** True when two or more files share a base name (case-insensitive, extension ignored). */
+function hasDuplicateNames(files: File[]): boolean {
+  const seen = new Set<string>();
+  for (const file of files) {
+    const base = file.name.replace(/\.[^.]+$/, "").toLowerCase();
+    if (seen.has(base)) return true;
+    seen.add(base);
+  }
+  return false;
+}
+
 /** Tools whose accepts declare multiple and cover every file in the set. */
-function multiActions(files: File[]): Array<{ entry: SearchEntry; score: number }> {
+function multiActions(
+  files: File[],
+): Array<{ entry: SearchEntry; score: number; reasonKey?: string }> {
   const mimes = files.map((file) => normalizeMime(file.type, file.name));
-  const actions: Array<{ entry: SearchEntry; score: number }> = [];
+  const duplicateNames = hasDuplicateNames(files);
+  const actions: Array<{ entry: SearchEntry; score: number; reasonKey?: string }> = [];
   for (const entry of SEARCH_ENTRIES) {
     if (entry.tier !== "browser") continue;
     const matched = entry.accepts.find(
@@ -72,7 +86,16 @@ function multiActions(files: File[]): Array<{ entry: SearchEntry; score: number 
         accept.multiple === true &&
         mimes.every((mime) => accept.mime.some((pattern) => mimeMatches(pattern, mime))),
     );
-    if (matched) actions.push({ entry, score: matched.priority ?? 50 });
+    if (!matched) continue;
+    let score = matched.priority ?? 50;
+    let reasonKey: string | undefined;
+    // Duplicate filenames are the one proactive nudge at the multi-file
+    // level — everything else lives in lib/file-intel's per-file rules.
+    if (duplicateNames && entry.toolId === "bulk-rename") {
+      score += 40;
+      reasonKey = "duplicateNames";
+    }
+    actions.push({ entry, score, reasonKey });
   }
   return actions.sort((a, b) => b.score - a.score);
 }
@@ -360,7 +383,7 @@ export function FileIntelligence() {
 
               {groupActions.length > 0 ? (
                 <div className="flex flex-col gap-1.5" role="list" aria-label={t("dropzone.actionsTitle")}>
-                  {groupActions.map(({ entry }) => {
+                  {groupActions.map(({ entry, reasonKey }) => {
                     const name = t(`${entry.i18nNamespace}.${entry.nameKey}` as Parameters<typeof t>[0]);
                     return (
                       <button
@@ -374,6 +397,11 @@ export function FileIntelligence() {
                           <DynamicIcon name={entry.icon as IconName} size={16} />
                         </span>
                         <span className="min-w-0 flex-1 truncate text-sm font-medium">{name}</span>
+                        {reasonKey ? (
+                          <Badge variant="accent" className="shrink-0">
+                            {t(`dropzone.reasons.${reasonKey}` as Parameters<typeof t>[0])}
+                          </Badge>
+                        ) : null}
                         <ChevronRight
                           size={16}
                           aria-hidden="true"

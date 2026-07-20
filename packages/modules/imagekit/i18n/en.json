@@ -66,6 +66,22 @@
     "contact-sheet": {
       "name": "Contact Sheet",
       "description": "Tile many images into one labeled overview PNG — on your device."
+    },
+    "image-histogram": {
+      "name": "Histogram",
+      "description": "See the tonal distribution of an image across red, green, blue, and luminance — on your device."
+    },
+    "color-blindness": {
+      "name": "Color Blindness Simulator",
+      "description": "Preview an image the way common forms of color vision deficiency would see it."
+    },
+    "palette-export": {
+      "name": "Palette Export",
+      "description": "Extract an image's dominant colors as ready-to-paste CSS, SCSS, or JSON."
+    },
+    "ico-tools": {
+      "name": "ICO Viewer & Extractor",
+      "description": "Inspect a Windows .ico file's embedded sizes and save each PNG layer — on your device."
     }
   },
   "ui": {
@@ -178,6 +194,32 @@
     "sheetDropTitle": "Drop images for the sheet, or click to choose",
     "sheetDropHint": "Each image gets a cell and its filename underneath.",
     "sheetColumns": "Columns: {count}",
-    "sheetGenerate": "Generate sheet ({count})"
+    "sheetGenerate": "Generate sheet ({count})",
+    "channel": {
+      "red": "Red",
+      "green": "Green",
+      "blue": "Blue",
+      "luminance": "Luminance"
+    },
+    "cbOriginal": "Original",
+    "cbType": {
+      "protanopia": "Protanopia",
+      "deuteranopia": "Deuteranopia",
+      "tritanopia": "Tritanopia"
+    },
+    "paletteTitle": "Palette",
+    "paletteFormat": {
+      "css": "CSS variables",
+      "scss": "SCSS variables",
+      "json": "JSON array",
+      "hex": "Plain hex list"
+    },
+    "icoDropLabel": "Choose or drop an ICO file",
+    "icoDropTitle": "Drop an .ico file here, or click to choose",
+    "icoDropHint": "Windows icon files, typically bundling several sizes in one.",
+    "icoInvalid": "That doesn't look like a valid ICO file.",
+    "icoEntries": "{count, plural, one {# image} other {# images}} inside",
+    "icoSave": "Save PNG",
+    "icoBmpNote": "Legacy BMP-format entries can't be extracted as standalone images here — only PNG-payload entries (the modern default) can be saved."
   }
 }

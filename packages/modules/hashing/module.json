@@ -19,6 +19,19 @@
         "digest",
         "hash"
       ]
+    },
+    {
+      "id": "checksum-compare",
+      "tier": "browser",
+      "surface": "frontend/tools/checksum-compare",
+      "keywords": [
+        "checksum",
+        "compare",
+        "verify",
+        "sha256",
+        "integrity",
+        "files match"
+      ]
     }
   ],
   "capabilities": {

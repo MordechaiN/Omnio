@@ -34,6 +34,8 @@ export interface FileFacts {
   duration?: number;
   /** JPEG EXIF present (privacy signal). */
   hasExif?: boolean;
+  /** The image has any meaningfully transparent pixels. */
+  hasAlpha?: boolean;
   /** First lines of a text-like file. */
   textPreview?: string;
   /** JSON parsed successfully. */
@@ -154,18 +156,24 @@ export function recommendationNudges(intel: {
     if (facts.hasExif) {
       nudges.push({ toolId: "exif-remove", boost: 24, reasonKey: "exifPresent" });
     }
-    if (mime === "image/png" && size > 1 * MB) {
+    if (mime === "image/png" && size > 1 * MB && !facts.hasAlpha) {
       nudges.push({ toolId: "image-compress", boost: 6, reasonKey: "pngToWebp" });
     }
+    if (facts.hasAlpha && size > 300 * 1024) {
+      nudges.push({ toolId: "image-compress", boost: 8, reasonKey: "transparentPng" });
+    }
   }
-  if (kind === "pdf" && size > 10 * MB) {
-    nudges.push({ toolId: "pdf-split", boost: 10, reasonKey: "hugePdf" });
+  if (kind === "pdf" && size > 15 * MB) {
+    nudges.push({ toolId: "pdf-split-size", boost: 22, reasonKey: "oversizedPdf" });
   }
   if (kind === "json" && facts.jsonValid === false) {
     nudges.push({ toolId: "json-format", boost: 20, reasonKey: "invalidJson" });
   }
   if (kind === "audio" && (facts.duration ?? 0) > 600) {
     nudges.push({ toolId: "audio-trim", boost: 10, reasonKey: "longAudio" });
+  }
+  if (kind === "zip" && size > 50 * MB) {
+    nudges.push({ toolId: "zip-extract", boost: 6, reasonKey: "hugeZip" });
   }
   return nudges;
 }
@@ -216,6 +224,25 @@ export async function inspectFile(file: File): Promise<FileIntel> {
         const bitmap = await createImageBitmap(file);
         facts.width = bitmap.width;
         facts.height = bitmap.height;
+        // Sampled alpha scan — cheap and plenty accurate for a yes/no signal.
+        if (mime === "image/png" || mime === "image/webp" || mime === "image/gif") {
+          const canvas = document.createElement("canvas");
+          canvas.width = bitmap.width;
+          canvas.height = bitmap.height;
+          const context = canvas.getContext("2d", { willReadFrequently: true });
+          if (context) {
+            context.drawImage(bitmap, 0, 0);
+            const { data } = context.getImageData(0, 0, canvas.width, canvas.height);
+            let hasAlpha = false;
+            for (let i = 3; i < data.length; i += 4 * 37) {
+              if (data[i]! < 250) {
+                hasAlpha = true;
+                break;
+              }
+            }
+            facts.hasAlpha = hasAlpha;
+          }
+        }
         bitmap.close();
       } catch {
         // e.g. SVG in some browsers — preview still works via <img>.

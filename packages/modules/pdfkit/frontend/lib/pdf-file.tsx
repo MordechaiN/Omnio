@@ -68,17 +68,10 @@ export function PdfDropZone({
   }
 
   return (
-    <div
-      role="button"
-      tabIndex={0}
-      aria-label={t("ui.dropLabel")}
-      onClick={() => inputRef.current?.click()}
-      onKeyDown={(event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          inputRef.current?.click();
-        }
-      }}
+    // A <label> wrapping the real input is natively clickable and
+    // keyboard-operable — no role/tabIndex/key handler, and no
+    // interactive-in-interactive nesting. Drag handlers stay on the label.
+    <label
       onDragOver={(event) => {
         event.preventDefault();
         setDragOver(true);
@@ -102,12 +95,13 @@ export function PdfDropZone({
         type="file"
         accept="application/pdf,.pdf"
         multiple={multiple}
+        aria-label={t("ui.dropLabel")}
         className="sr-only"
         onChange={(event) => {
           accept(event.target.files);
           event.target.value = "";
         }}
       />
-    </div>
+    </label>
   );
 }

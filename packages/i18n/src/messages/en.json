@@ -144,7 +144,11 @@
       "pngToWebp": "WebP could be much smaller",
       "hugePdf": "Big document — split it down",
       "invalidJson": "Fix the syntax here",
-      "longAudio": "Long recording — trim it down"
+      "longAudio": "Long recording — trim it down",
+      "transparentPng": "Has transparency — keep PNG or WebP, not JPEG",
+      "oversizedPdf": "Very large — split it into smaller parts",
+      "hugeZip": "Large archive — browse before extracting everything",
+      "duplicateNames": "Some names repeat — clean them up first"
     },
     "multiTitle": "{count} files — here's what Omnio can do together",
     "multiTotal": "Total size",
@@ -173,7 +177,15 @@
     "saveWorkspace": "Save as workspace",
     "saveTitle": "Save workspace",
     "saveAction": "Save",
-    "saved": "Saved “{name}”"
+    "saved": "Saved “{name}”",
+    "pin": "Pin",
+    "unpin": "Unpin",
+    "clearExceptPinned": "Clear except pinned",
+    "selectFile": "Select {name}",
+    "selectedCount": "{count} selected",
+    "downloadSelected": "Download",
+    "removeSelected": "Remove",
+    "moreFiles": "+{count} more in this session"
   },
   "savedWorkspaces": {
     "title": "Saved workspaces",

@@ -66,6 +66,22 @@
     "contact-sheet": {
       "name": "גיליון תמונות",
       "description": "סידור תמונות רבות ב-PNG סקירה אחד עם תוויות — במכשיר שלכם."
+    },
+    "image-histogram": {
+      "name": "היסטוגרמה",
+      "description": "צפייה בפילוג הגוונים של תמונה בערוצי אדום, ירוק, כחול ובהירות — במכשיר שלכם."
+    },
+    "color-blindness": {
+      "name": "סימולטור עיוורון צבעים",
+      "description": "תצוגה מקדימה של תמונה כפי שסוגים נפוצים של עיוורון צבעים היו רואים אותה."
+    },
+    "palette-export": {
+      "name": "ייצוא פלטה",
+      "description": "חילוץ הצבעים הדומיננטיים של תמונה כ-CSS, SCSS או JSON מוכנים להדבקה."
+    },
+    "ico-tools": {
+      "name": "מציג וחולץ ICO",
+      "description": "בדיקת הגדלים המוטמעים בקובץ .ico של Windows ושמירת כל שכבת PNG — במכשיר שלכם."
     }
   },
   "ui": {
@@ -178,6 +194,32 @@
     "sheetDropTitle": "גררו תמונות לגיליון, או לחצו לבחירה",
     "sheetDropHint": "כל תמונה מקבלת תא ואת שם הקובץ מתחתיה.",
     "sheetColumns": "עמודות: {count}",
-    "sheetGenerate": "יצירת גיליון ({count})"
+    "sheetGenerate": "יצירת גיליון ({count})",
+    "channel": {
+      "red": "אדום",
+      "green": "ירוק",
+      "blue": "כחול",
+      "luminance": "בהירות"
+    },
+    "cbOriginal": "מקור",
+    "cbType": {
+      "protanopia": "פרוטנופיה",
+      "deuteranopia": "דאוטרנופיה",
+      "tritanopia": "טריטנופיה"
+    },
+    "paletteTitle": "פלטה",
+    "paletteFormat": {
+      "css": "משתני CSS",
+      "scss": "משתני SCSS",
+      "json": "מערך JSON",
+      "hex": "רשימת הקס פשוטה"
+    },
+    "icoDropLabel": "בחירת או גרירת קובץ ICO",
+    "icoDropTitle": "גררו קובץ .ico לכאן, או לחצו לבחירה",
+    "icoDropHint": "קובצי אייקון של Windows, בדרך כלל אורזים כמה גדלים באחד.",
+    "icoInvalid": "זה לא נראה כקובץ ICO תקין.",
+    "icoEntries": "{count, plural, one {תמונה אחת} other {# תמונות}} בפנים",
+    "icoSave": "שמירת PNG",
+    "icoBmpNote": "רשומות בפורמט BMP ישן לא ניתנות לחילוץ כתמונה עצמאית כאן — רק רשומות מסוג PNG (ברירת המחדל המודרנית) ניתנות לשמירה."
   }
 }

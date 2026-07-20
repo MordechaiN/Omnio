@@ -5,6 +5,14 @@
     "csv-table": {
       "name": "טבלת CSV",
       "description": "הדביקו או גררו CSV וקראו אותו כטבלה נקייה — מרכאות, פסיקים ושורות חדשות מטופלים כראוי."
+    },
+    "tsv-table": {
+      "name": "טבלת TSV",
+      "description": "הדביקו או גררו נתונים מופרדי-טאב וקראו אותם כטבלה נקייה."
+    },
+    "html-preview": {
+      "name": "תצוגת HTML",
+      "description": "רינדור HTML במסגרת מבודדת — סקריפטים חסומים אלא אם תתירו אותם."
     }
   },
   "ui": {
@@ -12,6 +20,10 @@
     "csvRows": "{count, plural, one {שורה אחת} other {# שורות}}",
     "csvColumns": "{count, plural, one {עמודה אחת} other {# עמודות}}",
     "csvTruncated": "מוצגות {max} הראשונות",
-    "privacy": "מפוענח בדפדפן — הנתונים לעולם לא עוזבים את המכשיר."
+    "privacy": "מפוענח בדפדפן — הנתונים לעולם לא עוזבים את המכשיר.",
+    "tsvInput": "תוכן TSV",
+    "htmlInput": "מקור HTML",
+    "htmlPreviewTitle": "תצוגה מקדימה",
+    "htmlAllowScripts": "אפשרו הרצת סקריפטים בתצוגה המקדימה"
   }
 }

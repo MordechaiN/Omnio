@@ -10,15 +10,58 @@
       "id": "prompt-vars",
       "tier": "browser",
       "surface": "frontend/tools/prompt-vars",
-      "keywords": ["prompt", "template", "variables", "placeholder", "ai", "llm", "fill"]
+      "keywords": [
+        "prompt",
+        "template",
+        "variables",
+        "placeholder",
+        "ai",
+        "llm",
+        "fill"
+      ]
     },
     {
       "id": "token-estimate",
       "tier": "browser",
       "surface": "frontend/tools/token-estimate",
-      "keywords": ["tokens", "estimate", "count", "context", "ai", "llm", "length"]
+      "keywords": [
+        "tokens",
+        "estimate",
+        "count",
+        "context",
+        "ai",
+        "llm",
+        "length"
+      ]
+    },
+    {
+      "id": "prompt-diff",
+      "tier": "browser",
+      "surface": "frontend/tools/prompt-diff",
+      "keywords": [
+        "prompt",
+        "diff",
+        "compare",
+        "versions",
+        "changes"
+      ]
+    },
+    {
+      "id": "prompt-format",
+      "tier": "browser",
+      "surface": "frontend/tools/prompt-format",
+      "keywords": [
+        "prompt",
+        "format",
+        "whitespace",
+        "clean",
+        "dedent",
+        "wrap"
+      ]
     }
   ],
-  "capabilities": { "fileActions": [] },
+  "capabilities": {
+    "fileActions": []
+  },
   "permissions": []
 }

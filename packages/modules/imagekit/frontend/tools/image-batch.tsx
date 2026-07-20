@@ -181,17 +181,7 @@ export default function ImageBatchTool() {
 
   return (
     <div className="flex flex-col gap-5">
-      <div
-        role="button"
-        tabIndex={0}
-        aria-label={t("ui.dropLabel")}
-        onClick={() => inputRef.current?.click()}
-        onKeyDown={(event) => {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            inputRef.current?.click();
-          }
-        }}
+      <label
         onDragOver={(event) => {
           event.preventDefault();
           setDragOver(true);
@@ -224,13 +214,14 @@ export default function ImageBatchTool() {
           type="file"
           accept="image/*"
           multiple
+          aria-label={t("ui.dropLabel")}
           className="sr-only"
           onChange={(event) => {
             add(event.target.files);
             event.target.value = "";
           }}
         />
-      </div>
+      </label>
 
       <div className="flex items-center gap-2">
         <Button type="button" variant="ghost" size="sm" onClick={() => folderRef.current?.click()}>
