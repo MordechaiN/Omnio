@@ -58,6 +58,14 @@
     "favicon-generate": {
       "name": "Favicon Generator",
       "description": "Turn one image into the full favicon set (16–512px) plus a ready HTML snippet — zipped."
+    },
+    "svg-optimize": {
+      "name": "SVG Optimizer",
+      "description": "Strip comments, metadata, and editor cruft from an SVG — safe cleanups only, paths untouched."
+    },
+    "contact-sheet": {
+      "name": "Contact Sheet",
+      "description": "Tile many images into one labeled overview PNG — on your device."
     }
   },
   "ui": {
@@ -163,6 +171,13 @@
     "batchAddFolder": "Add a folder…",
     "batchFolderHint": "Folders keep their structure — drop them straight onto the zone too.",
     "batchTemplate": "Output name template",
-    "batchTemplateHint": "{name} = original name, {index} = position. Dimensions and format are appended automatically."
+    "batchTemplateHint": "{name} = original name, {index} = position. Dimensions and format are appended automatically.",
+    "svgInput": "SVG source",
+    "svgDownload": "Download optimized SVG",
+    "svgNote": "Only safe transforms: comments, metadata, titles, and editor namespaces. Path data is never modified.",
+    "sheetDropTitle": "Drop images for the sheet, or click to choose",
+    "sheetDropHint": "Each image gets a cell and its filename underneath.",
+    "sheetColumns": "Columns: {count}",
+    "sheetGenerate": "Generate sheet ({count})"
   }
 }

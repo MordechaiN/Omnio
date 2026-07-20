@@ -184,7 +184,11 @@
     "duplicate": "Duplicate",
     "copySuffix": "(copy)",
     "delete": "Delete",
-    "save": "Save"
+    "save": "Save",
+    "export": "Export",
+    "importAction": "Import workspace…",
+    "imported": "Workspace imported",
+    "importInvalid": "That file isn't an Omnio workspace."
   },
   "theme": {
     "label": "Theme",
@@ -400,7 +404,16 @@
     "language": "Display language",
     "behavior": "Behavior",
     "autoOpenActivity": "Open Activity automatically",
-    "autoOpenActivityDescription": "Show the Activity tray as soon as a tool starts processing a file."
+    "autoOpenActivityDescription": "Show the Activity tray as soon as a tool starts processing a file.",
+    "backup": "Backup & restore",
+    "backupDescription": "Your favorites, collections, and workflows as one portable file — nothing goes to any server.",
+    "backupExport": "Export everything",
+    "backupExportAction": "Download backup",
+    "backupImport": "Restore from backup",
+    "backupImportDescription": "Replaces your current favorites, collections, and workflows with the file's contents.",
+    "backupImportAction": "Choose file…",
+    "backupImported": "Backup restored — reloading",
+    "backupInvalid": "That file isn't an Omnio backup."
   },
   "categoryPage": {
     "emptyTitle": "No tools here yet",

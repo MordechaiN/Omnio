@@ -5,6 +5,10 @@
     "frame-extract": {
       "name": "Frame Extractor",
       "description": "Scrub any video and save crisp PNG stills of the frames you want — on your device."
+    },
+    "thumbnail-sheet": {
+      "name": "Thumbnail Sheet",
+      "description": "Sample a video at even intervals into one timestamped storyboard PNG — on your device."
     }
   },
   "ui": {
@@ -20,6 +24,8 @@
     "working": "Working…",
     "frameAlt": "Captured frame at {time}",
     "errorDecode": "This browser can't play that file — try MP4 or WebM.",
-    "privacy": "Your video never leaves this device — frames are captured in your browser."
+    "privacy": "Your video never leaves this device — frames are captured in your browser.",
+    "thumbCount": "Thumbnails: {count}",
+    "thumbGenerate": "Generate storyboard"
   }
 }

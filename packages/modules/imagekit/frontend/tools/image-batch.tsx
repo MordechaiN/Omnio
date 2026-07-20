@@ -239,6 +239,7 @@ export default function ImageBatchTool() {
         <input
           ref={folderRef}
           type="file"
+          aria-label={t("ui.batchAddFolder")}
           className="sr-only"
           // Non-standard but universal in practice; keeps relative paths.
           {...({ webkitdirectory: "" } as Record<string, string>)}

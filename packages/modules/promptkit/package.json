@@ -1,27 +1,25 @@
 {
-  "name": "@omnio/mod-videokit",
+  "name": "@omnio/mod-promptkit",
   "version": "1.0.0",
   "private": true,
   "license": "AGPL-3.0-only",
-  "description": "Omnio module: videokit.",
+  "description": "Prompt tooling \u2014 templates with variables and token estimation, all local. Built so cloud providers can plug in later without UI redesign.",
   "type": "module",
   "exports": {
     "./module.json": "./module.json",
-    "./frontend/tools/frame-extract": "./frontend/tools/frame-extract.tsx",
+    "./frontend/tools/prompt-vars": "./frontend/tools/prompt-vars.tsx",
+    "./frontend/tools/token-estimate": "./frontend/tools/token-estimate.tsx",
     "./i18n/en": "./i18n/en.json",
-    "./i18n/he": "./i18n/he.json",
-    "./frontend/tools/thumbnail-sheet": "./frontend/tools/thumbnail-sheet.tsx"
+    "./i18n/he": "./i18n/he.json"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
-    "test": "vitest run --passWithNoTests"
+    "test": "vitest run"
   },
   "dependencies": {
     "@omnio/module-sdk": "workspace:*",
-    "@omnio/ui": "workspace:*",
-    "fflate": "^0.8.2",
-    "lucide-react": "^0.525.0"
+    "@omnio/ui": "workspace:*"
   },
   "peerDependencies": {
     "next": "^15.5.0",

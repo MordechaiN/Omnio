@@ -1,0 +1,24 @@
+{
+  "$schema": "https://omnio.dev/schemas/module.v1.json",
+  "id": "promptkit",
+  "version": "1.0.0",
+  "category": "ai",
+  "icon": "sparkles",
+  "i18nNamespace": "mod-promptkit",
+  "tools": [
+    {
+      "id": "prompt-vars",
+      "tier": "browser",
+      "surface": "frontend/tools/prompt-vars",
+      "keywords": ["prompt", "template", "variables", "placeholder", "ai", "llm", "fill"]
+    },
+    {
+      "id": "token-estimate",
+      "tier": "browser",
+      "surface": "frontend/tools/token-estimate",
+      "keywords": ["tokens", "estimate", "count", "context", "ai", "llm", "length"]
+    }
+  ],
+  "capabilities": { "fileActions": [] },
+  "permissions": []
+}

@@ -56,6 +56,7 @@
     "@omnio/mod-officekit": "workspace:*",
     "@omnio/mod-password": "workspace:*",
     "@omnio/mod-pdfkit": "workspace:*",
+    "@omnio/mod-promptkit": "workspace:*",
     "@omnio/mod-qrkit": "workspace:*",
     "@omnio/mod-randomkit": "workspace:*",
     "@omnio/mod-regexlab": "workspace:*",

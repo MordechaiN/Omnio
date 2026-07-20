@@ -277,6 +277,49 @@
           "priority": 40
         }
       ]
+    },
+    {
+      "id": "svg-optimize",
+      "tier": "browser",
+      "surface": "frontend/tools/svg-optimize",
+      "keywords": [
+        "svg",
+        "optimize",
+        "minify",
+        "vector",
+        "clean",
+        "svgo"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "image/svg+xml"
+          ],
+          "priority": 88
+        }
+      ]
+    },
+    {
+      "id": "contact-sheet",
+      "tier": "browser",
+      "surface": "frontend/tools/contact-sheet",
+      "keywords": [
+        "contact sheet",
+        "grid",
+        "tile",
+        "overview",
+        "gallery",
+        "collage"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "image/*"
+          ],
+          "multiple": true,
+          "priority": 50
+        }
+      ]
     }
   ],
   "capabilities": {

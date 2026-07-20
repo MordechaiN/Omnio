@@ -1,0 +1,30 @@
+{
+  "name": "Prompts",
+  "description": "Local-first prompt tooling for working with AI.",
+  "tools": {
+    "prompt-vars": {
+      "name": "Prompt Variables",
+      "description": "Write a prompt template with {{placeholders}}, fill the form, copy the finished prompt — all local."
+    },
+    "token-estimate": {
+      "name": "Token Estimator",
+      "description": "Estimate how many tokens a text costs and whether it fits common context windows — on your device."
+    }
+  },
+  "ui": {
+    "templateLabel": "Template",
+    "templateHint": "Anything in {{double braces}} becomes a form field.",
+    "noVariables": "Add a {{placeholder}} to generate the form.",
+    "outputLabel": "Finished prompt",
+    "copyPrompt": "Copy prompt",
+    "copied": "Prompt copied",
+    "incomplete": "Some placeholders are still empty — they stay visible in the output.",
+    "textLabel": "Text to measure",
+    "placeholder": "Paste a prompt, an article, a transcript…",
+    "characters": "Characters",
+    "words": "Words",
+    "tokens": "Tokens (est.)",
+    "contextTitle": "Fits in a context window of…",
+    "disclaimer": "Estimated with a character/word heuristic (±15% for typical prose) — exact counts depend on each model's tokenizer. Nothing is sent anywhere."
+  }
+}

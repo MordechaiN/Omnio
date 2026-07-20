@@ -140,3 +140,77 @@ export async function deleteWorkspace(id: string): Promise<void> {
   await tx("readwrite", (store) => store.delete(id));
   await refresh();
 }
+
+/* ------------------------- Portable ZIP round-trip ------------------------- */
+
+interface WorkspaceManifest {
+  kind: "omnio-workspace";
+  version: 1;
+  name: string;
+  files: Array<{ path: string; name: string; type: string; origin: "dropped" | "output" }>;
+}
+
+/** Download a workspace as a portable ZIP (manifest + files). */
+export async function exportWorkspaceZip(id: string): Promise<boolean> {
+  const stored = await tx<StoredWorkspace | undefined>("readonly", (store) => store.get(id) as IDBRequest<StoredWorkspace | undefined>);
+  if (!stored) return false;
+  const { zip } = await import("fflate");
+  const manifest: WorkspaceManifest = {
+    kind: "omnio-workspace",
+    version: 1,
+    name: stored.name,
+    files: stored.files.map((file, index) => ({
+      path: `files/${index}`,
+      name: file.name,
+      type: file.type,
+      origin: file.origin,
+    })),
+  };
+  const payload: Record<string, Uint8Array> = {
+    "manifest.json": new TextEncoder().encode(JSON.stringify(manifest, null, 2)),
+  };
+  for (const [index, file] of stored.files.entries()) {
+    payload[`files/${index}`] = new Uint8Array(await file.blob.arrayBuffer());
+  }
+  const bytes = await new Promise<Uint8Array>((resolve, reject) =>
+    zip(payload, { level: 6 }, (error, data) => (error ? reject(error) : resolve(data))),
+  );
+  const url = URL.createObjectURL(new Blob([bytes as BlobPart], { type: "application/zip" }));
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = `${stored.name.replace(/[^\w.-]+/g, "-") || "workspace"}.omnio.zip`;
+  anchor.click();
+  URL.revokeObjectURL(url);
+  return true;
+}
+
+/** Import a workspace ZIP produced by exportWorkspaceZip. */
+export async function importWorkspaceZip(file: File): Promise<boolean> {
+  try {
+    const { unzip } = await import("fflate");
+    const data = new Uint8Array(await file.arrayBuffer());
+    const entries = await new Promise<Record<string, Uint8Array>>((resolve, reject) =>
+      unzip(data, (error, result) => (error ? reject(error) : resolve(result))),
+    );
+    const manifestBytes = entries["manifest.json"];
+    if (!manifestBytes) return false;
+    const manifest = JSON.parse(new TextDecoder().decode(manifestBytes)) as Partial<WorkspaceManifest>;
+    if (manifest.kind !== "omnio-workspace" || manifest.version !== 1 || !Array.isArray(manifest.files)) {
+      return false;
+    }
+    const files = manifest.files.flatMap((entry) => {
+      const bytes = entries[entry.path];
+      if (!bytes) return [];
+      return [
+        {
+          file: new File([bytes as BlobPart], entry.name, { type: entry.type }),
+          origin: entry.origin === "output" ? ("output" as const) : ("dropped" as const),
+        },
+      ];
+    });
+    await saveWorkspace(manifest.name ?? "Imported", files);
+    return true;
+  } catch {
+    return false;
+  }
+}

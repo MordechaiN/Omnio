@@ -32,10 +32,12 @@ test.describe("app shell & landing", () => {
     await expect(page.getByText("No tools here yet")).toHaveCount(0);
   });
 
-  test("an empty category shows an honest empty state, not a placeholder", async ({ page }) => {
-    // Empty categories are hidden from navigation but stay URL-reachable.
+  test("no dead-end categories — even AI, the last to open, lists tools", async ({ page }) => {
+    // Every category now has at least one working tool (M14 closed the set).
     await page.goto("/t/ai");
-    await expect(page.getByText("No tools here yet")).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    await expect(page.getByText("No tools here yet")).toHaveCount(0);
+    await expect(page.getByRole("link", { name: /Prompt Variables/ })).toBeVisible();
   });
 
   test("keyboard-only: skip link is the first tab stop", async ({ page }) => {

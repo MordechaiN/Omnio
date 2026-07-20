@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
+import { exportPreferences, importPreferences } from "@/lib/backup";
 import { locales, localeNames, type Locale } from "@omnio/i18n";
 import {
   Badge,
@@ -23,6 +24,7 @@ import {
   useDensity,
   useStyle,
   useTheme,
+  toast,
   type AccentColor,
   type Density,
   type VisualStyle,
@@ -97,6 +99,7 @@ export function SettingsPanel() {
   const pathname = usePathname();
   const autoOpenActivity = useAutoOpenActivity();
   const version = useVersion();
+  const importInputRef = useRef<HTMLInputElement>(null);
 
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
@@ -280,6 +283,56 @@ export function SettingsPanel() {
               ))}
             </SelectContent>
           </Select>
+        </SettingRow>
+      </SettingsSection>
+
+      <SettingsSection
+        title={t("settings.backup")}
+        description={t("settings.backupDescription")}
+      >
+        <SettingRow label={t("settings.backupExport")} htmlFor="setting-backup-export">
+          <div className="sm:flex sm:justify-end">
+            <Button
+              id="setting-backup-export"
+              variant="secondary"
+              size="sm"
+              onClick={() => exportPreferences()}
+            >
+              {t("settings.backupExportAction")}
+            </Button>
+          </div>
+        </SettingRow>
+        <SettingRow
+          label={t("settings.backupImport")}
+          description={t("settings.backupImportDescription")}
+          htmlFor="setting-backup-import"
+        >
+          <div className="sm:flex sm:justify-end">
+            <Button
+              id="setting-backup-import"
+              variant="secondary"
+              size="sm"
+              onClick={() => importInputRef.current?.click()}
+            >
+              {t("settings.backupImportAction")}
+            </Button>
+            <input
+              ref={importInputRef}
+              type="file"
+              accept="application/json,.json"
+              aria-label={t("settings.backupImport")}
+              className="sr-only"
+              onChange={(event) => {
+                const file = event.target.files?.[0];
+                event.target.value = "";
+                if (!file) return;
+                void importPreferences(file).then((ok) => {
+                  toast(ok ? t("settings.backupImported") : t("settings.backupInvalid"));
+                  if (ok) window.location.reload();
+                });
+              }}
+            />
+          </div>
         </SettingRow>
       </SettingsSection>
 

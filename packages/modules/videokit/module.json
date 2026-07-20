@@ -10,10 +10,47 @@
       "id": "frame-extract",
       "tier": "browser",
       "surface": "frontend/tools/frame-extract",
-      "keywords": ["video", "frame", "extract", "screenshot", "still", "thumbnail"],
-      "accepts": [{ "mime": ["video/*"], "priority": 90 }]
+      "keywords": [
+        "video",
+        "frame",
+        "extract",
+        "screenshot",
+        "still",
+        "thumbnail"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "video/*"
+          ],
+          "priority": 90
+        }
+      ]
+    },
+    {
+      "id": "thumbnail-sheet",
+      "tier": "browser",
+      "surface": "frontend/tools/thumbnail-sheet",
+      "keywords": [
+        "thumbnail",
+        "preview",
+        "sheet",
+        "storyboard",
+        "video",
+        "grid"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "video/*"
+          ],
+          "priority": 80
+        }
+      ]
     }
   ],
-  "capabilities": { "fileActions": [] },
+  "capabilities": {
+    "fileActions": []
+  },
   "permissions": []
 }

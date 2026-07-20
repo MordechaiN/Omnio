@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { Button, IconButton } from "@omnio/ui";
-import { Copy, FolderOpen, Pencil, Trash2 } from "lucide-react";
+import { Button, IconButton, toast } from "@omnio/ui";
+import { Copy, Download, FolderOpen, Pencil, Trash2, Upload } from "lucide-react";
 import {
   deleteWorkspace,
   duplicateWorkspace,
+  exportWorkspaceZip,
+  importWorkspaceZip,
   loadWorkspaceFiles,
   renameWorkspace,
   useSavedWorkspaces,
@@ -30,20 +32,46 @@ export function WorkspacesSection() {
   const locale = useLocale();
   const workspaces = useSavedWorkspaces();
   const [renaming, setRenaming] = useState<string | null>(null);
+  const importRef = useRef<HTMLInputElement>(null);
 
   if (workspaces.length === 0) return null;
 
   return (
     <section className="flex flex-col gap-3" aria-labelledby="saved-workspaces-title">
-      <h2
-        id="saved-workspaces-title"
-        className="flex items-center gap-1.5 text-sm font-semibold tracking-wide text-text-secondary uppercase"
-      >
-        <span aria-hidden="true" className="text-base leading-none normal-case">
-          💾
-        </span>
-        {t("title")}
-      </h2>
+      <div className="flex items-center justify-between gap-3">
+        <h2
+          id="saved-workspaces-title"
+          className="flex items-center gap-1.5 text-sm font-semibold tracking-wide text-text-secondary uppercase"
+        >
+          <span aria-hidden="true" className="text-base leading-none normal-case">
+            💾
+          </span>
+          {t("title")}
+        </h2>
+        <button
+          type="button"
+          onClick={() => importRef.current?.click()}
+          className="flex items-center gap-1 rounded-md px-2 py-1 text-sm font-medium text-accent transition-colors duration-(--motion-fast) hover:bg-accent-subtle"
+        >
+          <Upload size={14} aria-hidden="true" />
+          {t("importAction")}
+        </button>
+        <input
+          ref={importRef}
+          type="file"
+          accept=".zip,application/zip"
+          aria-label={t("importAction")}
+          className="sr-only"
+          onChange={(event) => {
+            const file = event.target.files?.[0];
+            event.target.value = "";
+            if (!file) return;
+            void importWorkspaceZip(file).then((ok) =>
+              toast(ok ? t("imported") : t("importInvalid")),
+            );
+          }}
+        />
+      </div>
       <ul className="grid gap-2 lg:grid-cols-2">
         {workspaces.map((workspace) => (
           <li
@@ -83,6 +111,13 @@ export function WorkspacesSection() {
               size="sm"
               variant="ghost"
               onClick={() => void duplicateWorkspace(workspace.id, t("copySuffix"))}
+            />
+            <IconButton
+              aria-label={t("export")}
+              icon={Download}
+              size="sm"
+              variant="ghost"
+              onClick={() => void exportWorkspaceZip(workspace.id)}
             />
             <IconButton
               aria-label={t("delete")}

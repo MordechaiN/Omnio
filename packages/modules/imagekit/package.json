@@ -22,7 +22,9 @@
     "./shared/exif": "./shared/exif.ts",
     "./i18n/en": "./i18n/en.json",
     "./i18n/he": "./i18n/he.json",
-    "./frontend/tools/favicon-generate": "./frontend/tools/favicon-generate.tsx"
+    "./frontend/tools/favicon-generate": "./frontend/tools/favicon-generate.tsx",
+    "./frontend/tools/svg-optimize": "./frontend/tools/svg-optimize.tsx",
+    "./frontend/tools/contact-sheet": "./frontend/tools/contact-sheet.tsx"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

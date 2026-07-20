@@ -184,7 +184,11 @@
     "duplicate": "שכפול",
     "copySuffix": "(עותק)",
     "delete": "מחיקה",
-    "save": "שמירה"
+    "save": "שמירה",
+    "export": "ייצוא",
+    "importAction": "ייבוא סביבת עבודה…",
+    "imported": "סביבת העבודה יובאה",
+    "importInvalid": "הקובץ אינו סביבת עבודה של Omnio."
   },
   "theme": {
     "label": "ערכת נושא",
@@ -400,7 +404,16 @@
     "language": "שפת התצוגה",
     "behavior": "התנהגות",
     "autoOpenActivity": "פתיחת פעילות אוטומטית",
-    "autoOpenActivityDescription": "הצגת סרגל הפעילות ברגע שכלי מתחיל לעבד קובץ."
+    "autoOpenActivityDescription": "הצגת סרגל הפעילות ברגע שכלי מתחיל לעבד קובץ.",
+    "backup": "גיבוי ושחזור",
+    "backupDescription": "המועדפים, האוספים ותהליכי העבודה שלכם כקובץ נייד אחד — שום דבר לא נשלח לשרת.",
+    "backupExport": "ייצוא הכול",
+    "backupExportAction": "הורדת גיבוי",
+    "backupImport": "שחזור מגיבוי",
+    "backupImportDescription": "מחליף את המועדפים, האוספים ותהליכי העבודה הנוכחיים בתוכן הקובץ.",
+    "backupImportAction": "בחירת קובץ…",
+    "backupImported": "הגיבוי שוחזר — טוען מחדש",
+    "backupInvalid": "הקובץ אינו גיבוי של Omnio."
   },
   "categoryPage": {
     "emptyTitle": "אין עדיין כלים כאן",

@@ -11,6 +11,10 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ### Added
 
+- **📦 Universal export & import** — Settings → Backup & restore downloads your favorites, collections, and workflows as one portable JSON; importing restores them. Saved workspaces export individually as `.omnio.zip` (manifest + files) and import back complete. Everything stays local — the backup file goes wherever you put it, nowhere else.
+- **✨ AI category opens (local-first)** — Prompt Variables (write a template with {{placeholders}}, fill the generated form, copy the finished prompt) and Token Estimator (characters, words, heuristic token count, and whether it fits common context windows). No cloud calls — the template/estimate contracts are designed so providers can plug in later without a UI redesign. **All 13 categories now have working tools.**
+- **Five more tools** (82 total): SVG Optimizer (safe cleanups only — comments, metadata, editor cruft; paths untouched; unit-tested), Contact Sheet (labeled image grid PNG), Video Thumbnail Sheet (evenly sampled, timestamped storyboard), plus the two prompt tools.
+
 - **💾 Saved Workspaces** — save the current session (files and outputs included) under a name, then open, rename, duplicate, or delete it from the dashboard. Stored in your browser's IndexedDB on this device only — opening a workspace pours its files straight back into the session strip.
 - **📁 Batch 2.0** — drop entire folders (nested included) onto the Batch Processor: structure is preserved inside the output ZIP. Plus output naming templates ({name}, {index}) and an explicit "Add a folder…" picker.
 - **Five more tools** (77 total; Video and Office categories open): Watermark PDF, Number Pages, PDF Metadata viewer, Frame Extractor (scrub any video, save PNG stills one-by-one or as ZIP), and CSV Table (a proper RFC 4180 parser behind a clean table view).
