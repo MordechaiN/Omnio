@@ -1,5 +1,3 @@
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { hasLocale } from "next-intl";
@@ -8,35 +6,11 @@ import { Badge } from "@omnio/ui";
 import { Link } from "@/i18n/navigation";
 import { CATEGORY_EMOJI } from "@/lib/category-emoji";
 import { ACTIVE_CATEGORY_IDS, TOOL_COUNT_BY_CATEGORY } from "@/lib/categories";
-import { parseChangelog, type Release } from "@/lib/changelog";
 import { SEARCH_ENTRIES } from "@/generated/registry.search";
+import { DropHero } from "@/components/workspace/drop-hero";
 import { PersonalSections } from "@/components/workspace/personal-sections";
 import { SessionStrip } from "@/components/workspace/session-strip";
 import { WorkspacesSection } from "@/components/workspace/workspaces-section";
-import { CollectionsSection } from "@/components/workspace/collections-section";
-import { WorkflowsSection } from "@/components/workspace/workflows-section";
-
-/** Latest changelog entries for the What's New card — read at build time. */
-function loadLatestRelease(): Release | null {
-  const candidates = [
-    join(process.cwd(), "CHANGELOG.md"),
-    join(process.cwd(), "..", "..", "CHANGELOG.md"),
-  ];
-  for (const path of candidates) {
-    try {
-      const releases = parseChangelog(readFileSync(path, "utf8"));
-      return releases.find((release) => release.sections.length > 0) ?? null;
-    } catch {
-      // try the next candidate
-    }
-  }
-  return null;
-}
-
-/** Strip the inline Markdown we write (**bold**, `code`) down to plain text. */
-function plainify(item: string): string {
-  return item.replace(/\*\*/g, "").replace(/`/g, "");
-}
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -45,67 +19,19 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
   const t = await getTranslations("home");
   const tCategories = await getTranslations("categories");
-  const latest = loadLatestRelease();
-  const highlights = latest?.sections[0]?.items.slice(0, 3).map(plainify) ?? [];
 
   return (
-    <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 pb-24 pt-8 sm:px-6 lg:pt-10">
-      {/* 👋 Welcome — who Omnio is, in one breath. */}
-      <header className="animate-rise flex flex-col gap-1">
-        <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
-          <span aria-hidden="true">👋</span>
-          {t("welcomeTitle")}
-        </h1>
-        <p className="max-w-2xl text-text-muted">
-          {t("welcomeBody", { count: SEARCH_ENTRIES.length })}
-        </p>
-      </header>
+    <div className="mx-auto flex max-w-6xl flex-col gap-12 px-4 pb-24 pt-8 sm:px-6 lg:pt-12">
+      {/* The hero — Omnio's permanent identity and single entry point. Drop,
+          paste, or click; the File Intelligence flow takes over from there. */}
+      <DropHero />
 
-      {/* ⭐ Favorites, 🕘 Recent, 🔥 Popular — local-only, renders a single
-          onboarding hint for a brand-new visitor. */}
-      {/* 🗃️ This session's files — memory only, gone on reload. */}
+      {/* 🗃️ This session's files, then 💾 saved workspaces and ⭐ favorites /
+          recents — all local, and each renders nothing until it has content, so
+          a first-time visitor sees only the hero and the category grid. */}
       <SessionStrip />
-
-      {/* 💾 Saved workspaces — sessions made durable in IndexedDB. */}
       <WorkspacesSection />
-
       <PersonalSections />
-
-      {/* 🗂️ Collections + ⚡ Workflows — the user's own structure, local-only. */}
-      <div className="animate-rise flex flex-col gap-10">
-        <CollectionsSection />
-        <WorkflowsSection />
-      </div>
-
-      {/* 🆕 What's new — pulled straight from the changelog at build time. */}
-      {highlights.length > 0 ? (
-        <section className="animate-rise flex flex-col gap-3" aria-labelledby="whats-new-title">
-          <h2
-            id="whats-new-title"
-            className="flex items-center gap-1.5 text-sm font-semibold tracking-wide text-text-secondary uppercase"
-          >
-            <span aria-hidden="true" className="text-base leading-none normal-case">
-              🆕
-            </span>
-            {t("whatsNewTitle")}
-          </h2>
-          <div className="flex flex-col gap-3 rounded-xl border border-border-subtle bg-surface p-4">
-            <ul className="flex list-disc flex-col gap-1.5 ps-5 text-sm text-text-secondary">
-              {highlights.map((item, index) => (
-                <li key={index} className="line-clamp-2">
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <Link
-              href="/changelog"
-              className="self-start text-sm font-medium text-accent transition-colors hover:text-accent-hover"
-            >
-              {t("whatsNewMore")}
-            </Link>
-          </div>
-        </section>
-      ) : null}
 
       {/* 📂 Categories — the browsing surface; search (⌘K) is the fast path. */}
       <section className="animate-rise flex flex-col gap-4" aria-labelledby="categories-title">

@@ -3,7 +3,7 @@ import { expect, gotoApp, test } from "./fixtures";
 test.describe("app shell & landing", () => {
   test("home is the category browser, not a marketing page (en)", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByRole("heading", { level: 1 })).toContainText("Welcome to Omnio");
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("Drop any file to get started");
     await expect(page.getByRole("link", { name: "Developer" }).first()).toBeVisible();
     // Empty categories are hidden until they have tools — no dead-end cards.
     await expect(page.getByRole("link", { name: "PDF", exact: true })).toHaveCount(0);
@@ -16,7 +16,7 @@ test.describe("app shell & landing", () => {
     await page.goto("/he");
     await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
     await expect(page.locator("html")).toHaveAttribute("lang", "he");
-    await expect(page.getByRole("heading", { level: 1 })).toContainText("ברוכים הבאים");
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("גררו קובץ כדי להתחיל");
   });
 
   test("category page is reachable from the sidebar and lists its tools", async ({ page }) => {

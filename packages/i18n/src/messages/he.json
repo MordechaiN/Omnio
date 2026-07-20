@@ -79,12 +79,13 @@
   },
   "nav": {
     "home": "בית",
+    "library": "ספרייה",
     "favorites": "מועדפים",
     "categories": "קטגוריות",
     "files": "קבצים",
     "settings": "הגדרות",
     "about": "אודות",
-    "changelog": "יומן שינויים",
+    "changelog": "מה חדש",
     "modules": "מודולים",
     "stats": "סטטיסטיקות"
   },
@@ -302,6 +303,9 @@
     "favoritesTitle": "המועדפים שלכם",
     "welcomeTitle": "ברוכים הבאים ל-Omnio",
     "welcomeBody": "ארגז כלים פרטי עם {count} כלים — הכול רץ בדפדפן, והנתונים שלכם לעולם לא עוזבים את המכשיר.",
+    "heroTitle": "גררו קובץ כדי להתחיל",
+    "heroSubtitle": "גררו לכאן, הדביקו עם <paste></paste>, או לחצו לבחירה",
+    "heroChoose": "בחירת קבצים",
     "recentTitle": "בשימוש לאחרונה",
     "popularTitle": "בשימוש תדיר",
     "whatsNewTitle": "מה חדש",
@@ -334,8 +338,8 @@
     "license": "רישיון",
     "repository": "מאגר",
     "documentation": "תיעוד",
-    "changelog": "יומן שינויים",
-    "viewChangelog": "הצגת יומן השינויים",
+    "changelog": "מה חדש",
+    "viewChangelog": "מה חדש",
     "releaseNotes": "הערות גרסה",
     "apiOffline": "ה-API אינו זמין — מוצגים פרטי הבנייה המוטמעים.",
     "channel": {
@@ -362,8 +366,8 @@
     "debugCopied": "פרטי הדיבוג הועתקו"
   },
   "changelog": {
-    "title": "יומן שינויים",
-    "subtitle": "כל מה שהשתנה, גרסה אחר גרסה.",
+    "title": "מה חדש",
+    "subtitle": "כל מה שחדש ב-Omnio, בשפה פשוטה.",
     "unreleased": "טרם שוחרר",
     "empty": "עדיין לא תועדו גרסאות.",
     "yanked": "הוסר",
@@ -453,6 +457,10 @@
     "emptyCollection": "אין כאן כלים עדיין — הוסיפו מכל עמוד כלי.",
     "nameLabel": "שם",
     "emojiLabel": "סמל"
+  },
+  "library": {
+    "title": "ספרייה",
+    "subtitle": "האוספים ותהליכי העבודה שלכם — הכלים והשגרות שהפכתם לשלכם. הכול כאן נשאר במכשיר הזה."
   },
   "workflows": {
     "title": "תהליכי עבודה",

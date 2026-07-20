@@ -79,12 +79,13 @@
   },
   "nav": {
     "home": "Home",
+    "library": "Library",
     "favorites": "Favorites",
     "categories": "Categories",
     "files": "Files",
     "settings": "Settings",
     "about": "About",
-    "changelog": "Changelog",
+    "changelog": "What's New",
     "modules": "Modules",
     "stats": "Stats"
   },
@@ -302,6 +303,9 @@
     "favoritesTitle": "Your favorites",
     "welcomeTitle": "Welcome to Omnio",
     "welcomeBody": "A private toolbox of {count} tools — everything runs in your browser, and your data never leaves your device.",
+    "heroTitle": "Drop any file to get started",
+    "heroSubtitle": "Drag it here, paste with <paste></paste>, or click to choose",
+    "heroChoose": "Choose files",
     "recentTitle": "Recently used",
     "popularTitle": "Frequently used",
     "whatsNewTitle": "What's new",
@@ -334,8 +338,8 @@
     "license": "License",
     "repository": "Repository",
     "documentation": "Documentation",
-    "changelog": "Changelog",
-    "viewChangelog": "View changelog",
+    "changelog": "What's New",
+    "viewChangelog": "See what's new",
     "releaseNotes": "Release notes",
     "apiOffline": "The API is unreachable — showing the bundled build details.",
     "channel": {
@@ -362,8 +366,8 @@
     "debugCopied": "Debug information copied"
   },
   "changelog": {
-    "title": "Changelog",
-    "subtitle": "Everything that changed, release by release.",
+    "title": "What's New",
+    "subtitle": "Everything new in Omnio, in plain language.",
     "unreleased": "Unreleased",
     "empty": "No releases recorded yet.",
     "yanked": "Yanked",
@@ -453,6 +457,10 @@
     "emptyCollection": "No tools here yet — add some from any tool page.",
     "nameLabel": "Name",
     "emojiLabel": "Icon"
+  },
+  "library": {
+    "title": "Library",
+    "subtitle": "Your collections and workflows — the tools and routines you've made your own. Everything here stays on this device."
   },
   "workflows": {
     "title": "Workflows",

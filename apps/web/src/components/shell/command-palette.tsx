@@ -30,11 +30,13 @@ import {
   Home,
   Keyboard,
   Languages,
+  Library,
   Moon,
   Monitor,
   Palette,
   Ruler,
   Settings,
+  Sparkles,
   Sun,
 } from "lucide-react";
 import { useState } from "react";
@@ -138,9 +140,20 @@ export function CommandPalette() {
             <Icon icon={Settings} size={16} />
             {t("nav.settings")}
           </CommandItem>
+          <CommandItem onSelect={() => run(() => router.push("/library"))}>
+            <Icon icon={Library} size={16} />
+            {t("nav.library")}
+          </CommandItem>
           <CommandItem onSelect={() => run(() => router.push("/stats"))}>
             <Icon icon={BarChart3} size={16} />
             {t("nav.stats")}
+          </CommandItem>
+          <CommandItem
+            keywords={["changelog", "updates", "release notes", "new"]}
+            onSelect={() => run(() => router.push("/changelog"))}
+          >
+            <Icon icon={Sparkles} size={16} />
+            {t("nav.changelog")}
           </CommandItem>
           <CommandItem onSelect={() => run(() => setShortcutsOpen(true))}>
             <Icon icon={Keyboard} size={16} />
@@ -200,7 +213,7 @@ export function CommandPalette() {
                 {collections.map((collection) => (
                   <CommandItem
                     key={`col-${collection.id}`}
-                    onSelect={() => run(() => router.push(`/#c-${collection.id}`))}
+                    onSelect={() => run(() => router.push(`/library#c-${collection.id}`))}
                   >
                     <span aria-hidden="true">{collection.emoji}</span>
                     {collection.name}

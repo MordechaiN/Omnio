@@ -172,10 +172,15 @@ export function FileIntelligence() {
         void openFiles(pasted, true);
       }
     };
-    // Session workspace hooks: strip rows re-open files; module chains report outputs.
+    // Session workspace hooks: strip rows re-open files (already recorded);
+    // the home hero passes { record: true } so chosen files enter the session.
     const onInspect = (event: Event) => {
-      const detail = (event as CustomEvent<File[]>).detail;
-      if (Array.isArray(detail)) void openFiles(detail, false);
+      const detail = (event as CustomEvent<File[] | { files: File[]; record?: boolean }>).detail;
+      if (Array.isArray(detail)) {
+        void openFiles(detail, false);
+      } else if (detail && Array.isArray(detail.files)) {
+        void openFiles(detail.files, detail.record ?? false);
+      }
     };
     const onSessionFile = (event: Event) => {
       const detail = (event as CustomEvent<File>).detail;

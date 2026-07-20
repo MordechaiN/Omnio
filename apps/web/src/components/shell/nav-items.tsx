@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { cn, Icon } from "@omnio/ui";
-import { BarChart3, Blocks, Home, Info, ScrollText, Settings, Star } from "lucide-react";
+import { BarChart3, Blocks, Home, Info, Library, ScrollText, Settings, Star } from "lucide-react";
 import { DynamicIcon, type IconName } from "lucide-react/dynamic";
 import { Link, usePathname } from "@/i18n/navigation";
 import { CATEGORY_ICONS } from "@/lib/category-icons";
@@ -85,6 +85,7 @@ export function NavItems({ onNavigate }: { onNavigate?: () => void }) {
     <div className="flex flex-col gap-6">
       <nav aria-label={t("shell.primaryNavigation")} className="flex flex-col gap-0.5">
         <NavLink href="/" icon={Home} label={t("nav.home")} onNavigate={onNavigate} />
+        <NavLink href="/library" icon={Library} label={t("nav.library")} onNavigate={onNavigate} />
         <NavLink href="/stats" icon={BarChart3} label={t("nav.stats")} onNavigate={onNavigate} />
         <NavLink
           href="/settings"
@@ -132,7 +133,7 @@ export function NavItems({ onNavigate }: { onNavigate?: () => void }) {
           {collections.map((collection) => (
             <NavLink
               key={collection.id}
-              href={`/#c-${collection.id}`}
+              href={`/library#c-${collection.id}`}
               iconNode={
                 <span aria-hidden="true" className="text-base leading-none">
                   {collection.emoji}
