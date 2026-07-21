@@ -24,8 +24,8 @@ export interface SheetContentProps extends DialogPrimitive.DialogContentProps {
 }
 
 const SIDE_CLASSES: Record<NonNullable<SheetContentProps["side"]>, string> = {
-  start: "inset-block-0 start-0 h-full w-80 max-w-[85vw] border-e",
-  end: "inset-block-0 end-0 h-full w-80 max-w-[85vw] border-s",
+  start: "inset-y-0 start-0 h-full w-80 max-w-[85vw] border-e",
+  end: "inset-y-0 end-0 h-full w-80 max-w-[85vw] border-s",
   bottom: "inset-x-0 bottom-0 max-h-[85vh] w-full rounded-t-2xl border-t",
 };
 
