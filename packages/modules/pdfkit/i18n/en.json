@@ -41,6 +41,62 @@
     "pdf-metadata-edit": {
       "name": "Edit PDF Metadata",
       "description": "Change a document's title, author, subject, and keywords, then save — on your device."
+    },
+    "images-to-pdf": {
+      "name": "Images to PDF",
+      "description": "Combine JPG, PNG, and WebP images into one PDF, in the order you choose — on your device."
+    },
+    "pdf-reverse": {
+      "name": "Reverse Pages",
+      "description": "Flip a PDF so the last page comes first — on your device."
+    },
+    "pdf-duplicate": {
+      "name": "Duplicate Pages",
+      "description": "Repeat chosen pages in place — on your device."
+    },
+    "pdf-crop": {
+      "name": "Crop PDF",
+      "description": "Trim an even margin off every page — on your device."
+    },
+    "pdf-nup": {
+      "name": "Pages per Sheet (N-up)",
+      "description": "Fit 2, 4, 6, or 9 pages onto each sheet to save paper — on your device."
+    },
+    "pdf-blank": {
+      "name": "Add Blank Page",
+      "description": "Insert an empty page anywhere in a PDF — on your device."
+    },
+    "pdf-split-half": {
+      "name": "Split Pages in Half",
+      "description": "Turn two-page-spread scans into single pages — on your device."
+    },
+    "pdf-flatten": {
+      "name": "Flatten Form",
+      "description": "Bake filled form fields into the page so they can't be edited — on your device."
+    },
+    "pdf-to-images": {
+      "name": "PDF to Images",
+      "description": "Turn each page into a PNG or JPEG and download them as a ZIP — on your device."
+    },
+    "pdf-to-text": {
+      "name": "PDF to Text",
+      "description": "Pull the readable text out of a PDF — on your device."
+    },
+    "pdf-remove-blank": {
+      "name": "Remove Blank Pages",
+      "description": "Find and drop empty pages, great for cleaning up scans — on your device."
+    },
+    "pdf-protect": {
+      "name": "Protect PDF",
+      "description": "Add a password with 256-bit encryption so only people with the password can open it — on your device."
+    },
+    "pdf-unlock": {
+      "name": "Unlock PDF",
+      "description": "Remove a password you know from a PDF so it opens freely — on your device."
+    },
+    "pdf-compress": {
+      "name": "Compress PDF",
+      "description": "Rebuild a PDF with tighter internal structure to shrink its size — on your device."
     }
   },
   "ui": {
@@ -95,6 +151,69 @@
     "splitSizeAction": "Split by size",
     "splitSizeProgress": "Page {done} of {total}…",
     "splitSizeNote": "Each part downloads separately as soon as it's ready.",
-    "metaEditAction": "Save & download"
+    "metaEditAction": "Save & download",
+    "i2pDropTitle": "Drop images here, or click to choose",
+    "i2pDropMore": "Drop more images, or click to add",
+    "i2pDropHint": "JPG, PNG, and WebP — arrange them in the order you want.",
+    "i2pPageSize": "Page size",
+    "i2pFit": "Fit to each image",
+    "i2pAction": "Build PDF ({count})",
+    "reverseAction": "Reverse & download",
+    "dupLabel": "Pages to duplicate",
+    "dupAction": "Duplicate {count, plural, one {# page} other {# pages}} & download",
+    "cropMargin": "Margin to trim: {percent}%",
+    "cropAction": "Crop & download",
+    "cropNote": "Trims the visible area evenly on all sides — the underlying content is untouched, so it can be restored.",
+    "nupPerSheet": "Pages per sheet",
+    "nupOption": "{count} per sheet",
+    "nupAction": "Combine & download",
+    "blankAfter": "Insert after page",
+    "blankHint": "0 puts it first; {count} puts it last.",
+    "blankAction": "Add blank page & download",
+    "halfDirection": "Split direction",
+    "halfVertical": "Left / right halves",
+    "halfHorizontal": "Top / bottom halves",
+    "halfAction": "Split & download",
+    "flattenFields": "{count, plural, =0 {No form fields} one {# form field} other {# form fields}}",
+    "flattenNone": "This PDF has no fillable form fields to flatten.",
+    "flattenAction": "Flatten & download",
+    "flattenNote": "Flattening keeps how the form looks but makes the values permanent.",
+    "p2iFormat": "Format",
+    "p2iQuality": "Quality",
+    "p2iScreen": "Screen (1×)",
+    "p2iHigh": "High (2×)",
+    "p2iPrint": "Print (3×)",
+    "p2iAction": "Convert {count, plural, one {# page} other {# pages}} & download ZIP",
+    "p2iError": "Couldn't render this PDF — it may be corrupted or password-protected.",
+    "p2tAction": "Extract text",
+    "p2tResult": "Extracted text",
+    "p2tDownload": "Download .txt",
+    "p2tCopy": "Copy",
+    "p2tCopied": "Text copied",
+    "p2tError": "Couldn't read this PDF's text.",
+    "p2tHint": "Works on PDFs that contain real text. A scanned image won't have any to extract.",
+    "rbSensitivity": "Sensitivity: {percent}%",
+    "rbHint": "Higher removes pages with a little stray content too; lower keeps anything but truly empty pages.",
+    "rbRemoved": "Removed {count, plural, one {# blank page} other {# blank pages}}",
+    "rbAllBlank": "Every page looked blank — nothing was removed.",
+    "rbAction": "Remove blank pages & download",
+    "protectPassword": "Password",
+    "protectHint": "Anyone opening the file will need this exact password. There's no way to recover it if lost.",
+    "protectAction": "Protect & download",
+    "protectWorking": "Encrypting…",
+    "protectError": "Couldn't encrypt this PDF.",
+    "unlockDropTitle": "Drop a password-protected PDF, or click to choose",
+    "unlockDropHint": "You'll need the password it was locked with.",
+    "unlockPassword": "Current password",
+    "unlockAction": "Unlock & download",
+    "unlockError": "Wrong password, or this PDF isn't encrypted.",
+    "unlockNote": "Only works when you already know the password — this doesn't crack protection.",
+    "compressAction": "Compress",
+    "compressWorking": "Compressing…",
+    "compressError": "Couldn't compress this PDF.",
+    "compressSaved": "−{percent}%",
+    "compressNoGain": "Already well-optimized",
+    "compressNote": "Optimizes the file's structure and stream compression. It doesn't downscale images, so image-heavy PDFs may shrink only a little.",
+    "download": "Download"
   }
 }

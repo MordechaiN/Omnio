@@ -10,6 +10,10 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 ## [Unreleased]
 
 ### New
+- **A complete PDF toolkit.** Omnio now covers the everyday PDF jobs people reach for a separate app to do: combine images into a PDF and turn PDF pages back into images or text, merge and split, compress, and password-protect or unlock a file — all in your browser, nothing uploaded.
+- **Password-protect and unlock PDFs.** Add a real 256-bit password so only people who know it can open a document, or remove a password you already know — done entirely on your device.
+- **Shrink and convert PDFs.** Compress a PDF to make it smaller, export every page as a PNG or JPEG, or pull the plain text straight out of a document.
+- **Tidy up pages.** Reverse the order, duplicate pages, crop even margins, fit several pages onto one sheet to save paper, drop empty pages from a scan, split two-page spreads into singles, add a blank page, or lock a filled form so its answers can’t be changed.
 
 - **Just drop a file — Omnio figures out the rest.** Drop or paste any file anywhere in the app and Omnio tells you what it is and everything you can do with it, then opens the right tool with your file already loaded. Nothing is ever uploaded.
 - **98 tools, and counting.** Every common file job now has a home — resize, crop, compress and convert images; merge, split, watermark and renumber PDFs; trim audio and grab video stills; open ZIPs and spreadsheets; format code and text; and plenty more. Everything runs on your device, in English and Hebrew.

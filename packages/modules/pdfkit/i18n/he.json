@@ -41,6 +41,62 @@
     "pdf-metadata-edit": {
       "name": "עריכת מטא-נתוני PDF",
       "description": "שינוי כותרת, מחבר, נושא ומילות מפתח של מסמך, ושמירה — במכשיר שלכם."
+    },
+    "images-to-pdf": {
+      "name": "תמונות ל-PDF",
+      "description": "איחוד תמונות JPG, PNG ו-WebP ל-PDF אחד, בסדר שתבחרו — במכשיר שלכם."
+    },
+    "pdf-reverse": {
+      "name": "היפוך עמודים",
+      "description": "היפוך PDF כך שהעמוד האחרון יבוא ראשון — במכשיר שלכם."
+    },
+    "pdf-duplicate": {
+      "name": "שכפול עמודים",
+      "description": "שכפול עמודים נבחרים במקומם — במכשיר שלכם."
+    },
+    "pdf-crop": {
+      "name": "חיתוך PDF",
+      "description": "חיתוך שוליים אחיד מכל עמוד — במכשיר שלכם."
+    },
+    "pdf-nup": {
+      "name": "עמודים לגיליון (N-up)",
+      "description": "שילוב 2, 4, 6 או 9 עמודים בכל גיליון לחיסכון בנייר — במכשיר שלכם."
+    },
+    "pdf-blank": {
+      "name": "הוספת עמוד ריק",
+      "description": "הוספת עמוד ריק בכל מקום ב-PDF — במכשיר שלכם."
+    },
+    "pdf-split-half": {
+      "name": "פיצול עמודים לשניים",
+      "description": "הפיכת סריקות של עמוד כפול לעמודים בודדים — במכשיר שלכם."
+    },
+    "pdf-flatten": {
+      "name": "השטחת טופס",
+      "description": "הטבעת שדות טופס ממולאים בעמוד כך שלא ניתן לערוך — במכשיר שלכם."
+    },
+    "pdf-to-images": {
+      "name": "PDF לתמונות",
+      "description": "המרת כל עמוד ל-PNG או JPEG והורדה כ-ZIP — במכשיר שלכם."
+    },
+    "pdf-to-text": {
+      "name": "PDF לטקסט",
+      "description": "חילוץ הטקסט הקריא מ-PDF — במכשיר שלכם."
+    },
+    "pdf-remove-blank": {
+      "name": "הסרת עמודים ריקים",
+      "description": "איתור והסרת עמודים ריקים, מצוין לניקוי סריקות — במכשיר שלכם."
+    },
+    "pdf-protect": {
+      "name": "הגנת PDF",
+      "description": "הוספת סיסמה בהצפנת 256 ביט כך שרק מי שיודע את הסיסמה יוכל לפתוח — במכשיר שלכם."
+    },
+    "pdf-unlock": {
+      "name": "פתיחת PDF",
+      "description": "הסרת סיסמה ידועה מ-PDF כך שייפתח בחופשיות — במכשיר שלכם."
+    },
+    "pdf-compress": {
+      "name": "דחיסת PDF",
+      "description": "בנייה מחדש של PDF עם מבנה פנימי הדוק יותר להקטנת הגודל — במכשיר שלכם."
     }
   },
   "ui": {
@@ -95,6 +151,69 @@
     "splitSizeAction": "פיצול לפי גודל",
     "splitSizeProgress": "עמוד {done} מתוך {total}…",
     "splitSizeNote": "כל חלק יורד בנפרד ברגע שהוא מוכן.",
-    "metaEditAction": "שמירה והורדה"
+    "metaEditAction": "שמירה והורדה",
+    "i2pDropTitle": "גררו תמונות לכאן, או לחצו לבחירה",
+    "i2pDropMore": "גררו תמונות נוספות, או לחצו להוספה",
+    "i2pDropHint": "JPG, PNG ו-WebP — סדרו אותן בסדר הרצוי.",
+    "i2pPageSize": "גודל עמוד",
+    "i2pFit": "התאמה לכל תמונה",
+    "i2pAction": "יצירת PDF ({count})",
+    "reverseAction": "היפוך והורדה",
+    "dupLabel": "עמודים לשכפול",
+    "dupAction": "שכפול {count, plural, one {עמוד אחד} other {# עמודים}} והורדה",
+    "cropMargin": "שוליים לחיתוך: {percent}%",
+    "cropAction": "חיתוך והורדה",
+    "cropNote": "חותך את האזור הנראה באופן אחיד מכל הצדדים — התוכן עצמו נשמר וניתן לשחזור.",
+    "nupPerSheet": "עמודים לגיליון",
+    "nupOption": "{count} לגיליון",
+    "nupAction": "שילוב והורדה",
+    "blankAfter": "הוספה אחרי עמוד",
+    "blankHint": "0 ממקם ראשון; {count} ממקם אחרון.",
+    "blankAction": "הוספת עמוד ריק והורדה",
+    "halfDirection": "כיוון הפיצול",
+    "halfVertical": "חצאים שמאל / ימין",
+    "halfHorizontal": "חצאים עליון / תחתון",
+    "halfAction": "פיצול והורדה",
+    "flattenFields": "{count, plural, =0 {אין שדות טופס} one {שדה טופס אחד} other {# שדות טופס}}",
+    "flattenNone": "ל-PDF הזה אין שדות טופס למילוי להשטחה.",
+    "flattenAction": "השטחה והורדה",
+    "flattenNote": "השטחה שומרת על מראה הטופס אך הופכת את הערכים לקבועים.",
+    "p2iFormat": "פורמט",
+    "p2iQuality": "איכות",
+    "p2iScreen": "מסך (1×)",
+    "p2iHigh": "גבוהה (2×)",
+    "p2iPrint": "הדפסה (3×)",
+    "p2iAction": "המרת {count, plural, one {עמוד אחד} other {# עמודים}} והורדת ZIP",
+    "p2iError": "לא ניתן לרנדר את ה-PDF — ייתכן שהוא פגום או מוגן בסיסמה.",
+    "p2tAction": "חילוץ טקסט",
+    "p2tResult": "טקסט שחולץ",
+    "p2tDownload": "הורדת .txt",
+    "p2tCopy": "העתקה",
+    "p2tCopied": "הטקסט הועתק",
+    "p2tError": "לא ניתן לקרוא את הטקסט של ה-PDF.",
+    "p2tHint": "עובד על PDF שמכיל טקסט אמיתי. לסריקה כתמונה אין טקסט לחילוץ.",
+    "rbSensitivity": "רגישות: {percent}%",
+    "rbHint": "גבוה מסיר גם עמודים עם מעט תוכן אקראי; נמוך שומר כל דבר חוץ מעמודים ריקים באמת.",
+    "rbRemoved": "הוסרו {count, plural, one {עמוד ריק אחד} other {# עמודים ריקים}}",
+    "rbAllBlank": "כל העמודים נראו ריקים — שום דבר לא הוסר.",
+    "rbAction": "הסרת עמודים ריקים והורדה",
+    "protectPassword": "סיסמה",
+    "protectHint": "כל מי שיפתח את הקובץ יזדקק לסיסמה המדויקת הזו. אין דרך לשחזר אותה אם תאבד.",
+    "protectAction": "הגנה והורדה",
+    "protectWorking": "מצפין…",
+    "protectError": "לא ניתן להצפין את ה-PDF.",
+    "unlockDropTitle": "גררו PDF מוגן בסיסמה, או לחצו לבחירה",
+    "unlockDropHint": "תזדקקו לסיסמה שבה הקובץ ננעל.",
+    "unlockPassword": "הסיסמה הנוכחית",
+    "unlockAction": "פתיחה והורדה",
+    "unlockError": "סיסמה שגויה, או שה-PDF אינו מוצפן.",
+    "unlockNote": "עובד רק כשאתם כבר יודעים את הסיסמה — זה לא פורץ הגנה.",
+    "compressAction": "דחיסה",
+    "compressWorking": "דוחס…",
+    "compressError": "לא ניתן לדחוס את ה-PDF.",
+    "compressSaved": "−{percent}%",
+    "compressNoGain": "כבר ממוטב היטב",
+    "compressNote": "ממטב את מבנה הקובץ ודחיסת הזרמים. אינו מקטין תמונות, כך ש-PDF עתיר תמונות עשוי להצטמצם מעט בלבד.",
+    "download": "הורדה"
   }
 }

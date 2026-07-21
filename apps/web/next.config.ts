@@ -44,6 +44,15 @@ const nextConfig: NextConfig = {
   // Linting is a first-class turbo task with the shared config;
   // next build must not run a second, differently-configured pass.
   eslint: { ignoreDuringBuilds: true },
+  // The qpdf-wasm Emscripten glue references node core modules (`fs`, `path`,
+  // `crypto`) behind runtime typeof-checks that never fire in the browser.
+  // Stub them for the client bundle so the static resolver doesn't choke; the
+  // .wasm itself loads as a same-origin asset.
+  webpack(config: { resolve?: { fallback?: Record<string, unknown> } }) {
+    config.resolve = config.resolve ?? {};
+    config.resolve.fallback = { ...config.resolve.fallback, fs: false, path: false, crypto: false };
+    return config;
+  },
 };
 
 export default withNextIntl(nextConfig);

@@ -18,7 +18,21 @@
     "./frontend/tools/pdf-pagenum": "./frontend/tools/pdf-pagenum.tsx",
     "./frontend/tools/pdf-metadata": "./frontend/tools/pdf-metadata.tsx",
     "./frontend/tools/pdf-split-size": "./frontend/tools/pdf-split-size.tsx",
-    "./frontend/tools/pdf-metadata-edit": "./frontend/tools/pdf-metadata-edit.tsx"
+    "./frontend/tools/pdf-metadata-edit": "./frontend/tools/pdf-metadata-edit.tsx",
+    "./frontend/tools/images-to-pdf": "./frontend/tools/images-to-pdf.tsx",
+    "./frontend/tools/pdf-reverse": "./frontend/tools/pdf-reverse.tsx",
+    "./frontend/tools/pdf-duplicate": "./frontend/tools/pdf-duplicate.tsx",
+    "./frontend/tools/pdf-crop": "./frontend/tools/pdf-crop.tsx",
+    "./frontend/tools/pdf-nup": "./frontend/tools/pdf-nup.tsx",
+    "./frontend/tools/pdf-blank": "./frontend/tools/pdf-blank.tsx",
+    "./frontend/tools/pdf-split-half": "./frontend/tools/pdf-split-half.tsx",
+    "./frontend/tools/pdf-flatten": "./frontend/tools/pdf-flatten.tsx",
+    "./frontend/tools/pdf-to-images": "./frontend/tools/pdf-to-images.tsx",
+    "./frontend/tools/pdf-to-text": "./frontend/tools/pdf-to-text.tsx",
+    "./frontend/tools/pdf-remove-blank": "./frontend/tools/pdf-remove-blank.tsx",
+    "./frontend/tools/pdf-protect": "./frontend/tools/pdf-protect.tsx",
+    "./frontend/tools/pdf-unlock": "./frontend/tools/pdf-unlock.tsx",
+    "./frontend/tools/pdf-compress": "./frontend/tools/pdf-compress.tsx"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
@@ -26,10 +40,13 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@neslinesli93/qpdf-wasm": "^0.3.0",
     "@omnio/module-sdk": "workspace:*",
     "@omnio/ui": "workspace:*",
+    "fflate": "^0.8.2",
     "lucide-react": "^0.525.0",
-    "pdf-lib": "^1.17.1"
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^4.7.76"
   },
   "peerDependencies": {
     "next": "^15.5.0",
