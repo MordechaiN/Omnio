@@ -71,11 +71,74 @@ edit-metadata, remove-metadata (edit clears fields).
 - **linearize / repair / sanitize** — qpdf can do these; low everyday demand,
   easy to add next since the qpdf pipeline now exists.
 
-## Verdict
+## Critical re-review — workflow by workflow (not tool count)
 
-Omnio now covers **every high-frequency BentoPDF workflow** — combine, convert
-both directions, split, extract text, compress, and password protect/unlock —
-plus page surgery (reverse, duplicate, crop, n-up, blank, split-half, flatten,
-remove-blank). A typical user can uninstall BentoPDF. The honest remaining gaps
-are OCR, interactive editing/redaction/signing, and Office conversions — each
-deferred for a concrete technical reason, not a placeholder.
+Re-audited against BentoPDF's **actual** shipped list (its README, ~110 PDF
+tools) rather than a guess. Two facts change the honest verdict:
+
+1. BentoPDF is **not** "a few small libraries." It compiles **PyMuPDF,
+   Ghostscript, CoherentPDF and Tesseract to WASM** and still runs 100%
+   client-side. So "too heavy for the browser" is **not** a valid reason to
+   skip most of these — BentoPDF proves they run locally. The real cost is
+   engineering effort and bundle weight we choose to spend, not feasibility.
+2. Tool count is misleading (many BentoPDF entries are one-format-per-tile
+   conversions). The honest question is per *workflow*.
+
+### Everyday workflows — where Omnio stands
+| Workflow | Omnio | Note |
+|---|---|---|
+| Merge / split / extract / delete / reorder / rotate pages | ✅ | full |
+| Reverse / duplicate / crop / N-up / blank / split-half / flatten | ✅ | M16 |
+| Remove blank pages | ✅ | M16 |
+| Compress | ✅ | qpdf |
+| Password protect / unlock | ✅ | qpdf 256-bit |
+| PDF → images (PNG/JPEG, zipped) | ✅ | WebP/TIFF/BMP output missing |
+| Images → PDF (JPG/PNG/WebP) | ✅ | BMP/TIFF/HEIC/PSD missing |
+| PDF → text | ✅ | M16 |
+| Watermark / page numbers / metadata view-edit-remove | ✅ | — |
+| **OCR (scanned → searchable)** | ❌ | common; Tesseract-WASM |
+| **Fill & sign a form** | ❌ | common; interactive |
+| **Redact** | ❌ | common; interactive + true removal |
+| **Annotate / highlight / comment** | ❌ | interactive editor |
+| **Office → PDF** (Word/Excel/PPT/ODF) | ❌ | common; needs converter engine |
+| **PDF → Word / Excel / extract tables** | ❌ | common; PyMuPDF-class parser |
+| **Extract embedded images / attachments** | ❌ | moderate |
+| **Bookmarks / table of contents / split-by-bookmark** | ❌ | moderate |
+
+### Honest answer to "can I uninstall BentoPDF today?"
+**Not quite — it depends on the user.**
+- If your PDF life is combine / split / compress / protect / convert to-and-from
+  images / extract text / page surgery — **yes, uninstall it.** Omnio covers all
+  of that, locally, today.
+- If you ever **OCR a scan, fill or sign a form, redact, annotate, or convert
+  Office documents**, Omnio cannot do it yet. Those are common, not fringe, so a
+  blanket "replace BentoPDF" would over-claim.
+
+### What is still missing — the pre-M17 backlog
+**Cheap wins (should build before claiming parity — engine already present):**
+- Linearize / Repair / Sanitize — `qpdf` pipeline already exists.
+- PDF→image WebP/TIFF/BMP output, WebP already trivial via canvas.
+- Extract embedded images — pdfjs image XObjects.
+- Custom-degree rotation (today only 90° multiples).
+- Grayscale (rasterize path via pdfjs already exists).
+- Markdown / plain-text → PDF.
+- Booklet / combine-to-single-page imposition — pure pdf-lib.
+
+**Genuine capability gaps (need a real new engine or interactive surface):**
+- **OCR** — Tesseract-WASM + language data + honest accuracy expectations.
+- **Interactive editor** — annotate / redact / fill-forms / sign / recolor.
+  One product surface (canvas + overlay + true content removal for redaction),
+  not a drop-in tool. Highest-value single milestone.
+- **Office ⇄ PDF & PDF→editable** — a converter engine (PyMuPDF/Ghostscript-class
+  WASM). Large, but BentoPDF shows it is browser-feasible and local-first.
+- **Structure tools** — bookmarks / TOC / attachments / table extraction.
+
+### Verdict
+Omnio replaces BentoPDF for the **high-frequency core** and is a genuine daily
+driver for most page/convert/secure work. It is **not yet a full parity
+replacement**: OCR, form fill/sign, redaction, annotation and Office conversion
+are real, common workflows still absent. None are technically impossible in the
+browser — BentoPDF ships them locally — so these are prioritised engineering
+work, not hard limits. Recommend: land the "cheap wins" list, then dedicate a
+milestone to the interactive editor (highest user value), before declaring
+BentoPDF fully replaceable.
