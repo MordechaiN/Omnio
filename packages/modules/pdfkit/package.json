@@ -45,8 +45,10 @@
     "@omnio/ui": "workspace:*",
     "fflate": "^0.8.2",
     "lucide-react": "^0.525.0",
+    "mupdf": "^1.28.0",
     "pdf-lib": "^1.17.1",
-    "pdfjs-dist": "^4.7.76"
+    "pdfjs-dist": "^4.7.76",
+    "tesseract.js": "^7.0.0"
   },
   "peerDependencies": {
     "next": "^15.5.0",
