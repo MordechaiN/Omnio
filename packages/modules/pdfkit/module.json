@@ -484,6 +484,67 @@
           "priority": 75
         }
       ]
+    },
+    {
+      "id": "pdf-repair",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-repair",
+      "keywords": [
+        "repair",
+        "fix",
+        "damaged",
+        "corrupt",
+        "recover",
+        "broken pdf"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "application/pdf"
+          ],
+          "priority": 47
+        }
+      ]
+    },
+    {
+      "id": "pdf-linearize",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-linearize",
+      "keywords": [
+        "linearize",
+        "optimize",
+        "fast web view",
+        "web optimize",
+        "streaming"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "application/pdf"
+          ],
+          "priority": 45
+        }
+      ]
+    },
+    {
+      "id": "pdf-sanitize",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-sanitize",
+      "keywords": [
+        "sanitize",
+        "clean",
+        "strip",
+        "safe",
+        "remove hidden"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "application/pdf"
+          ],
+          "priority": 46
+        }
+      ]
     }
   ],
   "capabilities": {
