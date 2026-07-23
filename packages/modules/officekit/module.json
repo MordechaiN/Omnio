@@ -65,10 +65,64 @@
           "priority": 80
         }
       ]
+    },
+    {
+      "id": "office-to-pdf",
+      "tier": "worker",
+      "tierReason": "LibreOffice conversion is a heavyweight native engine — runs on the Omnio server, not downloaded to the browser",
+      "surface": "frontend/tools/office-to-pdf",
+      "accepts": [
+        {
+          "mime": [
+            "application/msword",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "application/vnd.ms-excel",
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "application/vnd.ms-powerpoint",
+            "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+            "application/vnd.oasis.opendocument.text",
+            "application/vnd.oasis.opendocument.spreadsheet",
+            "application/vnd.oasis.opendocument.presentation",
+            "application/rtf"
+          ],
+          "maxSizeMB": 50,
+          "priority": 88
+        }
+      ],
+      "produces": [
+        {
+          "mime": "application/pdf"
+        }
+      ],
+      "keywords": [
+        "office to pdf",
+        "word to pdf",
+        "excel to pdf",
+        "powerpoint to pdf",
+        "docx to pdf",
+        "xlsx to pdf",
+        "pptx to pdf",
+        "convert to pdf"
+      ],
+      "limits": {
+        "timeoutSec": 180,
+        "memoryMB": 1024
+      }
     }
   ],
   "capabilities": {
-    "fileActions": []
+    "fileActions": [
+      {
+        "toolId": "office-to-pdf",
+        "verb": "toPdf",
+        "rank": 20
+      }
+    ]
   },
-  "permissions": []
+  "permissions": [],
+  "worker": {
+    "queues": [
+      "officekit"
+    ]
+  }
 }

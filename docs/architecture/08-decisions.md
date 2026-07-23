@@ -65,3 +65,33 @@ Compose matches the self-hosting audience (same crowd running Immich/Paperless).
 | Worker sandbox: no-network, non-root, read-only rootfs, per-job limits, `ctx.exec()` as sole subprocess path         | [06-security.md](06-security.md) §2                                    |
 | Office docs: view-via-conversion only in v1; editing out of scope                                                    | [07-roadmap.md](07-roadmap.md)                                         |
 | Single-version platform releases via Changesets; images on GHCR                                                      | [02-monorepo.md](02-monorepo.md) §4, [07-roadmap.md](07-roadmap.md) M9 |
+
+## Decision: Omnio is a hybrid local-first platform (permanent)
+
+Omnio uses the **best execution engine for each capability**, and the execution
+location is an implementation detail invisible to the user.
+
+**Browser (default).** Anything that runs well on-device stays browser-local —
+image editing, PDF manipulation, text tools, QR, ZIP, hashing, metadata,
+comparisons. No server required; files never leave the page.
+
+**Server (worker tier).** When a capability genuinely needs a heavyweight native
+engine — LibreOffice, Ghostscript, OCR at scale, ImageMagick, future native
+processors — it runs on the user's **own Omnio deployment** as a worker-tier
+tool. The browser uploads the file, the worker converts it in a sandboxed
+subprocess, and the result streams back. **The user never downloads a runtime
+engine.**
+
+This preserves local-first while avoiding enormous browser downloads:
+
+- No third-party services. No cloud processing. No external APIs.
+- No user accounts. No telemetry.
+- Files stay inside the user's own Omnio deployment.
+
+**Choosing a tier — guiding principle.** Do not force browser execution if it
+significantly harms UX (e.g. a ~300 MB WASM download). Do not force server
+execution if browser execution is already excellent. Decide per feature,
+optimizing for simplicity, speed, maintainability, privacy, and user experience
+— not ideology. A tool declares its choice with `tier` + `tierReason` in
+`module.json`; worker-tier tools run through the sandboxed exec path
+(docs/architecture/06-security.md §2).

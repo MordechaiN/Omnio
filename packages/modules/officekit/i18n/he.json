@@ -13,6 +13,10 @@
     "html-preview": {
       "name": "תצוגת HTML",
       "description": "רינדור HTML במסגרת מבודדת — סקריפטים חסומים אלא אם תתירו אותם."
+    },
+    "office-to-pdf": {
+      "name": "Office ל־PDF",
+      "description": "המרת קבצי Word, Excel או PowerPoint ל־PDF — מעובד באופן פרטי ב־Omnio שלך, לא בשירות חיצוני."
     }
   },
   "ui": {
@@ -24,6 +28,7 @@
     "tsvInput": "תוכן TSV",
     "htmlInput": "מקור HTML",
     "htmlPreviewTitle": "תצוגה מקדימה",
-    "htmlAllowScripts": "אפשרו הרצת סקריפטים בתצוגה המקדימה"
+    "htmlAllowScripts": "אפשרו הרצת סקריפטים בתצוגה המקדימה",
+    "o2pNote": "העלה מסמך ו־Omnio ימיר אותו ל־PDF בשרת שלך ויחזיר את התוצאה. הקובץ לעולם לא עוזב את ה־Omnio שלך."
   }
 }

@@ -13,6 +13,10 @@
     "html-preview": {
       "name": "HTML Preview",
       "description": "Render HTML in a sandboxed frame — scripts blocked unless you allow them."
+    },
+    "office-to-pdf": {
+      "name": "Office to PDF",
+      "description": "Convert Word, Excel, or PowerPoint files to PDF — processed privately on your own Omnio, never a third-party service."
     }
   },
   "ui": {
@@ -24,6 +28,7 @@
     "tsvInput": "TSV content",
     "htmlInput": "HTML source",
     "htmlPreviewTitle": "Preview",
-    "htmlAllowScripts": "Allow scripts to run in the preview"
+    "htmlAllowScripts": "Allow scripts to run in the preview",
+    "o2pNote": "Upload a document and Omnio converts it to PDF on your own server, then hands the result back. Your file never leaves your Omnio."
   }
 }

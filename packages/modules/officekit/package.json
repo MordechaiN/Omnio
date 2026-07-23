@@ -11,7 +11,9 @@
     "./i18n/en": "./i18n/en.json",
     "./i18n/he": "./i18n/he.json",
     "./frontend/tools/tsv-table": "./frontend/tools/tsv-table.tsx",
-    "./frontend/tools/html-preview": "./frontend/tools/html-preview.tsx"
+    "./frontend/tools/html-preview": "./frontend/tools/html-preview.tsx",
+    "./frontend/tools/office-to-pdf": "./frontend/tools/office-to-pdf.tsx",
+    "./worker/tools/office-to-pdf": "./worker/tools/office-to-pdf.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

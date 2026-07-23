@@ -25,6 +25,16 @@ RUN pnpm turbo build --filter=@omnio/modgen... \
   && pnpm turbo build
 
 FROM base AS runner
+# Server-side native engines for worker-tier tools (Omnio's hybrid model:
+# heavyweight converters run here, never in the browser). LibreOffice powers
+# Office → PDF; the fonts give faithful text rendering, including Hebrew.
+RUN apk add --no-cache \
+      libreoffice-writer \
+      libreoffice-calc \
+      libreoffice-impress \
+      ttf-dejavu \
+      font-noto \
+      font-noto-hebrew
 RUN addgroup -S omnio && adduser -S omnio -G omnio
 COPY --from=build --chown=omnio:omnio /app /app
 USER omnio
