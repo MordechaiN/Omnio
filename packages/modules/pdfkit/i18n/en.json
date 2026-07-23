@@ -125,6 +125,10 @@
     "pdf-edit": {
       "name": "Edit PDF",
       "description": "Highlight, underline, draw shapes, add notes, freehand, and truly redact — one editor, on your device."
+    },
+    "pdf-fill-form": {
+      "name": "Fill Form",
+      "description": "Type into a PDF's form fields and download the completed file — on your device."
     }
   },
   "ui": {
@@ -290,6 +294,11 @@
     "editSaving": "Saving…",
     "editDownload": "Download edited PDF",
     "editError": "Could not save your edits.",
-    "editRedactNote": "Redaction permanently removes the covered text and images from the file — not just hides them."
+    "editRedactNote": "Redaction permanently removes the covered text and images from the file — not just hides them.",
+    "fillFieldCount": "{count, plural, one {# field} other {# fields}}",
+    "fillNoFields": "This PDF has no fillable form fields.",
+    "fillFlatten": "Flatten (lock fields so they can't be changed)",
+    "fillAction": "Fill & download",
+    "fillError": "Could not fill this form."
   }
 }

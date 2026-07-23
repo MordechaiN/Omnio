@@ -39,7 +39,8 @@
     "./frontend/tools/pdf-extract-images": "./frontend/tools/pdf-extract-images.tsx",
     "./frontend/tools/pdf-extract-attachments": "./frontend/tools/pdf-extract-attachments.tsx",
     "./frontend/tools/pdf-ocr": "./frontend/tools/pdf-ocr.tsx",
-    "./frontend/tools/pdf-edit": "./frontend/tools/pdf-edit.tsx"
+    "./frontend/tools/pdf-edit": "./frontend/tools/pdf-edit.tsx",
+    "./frontend/tools/pdf-fill-form": "./frontend/tools/pdf-fill-form.tsx"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

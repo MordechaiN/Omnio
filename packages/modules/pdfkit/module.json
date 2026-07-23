@@ -633,6 +633,28 @@
           "priority": 79
         }
       ]
+    },
+    {
+      "id": "pdf-fill-form",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-fill-form",
+      "keywords": [
+        "fill form",
+        "form",
+        "acroform",
+        "fields",
+        "fill out",
+        "complete form",
+        "fillable"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "application/pdf"
+          ],
+          "priority": 70
+        }
+      ]
     }
   ],
   "capabilities": {
