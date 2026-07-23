@@ -32,9 +32,14 @@ RUN apk add --no-cache \
       libreoffice-writer \
       libreoffice-calc \
       libreoffice-impress \
+      fontconfig \
       ttf-dejavu \
       font-noto \
       font-noto-hebrew
+# Prebuild the system font cache as root (world-readable) so headless soffice —
+# which runs with a scrubbed environment and no writable HOME — finds a valid
+# cache instead of rescanning fonts on every conversion.
+RUN fc-cache -f
 RUN addgroup -S omnio && adduser -S omnio -G omnio
 COPY --from=build --chown=omnio:omnio /app /app
 USER omnio

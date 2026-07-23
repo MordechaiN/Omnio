@@ -9,6 +9,15 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ## [Unreleased]
 
+## [0.3.0-alpha] - 2026-07-23
+
+Omnio starts doing the heavy jobs for you — right on your own server, with nothing to download.
+
+### New
+
+- **Turn Word, Excel, and PowerPoint files into PDFs.** Drop in a .docx, .xlsx, .pptx (or OpenDocument or RTF) and get back a faithful PDF. The conversion runs privately on your own Omnio — your file never goes to any outside service, and you never have to install anything.
+
+
 ## [0.2.0-alpha] - 2026-07-23
 
 Omnio grows from a solid file workspace into a genuine PDF powerhouse — the kind of jobs people used to open a separate app for now happen right here, on your device.
@@ -43,6 +52,7 @@ The first public version of Omnio: a private, self-hosted workspace with dozens 
 - **A workspace to work in** — search everything from one place, star your favorites, drop files straight onto the page, and jump around with the keyboard.
 - **Runs entirely on your device** — files never leave your browser, and there's no account to create.
 
-[Unreleased]: https://github.com/MordechaiN/Omnio/compare/v0.2.0-alpha...HEAD
+[Unreleased]: https://github.com/MordechaiN/Omnio/compare/v0.3.0-alpha...HEAD
+[0.3.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.2.0-alpha...v0.3.0-alpha
 [0.2.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.1.0-alpha.1...v0.2.0-alpha
 [0.1.0-alpha.1]: https://github.com/MordechaiN/Omnio/releases/tag/v0.1.0-alpha.1
