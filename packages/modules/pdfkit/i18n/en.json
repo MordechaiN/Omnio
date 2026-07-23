@@ -97,6 +97,42 @@
     "pdf-compress": {
       "name": "Compress PDF",
       "description": "Rebuild a PDF with tighter internal structure to shrink its size — on your device."
+    },
+    "pdf-repair": {
+      "name": "Repair PDF",
+      "description": "Rebuild a damaged PDF into a clean, readable copy — on your device."
+    },
+    "pdf-linearize": {
+      "name": "Optimize for Web",
+      "description": "Linearize a PDF for fast web view, so it opens page-by-page — on your device."
+    },
+    "pdf-sanitize": {
+      "name": "Sanitize PDF",
+      "description": "Strip unreferenced, hidden content and rebuild a clean file — on your device."
+    },
+    "pdf-extract-images": {
+      "name": "Extract Images",
+      "description": "Pull every embedded picture out of a PDF at full resolution — on your device."
+    },
+    "pdf-extract-attachments": {
+      "name": "Extract Attachments",
+      "description": "Save files embedded inside a PDF back to your device."
+    },
+    "pdf-ocr": {
+      "name": "OCR — Make Searchable",
+      "description": "Read the text in a scanned PDF and add an invisible, searchable text layer — on your device."
+    },
+    "pdf-edit": {
+      "name": "Edit PDF",
+      "description": "Highlight, underline, draw shapes, add notes, freehand, and truly redact — one editor, on your device."
+    },
+    "pdf-fill-form": {
+      "name": "Fill Form",
+      "description": "Type into a PDF's form fields and download the completed file — on your device."
+    },
+    "pdf-split-bookmarks": {
+      "name": "Split by Bookmarks",
+      "description": "Split a PDF into one file per top-level bookmark (chapter) — on your device."
     }
   },
   "ui": {
@@ -214,6 +250,64 @@
     "compressSaved": "−{percent}%",
     "compressNoGain": "Already well-optimized",
     "compressNote": "Optimizes the file's structure and stream compression. It doesn't downscale images, so image-heavy PDFs may shrink only a little.",
-    "download": "Download"
+    "download": "Download",
+    "repairAction": "Repair PDF",
+    "repairError": "Could not repair this file. It may be too damaged to recover.",
+    "repairNote": "Rebuilds the document structure. Files that are only partly damaged usually recover; badly corrupted files may not.",
+    "linAction": "Optimize for web",
+    "linError": "Could not optimize this file.",
+    "linNote": "Reorders the file so a browser can show the first page before the whole PDF downloads.",
+    "sanitizeAction": "Sanitize PDF",
+    "sanitizeError": "Could not sanitize this file.",
+    "sanitizeNote": "Removes objects the document does not reference, then rebuilds a clean copy.",
+    "extractImagesAction": "Extract images",
+    "extractImagesError": "Could not read images from this file.",
+    "extractImagesEmpty": "No embedded images found in this PDF.",
+    "extractImagesFound": "{count, plural, one {# image} other {# images}}",
+    "extractImagesDownloadAll": "Download all (.zip)",
+    "extractAttachAction": "Extract attachments",
+    "extractAttachError": "Could not read attachments from this file.",
+    "extractAttachEmpty": "No attachments in this PDF.",
+    "extractAttachFound": "{count, plural, one {# file} other {# files}}",
+    "extractAttachDownloadAll": "Download all (.zip)",
+    "ocrIntro": "Best for scanned pages or images of text. Adds a hidden text layer so you can search and copy — the page still looks the same.",
+    "ocrAction": "Make searchable",
+    "ocrWorking": "Reading text…",
+    "ocrProgress": "Page {page} of {total}",
+    "ocrError": "Could not read text from this PDF.",
+    "ocrWords": "{count, plural, one {# word found} other {# words found}}",
+    "ocrConfidence": "{percent}% confidence",
+    "ocrNoText": "No readable text was found. This works best on scanned documents, not blank or photo-only pages.",
+    "editToolbar": "Editing tools",
+    "editCanvas": "Page — draw to annotate",
+    "editColor": "Color",
+    "editUndo": "Undo",
+    "editMode_highlight": "Highlight",
+    "editMode_underline": "Underline",
+    "editMode_rect": "Rectangle",
+    "editMode_ellipse": "Ellipse",
+    "editMode_line": "Line",
+    "editMode_ink": "Draw",
+    "editMode_note": "Note",
+    "editMode_redact": "Redact",
+    "editNotePlaceholder": "Type a note…",
+    "editPrev": "Previous",
+    "editNext": "Next",
+    "editPageOf": "Page {page} of {total}",
+    "editCount": "{count, plural, one {# mark} other {# marks}}",
+    "editSaving": "Saving…",
+    "editDownload": "Download edited PDF",
+    "editError": "Could not save your edits.",
+    "editRedactNote": "Redaction permanently removes the covered text and images from the file — not just hides them.",
+    "fillFieldCount": "{count, plural, one {# field} other {# fields}}",
+    "fillNoFields": "This PDF has no fillable form fields.",
+    "fillFlatten": "Flatten (lock fields so they can't be changed)",
+    "fillAction": "Fill & download",
+    "fillError": "Could not fill this form.",
+    "splitBmIntro": "Uses the PDF's own bookmarks (outline) to cut it into sections — one file per top-level bookmark.",
+    "splitBmAction": "Split by bookmarks",
+    "splitBmError": "Could not split this file.",
+    "splitBmNone": "This PDF has no bookmarks to split by.",
+    "splitBmDone": "Split into {count} files and downloaded as a .zip."
   }
 }

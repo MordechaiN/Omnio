@@ -484,6 +484,198 @@
           "priority": 75
         }
       ]
+    },
+    {
+      "id": "pdf-repair",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-repair",
+      "keywords": [
+        "repair",
+        "fix",
+        "damaged",
+        "corrupt",
+        "recover",
+        "broken pdf"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "application/pdf"
+          ],
+          "priority": 47
+        }
+      ]
+    },
+    {
+      "id": "pdf-linearize",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-linearize",
+      "keywords": [
+        "linearize",
+        "optimize",
+        "fast web view",
+        "web optimize",
+        "streaming"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "application/pdf"
+          ],
+          "priority": 45
+        }
+      ]
+    },
+    {
+      "id": "pdf-sanitize",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-sanitize",
+      "keywords": [
+        "sanitize",
+        "clean",
+        "strip",
+        "safe",
+        "remove hidden"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "application/pdf"
+          ],
+          "priority": 46
+        }
+      ]
+    },
+    {
+      "id": "pdf-extract-images",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-extract-images",
+      "keywords": [
+        "extract images",
+        "get images",
+        "pull pictures",
+        "save images",
+        "images from pdf"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "application/pdf"
+          ],
+          "priority": 44
+        }
+      ]
+    },
+    {
+      "id": "pdf-extract-attachments",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-extract-attachments",
+      "keywords": [
+        "extract attachments",
+        "embedded files",
+        "get attachments",
+        "save attachments",
+        "attached files"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "application/pdf"
+          ],
+          "priority": 43
+        }
+      ]
+    },
+    {
+      "id": "pdf-ocr",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-ocr",
+      "keywords": [
+        "ocr",
+        "scanned",
+        "searchable",
+        "recognize text",
+        "make searchable",
+        "image to text",
+        "read scan"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "application/pdf"
+          ],
+          "priority": 71
+        }
+      ]
+    },
+    {
+      "id": "pdf-edit",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-edit",
+      "keywords": [
+        "edit",
+        "annotate",
+        "highlight",
+        "underline",
+        "redact",
+        "draw",
+        "markup",
+        "notes",
+        "shapes",
+        "sign",
+        "comment"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "application/pdf"
+          ],
+          "priority": 79
+        }
+      ]
+    },
+    {
+      "id": "pdf-fill-form",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-fill-form",
+      "keywords": [
+        "fill form",
+        "form",
+        "acroform",
+        "fields",
+        "fill out",
+        "complete form",
+        "fillable"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "application/pdf"
+          ],
+          "priority": 70
+        }
+      ]
+    },
+    {
+      "id": "pdf-split-bookmarks",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-split-bookmarks",
+      "keywords": [
+        "split by bookmarks",
+        "bookmarks",
+        "outline",
+        "chapters",
+        "table of contents",
+        "split chapters"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "application/pdf"
+          ],
+          "priority": 49
+        }
+      ]
     }
   ],
   "capabilities": {

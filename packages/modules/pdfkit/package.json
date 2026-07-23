@@ -32,7 +32,16 @@
     "./frontend/tools/pdf-remove-blank": "./frontend/tools/pdf-remove-blank.tsx",
     "./frontend/tools/pdf-protect": "./frontend/tools/pdf-protect.tsx",
     "./frontend/tools/pdf-unlock": "./frontend/tools/pdf-unlock.tsx",
-    "./frontend/tools/pdf-compress": "./frontend/tools/pdf-compress.tsx"
+    "./frontend/tools/pdf-compress": "./frontend/tools/pdf-compress.tsx",
+    "./frontend/tools/pdf-repair": "./frontend/tools/pdf-repair.tsx",
+    "./frontend/tools/pdf-linearize": "./frontend/tools/pdf-linearize.tsx",
+    "./frontend/tools/pdf-sanitize": "./frontend/tools/pdf-sanitize.tsx",
+    "./frontend/tools/pdf-extract-images": "./frontend/tools/pdf-extract-images.tsx",
+    "./frontend/tools/pdf-extract-attachments": "./frontend/tools/pdf-extract-attachments.tsx",
+    "./frontend/tools/pdf-ocr": "./frontend/tools/pdf-ocr.tsx",
+    "./frontend/tools/pdf-edit": "./frontend/tools/pdf-edit.tsx",
+    "./frontend/tools/pdf-fill-form": "./frontend/tools/pdf-fill-form.tsx",
+    "./frontend/tools/pdf-split-bookmarks": "./frontend/tools/pdf-split-bookmarks.tsx"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
@@ -45,8 +54,10 @@
     "@omnio/ui": "workspace:*",
     "fflate": "^0.8.2",
     "lucide-react": "^0.525.0",
+    "mupdf": "^1.28.0",
     "pdf-lib": "^1.17.1",
-    "pdfjs-dist": "^4.7.76"
+    "pdfjs-dist": "^4.7.76",
+    "tesseract.js": "^7.0.0"
   },
   "peerDependencies": {
     "next": "^15.5.0",

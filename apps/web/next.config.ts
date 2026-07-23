@@ -44,13 +44,40 @@ const nextConfig: NextConfig = {
   // Linting is a first-class turbo task with the shared config;
   // next build must not run a second, differently-configured pass.
   eslint: { ignoreDuringBuilds: true },
-  // The qpdf-wasm Emscripten glue references node core modules (`fs`, `path`,
-  // `crypto`) behind runtime typeof-checks that never fire in the browser.
-  // Stub them for the client bundle so the static resolver doesn't choke; the
-  // .wasm itself loads as a same-origin asset.
-  webpack(config: { resolve?: { fallback?: Record<string, unknown> } }) {
+  // The qpdf-wasm and mupdf-wasm Emscripten glue reference node core modules
+  // (`fs`, `path`, `crypto`, `module`) behind runtime checks that never fire in
+  // the browser. mupdf imports them `node:`-prefixed, which webpack won't route
+  // through `resolve.fallback` on its own, so first strip the `node:` scheme,
+  // then stub the bare names to `false`. The .wasm files themselves load as
+  // same-origin assets via `new URL(..., import.meta.url)`.
+  webpack(
+    config: {
+      resolve?: { fallback?: Record<string, unknown> };
+      plugins?: unknown[];
+    },
+    { webpack }: {
+      webpack: {
+        NormalModuleReplacementPlugin: new (
+          pattern: RegExp,
+          handler: (resource: { request: string }) => void,
+        ) => unknown;
+      };
+    },
+  ) {
     config.resolve = config.resolve ?? {};
-    config.resolve.fallback = { ...config.resolve.fallback, fs: false, path: false, crypto: false };
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false,
+      path: false,
+      crypto: false,
+      module: false,
+    };
+    config.plugins = config.plugins ?? [];
+    config.plugins.push(
+      new webpack.NormalModuleReplacementPlugin(/^node:/, (resource: { request: string }) => {
+        resource.request = resource.request.replace(/^node:/, "");
+      }),
+    );
     return config;
   },
 };
