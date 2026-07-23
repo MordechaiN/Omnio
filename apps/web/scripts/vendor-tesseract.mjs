@@ -33,6 +33,10 @@ for (const f of [
   "tesseract-core-simd.wasm.js",
   "tesseract-core-simd-lstm.wasm",
   "tesseract-core-simd-lstm.wasm.js",
+  "tesseract-core-relaxedsimd.wasm",
+  "tesseract-core-relaxedsimd.wasm.js",
+  "tesseract-core-relaxedsimd-lstm.wasm",
+  "tesseract-core-relaxedsimd-lstm.wasm.js",
 ]) {
   const src = join(coreDir, f);
   if (existsSync(src)) cpSync(src, new URL(f, dest));
