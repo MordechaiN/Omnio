@@ -74,6 +74,33 @@ export async function extractImages(pdfBytes: Uint8Array, baseName: string): Pro
   return out;
 }
 
+export interface OutlineEntry {
+  title: string;
+  /** Zero-based page index, or null if the bookmark has no page destination. */
+  page: number | null;
+}
+
+interface RawOutline {
+  title?: string;
+  page?: number;
+  uri?: string;
+  down?: RawOutline[];
+}
+
+function outlinePage(item: RawOutline): number | null {
+  if (typeof item.page === "number") return item.page;
+  const m = item.uri ? /#page=(\d+)/.exec(item.uri) : null;
+  return m ? Number(m[1]) - 1 : null;
+}
+
+/** Read the top-level bookmarks (outline) of a PDF with their page targets. */
+export async function readOutline(pdfBytes: Uint8Array): Promise<OutlineEntry[]> {
+  const mupdf = await ensureMupdf();
+  const doc = mupdf.Document.openDocument(pdfBytes, "application/pdf");
+  const raw = (doc.loadOutline() ?? []) as RawOutline[];
+  return raw.map((item) => ({ title: (item.title ?? "").trim() || "Untitled", page: outlinePage(item) }));
+}
+
 export interface ExtractedAttachment {
   name: string;
   bytes: Uint8Array;

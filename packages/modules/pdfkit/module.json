@@ -655,6 +655,27 @@
           "priority": 70
         }
       ]
+    },
+    {
+      "id": "pdf-split-bookmarks",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-split-bookmarks",
+      "keywords": [
+        "split by bookmarks",
+        "bookmarks",
+        "outline",
+        "chapters",
+        "table of contents",
+        "split chapters"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "application/pdf"
+          ],
+          "priority": 49
+        }
+      ]
     }
   ],
   "capabilities": {

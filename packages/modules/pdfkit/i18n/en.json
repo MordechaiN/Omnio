@@ -129,6 +129,10 @@
     "pdf-fill-form": {
       "name": "Fill Form",
       "description": "Type into a PDF's form fields and download the completed file — on your device."
+    },
+    "pdf-split-bookmarks": {
+      "name": "Split by Bookmarks",
+      "description": "Split a PDF into one file per top-level bookmark (chapter) — on your device."
     }
   },
   "ui": {
@@ -299,6 +303,11 @@
     "fillNoFields": "This PDF has no fillable form fields.",
     "fillFlatten": "Flatten (lock fields so they can't be changed)",
     "fillAction": "Fill & download",
-    "fillError": "Could not fill this form."
+    "fillError": "Could not fill this form.",
+    "splitBmIntro": "Uses the PDF's own bookmarks (outline) to cut it into sections — one file per top-level bookmark.",
+    "splitBmAction": "Split by bookmarks",
+    "splitBmError": "Could not split this file.",
+    "splitBmNone": "This PDF has no bookmarks to split by.",
+    "splitBmDone": "Split into {count} files and downloaded as a .zip."
   }
 }
