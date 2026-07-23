@@ -142,3 +142,48 @@ browser — BentoPDF ships them locally — so these are prioritised engineering
 work, not hard limits. Recommend: land the "cheap wins" list, then dedicate a
 milestone to the interactive editor (highest user value), before declaring
 BentoPDF fully replaceable.
+
+## Beta Sprint 2 — final status (workflow verdict)
+
+This sprint added 9 tools + 3 engines (tesseract.js, mupdf, plus wider qpdf use),
+all local-first and same-origin (no CDN). Workflow-by-workflow now:
+
+| Workflow | Status | Notes |
+|---|---|---|
+| Merge/split/extract/delete/reorder/rotate | ✅ | pre-existing |
+| Reverse/duplicate/crop/N-up/blank/split-half/flatten | ✅ | pre-existing |
+| Remove blank pages · Compress · Protect/Unlock | ✅ | pre-existing |
+| PDF↔images · PDF→text · watermark/page-nums/metadata | ✅ | pre-existing |
+| **Repair damaged PDF** | ✅ NEW | qpdf rebuild |
+| **Optimize for web (linearize)** | ✅ NEW | qpdf |
+| **Sanitize** | ✅ NEW | qpdf |
+| **Extract embedded images** | ✅ NEW | mupdf, native decode |
+| **Extract attachments** | ✅ NEW | mupdf |
+| **OCR → searchable PDF** | ✅ NEW | tesseract.js; browser-verified (21 words, 96% conf) |
+| **Annotate: highlight/underline/shapes/notes/freehand** | ✅ NEW | unified editor |
+| **Real redaction (true removal)** | ✅ NEW | mupdf applyRedactions; browser-verified content gone |
+| **Fill forms** | ✅ NEW | pdf-lib AcroForm + flatten |
+| **Sign** | ◑ PARTIAL | freehand-draw signature via editor; typed/image-stamp signature not yet |
+| **Split by bookmarks** | ✅ NEW | mupdf outline + pdf-lib |
+| **PDF/A conversion** | ❌ GAP | mupdf can't emit conformant PDF/A (probed: `unknown pdf option: pdfa`); needs Ghostscript-WASM |
+| **Table extraction / PDF→Excel** | ❌ GAP | reliable table detection is PyMuPDF-Python-only, absent in mupdf.js; won't ship a guesser that fails the quality bar |
+| **PDF → Word** | ❌ GAP | mupdf `asHTML()` works → best-effort DOCX is feasible but not built this sprint |
+| **Bookmark write-editor** | ◑ PARTIAL | `outlineIterator` exists; split-by-bookmarks shipped, full editor deferred |
+| **Office → PDF** (Word/Excel/PPT) | ⏸ PENDING DECISION | LibreOffice-WASM is ~300 MB (3× the "ship it" estimate), not on npm, needs infra vendoring under `~/docker/`; see `docs/office-to-pdf-spike.md`. Owner re-decision needed before building |
+
+### Can I uninstall BentoPDF today? **Not fully — NO.**
+Omnio now covers the overwhelming majority of everyday PDF work — including the
+big ones that were missing (OCR, annotate, real redaction, fill forms, extract
+images/attachments, repair). For most users' daily PDF life, Omnio is now a
+complete replacement.
+
+It is **not** 100% parity. Uninstalling BentoPDF is blocked only if you rely on:
+1. **Office → PDF** (Word/Excel/PPT) — pending an owner decision on the ~300 MB engine.
+2. **PDF/A** conformance — needs Ghostscript-WASM (documented gap, not faked).
+3. **PDF → Word/Excel / table extraction** — best-effort DOCX feasible; reliable
+   tables aren't, so not shipped rather than ship a low-quality guesser.
+4. **Typed/image signature stamp** — freehand signing works; a typed/image stamp
+   doesn't yet.
+
+No remaining gap is a browser hard-limit; each is scoped, honest, and either
+pending a decision (Office) or a follow-up milestone.
