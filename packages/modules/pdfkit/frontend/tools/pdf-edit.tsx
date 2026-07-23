@@ -29,7 +29,7 @@ export default function PdfEditTool() {
   const [failed, setFailed] = useState<"load" | "save" | null>(null);
   const [busy, setBusy] = useState(false);
 
-  const docRef = useRef<Awaited<ReturnType<typeof loadPdfjsDocument>> | null>(null);
+  const [pdfDoc, setPdfDoc] = useState<Awaited<ReturnType<typeof loadPdfjsDocument>> | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
 
@@ -57,7 +57,7 @@ export default function PdfEditTool() {
       const bytes = new Uint8Array(await files[0]!.arrayBuffer());
       setRaw(bytes);
       setFile(await loadPdf(new File([bytes], files[0]!.name, { type: "application/pdf" })));
-      docRef.current = await loadPdfjsDocument(bytes.slice().buffer);
+      setPdfDoc(await loadPdfjsDocument(bytes.slice().buffer));
     } catch {
       setFailed("load");
     }
@@ -66,7 +66,7 @@ export default function PdfEditTool() {
 
   // Render the current page to the canvas, sized to the container width.
   const renderPage = useCallback(async () => {
-    const doc = docRef.current;
+    const doc = pdfDoc;
     const wrap = wrapRef.current;
     const canvas = canvasRef.current;
     if (!doc || !wrap || !canvas) return;
@@ -81,11 +81,11 @@ export default function PdfEditTool() {
     if (ctx) ctx.drawImage(rendered, 0, 0);
     setPageInfo({ widthPt: base.width, heightPt: base.height });
     setScale(s);
-  }, [pageIndex]);
+  }, [pageIndex, pdfDoc]);
 
   useEffect(() => {
-    if (file) void renderPage();
-  }, [file, pageIndex, renderPage]);
+    if (pdfDoc) void renderPage();
+  }, [pdfDoc, pageIndex, renderPage]);
 
   const toScreen = useCallback(
     (pt: Point) => ({ x: pt.x * scale, y: (pageInfo!.heightPt - pt.y) * scale }),
@@ -153,7 +153,7 @@ export default function PdfEditTool() {
     <div className="flex flex-col gap-5">
       <PdfDropZone onFiles={(f) => void open(f)} hasFile={file !== null} />
       {failed === "load" ? <p role="alert" className="text-sm text-danger">{t("ui.errorLoad")}</p> : null}
-      {file && pageInfo ? (
+      {file ? (
         <>
           <div className="flex flex-wrap items-center gap-2" role="toolbar" aria-label={t("ui.editToolbar")}>
             {MODES.map((m) => (
@@ -184,8 +184,9 @@ export default function PdfEditTool() {
           </div>
 
           <div ref={wrapRef} className="relative mx-auto max-w-full overflow-auto rounded-lg border border-border-subtle">
-            <div className="relative" style={{ width: pageInfo.widthPt * scale, height: pageInfo.heightPt * scale }}>
+            <div className="relative" style={pageInfo ? { width: pageInfo.widthPt * scale, height: pageInfo.heightPt * scale } : { minHeight: 320 }}>
               <canvas ref={canvasRef} className="block" />
+              {pageInfo ? (
               <svg
                 className="absolute inset-0 touch-none"
                 width={pageInfo.widthPt * scale}
@@ -202,7 +203,8 @@ export default function PdfEditTool() {
                 ))}
                 {draft ? <DraftShape mode={mode} draft={draft} color={color} toScreen={toScreen} /> : null}
               </svg>
-              {editingNote ? (
+              ) : null}
+              {editingNote && pageInfo ? (
                 <NoteEditor
                   annotation={annotations.find((a) => a.id === editingNote)!}
                   toScreen={toScreen}
