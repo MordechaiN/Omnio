@@ -545,6 +545,46 @@
           "priority": 46
         }
       ]
+    },
+    {
+      "id": "pdf-extract-images",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-extract-images",
+      "keywords": [
+        "extract images",
+        "get images",
+        "pull pictures",
+        "save images",
+        "images from pdf"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "application/pdf"
+          ],
+          "priority": 44
+        }
+      ]
+    },
+    {
+      "id": "pdf-extract-attachments",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-extract-attachments",
+      "keywords": [
+        "extract attachments",
+        "embedded files",
+        "get attachments",
+        "save attachments",
+        "attached files"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "application/pdf"
+          ],
+          "priority": 43
+        }
+      ]
     }
   ],
   "capabilities": {

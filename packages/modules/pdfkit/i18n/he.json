@@ -109,6 +109,14 @@
     "pdf-sanitize": {
       "name": "ניקוי PDF",
       "description": "הסרת תוכן מוסתר שאינו בשימוש ובנייה מחדש של קובץ נקי — במכשיר שלך."
+    },
+    "pdf-extract-images": {
+      "name": "חילוץ תמונות",
+      "description": "הוצאת כל תמונה מוטמעת מתוך PDF ברזולוציה מלאה — במכשיר שלך."
+    },
+    "pdf-extract-attachments": {
+      "name": "חילוץ קבצים מצורפים",
+      "description": "שמירת קבצים המוטמעים בתוך PDF בחזרה למכשיר שלך."
     }
   },
   "ui": {
@@ -235,6 +243,16 @@
     "linNote": "מסדר מחדש את הקובץ כדי שהדפדפן יוכל להציג את העמוד הראשון לפני הורדת כל הקובץ.",
     "sanitizeAction": "נקה PDF",
     "sanitizeError": "לא ניתן לנקות את הקובץ.",
-    "sanitizeNote": "מסיר אובייקטים שאינם בשימוש במסמך ובונה מחדש עותק נקי."
+    "sanitizeNote": "מסיר אובייקטים שאינם בשימוש במסמך ובונה מחדש עותק נקי.",
+    "extractImagesAction": "חלץ תמונות",
+    "extractImagesError": "לא ניתן לקרוא תמונות מהקובץ.",
+    "extractImagesEmpty": "לא נמצאו תמונות מוטמעות ב־PDF.",
+    "extractImagesFound": "{count, plural, one {תמונה אחת} other {# תמונות}}",
+    "extractImagesDownloadAll": "הורד הכול (.zip)",
+    "extractAttachAction": "חלץ קבצים מצורפים",
+    "extractAttachError": "לא ניתן לקרוא קבצים מצורפים מהקובץ.",
+    "extractAttachEmpty": "אין קבצים מצורפים ב־PDF.",
+    "extractAttachFound": "{count, plural, one {קובץ אחד} other {# קבצים}}",
+    "extractAttachDownloadAll": "הורד הכול (.zip)"
   }
 }

@@ -109,6 +109,14 @@
     "pdf-sanitize": {
       "name": "Sanitize PDF",
       "description": "Strip unreferenced, hidden content and rebuild a clean file — on your device."
+    },
+    "pdf-extract-images": {
+      "name": "Extract Images",
+      "description": "Pull every embedded picture out of a PDF at full resolution — on your device."
+    },
+    "pdf-extract-attachments": {
+      "name": "Extract Attachments",
+      "description": "Save files embedded inside a PDF back to your device."
     }
   },
   "ui": {
@@ -235,6 +243,16 @@
     "linNote": "Reorders the file so a browser can show the first page before the whole PDF downloads.",
     "sanitizeAction": "Sanitize PDF",
     "sanitizeError": "Could not sanitize this file.",
-    "sanitizeNote": "Removes objects the document does not reference, then rebuilds a clean copy."
+    "sanitizeNote": "Removes objects the document does not reference, then rebuilds a clean copy.",
+    "extractImagesAction": "Extract images",
+    "extractImagesError": "Could not read images from this file.",
+    "extractImagesEmpty": "No embedded images found in this PDF.",
+    "extractImagesFound": "{count, plural, one {# image} other {# images}}",
+    "extractImagesDownloadAll": "Download all (.zip)",
+    "extractAttachAction": "Extract attachments",
+    "extractAttachError": "Could not read attachments from this file.",
+    "extractAttachEmpty": "No attachments in this PDF.",
+    "extractAttachFound": "{count, plural, one {# file} other {# files}}",
+    "extractAttachDownloadAll": "Download all (.zip)"
   }
 }
