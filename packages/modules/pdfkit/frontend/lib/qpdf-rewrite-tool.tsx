@@ -29,6 +29,9 @@ export function QpdfRewriteTool({
   keyPrefix: string;
 }) {
   const t = useTranslations("mod-pdfkit");
+  // Keys are built per-tool from keyPrefix; they exist in i18n but aren't literal
+  // types, so cast to the translator's key type.
+  const tk = (key: string) => t(key as Parameters<typeof t>[0]);
   const [file, setFile] = useState<LoadedPdf | null>(null);
   const [raw, setRaw] = useState<Uint8Array | null>(null);
   const [result, setResult] = useState<{ blob: Uint8Array; before: number; after: number } | null>(null);
@@ -75,10 +78,10 @@ export function QpdfRewriteTool({
           </div>
           <div>
             <Button type="button" onClick={() => void run()} disabled={busy}>
-              {busy ? t("ui.working") : t(`ui.${keyPrefix}Action`)}
+              {busy ? t("ui.working") : tk(`ui.${keyPrefix}Action`)}
             </Button>
           </div>
-          {failed === "op" ? <p role="alert" className="text-sm text-danger">{t(`ui.${keyPrefix}Error`)}</p> : null}
+          {failed === "op" ? <p role="alert" className="text-sm text-danger">{tk(`ui.${keyPrefix}Error`)}</p> : null}
           {result ? (
             <div aria-live="polite" className="flex flex-wrap items-center gap-3 rounded-lg border border-border-subtle bg-surface p-4 text-sm">
               <Badge variant="neutral">{formatBytes(result.before)}</Badge>
@@ -89,7 +92,7 @@ export function QpdfRewriteTool({
               </Button>
             </div>
           ) : null}
-          <p className="text-sm text-text-muted">{t(`ui.${keyPrefix}Note`)}</p>
+          <p className="text-sm text-text-muted">{tk(`ui.${keyPrefix}Note`)}</p>
           <p className="text-sm text-text-muted">{t("ui.privacy")}</p>
         </>
       ) : null}

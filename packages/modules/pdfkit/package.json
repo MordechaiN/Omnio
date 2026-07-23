@@ -32,7 +32,12 @@
     "./frontend/tools/pdf-remove-blank": "./frontend/tools/pdf-remove-blank.tsx",
     "./frontend/tools/pdf-protect": "./frontend/tools/pdf-protect.tsx",
     "./frontend/tools/pdf-unlock": "./frontend/tools/pdf-unlock.tsx",
-    "./frontend/tools/pdf-compress": "./frontend/tools/pdf-compress.tsx"
+    "./frontend/tools/pdf-compress": "./frontend/tools/pdf-compress.tsx",
+    "./frontend/tools/pdf-repair": "./frontend/tools/pdf-repair.tsx",
+    "./frontend/tools/pdf-linearize": "./frontend/tools/pdf-linearize.tsx",
+    "./frontend/tools/pdf-sanitize": "./frontend/tools/pdf-sanitize.tsx",
+    "./frontend/tools/pdf-extract-images": "./frontend/tools/pdf-extract-images.tsx",
+    "./frontend/tools/pdf-extract-attachments": "./frontend/tools/pdf-extract-attachments.tsx"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
