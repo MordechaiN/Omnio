@@ -9,23 +9,29 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ## [Unreleased]
 
-### New
-- **A complete PDF toolkit.** Omnio now covers the everyday PDF jobs people reach for a separate app to do: combine images into a PDF and turn PDF pages back into images or text, merge and split, compress, and password-protect or unlock a file — all in your browser, nothing uploaded.
-- **Password-protect and unlock PDFs.** Add a real 256-bit password so only people who know it can open a document, or remove a password you already know — done entirely on your device.
-- **Shrink and convert PDFs.** Compress a PDF to make it smaller, export every page as a PNG or JPEG, or pull the plain text straight out of a document.
-- **Tidy up pages.** Reverse the order, duplicate pages, crop even margins, fit several pages onto one sheet to save paper, drop empty pages from a scan, split two-page spreads into singles, add a blank page, or lock a filled form so its answers can’t be changed.
+## [0.2.0-alpha] - 2026-07-23
 
-- **Just drop a file — Omnio figures out the rest.** Drop or paste any file anywhere in the app and Omnio tells you what it is and everything you can do with it, then opens the right tool with your file already loaded. Nothing is ever uploaded.
-- **98 tools, and counting.** Every common file job now has a home — resize, crop, compress and convert images; merge, split, watermark and renumber PDFs; trim audio and grab video stills; open ZIPs and spreadsheets; format code and text; and plenty more. Everything runs on your device, in English and Hebrew.
-- **A drop zone front and center.** The home page now leads with one simple thing: a place to drop your files. New visitors know what to do in seconds.
-- **Your own Library.** Group tools into Collections and save multi-step Workflows you use often — now gathered on one Library page, always a click away in the sidebar.
-- **A workspace that remembers.** Files you drop and results you create stay listed for the session. Pin the important ones, select several at once to download or clear, and save a whole workspace to pick up later — even after refreshing the page.
-- **Do it in bulk.** Drop a whole folder of images and process them all at once, keeping the folder structure in the ZIP you get back.
-- **Smart suggestions that actually help.** Omnio spots when a photo still carries hidden location data, when an image is bigger than it needs to be, when a PDF is too large to email, and more — and points you to the fix.
-- **Chain tools together.** Finish one step and send the result straight into the next — resize, then compress, then strip metadata — without downloading and re-uploading between each.
-- **Search that forgives typos.** Look for "pasword" or "picture" and you'll still land on the right tool.
-- **Back up and move your setup.** Export your favorites, collections, and workflows to a single file and bring them to another browser or device whenever you like.
-- **Make it yours.** Light and dark themes, four visual styles, five accent colors, adjustable spacing, and full right-to-left support.
+Omnio grows from a solid file workspace into a genuine PDF powerhouse — the kind of jobs people used to open a separate app for now happen right here, on your device.
+
+### New
+
+- **Turn a scanned document into a searchable one.** Point Omnio at a scan or a photo of text and it reads the words, so you can search and copy from a document that used to be just a picture — all on your device.
+- **A real PDF editor.** Highlight and underline, draw shapes and freehand, add sticky notes, and — when something must truly disappear — redact it. Redaction genuinely removes the words and pictures underneath, not just hides them behind a black box.
+- **Fill in PDF forms.** Type straight into a form's fields and download the finished file, with the option to lock your answers so they can't be changed.
+- **Pull things out of a PDF.** Save every picture inside a PDF at full quality, or lift out files that were attached to it.
+- **Repair a damaged PDF** by rebuilding a clean, readable copy — and **split a long PDF into chapters** using its own bookmarks.
+- **Get a file ready for the web** by optimizing it to open page-by-page, or **clean a file** by stripping hidden, unused content.
+- **See exactly what you're running.** Settings now shows your version, release date, build, and commit, with a "Check for updates" button — and What's New is now your plain-language history of everything Omnio has gained.
+
+### Improved
+
+- **Everyday PDF work keeps getting smoother** — drop a PDF and Omnio suggests the right tool, whether that's making it searchable, filling a form, or redacting something sensitive.
+
+### Known limitations
+
+- **Converting Office files (Word, Excel, PowerPoint) to PDF** isn't available yet — it's coming as a fast, on-device conversion that needs no downloads.
+- **Turning a PDF back into an editable Word or Excel file**, and **archival PDF/A** conversion, aren't available yet.
+- **Signing** today means drawing your signature by hand; a typed or image-stamp signature is still to come.
 
 ## [0.1.0-alpha.1] - 2026-07-18
 
@@ -37,5 +43,6 @@ The first public version of Omnio: a private, self-hosted workspace with dozens 
 - **A workspace to work in** — search everything from one place, star your favorites, drop files straight onto the page, and jump around with the keyboard.
 - **Runs entirely on your device** — files never leave your browser, and there's no account to create.
 
-[Unreleased]: https://github.com/MordechaiN/Omnio/compare/v0.1.0-alpha.1...HEAD
+[Unreleased]: https://github.com/MordechaiN/Omnio/compare/v0.2.0-alpha...HEAD
+[0.2.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.1.0-alpha.1...v0.2.0-alpha
 [0.1.0-alpha.1]: https://github.com/MordechaiN/Omnio/releases/tag/v0.1.0-alpha.1

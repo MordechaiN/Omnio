@@ -33,6 +33,8 @@ import { Link } from "@/i18n/navigation";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { useAutoOpenActivity, setAutoOpenActivity } from "@/lib/behavior-prefs";
 import { useVersion } from "@/lib/use-version";
+import { useUpdateCheck } from "@/lib/use-update-check";
+import { buildInfo } from "@/lib/build-info";
 
 const STYLES: VisualStyle[] = ["classic", "modern", "minimal", "accessible"];
 const ACCENTS: AccentColor[] = ["indigo", "blue", "purple", "green", "orange"];
@@ -99,7 +101,18 @@ export function SettingsPanel() {
   const pathname = usePathname();
   const autoOpenActivity = useAutoOpenActivity();
   const version = useVersion();
+  const update = useUpdateCheck();
   const importInputRef = useRef<HTMLInputElement>(null);
+
+  const displayVersion = version.data?.version ?? buildInfo.version;
+  const displayBuild = version.data?.buildNumber ?? buildInfo.buildNumber;
+  const displayCommit = version.data?.commit ?? buildInfo.commit;
+  const releaseTimestamp = version.data?.buildTimestamp ?? buildInfo.buildDate;
+  let releaseDate = releaseTimestamp;
+  const parsedDate = new Date(releaseTimestamp);
+  if (!Number.isNaN(parsedDate.getTime())) {
+    releaseDate = parsedDate.toLocaleDateString(locale, { year: "numeric", month: "long", day: "numeric" });
+  }
 
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
@@ -121,6 +134,46 @@ export function SettingsPanel() {
             <Button asChild variant="secondary" size="sm">
               <Link href="/about">{t("nav.about")}</Link>
             </Button>
+          </div>
+        </SettingRow>
+      </SettingsSection>
+
+      <SettingsSection title={t("settings.version")}>
+        <SettingRow label={t("settings.version")} htmlFor="setting-version">
+          <div id="setting-version" className="flex sm:justify-end">
+            <Badge variant="neutral">v{displayVersion}</Badge>
+          </div>
+        </SettingRow>
+        <SettingRow label={t("settings.releaseDate")} htmlFor="setting-reldate">
+          <div id="setting-reldate" className="text-sm text-text-muted sm:text-end">{releaseDate}</div>
+        </SettingRow>
+        <SettingRow label={t("settings.buildNumber")} htmlFor="setting-build">
+          <div id="setting-build" className="text-sm text-text-muted sm:text-end">#{displayBuild}</div>
+        </SettingRow>
+        <SettingRow label={t("settings.commit")} htmlFor="setting-commit">
+          <code id="setting-commit" dir="ltr" className="font-mono text-sm text-text-muted sm:block sm:text-end">{displayCommit}</code>
+        </SettingRow>
+        <SettingRow label={t("settings.checkUpdates")} htmlFor="setting-update">
+          <div className="flex flex-col gap-1.5 sm:items-end">
+            <Button
+              id="setting-update"
+              type="button"
+              variant="secondary"
+              size="sm"
+              onClick={() => void update.check()}
+              disabled={update.status === "checking"}
+            >
+              {update.status === "checking" ? t("settings.checking") : t("settings.checkUpdates")}
+            </Button>
+            {update.status === "latest" ? (
+              <span aria-live="polite" className="text-sm text-text-muted">{t("settings.upToDate")}</span>
+            ) : null}
+            {update.status === "available" ? (
+              <span aria-live="polite" className="text-sm text-accent">{t("settings.updateAvailable", { version: update.latest ?? "" })}</span>
+            ) : null}
+            {update.status === "error" ? (
+              <span role="alert" className="text-sm text-danger">{t("settings.checkFailed")}</span>
+            ) : null}
           </div>
         </SettingRow>
       </SettingsSection>

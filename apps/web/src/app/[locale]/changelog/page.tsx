@@ -44,7 +44,8 @@ export default async function ChangelogPage({
   // Localize the known Keep-a-Changelog section names; fall back to the raw name.
   const sectionNames: Record<string, string> = {
     new: t("sections.new"),
-    changed: t("sections.changed"),
+    improved: t("sections.improved"),
+    changed: t("sections.improved"),
     fixed: t("sections.fixed"),
     security: t("sections.security"),
     removed: t("sections.removed"),
@@ -59,9 +60,10 @@ export default async function ChangelogPage({
   // Typed accents for the Keep-a-Changelog sections — recognition at a glance
   // when scanning releases. Decorative only, hence aria-hidden at the call site.
   const sectionEmoji: Record<string, string> = {
-    new: "✨",
-    changed: "🔧",
-    fixed: "🐛",
+    new: "🚀",
+    improved: "✨",
+    changed: "✨",
+    fixed: "🐞",
     security: "🔐",
     removed: "🗑️",
     deprecated: "⏳",

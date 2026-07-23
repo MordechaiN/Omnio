@@ -149,3 +149,48 @@ were rebuilt when required. The two must never disagree on the running version.
 | `tooling/release/gen-manifest.mjs`    | Portable: write the canonical `release.json` (single source of truth) |
 | `~/scripts/omnio-release`             | Oracle: build with metadata → deploy → verify → deployment summary  |
 | `~/scripts/omnio-version-check`       | Oracle: `/api/version` + `/api/health` summary vs GitHub source      |
+
+## Permanent standards (platform-wide)
+
+These are mandatory for every future Omnio release.
+
+### Semantic Versioning
+
+- The **root `package.json` `version` is the single source of truth.** Everything
+  else (commit, build number, date) is derived at build time and injected as
+  build args; **no version value is ever duplicated or hand-typed elsewhere.**
+- Use SemVer with staged pre-releases: `alpha → beta → rc → stable`, e.g.
+  `0.8.0-alpha`, `0.16.0-beta`, `0.17.0-rc1`, `1.0.0`. Displayed `v`-prefixed.
+- **Every meaningful release increments the version.** End users are never shown
+  only a build number or commit hash as the identity of a release.
+- Every release carries: product version, release date, build number, git commit,
+  release notes (What's New), and the About page.
+
+### Where the version is displayed (all fed from the single source)
+
+About · Settings · What's New · Footer (compact) · `GET /api/version`.
+
+### What's New = the official product release history
+
+- Written **only in user language.** Never developer terms — no refactor,
+  dependency, webpack, pdf-lib, qpdf, worker, wasm, lint, typecheck, commit, or
+  internal architecture. Explain *what the user gained*, nothing else.
+- Every release uses exactly this structure (omit a section if empty):
+
+  ```
+  🚀 New
+  ✨ Improved
+  🐞 Fixed
+  ⚠️ Known limitations
+  ```
+
+  In `CHANGELOG.md` these are `### New` / `### Improved` / `### Fixed` /
+  `### Known limitations`. The style stays identical across every release — it
+  should read as one consistent product over many years.
+
+### Check for updates
+
+Settings has a **Check for updates** action. Today it reports "You're using the
+latest version." (the running deployment is authoritative; no upstream feed). The
+architecture (`use-update-check.ts`) is shaped so a real release-manifest compare
+slots in later without changing callers or UI.
