@@ -121,6 +121,10 @@
     "pdf-ocr": {
       "name": "OCR — הפיכה לחיפוש",
       "description": "קריאת הטקסט ב־PDF סרוק והוספת שכבת טקסט נסתרת לחיפוש — במכשיר שלך."
+    },
+    "pdf-edit": {
+      "name": "עריכת PDF",
+      "description": "הדגשה, קו תחתון, צורות, הערות, ציור חופשי ומחיקה אמיתית — עורך אחד, במכשיר שלך."
     }
   },
   "ui": {
@@ -265,6 +269,27 @@
     "ocrError": "לא ניתן לקרוא טקסט מה־PDF.",
     "ocrWords": "{count, plural, one {נמצאה מילה אחת} other {נמצאו # מילים}}",
     "ocrConfidence": "רמת ודאות {percent}%",
-    "ocrNoText": "לא נמצא טקסט קריא. עובד הכי טוב על מסמכים סרוקים, לא על דפים ריקים או תמונות בלבד."
+    "ocrNoText": "לא נמצא טקסט קריא. עובד הכי טוב על מסמכים סרוקים, לא על דפים ריקים או תמונות בלבד.",
+    "editToolbar": "כלי עריכה",
+    "editCanvas": "עמוד — צייר כדי להוסיף סימון",
+    "editColor": "צבע",
+    "editUndo": "בטל",
+    "editMode_highlight": "הדגשה",
+    "editMode_underline": "קו תחתון",
+    "editMode_rect": "מלבן",
+    "editMode_ellipse": "אליפסה",
+    "editMode_line": "קו",
+    "editMode_ink": "ציור",
+    "editMode_note": "הערה",
+    "editMode_redact": "מחיקה",
+    "editNotePlaceholder": "כתוב הערה…",
+    "editPrev": "הקודם",
+    "editNext": "הבא",
+    "editPageOf": "עמוד {page} מתוך {total}",
+    "editCount": "{count, plural, one {סימון אחד} other {# סימונים}}",
+    "editSaving": "שומר…",
+    "editDownload": "הורד PDF ערוך",
+    "editError": "לא ניתן לשמור את העריכות.",
+    "editRedactNote": "מחיקה מסירה לצמיתות את הטקסט והתמונות שמתחת — לא רק מסתירה אותם."
   }
 }

@@ -121,6 +121,10 @@
     "pdf-ocr": {
       "name": "OCR — Make Searchable",
       "description": "Read the text in a scanned PDF and add an invisible, searchable text layer — on your device."
+    },
+    "pdf-edit": {
+      "name": "Edit PDF",
+      "description": "Highlight, underline, draw shapes, add notes, freehand, and truly redact — one editor, on your device."
     }
   },
   "ui": {
@@ -265,6 +269,27 @@
     "ocrError": "Could not read text from this PDF.",
     "ocrWords": "{count, plural, one {# word found} other {# words found}}",
     "ocrConfidence": "{percent}% confidence",
-    "ocrNoText": "No readable text was found. This works best on scanned documents, not blank or photo-only pages."
+    "ocrNoText": "No readable text was found. This works best on scanned documents, not blank or photo-only pages.",
+    "editToolbar": "Editing tools",
+    "editCanvas": "Page — draw to annotate",
+    "editColor": "Color",
+    "editUndo": "Undo",
+    "editMode_highlight": "Highlight",
+    "editMode_underline": "Underline",
+    "editMode_rect": "Rectangle",
+    "editMode_ellipse": "Ellipse",
+    "editMode_line": "Line",
+    "editMode_ink": "Draw",
+    "editMode_note": "Note",
+    "editMode_redact": "Redact",
+    "editNotePlaceholder": "Type a note…",
+    "editPrev": "Previous",
+    "editNext": "Next",
+    "editPageOf": "Page {page} of {total}",
+    "editCount": "{count, plural, one {# mark} other {# marks}}",
+    "editSaving": "Saving…",
+    "editDownload": "Download edited PDF",
+    "editError": "Could not save your edits.",
+    "editRedactNote": "Redaction permanently removes the covered text and images from the file — not just hides them."
   }
 }

@@ -607,6 +607,32 @@
           "priority": 71
         }
       ]
+    },
+    {
+      "id": "pdf-edit",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-edit",
+      "keywords": [
+        "edit",
+        "annotate",
+        "highlight",
+        "underline",
+        "redact",
+        "draw",
+        "markup",
+        "notes",
+        "shapes",
+        "sign",
+        "comment"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "application/pdf"
+          ],
+          "priority": 79
+        }
+      ]
     }
   ],
   "capabilities": {
