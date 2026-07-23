@@ -117,6 +117,10 @@
     "pdf-extract-attachments": {
       "name": "חילוץ קבצים מצורפים",
       "description": "שמירת קבצים המוטמעים בתוך PDF בחזרה למכשיר שלך."
+    },
+    "pdf-ocr": {
+      "name": "OCR — הפיכה לחיפוש",
+      "description": "קריאת הטקסט ב־PDF סרוק והוספת שכבת טקסט נסתרת לחיפוש — במכשיר שלך."
     }
   },
   "ui": {
@@ -253,6 +257,14 @@
     "extractAttachError": "לא ניתן לקרוא קבצים מצורפים מהקובץ.",
     "extractAttachEmpty": "אין קבצים מצורפים ב־PDF.",
     "extractAttachFound": "{count, plural, one {קובץ אחד} other {# קבצים}}",
-    "extractAttachDownloadAll": "הורד הכול (.zip)"
+    "extractAttachDownloadAll": "הורד הכול (.zip)",
+    "ocrIntro": "מתאים לדפים סרוקים או תמונות של טקסט. מוסיף שכבת טקסט נסתרת כדי לחפש ולהעתיק — הדף נראה אותו דבר.",
+    "ocrAction": "הפוך לניתן לחיפוש",
+    "ocrWorking": "קורא טקסט…",
+    "ocrProgress": "עמוד {page} מתוך {total}",
+    "ocrError": "לא ניתן לקרוא טקסט מה־PDF.",
+    "ocrWords": "{count, plural, one {נמצאה מילה אחת} other {נמצאו # מילים}}",
+    "ocrConfidence": "רמת ודאות {percent}%",
+    "ocrNoText": "לא נמצא טקסט קריא. עובד הכי טוב על מסמכים סרוקים, לא על דפים ריקים או תמונות בלבד."
   }
 }

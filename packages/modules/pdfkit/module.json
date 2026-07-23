@@ -585,6 +585,28 @@
           "priority": 43
         }
       ]
+    },
+    {
+      "id": "pdf-ocr",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-ocr",
+      "keywords": [
+        "ocr",
+        "scanned",
+        "searchable",
+        "recognize text",
+        "make searchable",
+        "image to text",
+        "read scan"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "application/pdf"
+          ],
+          "priority": 71
+        }
+      ]
     }
   ],
   "capabilities": {

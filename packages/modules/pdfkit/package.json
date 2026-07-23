@@ -37,7 +37,8 @@
     "./frontend/tools/pdf-linearize": "./frontend/tools/pdf-linearize.tsx",
     "./frontend/tools/pdf-sanitize": "./frontend/tools/pdf-sanitize.tsx",
     "./frontend/tools/pdf-extract-images": "./frontend/tools/pdf-extract-images.tsx",
-    "./frontend/tools/pdf-extract-attachments": "./frontend/tools/pdf-extract-attachments.tsx"
+    "./frontend/tools/pdf-extract-attachments": "./frontend/tools/pdf-extract-attachments.tsx",
+    "./frontend/tools/pdf-ocr": "./frontend/tools/pdf-ocr.tsx"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

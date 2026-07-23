@@ -117,6 +117,10 @@
     "pdf-extract-attachments": {
       "name": "Extract Attachments",
       "description": "Save files embedded inside a PDF back to your device."
+    },
+    "pdf-ocr": {
+      "name": "OCR — Make Searchable",
+      "description": "Read the text in a scanned PDF and add an invisible, searchable text layer — on your device."
     }
   },
   "ui": {
@@ -253,6 +257,14 @@
     "extractAttachError": "Could not read attachments from this file.",
     "extractAttachEmpty": "No attachments in this PDF.",
     "extractAttachFound": "{count, plural, one {# file} other {# files}}",
-    "extractAttachDownloadAll": "Download all (.zip)"
+    "extractAttachDownloadAll": "Download all (.zip)",
+    "ocrIntro": "Best for scanned pages or images of text. Adds a hidden text layer so you can search and copy — the page still looks the same.",
+    "ocrAction": "Make searchable",
+    "ocrWorking": "Reading text…",
+    "ocrProgress": "Page {page} of {total}",
+    "ocrError": "Could not read text from this PDF.",
+    "ocrWords": "{count, plural, one {# word found} other {# words found}}",
+    "ocrConfidence": "{percent}% confidence",
+    "ocrNoText": "No readable text was found. This works best on scanned documents, not blank or photo-only pages."
   }
 }
