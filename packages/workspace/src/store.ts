@@ -1,0 +1,262 @@
+/**
+ * The workspace store: one in-memory snapshot over IndexedDB + OPFS.
+ *
+ * Metadata is small (a few hundred bytes per file), so the whole set is held in
+ * memory and served synchronously. That is what keeps the UI free of loading
+ * spinners: selecting a file, filtering, or opening the Inspector never awaits
+ * anything. Only bytes and thumbnails are fetched lazily.
+ *
+ * The snapshot is replaced, never mutated, so `useSyncExternalStore` can compare
+ * by identity and React re-renders exactly the subscribers that care.
+ */
+
+import {
+  deleteBlob,
+  getBlobAsFile,
+  hashBytes,
+  isOpfsAvailable,
+  putBlob,
+  requestPersistence,
+} from "./blobs.ts";
+import * as db from "./db.ts";
+import {
+  selectForEviction,
+  type FileFacts,
+  type WorkspaceCollection,
+  type WorkspaceEvent,
+  type WorkspaceEventType,
+  type WorkspaceFile,
+  type WorkspaceTag,
+} from "./model.ts";
+
+export interface WorkspaceSnapshot {
+  files: WorkspaceFile[];
+  tags: WorkspaceTag[];
+  collections: WorkspaceCollection[];
+  events: WorkspaceEvent[];
+  ready: boolean;
+  /** False when the browser denies OPFS/IndexedDB (e.g. some private modes). */
+  supported: boolean;
+}
+
+const EMPTY: WorkspaceSnapshot = {
+  files: [],
+  tags: [],
+  collections: [],
+  events: [],
+  ready: false,
+  supported: true,
+};
+
+/** Time-ordered id: sorts by creation without a separate index. */
+function newId(): string {
+  const random =
+    typeof crypto !== "undefined" && crypto.randomUUID
+      ? crypto.randomUUID().replace(/-/g, "").slice(0, 10)
+      : Math.random().toString(36).slice(2, 12);
+  return `${Date.now().toString(36)}${random}`;
+}
+
+export interface ProduceInput {
+  name: string;
+  mime: string;
+  /** The file this output was produced from. */
+  fromFileId?: string;
+  toolId?: string;
+}
+
+class WorkspaceStore {
+  private snapshot: WorkspaceSnapshot = EMPTY;
+  private listeners = new Set<() => void>();
+  private loading: Promise<void> | null = null;
+
+  getSnapshot = (): WorkspaceSnapshot => this.snapshot;
+
+  subscribe = (listener: () => void): (() => void) => {
+    this.listeners.add(listener);
+    return () => this.listeners.delete(listener);
+  };
+
+  private commit(next: Partial<WorkspaceSnapshot>): void {
+    this.snapshot = { ...this.snapshot, ...next };
+    for (const listener of this.listeners) listener();
+  }
+
+  /** Load metadata once. Safe to call from every mounted component. */
+  load = (): Promise<void> => {
+    if (this.loading) return this.loading;
+    this.loading = (async () => {
+      if (!isOpfsAvailable() || !db.isIndexedDbAvailable()) {
+        this.commit({ ready: true, supported: false });
+        return;
+      }
+      void requestPersistence();
+      const [files, tags, collections, events] = await Promise.all([
+        db.getAllFiles(),
+        db.getAllTags(),
+        db.getAllCollections(),
+        db.getAllEvents(),
+      ]);
+      this.commit({ files, tags, collections, events, ready: true, supported: true });
+    })();
+    return this.loading;
+  };
+
+  private async record(fileId: string, type: WorkspaceEventType, toolId?: string, detail?: string) {
+    const event: WorkspaceEvent = { id: newId(), fileId, type, toolId, detail, at: Date.now() };
+    await db.appendEvent(event);
+    this.commit({ events: [...this.snapshot.events, event] });
+  }
+
+  private async upsert(file: WorkspaceFile): Promise<void> {
+    await db.putFile(file);
+    const files = this.snapshot.files.some((f) => f.id === file.id)
+      ? this.snapshot.files.map((f) => (f.id === file.id ? file : f))
+      : [...this.snapshot.files, file];
+    this.commit({ files });
+  }
+
+  /* ------------------------------------------------------------- import */
+
+  /**
+   * Bring a file into the workspace. Identical content is stored once; a second
+   * import of the same bytes creates a new record pointing at the existing blob.
+   */
+  import = async (source: File, origin?: { fromFileId?: string; toolId?: string }): Promise<WorkspaceFile> => {
+    const buffer = await source.arrayBuffer();
+    const hash = await hashBytes(buffer);
+    await putBlob(hash, new Blob([buffer], { type: source.type }));
+
+    const now = Date.now();
+    const file: WorkspaceFile = {
+      id: newId(),
+      name: source.name || "Untitled",
+      mime: source.type || "application/octet-stream",
+      size: source.size,
+      hash,
+      createdAt: now,
+      lastOpenedAt: now,
+      pinned: false,
+      tagIds: [],
+      collectionIds: [],
+      ...(origin?.fromFileId && origin.toolId
+        ? { derivedFrom: { fileId: origin.fromFileId, toolId: origin.toolId } }
+        : {}),
+    };
+    await this.upsert(file);
+    await this.record(file.id, origin?.fromFileId ? "produced" : "imported", origin?.toolId);
+    return file;
+  };
+
+  /** Store a tool's output as a new workspace file, linked to its input. */
+  produce = async (bytes: BlobPart, input: ProduceInput): Promise<WorkspaceFile> => {
+    const file = new File([bytes], input.name, { type: input.mime });
+    return this.import(file, { fromFileId: input.fromFileId, toolId: input.toolId });
+  };
+
+  /* --------------------------------------------------------------- read */
+
+  /**
+   * Get the content back as a real `File` — the type every existing tool
+   * already accepts — and mark it opened so Recent stays meaningful.
+   */
+  openFile = async (id: string, toolId?: string): Promise<File | null> => {
+    const file = this.snapshot.files.find((f) => f.id === id);
+    if (!file) return null;
+    const handle = await getBlobAsFile(file.hash, file.name, file.mime);
+    if (!handle) return null;
+    await this.upsert({ ...file, lastOpenedAt: Date.now(), evicted: false });
+    await this.record(id, "opened", toolId);
+    return handle;
+  };
+
+  /** Read content without recording an open — for thumbnails and previews. */
+  peekFile = async (id: string): Promise<File | null> => {
+    const file = this.snapshot.files.find((f) => f.id === id);
+    return file ? getBlobAsFile(file.hash, file.name, file.mime) : null;
+  };
+
+  /* ------------------------------------------------------------- mutate */
+
+  rename = async (id: string, name: string): Promise<void> => {
+    const file = this.snapshot.files.find((f) => f.id === id);
+    if (!file || name.trim() === "" || name === file.name) return;
+    await this.upsert({ ...file, name: name.trim() });
+    await this.record(id, "renamed", undefined, file.name);
+  };
+
+  setPinned = async (id: string, pinned: boolean): Promise<void> => {
+    const file = this.snapshot.files.find((f) => f.id === id);
+    if (file) await this.upsert({ ...file, pinned });
+  };
+
+  setFacts = async (id: string, facts: FileFacts): Promise<void> => {
+    const file = this.snapshot.files.find((f) => f.id === id);
+    if (file) await this.upsert({ ...file, facts });
+  };
+
+  toggleTag = async (id: string, tagId: string): Promise<void> => {
+    const file = this.snapshot.files.find((f) => f.id === id);
+    if (!file) return;
+    const tagIds = file.tagIds.includes(tagId)
+      ? file.tagIds.filter((t) => t !== tagId)
+      : [...file.tagIds, tagId];
+    await this.upsert({ ...file, tagIds });
+    await this.record(id, "tagged");
+  };
+
+  setCollection = async (id: string, collectionId: string, member: boolean): Promise<void> => {
+    const file = this.snapshot.files.find((f) => f.id === id);
+    if (!file) return;
+    const collectionIds = member
+      ? [...new Set([...file.collectionIds, collectionId])]
+      : file.collectionIds.filter((c) => c !== collectionId);
+    await this.upsert({ ...file, collectionIds });
+  };
+
+  createTag = async (name: string, color: string): Promise<WorkspaceTag> => {
+    const tag: WorkspaceTag = { id: newId(), name: name.trim(), color };
+    await db.putTag(tag);
+    this.commit({ tags: [...this.snapshot.tags, tag] });
+    return tag;
+  };
+
+  createCollection = async (name: string): Promise<WorkspaceCollection> => {
+    const collection: WorkspaceCollection = { id: newId(), name: name.trim(), createdAt: Date.now() };
+    await db.putCollection(collection);
+    this.commit({ collections: [...this.snapshot.collections, collection] });
+    return collection;
+  };
+
+  /**
+   * Delete a record, and its blob only when nothing else references that
+   * content — two rows sharing a hash are the same bytes, and dropping one must
+   * not pull the content out from under the other.
+   */
+  remove = async (id: string): Promise<void> => {
+    const file = this.snapshot.files.find((f) => f.id === id);
+    if (!file) return;
+    await db.deleteFileRecord(id);
+    await db.deleteThumb(id);
+    if ((await db.countByHash(file.hash)) === 0) await deleteBlob(file.hash);
+    this.commit({ files: this.snapshot.files.filter((f) => f.id !== id) });
+  };
+
+  /* ----------------------------------------------------------- eviction */
+
+  /** Drop the bytes of the least-recently-used unpinned files to fit `budget`. */
+  evictToBudget = async (budget: number): Promise<string[]> => {
+    const ids = selectForEviction(this.snapshot.files, budget);
+    for (const id of ids) {
+      const file = this.snapshot.files.find((f) => f.id === id);
+      if (!file) continue;
+      if ((await db.countByHash(file.hash)) <= 1) await deleteBlob(file.hash);
+      await this.upsert({ ...file, evicted: true });
+      await this.record(id, "evicted");
+    }
+    return ids;
+  };
+}
+
+export const workspace = new WorkspaceStore();
+export type { WorkspaceStore };
