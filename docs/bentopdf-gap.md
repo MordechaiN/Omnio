@@ -163,13 +163,13 @@ all local-first and same-origin (no CDN). Workflow-by-workflow now:
 | **Annotate: highlight/underline/shapes/notes/freehand** | ✅ NEW | unified editor |
 | **Real redaction (true removal)** | ✅ NEW | mupdf applyRedactions; browser-verified content gone |
 | **Fill forms** | ✅ NEW | pdf-lib AcroForm + flatten |
-| **Sign** | ◑ PARTIAL | freehand-draw signature via editor; typed/image-stamp signature not yet |
+| **Sign** | ✅ NEW | draw / type / upload, placed via the unified editor; aspect ratio preserved. Visual signature only — labelled in-UI as not a digital certificate |
 | **Split by bookmarks** | ✅ NEW | mupdf outline + pdf-lib |
 | **PDF/A conversion** | ❌ GAP | mupdf can't emit conformant PDF/A (probed: `unknown pdf option: pdfa`); needs Ghostscript-WASM |
 | **Table extraction / PDF→Excel** | ❌ GAP | reliable table detection is PyMuPDF-Python-only, absent in mupdf.js; won't ship a guesser that fails the quality bar |
 | **PDF → Word** | ❌ GAP | mupdf `asHTML()` works → best-effort DOCX is feasible but not built this sprint |
 | **Bookmark write-editor** | ◑ PARTIAL | `outlineIterator` exists; split-by-bookmarks shipped, full editor deferred |
-| **Office → PDF** (Word/Excel/PPT) | ⏸ PENDING DECISION | LibreOffice-WASM is ~300 MB (3× the "ship it" estimate), not on npm, needs infra vendoring under `~/docker/`; see `docs/office-to-pdf-spike.md`. Owner re-decision needed before building |
+| **Office → PDF** (Word/Excel/PPT) | ✅ SHIPPED (v0.3.0-alpha) | `office-to-pdf`, LibreOffice running **server-side** in the worker container — not in the browser. This is a deliberate architecture split from BentoPDF's fully-client-side model and is declared as such in the tool's `tierReason`; the file leaves the device for conversion |
 
 ### Can I uninstall BentoPDF today? **Not fully — NO.**
 Omnio now covers the overwhelming majority of everyday PDF work — including the
@@ -178,12 +178,17 @@ images/attachments, repair). For most users' daily PDF life, Omnio is now a
 complete replacement.
 
 It is **not** 100% parity. Uninstalling BentoPDF is blocked only if you rely on:
-1. **Office → PDF** (Word/Excel/PPT) — pending an owner decision on the ~300 MB engine.
-2. **PDF/A** conformance — needs Ghostscript-WASM (documented gap, not faked).
-3. **PDF → Word/Excel / table extraction** — best-effort DOCX feasible; reliable
+1. **PDF/A** conformance — needs Ghostscript-WASM. Re-probed against mupdf
+   1.28.0 (2026-07-24): still no PDF/A output — the API exposes only
+   `encryption` as a save option, and every `PDFA` symbol in its typings is
+   `PDFAnnotation`. Documented gap, not faked.
+2. **PDF → Word/Excel / table extraction** — best-effort DOCX feasible; reliable
    tables aren't, so not shipped rather than ship a low-quality guesser.
-4. **Typed/image signature stamp** — freehand signing works; a typed/image stamp
-   doesn't yet.
+3. **Bookmark/TOC write-editor** — split-by-bookmark ships; creating and editing
+   an outline does not.
+4. **Fully on-device Office conversion** — Office → PDF works, but server-side.
+   If your requirement is that the file never leaves the machine, that specific
+   workflow does not meet it.
 
 No remaining gap is a browser hard-limit; each is scoped, honest, and either
 pending a decision (Office) or a follow-up milestone.
