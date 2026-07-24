@@ -12,8 +12,6 @@
     "./frontend/tools/pdf-rotate": "./frontend/tools/pdf-rotate.tsx",
     "./frontend/tools/pdf-delete": "./frontend/tools/pdf-delete.tsx",
     "./frontend/tools/pdf-reorder": "./frontend/tools/pdf-reorder.tsx",
-    "./i18n/en": "./i18n/en.json",
-    "./i18n/he": "./i18n/he.json",
     "./frontend/tools/pdf-watermark": "./frontend/tools/pdf-watermark.tsx",
     "./frontend/tools/pdf-pagenum": "./frontend/tools/pdf-pagenum.tsx",
     "./frontend/tools/pdf-metadata": "./frontend/tools/pdf-metadata.tsx",
@@ -41,7 +39,11 @@
     "./frontend/tools/pdf-ocr": "./frontend/tools/pdf-ocr.tsx",
     "./frontend/tools/pdf-edit": "./frontend/tools/pdf-edit.tsx",
     "./frontend/tools/pdf-fill-form": "./frontend/tools/pdf-fill-form.tsx",
-    "./frontend/tools/pdf-split-bookmarks": "./frontend/tools/pdf-split-bookmarks.tsx"
+    "./frontend/tools/pdf-split-bookmarks": "./frontend/tools/pdf-split-bookmarks.tsx",
+    "./frontend/tools/pdf-bookmarks": "./frontend/tools/pdf-bookmarks.tsx",
+    "./frontend/tools/pdf-organize": "./frontend/tools/pdf-organize.tsx",
+    "./i18n/en": "./i18n/en.json",
+    "./i18n/he": "./i18n/he.json"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
