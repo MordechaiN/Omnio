@@ -676,6 +676,28 @@
           "priority": 49
         }
       ]
+    },
+    {
+      "id": "pdf-bookmarks",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-bookmarks",
+      "keywords": [
+        "bookmarks",
+        "outline",
+        "table of contents",
+        "toc",
+        "edit bookmarks",
+        "navigation",
+        "chapters"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "application/pdf"
+          ],
+          "priority": 48
+        }
+      ]
     }
   ],
   "capabilities": {

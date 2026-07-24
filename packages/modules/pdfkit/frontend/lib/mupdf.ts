@@ -2,6 +2,7 @@
 
 import type * as MupdfModule from "mupdf";
 import { imageEntryName } from "../../shared/extract.ts";
+import type { OutlineNode } from "../../shared/outline.ts";
 
 /**
  * MuPDF (PyMuPDF's engine) compiled to WebAssembly — structured extraction that
@@ -99,6 +100,58 @@ export async function readOutline(pdfBytes: Uint8Array): Promise<OutlineEntry[]>
   const doc = mupdf.Document.openDocument(pdfBytes, "application/pdf");
   const raw = (doc.loadOutline() ?? []) as RawOutline[];
   return raw.map((item) => ({ title: (item.title ?? "").trim() || "Untitled", page: outlinePage(item) }));
+}
+
+/** Read the full nested bookmark tree, for the TOC editor. */
+export async function readOutlineTree(pdfBytes: Uint8Array): Promise<OutlineNode[]> {
+  const mupdf = await ensureMupdf();
+  const doc = mupdf.Document.openDocument(pdfBytes, "application/pdf");
+  const toNodes = (items: RawOutline[]): OutlineNode[] =>
+    items.map((item) => ({
+      title: (item.title ?? "").trim() || "Untitled",
+      page: outlinePage(item) ?? 0,
+      children: toNodes(item.down ?? []),
+    }));
+  return toNodes((doc.loadOutline() ?? []) as RawOutline[]);
+}
+
+/**
+ * Replace a PDF's bookmark tree.
+ *
+ * The iterator's contract is not obvious from its types, so it was probed
+ * against mupdf 1.28 rather than assumed: `insert()` appends at the cursor and
+ * leaves the cursor *past* the new item — already positioned for the next
+ * sibling — so consecutive inserts build a sibling list in order. To descend,
+ * step back onto the item just written (`prev()`), `down()` into its empty child
+ * list, write the children, then `up()` and `next()` to resume the parent level.
+ * Destinations are written as 1-based `#page=N` URIs, which mupdf resolves back
+ * to a zero-based `page` on read.
+ */
+export async function writeOutline(pdfBytes: Uint8Array, nodes: OutlineNode[]): Promise<Uint8Array> {
+  const mupdf = await ensureMupdf();
+  const doc = mupdf.Document.openDocument(pdfBytes, "application/pdf");
+  const pdf = doc.asPDF();
+  if (!pdf) throw new Error("Not a PDF document.");
+  const iterator = pdf.outlineIterator();
+
+  // Clear the existing outline first; delete() leaves the cursor on what follows.
+  while (iterator.item() !== null) iterator.delete();
+
+  const writeLevel = (level: OutlineNode[]): void => {
+    for (const node of level) {
+      iterator.insert({ title: node.title, uri: `#page=${node.page + 1}`, open: true });
+      if (node.children.length > 0) {
+        iterator.prev();
+        iterator.down();
+        writeLevel(node.children);
+        iterator.up();
+        iterator.next();
+      }
+    }
+  };
+  writeLevel(nodes);
+
+  return pdf.saveToBuffer("").asUint8Array();
 }
 
 export interface ExtractedAttachment {

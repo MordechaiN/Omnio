@@ -133,6 +133,10 @@
     "pdf-split-bookmarks": {
       "name": "Split by Bookmarks",
       "description": "Split a PDF into one file per top-level bookmark (chapter) — on your device."
+    },
+    "pdf-bookmarks": {
+      "name": "Bookmarks & Contents",
+      "description": "Build and reorganize a PDF's bookmark outline — add, rename, nest, and reorder — on your device."
     }
   },
   "ui": {
@@ -324,6 +328,15 @@
     "sigCancel": "Cancel",
     "sigCreate": "Create signature",
     "sigChange": "Change signature",
-    "sigPlaceHint": "Drag on the page to place your signature."
+    "sigPlaceHint": "Drag on the page to place your signature.",
+    "bmCount": "{count, plural, =0 {No bookmarks} one {# bookmark} other {# bookmarks}}",
+    "bmAdd": "Add bookmark",
+    "bmEmpty": "This PDF has no bookmarks yet. Add one to start a table of contents.",
+    "bmTitlePlaceholder": "Bookmark title",
+    "bmPage": "Page",
+    "bmIndent": "Make child of the one above",
+    "bmOutdent": "Move out one level",
+    "bmSave": "Save bookmarks",
+    "bmDropped": "{count, plural, one {# entry will be skipped: it needs a title and a valid page.} other {# entries will be skipped: they need a title and a valid page.}}"
   }
 }
