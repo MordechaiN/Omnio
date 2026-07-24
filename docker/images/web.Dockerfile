@@ -21,16 +21,19 @@ ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
 # (docs/architecture/09-releases.md). NEXT_PUBLIC_* so the footer/About page can
 # read them client-side; baked into the bundle at build, so this image is the
 # single source of truth for "what version am I".
-ARG OMNIO_VERSION=0.0.0-dev
-ARG OMNIO_GIT_COMMIT=unknown
-ARG OMNIO_GIT_BRANCH=unknown
-ARG OMNIO_BUILD_DATE=unknown
-ARG OMNIO_BUILD_NUMBER=unknown
+ARG OMNIO_VERSION
+ARG OMNIO_GIT_COMMIT
+ARG OMNIO_GIT_BRANCH
+ARG OMNIO_BUILD_DATE
+ARG OMNIO_BUILD_NUMBER
 ENV NEXT_PUBLIC_OMNIO_VERSION=${OMNIO_VERSION}
 ENV NEXT_PUBLIC_OMNIO_COMMIT=${OMNIO_GIT_COMMIT}
 ENV NEXT_PUBLIC_OMNIO_BRANCH=${OMNIO_GIT_BRANCH}
 ENV NEXT_PUBLIC_OMNIO_BUILD_DATE=${OMNIO_BUILD_DATE}
 ENV NEXT_PUBLIC_OMNIO_BUILD_NUMBER=${OMNIO_BUILD_NUMBER}
+# Fail now, not after a ten-minute build, if the metadata is absent. These are
+# inlined into the client bundle, so a placeholder here ships to every visitor.
+RUN sh docker/images/require-build-metadata.sh
 # `modgen`'s bin isn't symlinked by `pnpm install` until tooling/modgen/dist
 # exists (pnpm skips bin-linking for build-artifact bins that aren't built
 # yet) — build it first, relink, then build everything else.

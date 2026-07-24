@@ -22,16 +22,18 @@ RUN corepack enable && corepack prepare pnpm@10.33.0 --activate \
 
 FROM deps AS build
 # Build & release metadata — supplied by the release tooling (docs/architecture/09-releases.md).
-ARG OMNIO_VERSION=0.0.0-dev
-ARG OMNIO_GIT_COMMIT=unknown
-ARG OMNIO_GIT_BRANCH=unknown
-ARG OMNIO_BUILD_DATE=unknown
-ARG OMNIO_BUILD_NUMBER=unknown
+ARG OMNIO_VERSION
+ARG OMNIO_GIT_COMMIT
+ARG OMNIO_GIT_BRANCH
+ARG OMNIO_BUILD_DATE
+ARG OMNIO_BUILD_NUMBER
 ENV OMNIO_VERSION=${OMNIO_VERSION} \
     OMNIO_GIT_COMMIT=${OMNIO_GIT_COMMIT} \
     OMNIO_GIT_BRANCH=${OMNIO_GIT_BRANCH} \
     OMNIO_BUILD_DATE=${OMNIO_BUILD_DATE} \
     OMNIO_BUILD_NUMBER=${OMNIO_BUILD_NUMBER}
+# Fail now, not after a ten-minute build, if the metadata is absent.
+RUN sh docker/images/require-build-metadata.sh
 # `modgen`'s bin isn't symlinked by `pnpm install` until tooling/modgen/dist
 # exists (pnpm skips bin-linking for build-artifact bins that aren't built
 # yet) — build it first, relink, then build everything else.
@@ -69,11 +71,11 @@ ENV NODE_ENV=production
 # Build & release metadata — supplied by the release tooling, never hand-edited
 # (docs/architecture/09-releases.md). Baked as ENV so `GET /api/version` reports
 # the exact build without reading the (excluded) .git tree at runtime.
-ARG OMNIO_VERSION=0.0.0-dev
-ARG OMNIO_GIT_COMMIT=unknown
-ARG OMNIO_GIT_BRANCH=unknown
-ARG OMNIO_BUILD_DATE=unknown
-ARG OMNIO_BUILD_NUMBER=unknown
+ARG OMNIO_VERSION
+ARG OMNIO_GIT_COMMIT
+ARG OMNIO_GIT_BRANCH
+ARG OMNIO_BUILD_DATE
+ARG OMNIO_BUILD_NUMBER
 ENV OMNIO_VERSION=${OMNIO_VERSION}
 ENV OMNIO_GIT_COMMIT=${OMNIO_GIT_COMMIT}
 ENV OMNIO_GIT_BRANCH=${OMNIO_GIT_BRANCH}
