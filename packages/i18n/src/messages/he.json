@@ -378,7 +378,8 @@
       "security": "אבטחה",
       "removed": "הוסר",
       "deprecated": "יצא משימוש",
-      "known": "מגבלות ידועות"
+      "known": "מגבלות ידועות",
+      "improved": "שיפורים"
     }
   },
   "stats": {
@@ -429,7 +430,17 @@
     "backupImportDescription": "מחליף את המועדפים, האוספים ותהליכי העבודה הנוכחיים בתוכן הקובץ.",
     "backupImportAction": "בחירת קובץ…",
     "backupImported": "הגיבוי שוחזר — טוען מחדש",
-    "backupInvalid": "הקובץ אינו גיבוי של Omnio."
+    "backupInvalid": "הקובץ אינו גיבוי של Omnio.",
+    "version": "גרסה",
+    "releaseDate": "תאריך שחרור",
+    "buildNumber": "בנייה",
+    "commit": "קומיט",
+    "checkUpdates": "בדוק עדכונים",
+    "checking": "בודק…",
+    "upToDate": "אתה משתמש בגרסה האחרונה.",
+    "updateAvailable": "זמינה גרסה חדשה: {version}",
+    "checkFailed": "לא ניתן לבדוק עדכונים כרגע.",
+    "versionSection": "גרסה"
   },
   "categoryPage": {
     "emptyTitle": "אין עדיין כלים כאן",

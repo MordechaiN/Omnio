@@ -361,6 +361,9 @@ importers:
       '@omnio/mod-case':
         specifier: workspace:*
         version: link:../../packages/modules/case
+      '@omnio/mod-officekit':
+        specifier: workspace:*
+        version: link:../../packages/modules/officekit
       '@omnio/module-sdk':
         specifier: workspace:*
         version: link:../../packages/module-sdk

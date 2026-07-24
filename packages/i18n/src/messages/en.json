@@ -378,7 +378,8 @@
       "security": "Security",
       "removed": "Removed",
       "deprecated": "Deprecated",
-      "known": "Known limitations"
+      "known": "Known limitations",
+      "improved": "Improved"
     }
   },
   "stats": {
@@ -429,7 +430,17 @@
     "backupImportDescription": "Replaces your current favorites, collections, and workflows with the file's contents.",
     "backupImportAction": "Choose file…",
     "backupImported": "Backup restored — reloading",
-    "backupInvalid": "That file isn't an Omnio backup."
+    "backupInvalid": "That file isn't an Omnio backup.",
+    "version": "Version",
+    "releaseDate": "Release date",
+    "buildNumber": "Build",
+    "commit": "Commit",
+    "checkUpdates": "Check for updates",
+    "checking": "Checking…",
+    "upToDate": "You’re using the latest version.",
+    "updateAvailable": "A new version is available: {version}",
+    "checkFailed": "Couldn’t check for updates right now.",
+    "versionSection": "Version"
   },
   "categoryPage": {
     "emptyTitle": "No tools here yet",
