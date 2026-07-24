@@ -137,6 +137,10 @@
     "pdf-bookmarks": {
       "name": "Bookmarks & Contents",
       "description": "Build and reorganize a PDF's bookmark outline — add, rename, nest, and reorder — on your device."
+    },
+    "pdf-organize": {
+      "name": "Organize Pages",
+      "description": "See every page as a thumbnail, then drag, rotate, duplicate, or delete — on your device."
     }
   },
   "ui": {
@@ -337,6 +341,23 @@
     "bmIndent": "Make child of the one above",
     "bmOutdent": "Move out one level",
     "bmSave": "Save bookmarks",
-    "bmDropped": "{count, plural, one {# entry will be skipped: it needs a title and a valid page.} other {# entries will be skipped: they need a title and a valid page.}}"
+    "bmDropped": "{count, plural, one {# entry will be skipped: it needs a title and a valid page.} other {# entries will be skipped: they need a title and a valid page.}}",
+    "orgToolbar": "Page actions",
+    "orgGrid": "Pages",
+    "orgPageCount": "{count, plural, one {# page} other {# pages}}",
+    "orgSelected": "{count} selected",
+    "orgRotateLeft": "Rotate left",
+    "orgRotateRight": "Rotate right",
+    "orgDuplicate": "Duplicate",
+    "orgDelete": "Delete",
+    "orgInsertBlank": "Insert blank page",
+    "orgSelectAll": "Select all",
+    "orgUndo": "Undo",
+    "orgApply": "Save organized PDF",
+    "orgChanged": "You have unsaved changes.",
+    "orgBlank": "Blank",
+    "orgPageLabel": "Page {source}, now in position {position}",
+    "orgBlankPage": "Blank page in position {position}",
+    "orgHint": "Click to select, Shift-click for a range, Ctrl-click to add. Drag to reorder. Delete removes, Ctrl+Z undoes."
   }
 }

@@ -698,6 +698,32 @@
           "priority": 48
         }
       ]
+    },
+    {
+      "id": "pdf-organize",
+      "tier": "browser",
+      "surface": "frontend/tools/pdf-organize",
+      "keywords": [
+        "organize pages",
+        "page organizer",
+        "rearrange",
+        "reorder",
+        "thumbnails",
+        "drag pages",
+        "rotate pages",
+        "delete pages",
+        "duplicate pages",
+        "insert blank page",
+        "manage pages"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "application/pdf"
+          ],
+          "priority": 60
+        }
+      ]
     }
   ],
   "capabilities": {

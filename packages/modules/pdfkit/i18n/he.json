@@ -137,6 +137,10 @@
     "pdf-bookmarks": {
       "name": "סימניות ותוכן עניינים",
       "description": "בנה וארגן מחדש את עץ הסימניות של PDF — הוספה, שינוי שם, קינון וסידור — במכשיר שלך."
+    },
+    "pdf-organize": {
+      "name": "ארגון עמודים",
+      "description": "ראה כל עמוד כתמונה ממוזערת, ואז גרור, סובב, שכפל או מחק — במכשיר שלך."
     }
   },
   "ui": {
@@ -337,6 +341,23 @@
     "bmIndent": "הפוך לתת-סעיף של הסימנייה שמעל",
     "bmOutdent": "העלה רמה אחת",
     "bmSave": "שמור סימניות",
-    "bmDropped": "{count, plural, one {רשומה # תדולג: היא זקוקה לכותרת ולעמוד תקין.} other {# רשומות ידולגו: הן זקוקות לכותרת ולעמוד תקין.}}"
+    "bmDropped": "{count, plural, one {רשומה # תדולג: היא זקוקה לכותרת ולעמוד תקין.} other {# רשומות ידולגו: הן זקוקות לכותרת ולעמוד תקין.}}",
+    "orgToolbar": "פעולות עמוד",
+    "orgGrid": "עמודים",
+    "orgPageCount": "{count, plural, one {עמוד #} other {# עמודים}}",
+    "orgSelected": "{count} נבחרו",
+    "orgRotateLeft": "סובב שמאלה",
+    "orgRotateRight": "סובב ימינה",
+    "orgDuplicate": "שכפל",
+    "orgDelete": "מחק",
+    "orgInsertBlank": "הוסף עמוד ריק",
+    "orgSelectAll": "בחר הכל",
+    "orgUndo": "בטל",
+    "orgApply": "שמור PDF מאורגן",
+    "orgChanged": "יש לך שינויים שלא נשמרו.",
+    "orgBlank": "ריק",
+    "orgPageLabel": "עמוד {source}, כעת במיקום {position}",
+    "orgBlankPage": "עמוד ריק במיקום {position}",
+    "orgHint": "לחץ לבחירה, Shift-לחיצה לטווח, Ctrl-לחיצה להוספה. גרור לסידור מחדש. Delete מוחק, Ctrl+Z מבטל."
   }
 }
