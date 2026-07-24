@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { setPendingFiles } from "@omnio/module-sdk";
+import { workspace } from "@omnio/workspace";
 import {
   Badge,
   Dialog,
@@ -118,6 +119,15 @@ export function FileIntelligence() {
   const openFiles = useCallback(async (incoming: File[], record: boolean) => {
     if (incoming.length === 0) return;
     if (record) for (const file of incoming) recordSessionFile(file, "dropped");
+    // Keep a durable copy in the file workspace. Deliberately not awaited: the
+    // inspection below must appear instantly, and hashing a large file would
+    // otherwise hold it up. A failure here (no OPFS, private mode) must never
+    // stop a drop from working, so it is swallowed.
+    if (record) {
+      for (const file of incoming) {
+        void workspace.import(file).catch(() => undefined);
+      }
+    }
     if (incoming.length === 1) {
       setInspecting(true);
       try {

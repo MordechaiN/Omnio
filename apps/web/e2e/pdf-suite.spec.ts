@@ -1,4 +1,5 @@
 import { PDFDocument, StandardFonts } from "pdf-lib";
+import type { Page } from "@playwright/test";
 import { expect, test } from "./fixtures";
 
 /**
@@ -17,7 +18,7 @@ async function samplePdf(pages = 4): Promise<Buffer> {
   return Buffer.from(await doc.save());
 }
 
-async function openWith(page: import("@playwright/test").Page, tool: string, pages = 4) {
+async function openWith(page: Page, tool: string, pages = 4) {
   await page.goto(`/tool/pdfkit/${tool}`);
   await page.locator('input[type="file"]').setInputFiles({
     name: "sample.pdf",

@@ -30,6 +30,7 @@
     "pdf-lib": "^1.17.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "@omnio/workspace": "workspace:*",
     "@omnio/mod-audiokit": "workspace:*",
     "@omnio/mod-base64": "workspace:*",
     "@omnio/mod-case": "workspace:*",

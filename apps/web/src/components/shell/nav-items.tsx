@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { cn, Icon } from "@omnio/ui";
-import { BarChart3, Blocks, Home, Info, Library, ScrollText, Settings, Star } from "lucide-react";
+import { BarChart3, Blocks, Home, Info, FolderOpen, Library, ScrollText, Settings, Star } from "lucide-react";
 import { DynamicIcon, type IconName } from "lucide-react/dynamic";
 import { Link, usePathname } from "@/i18n/navigation";
 import { CATEGORY_ICONS } from "@/lib/category-icons";
@@ -86,6 +86,7 @@ export function NavItems({ onNavigate }: { onNavigate?: () => void }) {
       <nav aria-label={t("shell.primaryNavigation")} className="flex flex-col gap-0.5">
         <NavLink href="/" icon={Home} label={t("nav.home")} onNavigate={onNavigate} />
         <NavLink href="/library" icon={Library} label={t("nav.library")} onNavigate={onNavigate} />
+        <NavLink href="/files" icon={FolderOpen} label={t("nav.files")} onNavigate={onNavigate} />
         <NavLink href="/stats" icon={BarChart3} label={t("nav.stats")} onNavigate={onNavigate} />
         <NavLink
           href="/settings"
