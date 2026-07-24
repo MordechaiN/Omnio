@@ -9,6 +9,30 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ## [Unreleased]
 
+## [0.4.0-alpha] - 2026-07-24
+
+Working with a PDF's pages stops feeling like filling in a form and starts feeling like handling paper.
+
+### New
+
+- **See and rearrange your pages.** Every page appears as a picture you can pick up and drag into a new order. Select one, a run of them, or the whole document, then turn them, copy them, throw them away, or slip in a blank — and watch it happen. Changed your mind? Undo takes it back.
+- **Sign a document.** Draw your signature with a mouse or finger, type your name and have it written out for you, or use a picture of a signature you already have. Then place it wherever it belongs. This puts your signature on the page the way a pen would — it isn't a digital certificate, and Omnio says so plainly rather than letting you assume otherwise.
+- **Build a table of contents.** Add bookmarks, rename them, nest them under one another, and move them around, so a long document opens with a proper contents list to jump from.
+
+### Improved
+
+- Page thumbnails appear as they finish drawing, so a long document is usable straight away instead of after the last page.
+
+### Fixed
+
+- Omnio reported its own version as `0.0.0-dev` with an unknown commit. Every screen that shows the version — About, Settings, the footer — was showing a build that never existed. It now reports the real release, and a build missing that information fails rather than shipping a file that misdescribes itself.
+
+### Known limitations
+
+- A signature is a picture of your signature, not a cryptographic one. It carries no proof of identity that software can check.
+- PDF/A (the long-term archival format) still isn't supported. Producing it properly needs a conversion engine Omnio doesn't yet carry, and a file that claims to be PDF/A without passing validation would be worse than none.
+- Turning Office documents into PDFs runs on your Omnio server rather than in your browser, so that one job does send the file off your device — unlike everything else here.
+
 ## [0.3.0-alpha] - 2026-07-23
 
 Omnio starts doing the heavy jobs for you — right on your own server, with nothing to download.
