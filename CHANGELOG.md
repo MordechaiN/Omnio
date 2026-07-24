@@ -9,6 +9,30 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ## [Unreleased]
 
+## [0.5.0-alpha] - 2026-07-24
+
+Your files now have a home. Omnio stops being a collection of separate tools and starts behaving like one application.
+
+### New
+
+- **Files.** Everything you drop into Omnio is kept, so it's still there tomorrow. Search it, pin what matters, tag it, and see it all as thumbnails you can select the way you would on your desktop — click, Shift-click for a run, Ctrl-click to pick out a few.
+- **A details panel that's always there.** Select a file and you immediately see a preview, its size and type, when it arrived, its tags, and its whole story: what it was made from, what you've made from it, and everything that's happened to it. No dialog to open, no waiting.
+- **Tools now pass files to each other.** Anything a tool produces lands back in your files, so the result of one job is ready for the next without saving to your downloads folder and dragging it back in.
+- **Quick look.** Press Space to see a file large, Escape to dismiss it. Enter or a double-click opens it in the tool that suits it best.
+- **Identical files are spotted for you.** Omnio recognises when two files hold exactly the same contents — not just similar names — and only ever stores one copy.
+
+### Improved
+
+- Deleting a file can be undone.
+- Thumbnails are remembered, so coming back to your files shows them straight away rather than redrawing everything.
+
+### Known limitations
+
+- Files are kept on this device, in this browser. They are not synced anywhere, and clearing your browser's data will clear them — treat exported copies as the real backup.
+- Private browsing usually forbids storing files. Omnio detects this and says so; tools still work, files just aren't remembered.
+- There are no folders. Tags, collections and search cover the same ground for now.
+
+
 ## [0.4.0-alpha] - 2026-07-24
 
 Working with a PDF's pages stops feeling like filling in a form and starts feeling like handling paper.
@@ -76,7 +100,9 @@ The first public version of Omnio: a private, self-hosted workspace with dozens 
 - **A workspace to work in** — search everything from one place, star your favorites, drop files straight onto the page, and jump around with the keyboard.
 - **Runs entirely on your device** — files never leave your browser, and there's no account to create.
 
-[Unreleased]: https://github.com/MordechaiN/Omnio/compare/v0.3.0-alpha...HEAD
+[Unreleased]: https://github.com/MordechaiN/Omnio/compare/v0.5.0-alpha...HEAD
+[0.5.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.4.0-alpha...v0.5.0-alpha
+[0.4.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.3.0-alpha...v0.4.0-alpha
 [0.3.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.2.0-alpha...v0.3.0-alpha
 [0.2.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.1.0-alpha.1...v0.2.0-alpha
 [0.1.0-alpha.1]: https://github.com/MordechaiN/Omnio/releases/tag/v0.1.0-alpha.1
