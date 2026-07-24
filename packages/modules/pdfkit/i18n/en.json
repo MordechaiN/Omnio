@@ -124,7 +124,7 @@
     },
     "pdf-edit": {
       "name": "Edit PDF",
-      "description": "Highlight, underline, draw shapes, add notes, freehand, and truly redact — one editor, on your device."
+      "description": "Highlight, underline, draw shapes, add notes, freehand, sign, and truly redact — one editor, on your device."
     },
     "pdf-fill-form": {
       "name": "Fill Form",
@@ -308,6 +308,22 @@
     "splitBmAction": "Split by bookmarks",
     "splitBmError": "Could not split this file.",
     "splitBmNone": "This PDF has no bookmarks to split by.",
-    "splitBmDone": "Split into {count} files and downloaded as a .zip."
+    "splitBmDone": "Split into {count} files and downloaded as a .zip.",
+    "editMode_signature": "Signature",
+    "sigTitle": "Signature",
+    "sigTab_draw": "Draw",
+    "sigTab_type": "Type",
+    "sigTab_image": "Upload",
+    "sigDrawLabel": "Draw your signature",
+    "sigClear": "Clear",
+    "sigUse": "Use this signature",
+    "sigTypePlaceholder": "Type your name",
+    "sigUploadLabel": "Upload a signature image",
+    "sigUploadHint": "A PNG with a transparent background looks best.",
+    "sigDisclaimer": "This adds a picture of your signature to the page. It is not a digital certificate and carries no cryptographic proof of identity.",
+    "sigCancel": "Cancel",
+    "sigCreate": "Create signature",
+    "sigChange": "Change signature",
+    "sigPlaceHint": "Drag on the page to place your signature."
   }
 }

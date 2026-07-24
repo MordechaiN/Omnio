@@ -3,6 +3,7 @@
 import { PDFDocument, StandardFonts, rgb, type RGB } from "pdf-lib";
 import type * as MupdfModule from "mupdf";
 import type { Annotation } from "../../shared/annotations.ts";
+import { dataUrlToPngBytes, fitSignatureRect } from "../../shared/signatures.ts";
 
 /**
  * Bake editor annotations into a PDF. Redactions run first through MuPDF, which
@@ -140,6 +141,24 @@ export async function bakeAnnotations(pdfBytes: Uint8Array, annotations: Annotat
           if (text) {
             page.drawText(text, { x: a.rect.x0 + 3, y: a.rect.y1 - 12, size: 9, font, color: rgb(0.1, 0.1, 0.1), maxWidth: Math.max(40, a.rect.x1 - a.rect.x0 - 6), lineHeight: 11 });
           }
+        }
+        break;
+      case "signature":
+        if (a.rect && a.image) {
+          // Letterbox inside the placed box so the mark is never stretched — a
+          // distorted signature reads as forged.
+          const natural = {
+            width: a.imageNaturalWidth ?? a.rect.x1 - a.rect.x0,
+            height: a.imageNaturalHeight ?? a.rect.y1 - a.rect.y0,
+          };
+          const fitted = fitSignatureRect(natural, a.rect);
+          const png = await doc.embedPng(dataUrlToPngBytes(a.image));
+          page.drawImage(png, {
+            x: fitted.x0,
+            y: fitted.y0,
+            width: fitted.x1 - fitted.x0,
+            height: fitted.y1 - fitted.y0,
+          });
         }
         break;
       default:

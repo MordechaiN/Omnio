@@ -8,10 +8,12 @@ import { normalizeRect, screenToPdf, type Annotation, type AnnotationKind, type 
 import { bakeAnnotations } from "../lib/pdf-editor.ts";
 import { loadPdfjsDocument, renderPageToCanvas } from "../lib/pdfjs.ts";
 import { downloadPdf, loadPdf, PdfDropZone, usePendingPdf, type LoadedPdf } from "../lib/pdf-file.tsx";
+import { SignaturePad } from "../lib/signature-pad.tsx";
+import type { VisualSignature } from "../../shared/signatures.ts";
 
 type Mode = AnnotationKind;
-const RECT_KINDS: Mode[] = ["highlight", "underline", "rect", "ellipse", "note", "redact"];
-const MODES: Mode[] = ["highlight", "underline", "rect", "ellipse", "line", "ink", "note", "redact"];
+const RECT_KINDS: Mode[] = ["highlight", "underline", "rect", "ellipse", "note", "signature", "redact"];
+const MODES: Mode[] = ["highlight", "underline", "rect", "ellipse", "line", "ink", "note", "signature", "redact"];
 
 interface PageInfo {
   widthPt: number;
@@ -42,6 +44,8 @@ export default function PdfEditTool() {
   const [annotations, setAnnotations] = useState<Annotation[]>([]);
   const [draft, setDraft] = useState<{ start: Point; current: Point; path: Point[] } | null>(null);
   const [editingNote, setEditingNote] = useState<string | null>(null);
+  const [signature, setSignature] = useState<VisualSignature | null>(null);
+  const [padOpen, setPadOpen] = useState(false);
 
   const reset = () => {
     setAnnotations([]);
@@ -118,7 +122,23 @@ export default function PdfEditTool() {
     let anno: Annotation | null = null;
     if (RECT_KINDS.includes(mode)) {
       const r = normalizeRect(draft.start, draft.current);
-      if (r.x1 - r.x0 > 1 && r.y1 - r.y0 > 1) anno = { ...base, rect: r, text: mode === "note" ? "" : undefined };
+      if (r.x1 - r.x0 > 1 && r.y1 - r.y0 > 1) {
+        anno = { ...base, rect: r, text: mode === "note" ? "" : undefined };
+        if (mode === "signature") {
+          // Nothing to stamp until a signature exists — drop the drag and ask.
+          if (!signature) {
+            setDraft(null);
+            setPadOpen(true);
+            return;
+          }
+          anno = {
+            ...anno,
+            image: signature.png,
+            imageNaturalWidth: signature.naturalWidth,
+            imageNaturalHeight: signature.naturalHeight,
+          };
+        }
+      }
     } else if (mode === "line") {
       anno = { ...base, path: [draft.start, draft.current] };
     } else if (mode === "ink") {
@@ -163,11 +183,21 @@ export default function PdfEditTool() {
                 size="sm"
                 variant={mode === m ? "primary" : "secondary"}
                 aria-pressed={mode === m}
-                onClick={() => setMode(m)}
+                onClick={() => {
+                  setMode(m);
+                  // Selecting the signature tool with nothing captured yet is a
+                  // request to capture one.
+                  if (m === "signature" && !signature) setPadOpen(true);
+                }}
               >
                 {t(`ui.editMode_${m}` as Parameters<typeof t>[0])}
               </Button>
             ))}
+            {mode === "signature" ? (
+              <Button type="button" size="sm" variant="secondary" onClick={() => setPadOpen(true)}>
+                {signature ? t("ui.sigChange") : t("ui.sigCreate")}
+              </Button>
+            ) : null}
             <label className="flex items-center gap-1 text-sm">
               <span>{t("ui.editColor")}</span>
               <input
@@ -182,6 +212,19 @@ export default function PdfEditTool() {
               {t("ui.editUndo")}
             </Button>
           </div>
+
+          {padOpen ? (
+            <SignaturePad
+              onCapture={(s) => {
+                setSignature(s);
+                setPadOpen(false);
+              }}
+              onCancel={() => setPadOpen(false)}
+            />
+          ) : null}
+          {mode === "signature" && signature && !padOpen ? (
+            <p className="text-sm text-text-muted">{t("ui.sigPlaceHint")}</p>
+          ) : null}
 
           <div ref={wrapRef} className="relative mx-auto max-w-full overflow-auto rounded-lg border border-border-subtle">
             <div className="relative" style={pageInfo ? { width: pageInfo.widthPt * scale, height: pageInfo.heightPt * scale } : { minHeight: 320 }}>
@@ -248,6 +291,13 @@ function AnnotationShape({ a, toScreen }: { a: Annotation; toScreen: (p: Point) 
     if (a.kind === "highlight") return <rect x={tl.x} y={tl.y} width={w} height={h} fill={a.color} opacity={0.35} />;
     if (a.kind === "note") return <rect x={tl.x} y={tl.y} width={w} height={h} fill={a.color} opacity={0.2} stroke={a.color} />;
     if (a.kind === "redact") return <rect x={tl.x} y={tl.y} width={w} height={h} fill="#000" />;
+    if (a.kind === "signature") {
+      // preserveAspectRatio mirrors fitSignatureRect's letterboxing, so what the
+      // canvas shows matches what gets baked.
+      return a.image ? (
+        <image href={a.image} x={tl.x} y={tl.y} width={w} height={h} preserveAspectRatio="xMidYMid meet" />
+      ) : null;
+    }
     if (a.kind === "underline") return <line x1={tl.x} y1={tl.y + h} x2={tl.x + w} y2={tl.y + h} stroke={a.color} strokeWidth={2} />;
     if (a.kind === "ellipse") return <ellipse cx={tl.x + w / 2} cy={tl.y + h / 2} rx={Math.abs(w / 2)} ry={Math.abs(h / 2)} fill="none" stroke={a.color} strokeWidth={2} />;
     return <rect x={tl.x} y={tl.y} width={w} height={h} fill="none" stroke={a.color} strokeWidth={2} />;

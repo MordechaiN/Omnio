@@ -13,6 +13,7 @@ export type AnnotationKind =
   | "line"
   | "ink"
   | "note"
+  | "signature"
   | "redact";
 
 export interface Point {
@@ -31,6 +32,13 @@ export interface Annotation {
   path?: Point[];
   /** For note: the text content. */
   text?: string;
+  /**
+   * For signature: a PNG data URL of the mark, plus its natural pixel size so
+   * placement can preserve the aspect ratio (see shared/signatures.ts).
+   */
+  image?: string;
+  imageNaturalWidth?: number;
+  imageNaturalHeight?: number;
 }
 
 /**

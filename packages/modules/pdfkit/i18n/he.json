@@ -124,7 +124,7 @@
     },
     "pdf-edit": {
       "name": "עריכת PDF",
-      "description": "הדגשה, קו תחתון, צורות, הערות, ציור חופשי ומחיקה אמיתית — עורך אחד, במכשיר שלך."
+      "description": "סימון, קו תחתון, צורות, הערות, ציור חופשי, חתימה והשחרה אמיתית — עורך אחד, במכשיר שלך."
     },
     "pdf-fill-form": {
       "name": "מילוי טופס",
@@ -308,6 +308,22 @@
     "splitBmAction": "פצל לפי סימניות",
     "splitBmError": "לא ניתן לפצל את הקובץ.",
     "splitBmNone": "ל־PDF הזה אין סימניות לפיצול.",
-    "splitBmDone": "פוצל ל־{count} קבצים והורד כ־zip."
+    "splitBmDone": "פוצל ל־{count} קבצים והורד כ־zip.",
+    "editMode_signature": "חתימה",
+    "sigTitle": "חתימה",
+    "sigTab_draw": "ציור",
+    "sigTab_type": "הקלדה",
+    "sigTab_image": "העלאה",
+    "sigDrawLabel": "צייר את חתימתך",
+    "sigClear": "נקה",
+    "sigUse": "השתמש בחתימה זו",
+    "sigTypePlaceholder": "הקלד את שמך",
+    "sigUploadLabel": "העלה תמונת חתימה",
+    "sigUploadHint": "קובץ PNG עם רקע שקוף ייראה הכי טוב.",
+    "sigDisclaimer": "פעולה זו מוסיפה תמונה של חתימתך לעמוד. אין זו תעודה דיגיטלית ואין בה הוכחת זהות קריפטוגרפית.",
+    "sigCancel": "ביטול",
+    "sigCreate": "צור חתימה",
+    "sigChange": "החלף חתימה",
+    "sigPlaceHint": "גרור על העמוד כדי למקם את החתימה."
   }
 }
