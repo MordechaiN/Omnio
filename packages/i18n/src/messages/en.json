@@ -136,7 +136,8 @@
     "noMatchesBody": "Try a different search, or clear the filters.",
     "unsupportedTitle": "Files can't be stored in this browser",
     "unsupportedBody": "Your browser won't let Omnio keep files on this device — this often happens in private browsing. Tools still work; files just won't be remembered between visits.",
-    "kindLabel": "Type"
+    "kindLabel": "Type",
+    "newTagPlaceholder": "New tag…"
   },
   "nav": {
     "home": "Home",

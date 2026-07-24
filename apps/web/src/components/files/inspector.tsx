@@ -54,6 +54,7 @@ export function Inspector({
   const relations = useRelations(file);
   const [renaming, setRenaming] = useState(false);
   const [draftName, setDraftName] = useState("");
+  const [newTag, setNewTag] = useState("");
 
   useEffect(() => {
     setRenaming(false);
@@ -173,6 +174,23 @@ export function Inspector({
             );
           })}
         </div>
+        <Input
+          value={newTag}
+          onChange={(e) => setNewTag(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key !== "Enter" || newTag.trim() === "") return;
+            // Create and apply in one keystroke — a separate "create tag" dialog
+            // would be two extra clicks for something this small.
+            void (async () => {
+              const tag = await workspace.createTag(newTag, TAG_COLORS[tags.length % TAG_COLORS.length]!);
+              await workspace.toggleTag(file.id, tag.id);
+              setNewTag("");
+            })();
+          }}
+          placeholder={t("newTagPlaceholder")}
+          aria-label={t("newTagPlaceholder")}
+          className="h-7 text-xs"
+        />
       </Section>
 
       {collections.length > 0 ? (
@@ -279,6 +297,9 @@ export function Inspector({
     </aside>
   );
 }
+
+/** A small, readable palette so tags are distinguishable without a colour picker. */
+const TAG_COLORS = ["#2563eb", "#059669", "#d97706", "#dc2626", "#7c3aed", "#0891b2"];
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (

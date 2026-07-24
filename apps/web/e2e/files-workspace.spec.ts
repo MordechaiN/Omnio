@@ -1,5 +1,12 @@
 import type { Page } from "@playwright/test";
+import { PDFDocument } from "pdf-lib";
 import { expect, test } from "./fixtures";
+
+async function samplePdf(pages = 2): Promise<Buffer> {
+  const doc = await PDFDocument.create();
+  for (let i = 0; i < pages; i += 1) doc.addPage([300, 400]);
+  return Buffer.from(await doc.save());
+}
 
 /**
  * Browser verification for the File Workspace. These drive real OPFS and
@@ -159,5 +166,39 @@ test.describe("file workspace", () => {
       await openWith.click();
       await expect(page).not.toHaveURL(/\/files$/);
     }
+  });
+
+  test("a tool's output lands back in the workspace", async ({ page }) => {
+    // Round trip: produce a PDF in a tool, then find it in Files. This is what
+    // makes tools compose without going through the downloads folder.
+    await page.goto("/tool/pdfkit/pdf-organize");
+    await page.locator('input[type="file"]').setInputFiles({
+      name: "roundtrip.pdf",
+      mimeType: "application/pdf",
+      buffer: await samplePdf(2),
+    });
+    await expect(page.getByText("2 pages")).toBeVisible();
+
+    const download = page.waitForEvent("download");
+    await page.getByRole("button", { name: "Save organized PDF" }).click();
+    await download;
+
+    await gotoFiles(page);
+    await expect(tile(page, "roundtrip-organized.pdf")).toBeVisible();
+  });
+
+  test("a tag can be created and applied in one keystroke", async ({ page }) => {
+    await gotoFiles(page);
+    await importFiles(page, [{ name: "tagme.txt", type: "text/plain", body: "tag" }]);
+    await tile(page, "tagme.txt").click();
+
+    const inspector = page.getByRole("complementary", { name: "File details" });
+    await inspector.getByLabel("New tag…").fill("Receipts");
+    await inspector.getByLabel("New tag…").press("Enter");
+
+    await expect(inspector.getByRole("button", { name: "Receipts" })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
   });
 });

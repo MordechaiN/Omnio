@@ -40,6 +40,17 @@ export function downloadPdf(bytes: Uint8Array, filename: string): void {
   anchor.download = filename;
   anchor.click();
   URL.revokeObjectURL(url);
+
+  // Also keep the result in the file workspace, so a tool's output can feed the
+  // next tool without a round trip through the downloads folder. Every PDF tool
+  // downloads through this one function, so hooking it here adopts the whole
+  // suite at once. Fire-and-forget: the download above is the guaranteed
+  // behaviour, and a workspace failure must never affect it.
+  window.dispatchEvent(
+    new CustomEvent("omnio:workspace-produce", {
+      detail: { blob, name: filename, mime: "application/pdf" },
+    }),
+  );
 }
 
 /**

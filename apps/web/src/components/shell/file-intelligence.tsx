@@ -196,6 +196,16 @@ export function FileIntelligence() {
       const detail = (event as CustomEvent<File>).detail;
       if (detail instanceof File) recordSessionFile(detail, "output");
     };
+    // A tool produced a file. Keep it in the workspace so its output can feed
+    // the next tool directly. Modules stay free of a workspace dependency by
+    // announcing this rather than importing the store themselves.
+    const onProduce = (event: Event) => {
+      const detail = (event as CustomEvent<{ blob: Blob; name: string; mime: string }>).detail;
+      if (!detail?.blob) return;
+      void workspace
+        .import(new File([detail.blob], detail.name, { type: detail.mime }))
+        .catch(() => undefined);
+    };
 
     window.addEventListener("dragenter", onDragEnter);
     window.addEventListener("dragleave", onDragLeave);
@@ -204,6 +214,7 @@ export function FileIntelligence() {
     window.addEventListener("paste", onPaste);
     window.addEventListener("omnio:inspect", onInspect);
     window.addEventListener("omnio:session-file", onSessionFile);
+    window.addEventListener("omnio:workspace-produce", onProduce);
     return () => {
       window.removeEventListener("dragenter", onDragEnter);
       window.removeEventListener("dragleave", onDragLeave);
@@ -212,6 +223,7 @@ export function FileIntelligence() {
       window.removeEventListener("paste", onPaste);
       window.removeEventListener("omnio:inspect", onInspect);
       window.removeEventListener("omnio:session-file", onSessionFile);
+      window.removeEventListener("omnio:workspace-produce", onProduce);
     };
   }, [openFiles]);
 
