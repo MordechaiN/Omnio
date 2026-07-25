@@ -162,7 +162,17 @@
     "copied": "הועתק",
     "noCollections": "אין עדיין אוספים.",
     "newCollectionPlaceholder": "אוסף חדש…",
-    "inspectorEmptyTitle": "לא נבחר דבר"
+    "inspectorEmptyTitle": "לא נבחר דבר",
+    "chains": "שרשראות",
+    "chainSteps": "שלבי השרשרת",
+    "chainProgress": "שלב {current} מתוך {total}",
+    "chainAdvancing": "מעביר את הקובץ הלאה…",
+    "chainGoToStep": "עבור לשלב",
+    "chainStop": "עצור שרשרת זו",
+    "chainNoticed": "עשית את זה בעבר",
+    "chainNoticedRepeated": "עשית את זה {count} פעמים",
+    "chainRun": "עשה זאת שוב",
+    "chainKeep": "שמור"
   },
   "nav": {
     "home": "בית",

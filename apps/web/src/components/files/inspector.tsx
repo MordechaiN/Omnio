@@ -30,9 +30,12 @@ export interface InspectorProps {
   collections: WorkspaceCollection[];
   events: WorkspaceEvent[];
   recommendations: Array<{ toolId: string; href: string; label: string }>;
-  onOpenWith: (href: string) => void;
+  /** toolId is required: it is what links the tool's output back to this file. */
+  onOpenWith: (href: string, toolId: string) => void;
   onSelectFile: (id: string) => void;
   onDelete: (id: string) => void;
+  /** Chain suggestions for this file, rendered by the workspace. */
+  chainSlot?: React.ReactNode;
   /** Set by the context menu's Rename action; puts the name field into edit mode. */
   renameRequestId?: string | null;
   onRenameHandled?: () => void;
@@ -48,6 +51,7 @@ export function Inspector({
   onOpenWith,
   onSelectFile,
   onDelete,
+  chainSlot,
   renameRequestId,
   onRenameHandled,
 }: InspectorProps) {
@@ -344,6 +348,8 @@ export function Inspector({
         </Section>
       ) : null}
 
+      {chainSlot}
+
       {recommendations.length > 0 ? (
         <Section title={t("openWith")}>
           <div className="flex flex-col gap-1">
@@ -353,7 +359,7 @@ export function Inspector({
                 size="sm"
                 variant="ghost"
                 className="justify-start"
-                onClick={() => onOpenWith(rec.href)}
+                onClick={() => onOpenWith(rec.href, rec.toolId)}
               >
                 <ExternalLink className="me-1.5 h-3.5 w-3.5" />
                 {rec.label}

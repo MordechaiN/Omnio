@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { setPendingFiles } from "@omnio/module-sdk";
 import { workspace } from "@omnio/workspace";
+import { takeHandoff } from "@/lib/provenance";
 import {
   Badge,
   Dialog,
@@ -202,8 +203,15 @@ export function FileIntelligence() {
     const onProduce = (event: Event) => {
       const detail = (event as CustomEvent<{ blob: Blob; name: string; mime: string }>).detail;
       if (!detail?.blob) return;
+      // Link the output to the file it was made from, when we know it. This is
+      // what lets Omnio learn a sequence from ordinary use rather than only
+      // inside an explicit chain run.
+      const handoff = takeHandoff();
       void workspace
-        .import(new File([detail.blob], detail.name, { type: detail.mime }))
+        .import(
+          new File([detail.blob], detail.name, { type: detail.mime }),
+          handoff ? { fromFileId: handoff.fileId, toolId: handoff.toolId } : undefined,
+        )
         .catch(() => undefined);
     };
 

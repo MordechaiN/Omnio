@@ -8,6 +8,7 @@
  * handle opens.
  */
 
+import type { Chain } from "./chains.ts";
 import type {
   SavedSearch,
   WorkspaceCollection,
@@ -17,7 +18,7 @@ import type {
 } from "./model.ts";
 
 const DB_NAME = "omnio-workspace";
-const DB_VERSION = 2;
+const DB_VERSION = 3;
 
 export const STORE_FILES = "files";
 export const STORE_TAGS = "tags";
@@ -25,6 +26,7 @@ export const STORE_COLLECTIONS = "collections";
 export const STORE_EVENTS = "events";
 export const STORE_THUMBS = "thumbs";
 export const STORE_SEARCHES = "searches";
+export const STORE_CHAINS = "chains";
 
 export interface ThumbRecord {
   fileId: string;
@@ -70,6 +72,9 @@ export function openWorkspaceDb(): Promise<IDBDatabase> {
       }
       if (!db.objectStoreNames.contains(STORE_SEARCHES)) {
         db.createObjectStore(STORE_SEARCHES, { keyPath: "id" });
+      }
+      if (!db.objectStoreNames.contains(STORE_CHAINS)) {
+        db.createObjectStore(STORE_CHAINS, { keyPath: "id" });
       }
     };
     request.onsuccess = () => resolve(request.result);
@@ -182,3 +187,14 @@ export const putSearch = (search: SavedSearch): Promise<IDBValidKey> =>
 
 export const deleteSearch = (id: string): Promise<undefined> =>
   withStore(STORE_SEARCHES, "readwrite", (s) => s.delete(id));
+
+/* ---------------------------------------------------------------- chains */
+
+export const getAllChains = (): Promise<Chain[]> =>
+  withStore(STORE_CHAINS, "readonly", (s) => s.getAll() as IDBRequest<Chain[]>);
+
+export const putChain = (chain: Chain): Promise<IDBValidKey> =>
+  withStore(STORE_CHAINS, "readwrite", (s) => s.put(chain));
+
+export const deleteChain = (id: string): Promise<undefined> =>
+  withStore(STORE_CHAINS, "readwrite", (s) => s.delete(id));

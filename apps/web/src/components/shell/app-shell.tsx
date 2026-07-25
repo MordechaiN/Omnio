@@ -5,6 +5,7 @@ import { SkipLink } from "@omnio/ui";
 import { Link } from "@/i18n/navigation";
 import { CommandPalette } from "./command-palette";
 import { FileIntelligence } from "./file-intelligence";
+import { ChainBar } from "@/components/files/chain-bar";
 import { LocaleMenu } from "./locale-menu";
 import { MobileNav } from "./mobile-nav";
 import { NavItems } from "./nav-items";
@@ -75,6 +76,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               </header>
 
               <main id="main" className="flex-1 bg-bg">
+                {/* A running chain follows the user between tools, so the bar
+                    lives in the shell rather than on any one page. */}
+                <ChainBar />
                 {children}
               </main>
             </div>

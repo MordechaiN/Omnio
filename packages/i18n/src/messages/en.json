@@ -162,7 +162,17 @@
     "copied": "Copied",
     "noCollections": "No collections yet.",
     "newCollectionPlaceholder": "New collection…",
-    "inspectorEmptyTitle": "Nothing selected"
+    "inspectorEmptyTitle": "Nothing selected",
+    "chains": "Chains",
+    "chainSteps": "Chain steps",
+    "chainProgress": "Step {current} of {total}",
+    "chainAdvancing": "Passing the file on…",
+    "chainGoToStep": "Go to step",
+    "chainStop": "Stop this chain",
+    "chainNoticed": "You did this before",
+    "chainNoticedRepeated": "You've done this {count} times",
+    "chainRun": "Do it again",
+    "chainKeep": "Keep"
   },
   "nav": {
     "home": "Home",

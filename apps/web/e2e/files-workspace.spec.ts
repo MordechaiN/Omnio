@@ -385,8 +385,11 @@ test.describe("file workspace", () => {
 
     await tile(page, "named.pdf").click();
     const inspector = page.getByRole("complementary", { name: "File details" });
-    await expect(inspector.getByRole("button", { name: "Merge PDFs" })).toBeVisible();
-    // The internal id must never reach the screen.
-    await expect(inspector.getByText("pdf-merge")).toBeHidden();
+    await expect(inspector.getByRole("button", { name: "Rotate PDF" })).toBeVisible();
+    // Internal ids must never reach the screen.
+    await expect(inspector.getByText(/^pdf-[a-z]+$/)).toBeHidden();
+    // A tool needing several files is not offered for one, however high its
+    // configured priority — "Merge PDFs" can do nothing with a single document.
+    await expect(inspector.getByRole("button", { name: "Merge PDFs" })).toBeHidden();
   });
 });

@@ -41,7 +41,7 @@ export function FileContextMenu({
   collections: WorkspaceCollection[];
   recommendations: Array<{ toolId: string; href: string; label: string }>;
   onOpen: () => void;
-  onOpenWith: (href: string) => void;
+  onOpenWith: (href: string, toolId: string) => void;
   onQuickLook: () => void;
   onRename: () => void;
   onDuplicate: () => void;
@@ -66,7 +66,7 @@ export function FileContextMenu({
           <ContextMenuSubTrigger>{t("openWith")}</ContextMenuSubTrigger>
           <ContextMenuSubContent>
             {recommendations.map((rec) => (
-              <ContextMenuItem key={rec.toolId} onSelect={() => onOpenWith(rec.href)}>
+              <ContextMenuItem key={rec.toolId} onSelect={() => onOpenWith(rec.href, rec.toolId)}>
                 {rec.label}
               </ContextMenuItem>
             ))}

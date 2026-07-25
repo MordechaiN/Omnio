@@ -38,6 +38,8 @@ import { SEARCH_ENTRIES } from "@/generated/registry.search";
 import { FileGrid, type ThumbSize, type ViewMode } from "./file-grid";
 import { FileContextMenu } from "./file-context-menu";
 import { installPdfThumbnailer } from "@/lib/pdf-thumbnail";
+import { ChainSuggestions } from "./chain-suggestions";
+import { rememberHandoff } from "@/lib/provenance";
 import { Inspector } from "./inspector";
 import { QuickPreview } from "./quick-preview";
 
@@ -48,13 +50,22 @@ const SIZE_OPTIONS: Array<{ value: ThumbSize; dot: number }> = [
   { value: "l", dot: 13 },
 ];
 
-/** Tools that accept this file, best match first. */
-function recommendationsFor(file: WorkspaceFile | null) {
+/**
+ * Tools that accept this file, best match first.
+ *
+ * Tools that only make sense on several files at once are demoted when a single
+ * file is selected. Leading with "Merge PDFs" for one document — a tool that
+ * cannot do anything until a second file arrives — is a worse first impression
+ * than showing nothing.
+ */
+function recommendationsFor(file: WorkspaceFile | null, selectionSize = 1) {
   if (!file) return [];
   const mime = normalizeMime(file.mime, file.name);
   return SEARCH_ENTRIES.flatMap((entry) => {
     const accept = entry.accepts.find((a) => a.mime.some((p) => mimeMatches(p, mime)));
-    return accept ? [{ entry, priority: accept.priority ?? 50 }] : [];
+    if (!accept) return [];
+    const needsMany = accept.multiple === true && selectionSize < 2;
+    return [{ entry, priority: (accept.priority ?? 50) - (needsMany ? 100 : 0) }];
   })
     .sort((a, b) => b.priority - a.priority)
     .slice(0, 6);
@@ -67,7 +78,7 @@ export function FilesWorkspace() {
   const tSort = useTranslations("files.sort");
   const tSize = useTranslations("files.size");
   const router = useRouter();
-  const { files, tags, collections, events, searches, ready, supported } = useWorkspace();
+  const { files, tags, collections, events, searches, chains, ready, supported } = useWorkspace();
 
   // Teach the workspace to render PDF pages. Registered from the app so the
   // storage layer never depends on a rendering engine.
@@ -125,7 +136,10 @@ export function FilesWorkspace() {
   const { selected, select, selectAll, clear } = useSelection(visible);
   const activeId = focusedId && selected.has(focusedId) ? focusedId : [...selected][0] ?? null;
   const activeFile = useMemo(() => files.find((f) => f.id === activeId) ?? null, [files, activeId]);
-  const recommendations = useMemo(() => recommendationsFor(activeFile), [activeFile]);
+  const recommendations = useMemo(
+    () => recommendationsFor(activeFile, selected.size),
+    [activeFile, selected.size],
+  );
 
   /**
    * Tool entries carry an i18n namespace and name key; the internal id is not a
@@ -141,6 +155,8 @@ export function FilesWorkspace() {
     async (href: string, fileId: string, toolId?: string) => {
       const handle = await workspace.openFile(fileId, toolId);
       if (!handle) return;
+      // Remember where this came from so the tool's output can be linked back.
+      if (toolId) rememberHandoff(fileId, toolId);
       setPendingFiles([handle]);
       router.push(href);
     },
@@ -535,7 +551,7 @@ export function FilesWorkspace() {
                     label: labelFor(r.entry),
                   }))}
                   onOpen={() => activate(file.id)}
-                  onOpenWith={(href) => void openWith(href, file.id)}
+                  onOpenWith={(href, toolId) => void openWith(href, file.id, toolId)}
                   onQuickLook={() => setPreviewId(file.id)}
                   onRename={() => setRenameId(file.id)}
                   onDuplicate={() => void duplicateSelection(file.id)}
@@ -558,14 +574,27 @@ export function FilesWorkspace() {
             href: r.entry.href,
             label: labelFor(r.entry),
           }))}
-          onOpenWith={(href) => {
-            if (activeId) void openWith(href, activeId);
+          onOpenWith={(href, toolId) => {
+            if (activeId) void openWith(href, activeId, toolId);
           }}
           onSelectFile={(id) => {
             setFocusedId(id);
             select(id, {});
           }}
           onDelete={() => void removeSelected()}
+          chainSlot={
+            activeFile ? (
+              <ChainSuggestions
+                file={activeFile}
+                files={files}
+                chains={chains}
+                onStarted={(toolId, fileId) => {
+                  const entry = SEARCH_ENTRIES.find((e) => e.toolId === toolId);
+                  if (entry) void openWith(entry.href, fileId, toolId);
+                }}
+              />
+            ) : null
+          }
           renameRequestId={renameId}
           onRenameHandled={() => setRenameId(null)}
         />

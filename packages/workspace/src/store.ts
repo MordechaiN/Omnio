@@ -18,6 +18,7 @@ import {
   putBlob,
   requestPersistence,
 } from "./blobs.ts";
+import type { Chain } from "./chains.ts";
 import * as db from "./db.ts";
 import {
   selectForEviction,
@@ -37,6 +38,7 @@ export interface WorkspaceSnapshot {
   collections: WorkspaceCollection[];
   events: WorkspaceEvent[];
   searches: SavedSearch[];
+  chains: Chain[];
   ready: boolean;
   /** False when the browser denies OPFS/IndexedDB (e.g. some private modes). */
   supported: boolean;
@@ -48,6 +50,7 @@ const EMPTY: WorkspaceSnapshot = {
   collections: [],
   events: [],
   searches: [],
+  chains: [],
   ready: false,
   supported: true,
 };
@@ -95,14 +98,15 @@ class WorkspaceStore {
         return;
       }
       void requestPersistence();
-      const [files, tags, collections, events, searches] = await Promise.all([
+      const [files, tags, collections, events, searches, chains] = await Promise.all([
         db.getAllFiles(),
         db.getAllTags(),
         db.getAllCollections(),
         db.getAllEvents(),
         db.getAllSearches(),
+        db.getAllChains(),
       ]);
-      this.commit({ files, tags, collections, events, searches, ready: true, supported: true });
+      this.commit({ files, tags, collections, events, searches, chains, ready: true, supported: true });
     })();
     return this.loading;
   };
@@ -253,6 +257,22 @@ class WorkspaceStore {
     await this.record(copy.id, "imported");
     return copy;
   };
+
+  saveChain = async (chain: Chain): Promise<void> => {
+    await db.putChain(chain);
+    const chains = this.snapshot.chains.some((c) => c.id === chain.id)
+      ? this.snapshot.chains.map((c) => (c.id === chain.id ? chain : c))
+      : [...this.snapshot.chains, chain];
+    this.commit({ chains });
+  };
+
+  removeChain = async (id: string): Promise<void> => {
+    await db.deleteChain(id);
+    this.commit({ chains: this.snapshot.chains.filter((c) => c.id !== id) });
+  };
+
+  /** A stable id for new records, exposed so callers can build a Chain. */
+  newId = (): string => newId();
 
   saveSearch = async (name: string, query: SearchQuery): Promise<SavedSearch> => {
     const search: SavedSearch = { id: newId(), name: name.trim(), query, createdAt: Date.now() };
