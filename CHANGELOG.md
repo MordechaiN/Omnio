@@ -9,6 +9,21 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ## [Unreleased]
 
+## [0.7.0-alpha] - 2026-07-25
+
+Omnio starts remembering how you work.
+
+### 🚀 New
+
+- **Chains.** Do something once — rotate a scan, then compress it — and Omnio notices. The next time you open a file like it, Omnio offers to do the same again, and hands the result from one step to the next by itself. No saving to your downloads folder and dragging it back in. You never have to build anything: doing the work once is all the setup there is.
+- **A running chain follows you.** A strip along the top shows where you are, what is left, and lets you stop at any point. Keep a chain you like and it stays available.
+- **Files remember where they came from.** Anything a tool makes is now linked to the file it was made from, so the details panel can show you the whole story of a document.
+
+### ✨ Improved
+
+- Suggestions no longer offer tools that need several files when you have selected one — "Merge PDFs" can do nothing with a single document.
+
+
 ## [0.6.1-alpha] - 2026-07-25
 
 A polish pass from using Omnio the way you do, rather than checking that it works.
@@ -139,7 +154,8 @@ The first public version of Omnio: a private, self-hosted workspace with dozens 
 - **A workspace to work in** — search everything from one place, star your favorites, drop files straight onto the page, and jump around with the keyboard.
 - **Runs entirely on your device** — files never leave your browser, and there's no account to create.
 
-[Unreleased]: https://github.com/MordechaiN/Omnio/compare/v0.6.1-alpha...HEAD
+[Unreleased]: https://github.com/MordechaiN/Omnio/compare/v0.7.0-alpha...HEAD
+[0.7.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.6.1-alpha...v0.7.0-alpha
 [0.6.1-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.6.0-alpha...v0.6.1-alpha
 [0.6.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.5.0-alpha...v0.6.0-alpha
 [0.5.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.4.0-alpha...v0.5.0-alpha
