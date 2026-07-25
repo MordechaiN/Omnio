@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { setPendingFiles } from "@omnio/module-sdk";
-import { workspace } from "@omnio/workspace";
+import { hashBytes, recognizeByHash, workspace, type Recognition } from "@omnio/workspace";
 import { takeHandoff } from "@/lib/provenance";
 import {
   Badge,
@@ -14,7 +14,7 @@ import {
   Spinner,
 } from "@omnio/ui";
 import { DynamicIcon, type IconName } from "lucide-react/dynamic";
-import { ChevronRight, FileQuestion, Files, Sparkles } from "lucide-react";
+import { ChevronRight, FileQuestion, Files, RotateCcw, Sparkles } from "lucide-react";
 import { useRouter } from "@/i18n/navigation";
 import {
   classifyKind,
@@ -116,9 +116,27 @@ export function FileIntelligence() {
   const [intel, setIntel] = useState<FileIntel | null>(null);
   const [multi, setMulti] = useState<MultiIntel | null>(null);
   const [inspecting, setInspecting] = useState(false);
+  /** Work already done on these exact bytes, known before anything is imported. */
+  const [known, setKnown] = useState<Recognition | null>(null);
 
   const openFiles = useCallback(async (incoming: File[], record: boolean) => {
     if (incoming.length === 0) return;
+    setKnown(null);
+
+    // Before offering a single thing to do, check whether it has been done.
+    // The hash of the incoming bytes is enough — the file does not need to be
+    // imported first — so the finished work can lead instead of a tool list.
+    if (incoming.length === 1) {
+      void (async () => {
+        try {
+          const hash = await hashBytes(await incoming[0]!.arrayBuffer());
+          const snapshot = workspace.getSnapshot();
+          setKnown(recognizeByHash(hash, snapshot.files, snapshot.events));
+        } catch {
+          // Recognition is a bonus; failing to compute it must change nothing.
+        }
+      })();
+    }
     if (record) for (const file of incoming) recordSessionFile(file, "dropped");
     // Keep a durable copy in the file workspace. Deliberately not awaited: the
     // inspection below must appear instantly, and hashing a large file would
@@ -320,6 +338,58 @@ export function FileIntelligence() {
                   ) : null}
                 </div>
               </div>
+
+              {/* If this work already exists, it outranks everything below —
+                  the useful move is handing it back, not offering to redo it. */}
+              {known && known.results.length > 0 ? (
+                <div className="flex flex-col gap-2 rounded-xl border border-accent/40 bg-accent/5 p-3">
+                  <p className="flex items-start gap-2 text-start text-sm">
+                    <RotateCcw size={15} className="mt-0.5 shrink-0 text-accent" aria-hidden="true" />
+                    <span>
+                      <span className="block font-medium">{t("dropzone.seenBefore")}</span>
+                      <span className="block text-xs text-text-muted">
+                        {t("dropzone.seenBeforeReason")}
+                      </span>
+                    </span>
+                  </p>
+                  <div className="flex flex-col gap-1.5">
+                    {known.results.slice(0, 2).map((result) => {
+                      const toolEntry = SEARCH_ENTRIES.find((e) => e.toolId === result.toolId);
+                      const toolName = toolEntry
+                        ? t(`${toolEntry.i18nNamespace}.${toolEntry.nameKey}` as Parameters<typeof t>[0])
+                        : result.toolId;
+                      return (
+                        <button
+                          key={result.file.id}
+                          type="button"
+                          onClick={() => {
+                            void (async () => {
+                              const handle = await workspace.openFile(result.file.id);
+                              if (handle) {
+                                const url = URL.createObjectURL(handle);
+                                const anchor = document.createElement("a");
+                                anchor.href = url;
+                                anchor.download = handle.name;
+                                anchor.click();
+                                URL.revokeObjectURL(url);
+                              }
+                              setIntel(null);
+                            })();
+                          }}
+                          className="flex items-center gap-2 rounded-lg border border-border-subtle bg-surface px-3 py-2 text-start text-sm transition-colors hover:bg-surface-raised"
+                        >
+                          <span className="min-w-0 flex-1 truncate">
+                            {t("dropzone.seenBeforeGet", { tool: toolName })}
+                          </span>
+                          <span dir="ltr" className="shrink-0 truncate text-xs text-text-muted">
+                            {result.file.name}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : null}
 
               {intel.facts.textPreview ? (
                 <pre

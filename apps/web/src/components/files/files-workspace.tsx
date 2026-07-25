@@ -40,6 +40,7 @@ import { FileContextMenu } from "./file-context-menu";
 import { installPdfThumbnailer } from "@/lib/pdf-thumbnail";
 import { ChainSuggestions } from "./chain-suggestions";
 import { FileInsights } from "./file-insights";
+import { FileRecognition } from "./file-recognition";
 import { rememberHandoff } from "@/lib/provenance";
 import { Inspector } from "./inspector";
 import { QuickPreview } from "./quick-preview";
@@ -585,11 +586,24 @@ export function FilesWorkspace() {
           onDelete={() => void removeSelected()}
           insightSlot={
             activeFile ? (
+              <>
+                {/* Recognition leads: a finished file is worth more than an
+                    observation about the one in hand. */}
+                <FileRecognition
+                  file={activeFile}
+                  files={files}
+                  events={events}
+                  onOpenResult={(id) => {
+                    setFocusedId(id);
+                    select(id, {});
+                  }}
+                />
               <FileInsights
                 file={activeFile}
                 files={files}
                 onOpenWith={(href, toolId) => void openWith(href, activeFile.id, toolId)}
-              />
+                />
+              </>
             ) : null
           }
           chainSlot={

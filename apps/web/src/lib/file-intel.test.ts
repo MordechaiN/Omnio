@@ -183,3 +183,18 @@ describe("fileExtension", () => {
     expect(fileExtension(".hidden")).toBe("");
   });
 });
+
+describe("smartActions single-file ranking", () => {
+  it("demotes tools that need several files when only one was dropped", () => {
+    const entries = [
+      entry("merge", [{ mime: ["application/pdf"], priority: 90, multiple: true }]),
+      entry("rotate", [{ mime: ["application/pdf"], priority: 60 }]),
+    ];
+    const actions = smartActions(
+      { kind: "pdf", mime: "application/pdf", size: 1000, facts: {} },
+      entries,
+    );
+    // Merge outranks rotate on paper, but can do nothing with one file.
+    expect(actions[0]!.entry.toolId).toBe("rotate");
+  });
+});

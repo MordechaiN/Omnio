@@ -197,6 +197,10 @@ export function smartActions(
     if (!matched) continue;
     if (matched.maxSizeMB !== undefined && intel.size > matched.maxSizeMB * 1024 * 1024) continue;
     let score = matched.priority ?? 50;
+    // A tool that only makes sense on several files cannot do anything with the
+    // one just dropped. Leading with "Merge PDFs" for a single document is a
+    // worse first impression than not offering it at all.
+    if (matched.multiple === true) score -= 100;
     let reasonKey: string | undefined;
     for (const nudge of nudges) {
       if (nudge.toolId === entry.toolId) {

@@ -191,7 +191,10 @@
     "continueRemove": "הסר מ‏המשך",
     "continueForgetTool": "הפסק לעקוב אחר {tool}",
     "continueOptions": "אפשרויות עבור {file}",
-    "recentTitle": "אחרונים"
+    "recentTitle": "אחרונים",
+    "seenBefore": "כבר היה לך הקובץ הזה",
+    "seenBeforeReason": "אותו תוכן בדיוק הגיע {when}. אין צורך לבצע את העבודה שוב.",
+    "seenBeforeResult": "פתח את התוצאה של {tool}"
   },
   "nav": {
     "home": "בית",
@@ -287,7 +290,10 @@
       "markdown": "Markdown",
       "text": "טקסט",
       "other": "אחר"
-    }
+    },
+    "seenBefore": "כבר עשית את זה",
+    "seenBeforeReason": "הקובץ הזה בדיוק כבר היה אצלך. הגרסה המוכנה עדיין כאן.",
+    "seenBeforeGet": "קבל את הגרסה של {tool}"
   },
   "workspaceSession": {
     "title": "הפעלה נוכחית",

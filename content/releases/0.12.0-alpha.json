@@ -1,0 +1,41 @@
+{
+  "version": "0.12.0-alpha",
+  "date": "2026-07-25",
+  "headline": {
+    "en": "Omnio recognises a file you've handled before — and hands back the finished work.",
+    "he": "Omnio מזהה קובץ שכבר טיפלת בו — ומחזיר לך את העבודה המוגמרת."
+  },
+  "sections": [
+    {
+      "type": "new",
+      "items": [
+        {
+          "en": "Drop a file you have worked on before and Omnio recognises it — even under a different name, even months later — and offers the finished version straight away, before it offers to do anything. The scan you made searchable last month is still here; there is no reason to wait for it twice.",
+          "he": "גרור קובץ שכבר עבדת עליו ו-Omnio יזהה אותו — גם בשם אחר, גם אחרי חודשים — ויציע לך מיד את הגרסה המוגמרת, עוד לפני שיציע לעשות משהו. הסריקה שהפכת לניתנת לחיפוש בחודש שעבר עדיין כאן; אין סיבה להמתין לה פעמיים."
+        },
+        {
+          "en": "Recognition is based on the contents of the file, not its name, so renaming, re-downloading or receiving it again from someone else changes nothing.",
+          "he": "הזיהוי מבוסס על תוכן הקובץ ולא על שמו, כך ששינוי שם, הורדה מחדש או קבלה חוזרת ממישהו אחר אינם משנים דבר."
+        }
+      ]
+    },
+    {
+      "type": "improved",
+      "items": [
+        {
+          "en": "When you drop a single file, Omnio no longer suggests tools that need several files to do anything.",
+          "he": "כשגוררים קובץ בודד, Omnio כבר לא מציע כלים שדורשים כמה קבצים כדי לפעול."
+        }
+      ]
+    },
+    {
+      "type": "known",
+      "items": [
+        {
+          "en": "Recognition needs the earlier result to still be in your files. If you removed it, Omnio will not offer something it no longer has.",
+          "he": "הזיהוי מחייב שהתוצאה הקודמת עדיין תהיה בקבצים שלך. אם מחקת אותה, Omnio לא יציע דבר שאין לו."
+        }
+      ]
+    }
+  ]
+}

@@ -191,7 +191,10 @@
     "continueRemove": "Remove from Continue",
     "continueForgetTool": "Stop tracking {tool}",
     "continueOptions": "Options for {file}",
-    "recentTitle": "Recent"
+    "recentTitle": "Recent",
+    "seenBefore": "You've had this file before",
+    "seenBeforeReason": "The same contents arrived {when}. You don't have to do the work again.",
+    "seenBeforeResult": "Open the {tool} result"
   },
   "nav": {
     "home": "Home",
@@ -287,7 +290,10 @@
       "markdown": "Markdown",
       "text": "Text",
       "other": "Other"
-    }
+    },
+    "seenBefore": "You've done this before",
+    "seenBeforeReason": "You've had this exact file before. The finished version is still here.",
+    "seenBeforeGet": "Get the {tool} version"
   },
   "workspaceSession": {
     "title": "This session",

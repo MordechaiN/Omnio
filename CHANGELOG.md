@@ -9,6 +9,24 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ## [Unreleased]
 
+## [0.12.0-alpha] - 2026-07-25
+
+Omnio recognises a file you've handled before — and hands back the finished work.
+
+### 🚀 New
+
+- **Drop a file you have worked on before and Omnio recognises it** — even under a different name, even months later — and offers the finished version straight away, before it offers to do anything.
+- **Recognition is based on contents, not names**, so renaming, re-downloading or receiving the file again from someone else changes nothing.
+
+### ✨ Improved
+
+- Dropping a single file no longer suggests tools that need several files to do anything.
+
+### ⚠️ Known limitations
+
+- Recognition needs the earlier result to still be in your files. If you removed it, Omnio will not offer something it no longer has.
+
+
 ## [0.11.0-alpha] - 2026-07-25
 
 Home stops listing things and starts showing your work.
@@ -213,7 +231,8 @@ The first public version of Omnio: a private, self-hosted workspace with dozens 
 - **A workspace to work in** — search everything from one place, star your favorites, drop files straight onto the page, and jump around with the keyboard.
 - **Runs entirely on your device** — files never leave your browser, and there's no account to create.
 
-[Unreleased]: https://github.com/MordechaiN/Omnio/compare/v0.11.0-alpha...HEAD
+[Unreleased]: https://github.com/MordechaiN/Omnio/compare/v0.12.0-alpha...HEAD
+[0.12.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.11.0-alpha...v0.12.0-alpha
 [0.11.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.10.0-alpha...v0.11.0-alpha
 [0.10.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.9.0-alpha...v0.10.0-alpha
 [0.9.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.8.0-alpha...v0.9.0-alpha
