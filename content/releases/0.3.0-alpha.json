@@ -1,0 +1,19 @@
+{
+  "version": "0.3.0-alpha",
+  "date": "2026-07-23",
+  "headline": {
+    "en": "Omnio starts doing heavier jobs for you.",
+    "he": "Omnio מתחיל לבצע עבורך עבודות כבדות יותר."
+  },
+  "sections": [
+    {
+      "type": "new",
+      "items": [
+        {
+          "en": "Turn Word, Excel and PowerPoint files into faithful PDFs. The conversion runs privately on your own Omnio — your file never goes to an outside service.",
+          "he": "המרת קבצי Word, Excel ו-PowerPoint ל-PDF נאמן למקור. ההמרה מתבצעת באופן פרטי ב-Omnio שלך — הקובץ לא נשלח לשום שירות חיצוני."
+        }
+      ]
+    }
+  ]
+}

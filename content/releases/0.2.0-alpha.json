@@ -1,0 +1,35 @@
+{
+  "version": "0.2.0-alpha",
+  "date": "2026-07-23",
+  "headline": {
+    "en": "Omnio grows into a genuine PDF workspace.",
+    "he": "Omnio הופך לסביבת עבודה אמיתית למסמכי PDF."
+  },
+  "sections": [
+    {
+      "type": "new",
+      "items": [
+        {
+          "en": "Turn a scanned document into a searchable one. Omnio reads the words in a scan so you can search and copy from what used to be just a picture.",
+          "he": "הפוך מסמך סרוק למסמך שניתן לחפש בו. Omnio קורא את המילים בסריקה כדי שתוכל לחפש ולהעתיק ממה שהיה עד כה רק תמונה."
+        },
+        {
+          "en": "A real PDF editor — highlight, underline, draw, add notes, and truly redact. Redaction removes what is underneath rather than hiding it behind a black box.",
+          "he": "עורך PDF אמיתי — סימון, קו תחתון, ציור, הערות והשחרה אמיתית. ההשחרה מסירה את מה שמתחת ולא רק מסתירה מאחורי מלבן שחור."
+        },
+        {
+          "en": "Fill in PDF forms and lock your answers so they cannot be changed.",
+          "he": "מילוי טפסי PDF ונעילת התשובות כך שלא ניתן יהיה לשנותן."
+        },
+        {
+          "en": "Pull every picture out of a PDF, or lift out files attached to it.",
+          "he": "חילוץ כל התמונות מתוך PDF, או שליפת קבצים המצורפים אליו."
+        },
+        {
+          "en": "Repair a damaged PDF, split a long one into chapters, prepare one for the web, or strip hidden content.",
+          "he": "תיקון PDF פגום, פיצול מסמך ארוך לפרקים, הכנה לצפייה מהירה באינטרנט, או ניקוי תוכן מוסתר."
+        }
+      ]
+    }
+  ]
+}

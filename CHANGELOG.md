@@ -9,6 +9,20 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ## [Unreleased]
 
+## [0.9.0-alpha] - 2026-07-25
+
+Omnio notices what you left unfinished — and now speaks your language everywhere.
+
+### 🚀 New
+
+- **Omnio notices work you started and never kept.** Open a document in a tool, get distracted, close the tab — it will be waiting for you, with a way straight back to where you were. It stays quiet while you are still working, and says nothing once you have saved something.
+- **What's New is now written in your language** — every release, all the way back to the first, not only the newest.
+
+### ✨ Improved
+
+- Release notes are written rather than machine-translated, so they read as though Omnio was made in your language.
+
+
 ## [0.8.0-alpha] - 2026-07-25
 
 Omnio starts paying attention.
@@ -168,7 +182,8 @@ The first public version of Omnio: a private, self-hosted workspace with dozens 
 - **A workspace to work in** — search everything from one place, star your favorites, drop files straight onto the page, and jump around with the keyboard.
 - **Runs entirely on your device** — files never leave your browser, and there's no account to create.
 
-[Unreleased]: https://github.com/MordechaiN/Omnio/compare/v0.8.0-alpha...HEAD
+[Unreleased]: https://github.com/MordechaiN/Omnio/compare/v0.9.0-alpha...HEAD
+[0.9.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.8.0-alpha...v0.9.0-alpha
 [0.8.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.7.0-alpha...v0.8.0-alpha
 [0.7.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.6.1-alpha...v0.7.0-alpha
 [0.6.1-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.6.0-alpha...v0.6.1-alpha

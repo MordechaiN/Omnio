@@ -1,0 +1,36 @@
+{
+  "version": "0.7.0-alpha",
+  "date": "2026-07-25",
+  "headline": {
+    "en": "Omnio starts remembering how you work.",
+    "he": "Omnio מתחיל לזכור איך אתה עובד."
+  },
+  "sections": [
+    {
+      "type": "new",
+      "items": [
+        {
+          "en": "Chains. Do something once — rotate a scan, then compress it — and Omnio notices. Next time it offers to do the same again, handing the result from one step to the next by itself. There is nothing to build: doing the work once is all the setup there is.",
+          "he": "שרשראות. בצע פעולה פעם אחת — סובב סריקה ואז כווץ אותה — ו-Omnio שם לב. בפעם הבאה הוא יציע לחזור על אותו רצף, ויעביר את התוצאה משלב לשלב בעצמו. אין מה לבנות: עצם ביצוע העבודה פעם אחת הוא כל ההגדרה הנדרשת."
+        },
+        {
+          "en": "A running chain follows you, showing where you are and what is left, and stops whenever you like.",
+          "he": "שרשרת פעילה מלווה אותך, מראה היכן אתה עומד ומה נותר, ונעצרת בכל רגע שתבחר."
+        },
+        {
+          "en": "Files remember where they came from, so a document's whole story can be shown.",
+          "he": "קבצים זוכרים מהיכן הגיעו, כך שניתן להציג את כל הסיפור של המסמך."
+        }
+      ]
+    },
+    {
+      "type": "known",
+      "items": [
+        {
+          "en": "A chain pauses at each step, because tools ask for their own settings rather than guessing what you meant.",
+          "he": "שרשרת עוצרת בכל שלב, מפני שהכלים מבקשים את ההגדרות שלהם במקום לנחש למה התכוונת."
+        }
+      ]
+    }
+  ]
+}

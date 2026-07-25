@@ -1,0 +1,48 @@
+{
+  "version": "0.5.0-alpha",
+  "date": "2026-07-24",
+  "headline": {
+    "en": "Your files get a home. Omnio stops being separate tools and starts behaving like one application.",
+    "he": "לקבצים שלך יש עכשיו בית. Omnio מפסיק להיות אוסף כלים נפרדים ומתחיל להתנהג כמו יישום אחד."
+  },
+  "sections": [
+    {
+      "type": "new",
+      "items": [
+        {
+          "en": "Files. Everything you drop into Omnio is kept, so it is still there tomorrow. Search it, pin what matters, and select the way you would on your desktop.",
+          "he": "קבצים. כל מה שאתה גורר אל Omnio נשמר, כך שהוא יהיה שם גם מחר. אפשר לחפש, לנעוץ את מה שחשוב, ולבחור בדיוק כמו בשולחן העבודה."
+        },
+        {
+          "en": "A details panel that is always there — a preview, the facts, and the whole story of a document: what it started as, and everything done to it since.",
+          "he": "חלונית פרטים שנמצאת שם תמיד — תצוגה מקדימה, הנתונים, וכל הסיפור של המסמך: ממה הוא התחיל וכל מה שנעשה בו מאז."
+        },
+        {
+          "en": "Tools pass files to each other, so one job's result is ready for the next without going through your downloads folder.",
+          "he": "הכלים מעבירים קבצים ביניהם, כך שתוצאה של פעולה אחת מוכנה לפעולה הבאה בלי לעבור דרך תיקיית ההורדות."
+        },
+        {
+          "en": "Quick look: press Space to see a file large, Escape to dismiss it.",
+          "he": "הצצה מהירה: לחיצה על רווח מציגה את הקובץ בגדול, Escape סוגר."
+        },
+        {
+          "en": "Identical files are spotted by their contents, not their names, and stored only once.",
+          "he": "קבצים זהים מזוהים לפי התוכן שלהם ולא לפי השם, ונשמרים פעם אחת בלבד."
+        }
+      ]
+    },
+    {
+      "type": "known",
+      "items": [
+        {
+          "en": "Files are kept on this device, in this browser. Clearing browser data clears them — an exported copy remains the real backup.",
+          "he": "הקבצים נשמרים במכשיר הזה, בדפדפן הזה. ניקוי נתוני הדפדפן ימחק אותם — עותק מיוצא הוא הגיבוי האמיתי."
+        },
+        {
+          "en": "There are no folders. Tags, collections and saved searches cover the same ground.",
+          "he": "אין תיקיות. תגיות, אוספים וחיפושים שמורים ממלאים את אותו תפקיד."
+        }
+      ]
+    }
+  ]
+}

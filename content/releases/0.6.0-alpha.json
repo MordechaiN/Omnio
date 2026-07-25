@@ -1,0 +1,48 @@
+{
+  "version": "0.6.0-alpha",
+  "date": "2026-07-25",
+  "headline": {
+    "en": "Files starts behaving like the file manager you already know.",
+    "he": "מסך הקבצים מתחיל להתנהג כמו מנהל הקבצים שאתה כבר מכיר."
+  },
+  "sections": [
+    {
+      "type": "new",
+      "items": [
+        {
+          "en": "See your files your way — big thumbnails or a compact list, at the size you choose. Omnio remembers.",
+          "he": "ראה את הקבצים כרצונך — תמונות ממוזערות גדולות או רשימה קומפקטית, בגודל שתבחר. Omnio זוכר."
+        },
+        {
+          "en": "Right-click anything for a full menu, with a long press on a touchscreen and the menu key on a keyboard.",
+          "he": "לחיצה ימנית על כל דבר פותחת תפריט מלא, וגם לחיצה ארוכה במסך מגע או מקש התפריט במקלדת."
+        },
+        {
+          "en": "Filter by tag and collection, with a count on the button so a filtered view is never mistaken for an empty one.",
+          "he": "סינון לפי תגית ואוסף, עם מונה על הכפתור כך שתצוגה מסוננת לא תיראה בטעות כתצוגה ריקה."
+        },
+        {
+          "en": "Save a search you return to, and bring it back with one click.",
+          "he": "שמור חיפוש שאתה חוזר אליו, והחזר אותו בלחיצה אחת."
+        },
+        {
+          "en": "Collections, created at the moment you file something into one.",
+          "he": "אוספים, שנוצרים ברגע שאתה משייך אליהם משהו."
+        }
+      ]
+    },
+    {
+      "type": "improved",
+      "items": [
+        {
+          "en": "Moving through a large workspace stays smooth.",
+          "he": "המעבר בין קבצים בסביבת עבודה גדולה נשאר חלק."
+        },
+        {
+          "en": "The details panel gained a copy button, and draws where a file came from as a chain you can follow.",
+          "he": "חלונית הפרטים קיבלה כפתור העתקה, ומציגה את מקור הקובץ כשרשרת שניתן לעקוב אחריה."
+        }
+      ]
+    }
+  ]
+}

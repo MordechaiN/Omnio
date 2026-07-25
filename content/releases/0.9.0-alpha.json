@@ -1,0 +1,32 @@
+{
+  "version": "0.9.0-alpha",
+  "date": "2026-07-25",
+  "headline": {
+    "en": "Omnio notices what you left unfinished — and now speaks your language everywhere.",
+    "he": "Omnio שם לב למה שלא סיימת — ומדבר עכשיו בשפה שלך בכל מקום."
+  },
+  "sections": [
+    {
+      "type": "new",
+      "items": [
+        {
+          "en": "Omnio notices work you started and never kept. Open a document in a tool, get distracted, and close the tab — it will be waiting for you, with a way straight back to where you were. It stays quiet while you are still working, and says nothing at all once you have saved something.",
+          "he": "Omnio שם לב לעבודה שהתחלת ולא שמרת. פתחת מסמך בכלי, הוסחת דעתך וסגרת את הלשונית — הוא ימתין לך, עם דרך ישירה בחזרה למקום שבו היית. הוא שותק כל עוד אתה עדיין עובד, ולא אומר דבר לאחר ששמרת."
+        },
+        {
+          "en": "What's New is now written in your language — every release, all the way back to the first one, not only the newest.",
+          "he": "\"מה חדש\" כתוב עכשיו בשפה שלך — כל גרסה, עד הראשונה שבהן, ולא רק החדשה ביותר."
+        }
+      ]
+    },
+    {
+      "type": "improved",
+      "items": [
+        {
+          "en": "Release notes are written rather than translated by a machine, so they read as though Omnio was made in your language.",
+          "he": "הערות הגרסה נכתבות ולא מתורגמות אוטומטית, כך שהן נקראות כאילו Omnio נוצר מלכתחילה בשפה שלך."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "version": "0.8.0-alpha",
+  "date": "2026-07-25",
+  "headline": {
+    "en": "Omnio starts paying attention.",
+    "he": "Omnio מתחיל לשים לב."
+  },
+  "sections": [
+    {
+      "type": "new",
+      "items": [
+        {
+          "en": "Omnio notices what your files are, and tells you why it thinks so. A scanned contract is met with: no selectable text — this looks like a scan, and an offer to make it searchable.",
+          "he": "Omnio מזהה מה הם הקבצים שלך, ומסביר על סמך מה. חוזה סרוק יקבל את ההודעה: אין טקסט שניתן לסמן — נראה כמו סריקה, יחד עם הצעה להפוך אותו לניתן לחיפוש."
+        },
+        {
+          "en": "It recognises screen captures, photos from a camera or phone, files you already have a copy of, and files awkwardly large to send.",
+          "he": "הוא מזהה צילומי מסך, תמונות ממצלמה או מטלפון, קבצים שכבר יש לך עותק שלהם, וקבצים גדולים מדי לשליחה נוחה."
+        },
+        {
+          "en": "Home picks up where you left off, each file labelled with whatever Omnio noticed about it.",
+          "he": "מסך הבית ממשיך מהמקום שבו הפסקת, כשליד כל קובץ מופיע מה ש-Omnio שם לב אליו."
+        }
+      ]
+    },
+    {
+      "type": "improved",
+      "items": [
+        {
+          "en": "Omnio stays quiet when it does not actually know. A blank page is not called a scan.",
+          "he": "Omnio שותק כשהוא לא באמת יודע. עמוד ריק לא ייקרא סריקה."
+        }
+      ]
+    }
+  ]
+}

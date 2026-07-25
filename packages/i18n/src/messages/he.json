@@ -182,7 +182,10 @@
       "large-file": "הקובץ הזה גדול",
       "oversized-image": "התמונה הזו גדולה מאוד"
     },
-    "continueTitle": "המשך מהמקום שבו הפסקת"
+    "continueTitle": "המשך מהמקום שבו הפסקת",
+    "unfinishedTitle": "לא סיימת את אלה",
+    "unfinishedItem": "{file} — נפתח ב{tool}, לא נשמר דבר",
+    "unfinishedResume": "המשך"
   },
   "nav": {
     "home": "בית",

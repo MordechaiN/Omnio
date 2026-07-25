@@ -194,3 +194,42 @@ Settings has a **Check for updates** action. Today it reports "You're using the
 latest version." (the running deployment is authoritative; no upstream feed). The
 architecture (`use-update-check.ts`) is shaped so a real release-manifest compare
 slots in later without changing callers or UI.
+
+
+## Localized release notes
+
+Release notes are **product copy**, not documentation, and are written in every
+supported language rather than machine-translated at runtime.
+
+The source of truth for a release's user-facing notes is a single file:
+
+    content/releases/<version>.json
+
+It holds every language side by side:
+
+```json
+{
+  "version": "0.9.0-alpha",
+  "date": "2026-07-25",
+  "headline": { "en": "…", "he": "…" },
+  "sections": [
+    { "type": "new", "items": [ { "en": "…", "he": "…" } ] }
+  ]
+}
+```
+
+Keeping the languages in one file is what keeps them synchronised: a release
+cannot gain an English line and quietly leave the others behind, because they
+are edited together. `apps/web/src/lib/releases.test.ts` fails the build if any
+release is missing a language the product supports.
+
+Section types are limited to `new`, `improved`, `fixed` and `known`; the page
+supplies the localized heading for each, so section names are never written into
+the content.
+
+The What's New page renders only the reader's language. A line with no text in
+that language is dropped rather than shown in another — mixed languages read as
+a bug in the product, and an incomplete list is the smaller problem.
+
+`CHANGELOG.md` remains, in English, as the developer-facing history. It is not
+what the product displays.

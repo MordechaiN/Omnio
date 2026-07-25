@@ -1,0 +1,40 @@
+{
+  "version": "0.6.1-alpha",
+  "date": "2026-07-25",
+  "headline": {
+    "en": "A polish pass from using Omnio, rather than checking that it works.",
+    "he": "סבב ליטוש שנולד משימוש אמיתי ב-Omnio, ולא מבדיקה שהכול עובד."
+  },
+  "sections": [
+    {
+      "type": "improved",
+      "items": [
+        {
+          "en": "PDFs show their first page wherever a file appears, instead of a blank icon.",
+          "he": "מסמכי PDF מציגים את העמוד הראשון שלהם בכל מקום שבו הקובץ מופיע, במקום סמל ריק."
+        },
+        {
+          "en": "Quick look on a PDF used to open an empty panel. It now shows the page.",
+          "he": "הצצה מהירה ב-PDF פתחה עד כה חלונית ריקה. עכשיו היא מציגה את העמוד."
+        },
+        {
+          "en": "Previews sit on a page edge, so a white document reads as paper rather than empty space.",
+          "he": "תצוגות מקדימות מוצגות עם מסגרת עמוד, כך שמסמך לבן נראה כנייר ולא כשטח ריק."
+        }
+      ]
+    },
+    {
+      "type": "fixed",
+      "items": [
+        {
+          "en": "The list of tools to open a file with showed internal names instead of the real ones.",
+          "he": "רשימת הכלים לפתיחת קובץ הציגה שמות פנימיים במקום השמות האמיתיים."
+        },
+        {
+          "en": "File previews could disappear entirely and leave a broken image behind.",
+          "he": "תצוגות מקדימות של קבצים יכלו להיעלם לגמרי ולהשאיר תמונה שבורה."
+        }
+      ]
+    }
+  ]
+}

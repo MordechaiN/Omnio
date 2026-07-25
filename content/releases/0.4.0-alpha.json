@@ -1,0 +1,49 @@
+{
+  "version": "0.4.0-alpha",
+  "date": "2026-07-24",
+  "headline": {
+    "en": "Working with a document's pages starts to feel like handling paper.",
+    "he": "העבודה עם עמודי מסמך מתחילה להרגיש כמו עבודה עם נייר."
+  },
+  "sections": [
+    {
+      "type": "new",
+      "items": [
+        {
+          "en": "See and rearrange your pages. Every page is a picture you can drag into a new order, turn, copy, remove, or slip a blank one between. Undo takes it back.",
+          "he": "ראה וסדר מחדש את העמודים. כל עמוד הוא תמונה שאפשר לגרור למקום חדש, לסובב, לשכפל, למחוק או להוסיף ביניהם עמוד ריק. ביטול מחזיר הכול."
+        },
+        {
+          "en": "Sign a document. Draw your signature, type your name, or use a picture of a signature you already have, then place it where it belongs.",
+          "he": "חתום על מסמך. צייר את חתימתך, הקלד את שמך, או השתמש בתמונת חתימה קיימת, ומקם אותה במקום הנכון."
+        },
+        {
+          "en": "Build a table of contents so a long document opens with a proper list to jump from.",
+          "he": "בנה תוכן עניינים כך שמסמך ארוך ייפתח עם רשימה נוחה לניווט."
+        }
+      ]
+    },
+    {
+      "type": "fixed",
+      "items": [
+        {
+          "en": "Omnio reported its own version incorrectly on every screen that shows it.",
+          "he": "Omnio הציג את מספר הגרסה שלו באופן שגוי בכל מסך שבו הוא מופיע."
+        }
+      ]
+    },
+    {
+      "type": "known",
+      "items": [
+        {
+          "en": "A signature is a picture of your signature, not a cryptographic one. It carries no proof of identity that software can check.",
+          "he": "חתימה היא תמונה של החתימה שלך, לא חתימה קריפטוגרפית. אין בה הוכחת זהות שתוכנה יכולה לאמת."
+        },
+        {
+          "en": "Archival PDF/A is not supported yet.",
+          "he": "פורמט הארכיון PDF/A אינו נתמך עדיין."
+        }
+      ]
+    }
+  ]
+}

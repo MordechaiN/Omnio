@@ -182,7 +182,10 @@
       "large-file": "This file is large",
       "oversized-image": "This image is very large"
     },
-    "continueTitle": "Pick up where you left off"
+    "continueTitle": "Pick up where you left off",
+    "unfinishedTitle": "You didn't finish these",
+    "unfinishedItem": "{file} — opened in {tool}, nothing saved",
+    "unfinishedResume": "Pick it up"
   },
   "nav": {
     "home": "Home",

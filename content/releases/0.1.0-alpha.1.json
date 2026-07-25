@@ -1,0 +1,27 @@
+{
+  "version": "0.1.0-alpha.1",
+  "date": "2026-07-18",
+  "headline": {
+    "en": "The first version of Omnio: a private workspace whose tools run on your own device.",
+    "he": "הגרסה הראשונה של Omnio: סביבת עבודה פרטית שהכלים בה פועלים במכשיר שלך."
+  },
+  "sections": [
+    {
+      "type": "new",
+      "items": [
+        {
+          "en": "Dozens of everyday tools — convert between formats, decode and generate, compare and format text, and calculate. In English and Hebrew, right-to-left included.",
+          "he": "עשרות כלים יומיומיים — המרה בין פורמטים, פענוח ויצירה, השוואה ועיצוב טקסט, וחישובים. באנגלית ובעברית, כולל כיוון ימין-לשמאל."
+        },
+        {
+          "en": "Search everything from one place, star your favourites, and drop files straight onto the page.",
+          "he": "חיפוש הכול ממקום אחד, סימון מועדפים, וגרירת קבצים ישירות אל הדף."
+        },
+        {
+          "en": "Runs entirely on your device. Files never leave your browser, and there is no account to create.",
+          "he": "פועל כולו במכשיר שלך. הקבצים לעולם לא עוזבים את הדפדפן, ואין צורך ליצור חשבון."
+        }
+      ]
+    }
+  ]
+}

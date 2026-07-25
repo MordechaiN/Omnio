@@ -9,7 +9,7 @@
  * Pure functions over metadata. No engines, no network, no model.
  */
 
-import { duplicateGroups, kindOf, type WorkspaceFile } from "./model.ts";
+import { duplicateGroups, kindOf, type WorkspaceEvent, type WorkspaceFile } from "./model.ts";
 
 export type InsightKind =
   | "screenshot"
@@ -151,4 +151,62 @@ export function summarize(files: WorkspaceFile[]): WorkspaceSummary {
     duplicateGroups: groups.length,
     reclaimableBytes: groups.reduce((total, group) => total + group[0]!.size * (group.length - 1), 0),
   };
+}
+
+/* ------------------------------------------------------------ unfinished */
+
+export interface UnfinishedWork {
+  file: WorkspaceFile;
+  /** The tool it was taken into and never came back from. */
+  toolId: string;
+  /** When that happened. */
+  at: number;
+}
+
+/** Below this, the user is still working — saying anything would be nagging. */
+const SETTLED_MS = 10 * 60 * 1000;
+
+/**
+ * Work that was started and produced nothing.
+ *
+ * Omnio records when a file is taken into a tool, and separately records every
+ * file a tool produces. When the first happened and the second never did, the
+ * user opened something, did some work, and walked away without keeping it.
+ * Nothing in the product notices that today, and it is the single most annoying
+ * thing to rediscover a week later.
+ *
+ * Only the most recent attempt per file is reported, and only once it has
+ * settled — mentioning something the user is doing right now is nagging, not
+ * helping.
+ */
+export function unfinishedWork(
+  files: WorkspaceFile[],
+  events: WorkspaceEvent[],
+  now = Date.now(),
+  limit = 4,
+): UnfinishedWork[] {
+  const byId = new Map(files.map((file) => [file.id, file]));
+
+  // Every (source file, tool) pair that did produce something.
+  const produced = new Set(
+    files.flatMap((file) =>
+      file.derivedFrom ? [`${file.derivedFrom.fileId}:${file.derivedFrom.toolId}`] : [],
+    ),
+  );
+
+  const latest = new Map<string, UnfinishedWork>();
+  for (const event of events) {
+    if (event.type !== "opened" || !event.toolId) continue;
+    if (now - event.at < SETTLED_MS) continue;
+    if (produced.has(`${event.fileId}:${event.toolId}`)) continue;
+    const file = byId.get(event.fileId);
+    if (!file || file.evicted) continue;
+
+    const existing = latest.get(file.id);
+    if (!existing || event.at > existing.at) {
+      latest.set(file.id, { file, toolId: event.toolId, at: event.at });
+    }
+  }
+
+  return [...latest.values()].sort((a, b) => b.at - a.at).slice(0, limit);
 }

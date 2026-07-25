@@ -1,6 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { insightsFor, primaryInsight, recentActivity, summarize } from "./insights.ts";
-import type { FileFacts, WorkspaceFile } from "./model.ts";
+import {
+  insightsFor,
+  primaryInsight,
+  recentActivity,
+  summarize,
+  unfinishedWork,
+} from "./insights.ts";
+import type { FileFacts, WorkspaceEvent, WorkspaceFile } from "./model.ts";
 
 function file(over: Partial<WorkspaceFile> & { id: string }): WorkspaceFile {
   return {
@@ -143,5 +149,76 @@ describe("summarize", () => {
     const summary = summarize(files);
     expect(summary.duplicateGroups).toBe(1);
     expect(summary.reclaimableBytes).toBe(400);
+  });
+});
+
+describe("unfinishedWork", () => {
+  const HOUR = 60 * 60 * 1000;
+  const now = 10 * HOUR;
+
+  const opened = (fileId: string, toolId: string, at: number): WorkspaceEvent => ({
+    id: `e-${fileId}-${at}`,
+    fileId,
+    type: "opened",
+    toolId,
+    at,
+  });
+
+  it("reports a file taken into a tool that produced nothing", () => {
+    const files = [file({ id: "draft" })];
+    const events = [opened("draft", "pdf-edit", now - HOUR)];
+    const [work] = unfinishedWork(files, events, now);
+    expect(work?.file.id).toBe("draft");
+    expect(work?.toolId).toBe("pdf-edit");
+  });
+
+  it("says nothing when the work did produce something", () => {
+    const files = [
+      file({ id: "draft" }),
+      file({ id: "out", derivedFrom: { fileId: "draft", toolId: "pdf-edit" } }),
+    ];
+    expect(unfinishedWork(files, [opened("draft", "pdf-edit", now - HOUR)], now)).toEqual([]);
+  });
+
+  it("does not nag about work still in progress", () => {
+    const files = [file({ id: "draft" })];
+    // Opened two minutes ago: the user is very likely still in the tool.
+    expect(unfinishedWork(files, [opened("draft", "pdf-edit", now - 2 * 60 * 1000), ], now)).toEqual([]);
+  });
+
+  it("counts a different tool as separate unfinished work", () => {
+    const files = [
+      file({ id: "draft" }),
+      file({ id: "out", derivedFrom: { fileId: "draft", toolId: "pdf-edit" } }),
+    ];
+    // Edited and kept, but also opened in rotate and abandoned.
+    const [work] = unfinishedWork(files, [opened("draft", "pdf-rotate", now - HOUR)], now);
+    expect(work?.toolId).toBe("pdf-rotate");
+  });
+
+  it("reports only the most recent attempt for a file", () => {
+    const files = [file({ id: "draft" })];
+    const events = [
+      opened("draft", "pdf-edit", now - 5 * HOUR),
+      opened("draft", "pdf-rotate", now - HOUR),
+    ];
+    const results = unfinishedWork(files, events, now);
+    expect(results).toHaveLength(1);
+    expect(results[0]!.toolId).toBe("pdf-rotate");
+  });
+
+  it("never offers work whose file contents are gone", () => {
+    const files = [file({ id: "draft", evicted: true })];
+    expect(unfinishedWork(files, [opened("draft", "pdf-edit", now - HOUR)], now)).toEqual([]);
+  });
+
+  it("puts the most recent first and respects the limit", () => {
+    const files = ["a", "b", "c"].map((id) => file({ id }));
+    const events = [
+      opened("a", "t", now - 3 * HOUR),
+      opened("b", "t", now - HOUR),
+      opened("c", "t", now - 2 * HOUR),
+    ];
+    expect(unfinishedWork(files, events, now, 2).map((w) => w.file.id)).toEqual(["b", "c"]);
   });
 });
