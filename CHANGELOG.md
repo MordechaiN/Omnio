@@ -9,6 +9,24 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ## [Unreleased]
 
+## [0.6.1-alpha] - 2026-07-25
+
+A polish pass from using Omnio the way you do, rather than checking that it works.
+
+### ✨ Improved
+
+- PDFs now show their first page wherever a file appears — in your files, in the details panel, and in quick look. Previously they showed a blank document icon.
+- Quick look on a PDF used to open an empty white panel. It now shows the page.
+- Previews sit on a page edge, so a white document reads as paper instead of blank space.
+- The details panel opens at the top of a file's details when you select it, and its empty state explains itself.
+- The sort control no longer wraps onto two lines, and the thumbnail size control matches the view switcher beside it.
+
+### 🐞 Fixed
+
+- The "Open with" list showed internal names like `pdf-merge` instead of "Merge PDFs".
+- File previews could disappear entirely, leaving a broken image behind.
+
+
 ## [0.6.0-alpha] - 2026-07-25
 
 Files grows up. Everything you do with your files should now feel like the desktop app you already know.
@@ -121,7 +139,8 @@ The first public version of Omnio: a private, self-hosted workspace with dozens 
 - **A workspace to work in** — search everything from one place, star your favorites, drop files straight onto the page, and jump around with the keyboard.
 - **Runs entirely on your device** — files never leave your browser, and there's no account to create.
 
-[Unreleased]: https://github.com/MordechaiN/Omnio/compare/v0.6.0-alpha...HEAD
+[Unreleased]: https://github.com/MordechaiN/Omnio/compare/v0.6.1-alpha...HEAD
+[0.6.1-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.6.0-alpha...v0.6.1-alpha
 [0.6.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.5.0-alpha...v0.6.0-alpha
 [0.5.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.4.0-alpha...v0.5.0-alpha
 [0.4.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.3.0-alpha...v0.4.0-alpha
