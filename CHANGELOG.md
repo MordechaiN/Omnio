@@ -9,6 +9,22 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ## [Unreleased]
 
+## [0.11.0-alpha] - 2026-07-25
+
+Home stops listing things and starts showing your work.
+
+### 🚀 New
+
+- **Continue now means work you genuinely did not finish** — a document you opened in a tool and never saved. Importing or previewing a file no longer counts, because that work is done.
+- **You decide what Omnio keeps offering.** Remove one item, clear them all, or stop tracking a kind of work entirely. The controls stay out of sight until you reach for them.
+- **Report a problem or suggest an improvement** from within Omnio, with system details attached if you want them.
+
+### ✨ Improved
+
+- The tools you use most are compact cards you can scan, rather than a list that read like a settings screen.
+- Home is quieter: one heading style instead of two, and no more advertising how many tools exist.
+
+
 ## [0.10.0-alpha] - 2026-07-25
 
 Omnio grows up: a clear licence, proper credit, and a front door that explains itself.
@@ -197,7 +213,8 @@ The first public version of Omnio: a private, self-hosted workspace with dozens 
 - **A workspace to work in** — search everything from one place, star your favorites, drop files straight onto the page, and jump around with the keyboard.
 - **Runs entirely on your device** — files never leave your browser, and there's no account to create.
 
-[Unreleased]: https://github.com/MordechaiN/Omnio/compare/v0.10.0-alpha...HEAD
+[Unreleased]: https://github.com/MordechaiN/Omnio/compare/v0.11.0-alpha...HEAD
+[0.11.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.10.0-alpha...v0.11.0-alpha
 [0.10.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.9.0-alpha...v0.10.0-alpha
 [0.9.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.8.0-alpha...v0.9.0-alpha
 [0.8.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.7.0-alpha...v0.8.0-alpha

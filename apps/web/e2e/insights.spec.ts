@@ -120,10 +120,11 @@ test.describe("what Omnio notices", () => {
 });
 
 test.describe("home", () => {
-  test("offers to pick up where you left off once there is work", async ({ page }) => {
+  test("shows an imported file under Recent, with what Omnio noticed", async ({ page }) => {
+    // Importing is finished work, so it belongs under Recent — not Continue.
     await dropPdf(page, "resume.pdf", await textPdf());
     await page.goto("/");
-    await expect(page.getByText("Pick up where you left off")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Recent" })).toBeVisible();
     await expect(page.getByRole("link", { name: /resume\.pdf/ })).toBeVisible();
   });
 });

@@ -39,6 +39,8 @@ export interface WorkspaceSnapshot {
   events: WorkspaceEvent[];
   searches: SavedSearch[];
   chains: Chain[];
+  /** Suggestions the user has told Omnio to stop offering. */
+  dismissed: string[];
   ready: boolean;
   /** False when the browser denies OPFS/IndexedDB (e.g. some private modes). */
   supported: boolean;
@@ -51,6 +53,7 @@ const EMPTY: WorkspaceSnapshot = {
   events: [],
   searches: [],
   chains: [],
+  dismissed: [],
   ready: false,
   supported: true,
 };
@@ -98,15 +101,26 @@ class WorkspaceStore {
         return;
       }
       void requestPersistence();
-      const [files, tags, collections, events, searches, chains] = await Promise.all([
+      const [files, tags, collections, events, searches, chains, dismissedRecords] = await Promise.all([
         db.getAllFiles(),
         db.getAllTags(),
         db.getAllCollections(),
         db.getAllEvents(),
         db.getAllSearches(),
         db.getAllChains(),
+        db.getAllDismissed(),
       ]);
-      this.commit({ files, tags, collections, events, searches, chains, ready: true, supported: true });
+      this.commit({
+        files,
+        tags,
+        collections,
+        events,
+        searches,
+        chains,
+        dismissed: dismissedRecords.map((record) => record.key),
+        ready: true,
+        supported: true,
+      });
     })();
     return this.loading;
   };
@@ -256,6 +270,22 @@ class WorkspaceStore {
     await this.upsert(copy);
     await this.record(copy.id, "imported");
     return copy;
+  };
+
+  /**
+   * Stop offering something. Dismissals are kept rather than inferred: a
+   * suggestion the user has waved away must stay away, and guessing that from
+   * behaviour would be exactly the kind of cleverness that erodes trust.
+   */
+  dismiss = async (key: string): Promise<void> => {
+    if (this.snapshot.dismissed.includes(key)) return;
+    await db.putDismissed({ key, at: Date.now() });
+    this.commit({ dismissed: [...this.snapshot.dismissed, key] });
+  };
+
+  clearDismissed = async (): Promise<void> => {
+    await db.clearDismissed();
+    this.commit({ dismissed: [] });
   };
 
   saveChain = async (chain: Chain): Promise<void> => {

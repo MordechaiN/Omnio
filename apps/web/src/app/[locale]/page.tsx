@@ -6,7 +6,6 @@ import { Badge } from "@omnio/ui";
 import { Link } from "@/i18n/navigation";
 import { CATEGORY_EMOJI } from "@/lib/category-emoji";
 import { ACTIVE_CATEGORY_IDS, TOOL_COUNT_BY_CATEGORY } from "@/lib/categories";
-import { SEARCH_ENTRIES } from "@/generated/registry.search";
 import { DropHero } from "@/components/workspace/drop-hero";
 import { PersonalSections } from "@/components/workspace/personal-sections";
 import { SessionStrip } from "@/components/workspace/session-strip";
@@ -40,18 +39,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* 📂 Categories — the browsing surface; search (⌘K) is the fast path. */}
       <section className="animate-rise flex flex-col gap-4" aria-labelledby="categories-title">
         <div className="flex items-baseline justify-between gap-4">
-          <h2
-            id="categories-title"
-            className="flex items-center gap-1.5 text-sm font-semibold tracking-wide text-text-secondary uppercase"
-          >
-            <span aria-hidden="true" className="text-base leading-none normal-case">
-              📂
-            </span>
+          <h2 id="categories-title" className="text-sm font-semibold">
             {t("categoriesTitle")}
           </h2>
-          <p className="hidden shrink-0 text-sm text-text-muted sm:block">
-            {t("toolCount", { count: SEARCH_ENTRIES.length })}
-          </p>
         </div>
         <ul className="animate-rise-stagger grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
           {ACTIVE_CATEGORY_IDS.map((id) => (

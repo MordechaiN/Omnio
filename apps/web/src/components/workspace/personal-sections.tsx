@@ -1,9 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useLocale, useTranslations } from "next-intl";
-import type { CategoryId } from "@omnio/core";
-import { Badge } from "@omnio/ui";
+import { useTranslations } from "next-intl";
 import { DynamicIcon, type IconName } from "lucide-react/dynamic";
 import { Link } from "@/i18n/navigation";
 import { SEARCH_ENTRIES, type SearchEntry } from "@/generated/registry.search";
@@ -13,7 +11,6 @@ import {
   useRecentEntries,
   type UsageEntry,
 } from "@/lib/preferences";
-import { formatRelativeTime } from "@/lib/relative-time";
 import { ToolGrid } from "./tool-grid";
 
 const BY_ID = new Map(SEARCH_ENTRIES.map((entry) => [entry.id, entry]));
@@ -24,50 +21,46 @@ function resolve(ids: string[]): SearchEntry[] {
     .filter((entry): entry is SearchEntry => entry !== undefined);
 }
 
-function SectionHeading({ id, emoji, children }: { id: string; emoji: string; children: React.ReactNode }) {
+/**
+ * One heading style for the whole of Home.
+ *
+ * Uppercase headings with an emoji each are a website convention: they shout for
+ * attention in a place that should feel like a desktop, and Home was running two
+ * heading systems at once. Quiet sentence case, everywhere.
+ */
+function SectionHeading({ id, children }: { id: string; children: React.ReactNode }) {
   return (
-    <h2
-      id={id}
-      className="flex items-center gap-1.5 text-sm font-semibold tracking-wide text-text-secondary uppercase"
-    >
-      <span aria-hidden="true" className="text-base leading-none normal-case">
-        {emoji}
-      </span>
+    <h2 id={id} className="text-sm font-semibold">
       {children}
     </h2>
   );
 }
 
 /**
- * A recent/popular tool as a compact row: icon, name, category, when it was
- * last used (and how often, for popular). The whole row reopens the tool.
+ * A frequently-used tool as a compact card.
+ *
+ * The vertical list this replaces read like a settings screen: full-width rows,
+ * a category, a timestamp and a count on every line. What the section actually
+ * needs to say is "these are the tools you reach for", and that is a shape you
+ * scan rather than read — so it is now a row of small cards with the icon
+ * leading, the name under it, and the count as a quiet footnote.
  */
-function UsageRow({ entry, usage, showCount }: { entry: SearchEntry; usage: UsageEntry; showCount?: boolean }) {
+function UsageCard({ entry, usage }: { entry: SearchEntry; usage: UsageEntry }) {
   const t = useTranslations();
-  const locale = useLocale();
   const name = t(`${entry.i18nNamespace}.${entry.nameKey}` as Parameters<typeof t>[0]);
   return (
     <li>
       <Link
         href={entry.href}
-        className="flex items-center gap-3 rounded-lg border border-border-subtle bg-surface px-3 py-2.5 transition-[border-color,background-color] duration-(--motion-fast) ease-(--ease-out) hover:border-border hover:bg-surface-raised"
+        className="group flex h-full w-full flex-col items-center gap-2 rounded-xl border border-border-subtle bg-surface px-3 py-4 text-center transition-[border-color,background-color,transform] duration-(--motion-fast) ease-(--ease-out) hover:border-border hover:bg-surface-raised motion-safe:hover:-translate-y-0.5"
       >
-        <span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-accent-subtle text-accent-subtle-fg">
-          <DynamicIcon name={entry.icon as IconName} size={16} />
+        <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-accent-subtle text-accent-subtle-fg">
+          <DynamicIcon name={entry.icon as IconName} size={19} />
         </span>
-        <span className="flex min-w-0 flex-1 flex-col">
-          <span className="truncate text-sm font-medium">{name}</span>
-          <span className="truncate text-xs text-text-muted">
-            {t(`categories.${entry.category as CategoryId}.name`)}
-            {" · "}
-            {formatRelativeTime(locale, usage.lastUsed)}
-          </span>
+        <span className="line-clamp-2 text-sm font-medium leading-tight">{name}</span>
+        <span className="text-xs tabular-nums text-text-muted">
+          {t("home.timesUsed", { count: usage.count })}
         </span>
-        {showCount ? (
-          <Badge variant="neutral" className="shrink-0 tabular-nums">
-            ×{usage.count}
-          </Badge>
-        ) : null}
       </Link>
     </li>
   );
@@ -83,7 +76,7 @@ export function PersonalSections() {
   const t = useTranslations("home");
   const favorites = resolve(useFavorites());
   const recents = useRecentEntries();
-  const popular = usePopularTools(4);
+  const popular = usePopularTools(6);
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
@@ -110,7 +103,7 @@ export function PersonalSections() {
     <div className="animate-rise flex flex-col gap-8">
       {favorites.length > 0 ? (
         <section className="flex flex-col gap-3" aria-labelledby="favorites-title">
-          <SectionHeading id="favorites-title" emoji="⭐">
+          <SectionHeading id="favorites-title">
             {t("favoritesTitle")}
           </SectionHeading>
           <ToolGrid entries={favorites} />
@@ -121,12 +114,12 @@ export function PersonalSections() {
         <div className="grid gap-8 lg:grid-cols-2">
           {recentRows.length > 0 ? (
             <section className="flex flex-col gap-3" aria-labelledby="recent-title">
-              <SectionHeading id="recent-title" emoji="🕘">
+              <SectionHeading id="recent-title">
                 {t("recentTitle")}
               </SectionHeading>
-              <ul className="flex flex-col gap-2">
+              <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
                 {recentRows.map(({ usage, entry }) => (
-                  <UsageRow key={usage.id} entry={entry} usage={usage} />
+                  <UsageCard key={usage.id} entry={entry} usage={usage} />
                 ))}
               </ul>
             </section>
@@ -134,12 +127,12 @@ export function PersonalSections() {
 
           {popularRows.length > 0 ? (
             <section className="flex flex-col gap-3" aria-labelledby="popular-title">
-              <SectionHeading id="popular-title" emoji="🔥">
+              <SectionHeading id="popular-title">
                 {t("popularTitle")}
               </SectionHeading>
-              <ul className="flex flex-col gap-2">
+              <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
                 {popularRows.map(({ usage, entry }) => (
-                  <UsageRow key={usage.id} entry={entry} usage={usage} showCount />
+                  <UsageCard key={usage.id} entry={entry} usage={usage} />
                 ))}
               </ul>
             </section>

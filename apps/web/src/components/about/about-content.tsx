@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Badge, Button, toast } from "@omnio/ui";
-import { ClipboardCopy, ExternalLink } from "lucide-react";
+import { ClipboardCopy, ExternalLink, Lightbulb, MessageSquareWarning } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import {
   buildInfo,
@@ -87,8 +87,9 @@ export function AboutContent() {
       ? "offline"
       : "warning";
 
-  function copyDebugInfo(): void {
-    const lines = [
+  /** The same facts used by both "copy" and "report a problem". */
+  function debugLines(): string[] {
+    return [
       `Omnio v${version}`,
       `Commit: ${commit}`,
       `Branch: ${branch}`,
@@ -101,8 +102,45 @@ export function AboutContent() {
       `Worker: ${statusLabel(statusFor("worker"))}`,
       `Storage: ${statusLabel(statusFor("storage"))}`,
     ];
-    void navigator.clipboard.writeText(lines.join("\n"));
+  }
+
+  function copyDebugInfo(): void {
+    void navigator.clipboard.writeText(debugLines().join("\n"));
     toast.success(t("debugCopied"));
+  }
+
+  /**
+   * Feedback opens a prefilled issue rather than posting anything.
+   *
+   * Omnio has no server that receives user reports, and adding one to collect
+   * feedback would quietly break the promise that nothing about how you use it
+   * leaves your device. Opening the form instead means the user sees exactly
+   * what is being sent, and sends it themselves — including whether the system
+   * details go along with it.
+   */
+  function openFeedback(kind: "problem" | "idea"): void {
+    const title = kind === "problem" ? "Problem: " : "Idea: ";
+    const body =
+      kind === "problem"
+        ? [
+            t("feedbackWhatHappened"),
+            "",
+            "",
+            "---",
+            "<details><summary>" + t("feedbackSystemDetails") + "</summary>",
+            "",
+            "```",
+            ...debugLines(),
+            "```",
+            "",
+            "</details>",
+          ].join("\n")
+        : [t("feedbackYourIdea"), "", ""].join("\n");
+
+    const url =
+      `${OMNIO_REPO_URL}/issues/new?` +
+      new URLSearchParams({ title, body, labels: kind === "problem" ? "bug" : "enhancement" });
+    window.open(url, "_blank", "noopener,noreferrer");
   }
 
   return (
@@ -221,11 +259,21 @@ export function AboutContent() {
       </Section>
 
       <div className="flex flex-col gap-2">
-        <Button variant="secondary" size="sm" onClick={copyDebugInfo} className="self-start">
-          <ClipboardCopy size={14} />
-          {t("copyDebugInfo")}
-        </Button>
-        <p className="text-xs text-text-muted">{t("copyDebugInfoHint")}</p>
+        <div className="flex flex-wrap gap-2">
+          <Button variant="secondary" size="sm" onClick={() => openFeedback("problem")}>
+            <MessageSquareWarning size={14} />
+            {t("reportProblem")}
+          </Button>
+          <Button variant="secondary" size="sm" onClick={() => openFeedback("idea")}>
+            <Lightbulb size={14} />
+            {t("suggestImprovement")}
+          </Button>
+          <Button variant="ghost" size="sm" onClick={copyDebugInfo}>
+            <ClipboardCopy size={14} />
+            {t("copyDebugInfo")}
+          </Button>
+        </div>
+        <p className="text-xs text-text-muted">{t("feedbackHint")}</p>
       </div>
 
       {isError ? <p className="text-sm text-text-muted">{t("apiOffline")}</p> : null}

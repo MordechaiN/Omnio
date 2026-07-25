@@ -18,7 +18,7 @@ import type {
 } from "./model.ts";
 
 const DB_NAME = "omnio-workspace";
-const DB_VERSION = 3;
+const DB_VERSION = 4;
 
 export const STORE_FILES = "files";
 export const STORE_TAGS = "tags";
@@ -27,6 +27,7 @@ export const STORE_EVENTS = "events";
 export const STORE_THUMBS = "thumbs";
 export const STORE_SEARCHES = "searches";
 export const STORE_CHAINS = "chains";
+export const STORE_DISMISSED = "dismissed";
 
 export interface ThumbRecord {
   fileId: string;
@@ -75,6 +76,9 @@ export function openWorkspaceDb(): Promise<IDBDatabase> {
       }
       if (!db.objectStoreNames.contains(STORE_CHAINS)) {
         db.createObjectStore(STORE_CHAINS, { keyPath: "id" });
+      }
+      if (!db.objectStoreNames.contains(STORE_DISMISSED)) {
+        db.createObjectStore(STORE_DISMISSED, { keyPath: "key" });
       }
     };
     request.onsuccess = () => resolve(request.result);
@@ -198,3 +202,20 @@ export const putChain = (chain: Chain): Promise<IDBValidKey> =>
 
 export const deleteChain = (id: string): Promise<undefined> =>
   withStore(STORE_CHAINS, "readwrite", (s) => s.delete(id));
+
+/* ------------------------------------------------------------- dismissed */
+
+export interface DismissedRecord {
+  /** Either "<fileId>:<toolId>" for one item, or "tool:<toolId>" for a kind. */
+  key: string;
+  at: number;
+}
+
+export const getAllDismissed = (): Promise<DismissedRecord[]> =>
+  withStore(STORE_DISMISSED, "readonly", (s) => s.getAll() as IDBRequest<DismissedRecord[]>);
+
+export const putDismissed = (record: DismissedRecord): Promise<IDBValidKey> =>
+  withStore(STORE_DISMISSED, "readwrite", (s) => s.put(record));
+
+export const clearDismissed = (): Promise<undefined> =>
+  withStore(STORE_DISMISSED, "readwrite", (s) => s.clear());

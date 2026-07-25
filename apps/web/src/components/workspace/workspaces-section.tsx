@@ -41,11 +41,8 @@ export function WorkspacesSection() {
       <div className="flex items-center justify-between gap-3">
         <h2
           id="saved-workspaces-title"
-          className="flex items-center gap-1.5 text-sm font-semibold tracking-wide text-text-secondary uppercase"
+          className="text-sm font-semibold"
         >
-          <span aria-hidden="true" className="text-base leading-none normal-case">
-            💾
-          </span>
           {t("title")}
         </h2>
         <button

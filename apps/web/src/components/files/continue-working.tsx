@@ -2,14 +2,35 @@
 
 import { useMemo } from "react";
 import { useTranslations, useFormatter } from "next-intl";
-import { kindOf, primaryInsight, recentActivity, unfinishedWork, workspace } from "@omnio/workspace";
-import { useThumbnail, useWorkspace } from "@omnio/workspace/react";
-import { FileArchive, FileAudio, FileText, FileVideo, Image as ImageIcon, Undo2 } from "lucide-react";
 import { setPendingFiles } from "@omnio/module-sdk";
+import {
+  kindOf,
+  primaryInsight,
+  recentActivity,
+  unfinishedWork,
+  workspace,
+  type WorkspaceFile,
+} from "@omnio/workspace";
+import { useThumbnail, useWorkspace } from "@omnio/workspace/react";
+import {
+  Button,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@omnio/ui";
+import {
+  FileArchive,
+  FileAudio,
+  FileText,
+  FileVideo,
+  Image as ImageIcon,
+  MoreHorizontal,
+} from "lucide-react";
 import { Link, useRouter } from "@/i18n/navigation";
 import { SEARCH_ENTRIES } from "@/generated/registry.search";
 import { rememberHandoff } from "@/lib/provenance";
-import type { WorkspaceFile } from "@omnio/workspace";
 
 const KIND_ICON = {
   image: ImageIcon,
@@ -21,40 +42,36 @@ const KIND_ICON = {
   other: FileText,
 } as const;
 
-/**
- * "Pick up where you left off."
- *
- * Home used to open on a directory of categories that the sidebar already
- * lists — a website's front page. What someone actually returns for is the work
- * they were in the middle of, so that is what leads now. Renders nothing at all
- * until there is real work to show; an empty shelf is worse than no shelf.
- */
 const BY_TOOL = new Map(SEARCH_ENTRIES.map((entry) => [entry.toolId, entry]));
 
+/**
+ * The live view of your work at the top of Home.
+ *
+ * Two ideas that were previously blurred into one, now kept apart:
+ *
+ *  - **Continue** is work that genuinely invites finishing — a document taken
+ *    into a tool that never produced anything. Opening, previewing or
+ *    converting a file does not qualify; that work is done.
+ *  - **Recent** is simply what you touched last. It is a way back, not a
+ *    reminder, so it sits second and stays quiet.
+ *
+ * Presenting recents as "continue where you left off" implied Omnio knew
+ * something it did not, which is the failure this redesign fixes.
+ */
 export function ContinueWorking() {
-  const t = useTranslations("files");
-  const { files, events } = useWorkspace();
+  const { files, events, dismissed } = useWorkspace();
+  const unfinished = useMemo(
+    () => unfinishedWork(files, events, Date.now(), 4, dismissed),
+    [files, events, dismissed],
+  );
   const recent = useMemo(() => recentActivity(files, 6), [files]);
-  const unfinished = useMemo(() => unfinishedWork(files, events), [files, events]);
 
-  if (recent.length === 0) return null;
+  if (unfinished.length === 0 && recent.length === 0) return null;
 
   return (
     <div className="flex flex-col gap-8">
       {unfinished.length > 0 ? <Unfinished items={unfinished} /> : null}
-
-      <section className="flex flex-col gap-3" aria-labelledby="continue-title">
-      <h2 id="continue-title" className="text-sm font-semibold">
-        {t("continueTitle")}
-      </h2>
-      <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-        {recent.map(({ file }) => (
-          <li key={file.id}>
-            <RecentCard file={file} files={files} />
-          </li>
-        ))}
-        </ul>
-      </section>
+      {recent.length > 0 ? <Recent files={recent.map((entry) => entry.file)} all={files} /> : null}
     </div>
   );
 }
@@ -62,13 +79,15 @@ export function ContinueWorking() {
 /**
  * Work started and never kept.
  *
- * Deliberately a quiet row rather than a banner or a notification: this is
- * useful information, not an alarm, and something the user chose to abandon
- * must not feel like a failure they are being reminded of.
+ * A quiet row rather than a banner: abandoning something is a choice, not a
+ * failure to be reminded of. Every item can be waved away, and a whole kind of
+ * work can be silenced — a suggestion you cannot dismiss stops being a
+ * suggestion and becomes a demand.
  */
 function Unfinished({ items }: { items: ReturnType<typeof unfinishedWork> }) {
   const t = useTranslations("files");
   const tRoot = useTranslations();
+  const format = useFormatter();
   const router = useRouter();
 
   const resume = async (fileId: string, toolId: string) => {
@@ -82,10 +101,24 @@ function Unfinished({ items }: { items: ReturnType<typeof unfinishedWork> }) {
   };
 
   return (
-    <section className="flex flex-col gap-2" aria-labelledby="unfinished-title">
-      <h2 id="unfinished-title" className="text-sm font-semibold">
-        {t("unfinishedTitle")}
-      </h2>
+    <section className="flex flex-col gap-2" aria-labelledby="continue-title">
+      <div className="flex items-baseline justify-between gap-3">
+        <h2 id="continue-title" className="text-sm font-semibold">
+          {t("continueTitle")}
+        </h2>
+        {items.length > 1 ? (
+          <button
+            type="button"
+            onClick={() => {
+              for (const item of items) void workspace.dismiss(`${item.file.id}:${item.toolId}`);
+            }}
+            className="text-xs text-text-muted transition-colors hover:text-text"
+          >
+            {t("continueClearAll")}
+          </button>
+        ) : null}
+      </div>
+
       <ul className="flex flex-col gap-1">
         {items.map((item: (typeof items)[number]) => {
           const entry = BY_TOOL.get(item.toolId);
@@ -94,24 +127,71 @@ function Unfinished({ items }: { items: ReturnType<typeof unfinishedWork> }) {
             `${entry.i18nNamespace}.${entry.nameKey}` as Parameters<typeof tRoot>[0],
           );
           return (
-            <li key={`${item.file.id}-${item.toolId}`}>
+            <li
+              key={`${item.file.id}-${item.toolId}`}
+              className="group flex items-center gap-2 rounded-lg border border-border-subtle transition-[border-color,background-color] hover:border-border hover:bg-surface-hover motion-safe:duration-150"
+            >
               <button
                 type="button"
                 onClick={() => void resume(item.file.id, item.toolId)}
-                className="flex w-full items-center gap-2 rounded-md border border-border-subtle px-3 py-2 text-start text-sm transition hover:border-border hover:bg-surface-hover motion-safe:duration-150"
+                className="flex min-w-0 flex-1 items-baseline gap-2 px-3 py-2 text-start text-sm"
               >
-                <Undo2 className="h-3.5 w-3.5 shrink-0 text-text-muted" aria-hidden />
-                <span className="min-w-0 flex-1 truncate">
-                  {t.rich("unfinishedItem", {
-                    file: item.file.name,
-                    tool: toolName,
-                  })}
+                <span className="truncate font-medium">{item.file.name}</span>
+                <span className="truncate text-xs text-text-muted">
+                  {t("continueIn", { tool: toolName })}
                 </span>
-                <span className="shrink-0 text-xs text-text-muted">{t("unfinishedResume")}</span>
+                <span className="ms-auto shrink-0 text-xs text-text-muted">
+                  {format.relativeTime(new Date(item.at), Date.now())}
+                </span>
               </button>
+
+              {/* Controls stay invisible until the row is approached, so the
+                  section reads as information rather than as a form. */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    aria-label={t("continueOptions", { file: item.file.name })}
+                    className="me-1 opacity-0 transition-opacity focus-visible:opacity-100 group-hover:opacity-100"
+                  >
+                    <MoreHorizontal className="h-3.5 w-3.5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem
+                    onSelect={() => void workspace.dismiss(`${item.file.id}:${item.toolId}`)}
+                  >
+                    {t("continueRemove")}
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onSelect={() => void workspace.dismiss(`tool:${item.toolId}`)}>
+                    {t("continueForgetTool", { tool: toolName })}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </li>
           );
         })}
+      </ul>
+    </section>
+  );
+}
+
+/** What you touched last — a way back, deliberately quieter than Continue. */
+function Recent({ files, all }: { files: WorkspaceFile[]; all: WorkspaceFile[] }) {
+  const t = useTranslations("files");
+  return (
+    <section className="flex flex-col gap-3" aria-labelledby="recent-title">
+      <h2 id="recent-title" className="text-sm font-semibold">
+        {t("recentTitle")}
+      </h2>
+      <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+        {files.map((file) => (
+          <li key={file.id}>
+            <RecentCard file={file} files={all} />
+          </li>
+        ))}
       </ul>
     </section>
   );

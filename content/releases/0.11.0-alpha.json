@@ -1,0 +1,40 @@
+{
+  "version": "0.11.0-alpha",
+  "date": "2026-07-25",
+  "headline": {
+    "en": "Home stops listing things and starts showing your work.",
+    "he": "מסך הבית מפסיק להציג רשימות ומתחיל להראות את העבודה שלך."
+  },
+  "sections": [
+    {
+      "type": "new",
+      "items": [
+        {
+          "en": "Continue now means work you genuinely did not finish — a document you opened in a tool and never saved. Simply importing or previewing a file no longer counts, because that work is done.",
+          "he": "\"המשך\" מציין כעת עבודה שבאמת לא סיימת — מסמך שפתחת בכלי ומעולם לא שמרת. ייבוא או תצוגה מקדימה של קובץ אינם נחשבים עוד, מפני שאותה עבודה הסתיימה."
+        },
+        {
+          "en": "You decide what Omnio keeps offering. Remove a single item, clear them all, or tell Omnio to stop tracking a kind of work entirely. The controls stay out of sight until you reach for them.",
+          "he": "אתה מחליט מה Omnio ימשיך להציע. אפשר להסיר פריט בודד, לנקות את כולם, או לומר ל-Omnio להפסיק לעקוב אחר סוג עבודה מסוים. הפקדים נשארים מוסתרים עד שתזדקק להם."
+        },
+        {
+          "en": "You can now report a problem or suggest an improvement from within Omnio, with the system details attached for you if you want them.",
+          "he": "אפשר כעת לדווח על בעיה או להציע שיפור ישירות מתוך Omnio, עם פרטי המערכת מצורפים אם תרצה בכך."
+        }
+      ]
+    },
+    {
+      "type": "improved",
+      "items": [
+        {
+          "en": "The tools you use most are shown as compact cards you can scan at a glance, instead of a list that read like a settings screen.",
+          "he": "הכלים שאתה משתמש בהם הכי הרבה מוצגים ככרטיסים קומפקטיים שקל לסרוק במבט אחד, במקום רשימה שנראתה כמו מסך הגדרות."
+        },
+        {
+          "en": "Home is quieter. One heading style throughout instead of two, and it no longer advertises how many tools exist — a number that never helped anyone.",
+          "he": "מסך הבית שקט יותר. סגנון כותרות אחיד במקום שניים, והוא כבר לא מכריז כמה כלים קיימים — מספר שמעולם לא עזר לאיש."
+        }
+      ]
+    }
+  ]
+}

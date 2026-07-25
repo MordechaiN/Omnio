@@ -182,10 +182,16 @@
       "large-file": "הקובץ הזה גדול",
       "oversized-image": "התמונה הזו גדולה מאוד"
     },
-    "continueTitle": "המשך מהמקום שבו הפסקת",
+    "continueTitle": "המשך",
     "unfinishedTitle": "לא סיימת את אלה",
     "unfinishedItem": "{file} — נפתח ב{tool}, לא נשמר דבר",
-    "unfinishedResume": "המשך"
+    "unfinishedResume": "המשך",
+    "continueIn": "ב{tool}",
+    "continueClearAll": "נקה הכול",
+    "continueRemove": "הסר מ‏המשך",
+    "continueForgetTool": "הפסק לעקוב אחר {tool}",
+    "continueOptions": "אפשרויות עבור {file}",
+    "recentTitle": "אחרונים"
   },
   "nav": {
     "home": "בית",
@@ -426,7 +432,8 @@
     "whatsNewMore": "לצפייה ביומן השינויים המלא",
     "categoriesTitle": "קטגוריות",
     "toolCount": "{count} כלים",
-    "favoritesHint": "סמנו כלי בכוכב כדי להצמיד אותו כאן לגישה מהירה."
+    "favoritesHint": "סמנו כלי בכוכב כדי להצמיד אותו כאן לגישה מהירה.",
+    "timesUsed": "{count, plural, one {פעם #} other {# פעמים}}"
   },
   "about": {
     "title": "אודות Omnio",
@@ -478,7 +485,13 @@
     "copyDebugInfo": "העתקת פרטי דיבוג",
     "copyDebugInfoHint": "מעתיק תקציר טכני קצר — אפשר להדביק בדיווח על באג.",
     "debugCopied": "פרטי הדיבוג הועתקו",
-    "createdBy": "נוצר על ידי"
+    "createdBy": "נוצר על ידי",
+    "reportProblem": "דווח על בעיה",
+    "suggestImprovement": "הצע שיפור",
+    "feedbackHint": "נפתח טופס ממולא מראש ב-GitHub. שום דבר לא נשלח עד שתשלח אותו, וניתן לערוך או להסיר כל פרט לפני כן.",
+    "feedbackWhatHappened": "מה קרה, ומה ציפית שיקרה במקום:",
+    "feedbackYourIdea": "מה ישפר את Omnio:",
+    "feedbackSystemDetails": "פרטי מערכת"
   },
   "changelog": {
     "title": "מה חדש",

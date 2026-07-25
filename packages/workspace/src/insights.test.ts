@@ -222,3 +222,42 @@ describe("unfinishedWork", () => {
     expect(unfinishedWork(files, events, now, 2).map((w) => w.file.id)).toEqual(["b", "c"]);
   });
 });
+
+describe("unfinishedWork dismissals", () => {
+  const HOUR = 60 * 60 * 1000;
+  const now = 10 * HOUR;
+  const opened = (fileId: string, toolId: string): WorkspaceEvent => ({
+    id: `e-${fileId}-${toolId}`,
+    fileId,
+    type: "opened",
+    toolId,
+    at: now - HOUR,
+  });
+
+  it("forgets a single item the user waved away", () => {
+    const files = [file({ id: "a" })];
+    expect(unfinishedWork(files, [opened("a", "pdf-edit")], now, 4, ["a:pdf-edit"])).toEqual([]);
+  });
+
+  it("keeps other work when one item is dismissed", () => {
+    const files = [file({ id: "a" }), file({ id: "b" })];
+    const events = [opened("a", "pdf-edit"), opened("b", "pdf-edit")];
+    expect(
+      unfinishedWork(files, events, now, 4, ["a:pdf-edit"]).map((w) => w.file.id),
+    ).toEqual(["b"]);
+  });
+
+  it("can be told to stop tracking a kind of work entirely", () => {
+    const files = [file({ id: "a" }), file({ id: "b" })];
+    const events = [opened("a", "pdf-edit"), opened("b", "pdf-edit")];
+    expect(unfinishedWork(files, events, now, 4, ["tool:pdf-edit"])).toEqual([]);
+  });
+
+  it("dismissing one tool does not silence another", () => {
+    const files = [file({ id: "a" }), file({ id: "b" })];
+    const events = [opened("a", "pdf-edit"), opened("b", "pdf-rotate")];
+    expect(
+      unfinishedWork(files, events, now, 4, ["tool:pdf-edit"]).map((w) => w.toolId),
+    ).toEqual(["pdf-rotate"]);
+  });
+});

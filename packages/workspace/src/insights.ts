@@ -184,7 +184,9 @@ export function unfinishedWork(
   events: WorkspaceEvent[],
   now = Date.now(),
   limit = 4,
+  dismissed: string[] = [],
 ): UnfinishedWork[] {
+  const waved = new Set(dismissed);
   const byId = new Map(files.map((file) => [file.id, file]));
 
   // Every (source file, tool) pair that did produce something.
@@ -199,6 +201,8 @@ export function unfinishedWork(
     if (event.type !== "opened" || !event.toolId) continue;
     if (now - event.at < SETTLED_MS) continue;
     if (produced.has(`${event.fileId}:${event.toolId}`)) continue;
+    // Waved away, either this exact item or this kind of work entirely.
+    if (waved.has(`${event.fileId}:${event.toolId}`) || waved.has(`tool:${event.toolId}`)) continue;
     const file = byId.get(event.fileId);
     if (!file || file.evicted) continue;
 

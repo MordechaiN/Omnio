@@ -182,10 +182,16 @@
       "large-file": "This file is large",
       "oversized-image": "This image is very large"
     },
-    "continueTitle": "Pick up where you left off",
+    "continueTitle": "Continue",
     "unfinishedTitle": "You didn't finish these",
     "unfinishedItem": "{file} — opened in {tool}, nothing saved",
-    "unfinishedResume": "Pick it up"
+    "unfinishedResume": "Pick it up",
+    "continueIn": "in {tool}",
+    "continueClearAll": "Clear all",
+    "continueRemove": "Remove from Continue",
+    "continueForgetTool": "Stop tracking {tool}",
+    "continueOptions": "Options for {file}",
+    "recentTitle": "Recent"
   },
   "nav": {
     "home": "Home",
@@ -426,7 +432,8 @@
     "whatsNewMore": "View the full changelog",
     "categoriesTitle": "Categories",
     "toolCount": "{count} tools",
-    "favoritesHint": "Star any tool to pin it here for quick access."
+    "favoritesHint": "Star any tool to pin it here for quick access.",
+    "timesUsed": "{count, plural, one {# time} other {# times}}"
   },
   "about": {
     "title": "About Omnio",
@@ -478,7 +485,13 @@
     "copyDebugInfo": "Copy debug information",
     "copyDebugInfoHint": "Copies a short technical summary — paste it into a bug report.",
     "debugCopied": "Debug information copied",
-    "createdBy": "Created by"
+    "createdBy": "Created by",
+    "reportProblem": "Report a problem",
+    "suggestImprovement": "Suggest an improvement",
+    "feedbackHint": "Opens a prefilled form on GitHub. Nothing is sent until you send it, and you can edit or remove anything first.",
+    "feedbackWhatHappened": "What happened, and what you expected instead:",
+    "feedbackYourIdea": "What would make Omnio better:",
+    "feedbackSystemDetails": "System details"
   },
   "changelog": {
     "title": "What's New",
