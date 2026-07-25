@@ -161,7 +161,8 @@
     "copyMetadata": "העתק פרטים",
     "copied": "הועתק",
     "noCollections": "אין עדיין אוספים.",
-    "newCollectionPlaceholder": "אוסף חדש…"
+    "newCollectionPlaceholder": "אוסף חדש…",
+    "inspectorEmptyTitle": "לא נבחר דבר"
   },
   "nav": {
     "home": "בית",

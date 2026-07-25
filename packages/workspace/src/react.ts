@@ -64,6 +64,15 @@ export function useThumbnail(file: WorkspaceFile | null): string | null {
   const [url, setUrl] = useState<string | null>(null);
   const revoke = useRef<string | null>(null);
 
+  // Depend on stable primitives, never the file object. Every workspace commit
+  // (an appended event, a touched lastOpenedAt) produces a new object with the
+  // same content; keying on identity made this effect revoke its own object URL
+  // mid-flight, leaving a broken image behind.
+  const id = file?.id ?? null;
+  const hash = file?.hash ?? null;
+  const mime = file?.mime ?? null;
+  const evicted = file?.evicted ?? false;
+
   useEffect(() => {
     let cancelled = false;
     if (revoke.current) {
@@ -71,33 +80,38 @@ export function useThumbnail(file: WorkspaceFile | null): string | null {
       revoke.current = null;
     }
     setUrl(null);
-    if (!file || file.evicted) return undefined;
+    if (!id || !hash || !mime || evicted) return undefined;
 
-    void (async () => {
-      const existing = await getThumb(file.id);
+    const show = (blob: Blob) => {
       if (cancelled) return;
-      if (existing) {
-        const objectUrl = URL.createObjectURL(existing.blob);
-        revoke.current = objectUrl;
-        setUrl(objectUrl);
-        return;
-      }
-      if (!file.mime.startsWith("image/")) return;
-      const source = await workspace.peekFile(file.id);
-      if (!source || cancelled) return;
-      const thumb = await makeImageThumb(source);
-      if (!thumb || cancelled) return;
-      await putThumb({ fileId: file.id, blob: thumb.blob, width: thumb.width, height: thumb.height });
-      if (cancelled) return;
-      const objectUrl = URL.createObjectURL(thumb.blob);
+      const objectUrl = URL.createObjectURL(blob);
       revoke.current = objectUrl;
       setUrl(objectUrl);
+    };
+
+    void (async () => {
+      const existing = await getThumb(id);
+      if (cancelled) return;
+      if (existing) {
+        show(existing.blob);
+        return;
+      }
+      const source = await workspace.peekFile(id);
+      if (!source || cancelled) return;
+      const thumb = mime.startsWith("image/")
+        ? await makeImageThumb(source)
+        : mime === "application/pdf"
+          ? await pdfThumbnailer?.(source)
+          : null;
+      if (!thumb || cancelled) return;
+      await putThumb({ fileId: id, blob: thumb.blob, width: thumb.width, height: thumb.height });
+      show(thumb.blob);
     })();
 
     return () => {
       cancelled = true;
     };
-  }, [file]);
+  }, [id, hash, mime, evicted]);
 
   useEffect(
     () => () => {
@@ -110,6 +124,20 @@ export function useThumbnail(file: WorkspaceFile | null): string | null {
 }
 
 const THUMB_MAX = 320;
+
+/**
+ * Rendering a PDF page needs pdf.js, which is far too heavy to pull into this
+ * package for every consumer. The app registers a renderer instead, so the
+ * workspace stays engine-free and a host without pdf.js simply gets no PDF
+ * thumbnail rather than a broken import.
+ */
+type Thumbnailer = (file: File) => Promise<{ blob: Blob; width: number; height: number } | null>;
+
+let pdfThumbnailer: Thumbnailer | null = null;
+
+export function registerPdfThumbnailer(render: Thumbnailer): void {
+  pdfThumbnailer = render;
+}
 
 async function makeImageThumb(
   source: File,

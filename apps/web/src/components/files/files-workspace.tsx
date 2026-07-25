@@ -37,8 +37,16 @@ import { mimeMatches, normalizeMime } from "@/lib/file-intel";
 import { SEARCH_ENTRIES } from "@/generated/registry.search";
 import { FileGrid, type ThumbSize, type ViewMode } from "./file-grid";
 import { FileContextMenu } from "./file-context-menu";
+import { installPdfThumbnailer } from "@/lib/pdf-thumbnail";
 import { Inspector } from "./inspector";
 import { QuickPreview } from "./quick-preview";
+
+/** Size steps drawn as proportional squares, the way a desktop zoom control is. */
+const SIZE_OPTIONS: Array<{ value: ThumbSize; dot: number }> = [
+  { value: "s", dot: 7 },
+  { value: "m", dot: 10 },
+  { value: "l", dot: 13 },
+];
 
 /** Tools that accept this file, best match first. */
 function recommendationsFor(file: WorkspaceFile | null) {
@@ -54,11 +62,16 @@ function recommendationsFor(file: WorkspaceFile | null) {
 
 export function FilesWorkspace() {
   const t = useTranslations("files");
+  const tRoot = useTranslations();
   const tKind = useTranslations("files.kind");
   const tSort = useTranslations("files.sort");
   const tSize = useTranslations("files.size");
   const router = useRouter();
   const { files, tags, collections, events, searches, ready, supported } = useWorkspace();
+
+  // Teach the workspace to render PDF pages. Registered from the app so the
+  // storage layer never depends on a rendering engine.
+  useEffect(() => installPdfThumbnailer(), []);
 
   const [text, setText] = useState("");
   const [sort, setSort] = useState<SortKey>("recent");
@@ -113,6 +126,16 @@ export function FilesWorkspace() {
   const activeId = focusedId && selected.has(focusedId) ? focusedId : [...selected][0] ?? null;
   const activeFile = useMemo(() => files.find((f) => f.id === activeId) ?? null, [files, activeId]);
   const recommendations = useMemo(() => recommendationsFor(activeFile), [activeFile]);
+
+  /**
+   * Tool entries carry an i18n namespace and name key; the internal id is not a
+   * user-facing string and must never reach the screen.
+   */
+  const labelFor = useCallback(
+    (entry: { i18nNamespace: string; nameKey: string; toolId: string }) =>
+      tRoot(`${entry.i18nNamespace}.${entry.nameKey}` as Parameters<typeof tRoot>[0]),
+    [tRoot],
+  );
 
   const openWith = useCallback(
     async (href: string, fileId: string, toolId?: string) => {
@@ -306,7 +329,7 @@ export function FilesWorkspace() {
           </SelectContent>
         </Select>
         <Select value={sort} onValueChange={(v) => setSort(v as SortKey)}>
-          <SelectTrigger className="w-36" aria-label={t("sortBy")}>
+          <SelectTrigger className="w-44" aria-label={t("sortBy")}>
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -417,17 +440,26 @@ export function FilesWorkspace() {
         </div>
 
         {view === "grid" ? (
-          <div className="flex items-center gap-0.5" role="group" aria-label={t("thumbSize")}>
-            {(["s", "m", "l"] as ThumbSize[]).map((option) => (
+          <div
+            className="flex items-center gap-0.5 rounded-md border border-border p-0.5"
+            role="group"
+            aria-label={t("thumbSize")}
+          >
+            {SIZE_OPTIONS.map(({ value, dot }) => (
               <Button
-                key={option}
+                key={value}
                 size="sm"
-                variant={size === option ? "primary" : "ghost"}
-                aria-pressed={size === option}
-                aria-label={tSize(option)}
-                onClick={() => setSize(option)}
+                variant={size === value ? "primary" : "ghost"}
+                aria-pressed={size === value}
+                aria-label={tSize(value)}
+                title={tSize(value)}
+                onClick={() => setSize(value)}
               >
-                {option.toUpperCase()}
+                <span
+                  className="block rounded-[2px] bg-current"
+                  style={{ width: dot, height: dot }}
+                  aria-hidden
+                />
               </Button>
             ))}
           </div>
@@ -500,7 +532,7 @@ export function FilesWorkspace() {
                   recommendations={recommendationsFor(file).map((r) => ({
                     toolId: r.entry.toolId,
                     href: r.entry.href,
-                    label: r.entry.toolId,
+                    label: labelFor(r.entry),
                   }))}
                   onOpen={() => activate(file.id)}
                   onOpenWith={(href) => void openWith(href, file.id)}
@@ -524,7 +556,7 @@ export function FilesWorkspace() {
           recommendations={recommendations.map((r) => ({
             toolId: r.entry.toolId,
             href: r.entry.href,
-            label: r.entry.toolId,
+            label: labelFor(r.entry),
           }))}
           onOpenWith={(href) => {
             if (activeId) void openWith(href, activeId);
@@ -542,6 +574,7 @@ export function FilesWorkspace() {
       {previewId ? (
         <QuickPreview
           fileId={previewId}
+          file={files.find((f) => f.id === previewId) ?? null}
           onClose={() => setPreviewId(null)}
           onOpen={() => {
             const id = previewId;

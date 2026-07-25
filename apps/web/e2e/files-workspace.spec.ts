@@ -330,4 +330,63 @@ test.describe("file workspace", () => {
     const inspector = page.getByRole("complementary", { name: "File details" });
     await expect(inspector.getByRole("heading", { name: "Details" })).toBeVisible();
   });
+
+  test("images and PDFs both get real thumbnails, not placeholder icons", async ({ page }) => {
+    await gotoFiles(page);
+
+    // A genuine PNG, generated in the page — a hand-rolled base64 fixture can
+    // decode to nothing and make a working thumbnailer look broken.
+    await page.evaluate(async () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = 200;
+      canvas.height = 120;
+      const ctx = canvas.getContext("2d")!;
+      ctx.fillStyle = "#3b5bdb";
+      ctx.fillRect(0, 0, 200, 120);
+      const blob = await new Promise<Blob | null>((r) => canvas.toBlob(r, "image/png"));
+      const dt = new DataTransfer();
+      dt.items.add(new File([blob!], "photo.png", { type: "image/png" }));
+      window.dispatchEvent(
+        Object.assign(new Event("drop", { bubbles: true, cancelable: true }), { dataTransfer: dt }),
+      );
+    });
+    const dialog = page.getByRole("dialog");
+    await expect(dialog).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(dialog).toBeHidden();
+    await expect(tile(page, "photo.png").locator("img")).toBeVisible();
+
+    // PDFs render their first page rather than falling back to a generic icon.
+    await page.evaluate(async (bytes) => {
+      const dt = new DataTransfer();
+      dt.items.add(new File([new Uint8Array(bytes)], "doc.pdf", { type: "application/pdf" }));
+      window.dispatchEvent(
+        Object.assign(new Event("drop", { bubbles: true, cancelable: true }), { dataTransfer: dt }),
+      );
+    }, [...(await samplePdf(1))]);
+    await expect(dialog).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(dialog).toBeHidden();
+    await expect(tile(page, "doc.pdf").locator("img")).toBeVisible();
+  });
+
+  test("the inspector names tools properly, never internal identifiers", async ({ page }) => {
+    await gotoFiles(page);
+    await page.evaluate(async (bytes) => {
+      const dt = new DataTransfer();
+      dt.items.add(new File([new Uint8Array(bytes)], "named.pdf", { type: "application/pdf" }));
+      window.dispatchEvent(
+        Object.assign(new Event("drop", { bubbles: true, cancelable: true }), { dataTransfer: dt }),
+      );
+    }, [...(await samplePdf(1))]);
+    await expect(page.getByRole("dialog")).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(page.getByRole("dialog")).toBeHidden();
+
+    await tile(page, "named.pdf").click();
+    const inspector = page.getByRole("complementary", { name: "File details" });
+    await expect(inspector.getByRole("button", { name: "Merge PDFs" })).toBeVisible();
+    // The internal id must never reach the screen.
+    await expect(inspector.getByText("pdf-merge")).toBeHidden();
+  });
 });

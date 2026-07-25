@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { workspace } from "@omnio/workspace";
+import { useThumbnail } from "@omnio/workspace/react";
+import type { WorkspaceFile } from "@omnio/workspace";
 import { Button, Dialog, DialogContent, DialogHeader, DialogTitle } from "@omnio/ui";
 
 /**
@@ -12,10 +14,12 @@ import { Button, Dialog, DialogContent, DialogHeader, DialogTitle } from "@omnio
  */
 export function QuickPreview({
   fileId,
+  file,
   onClose,
   onOpen,
 }: {
   fileId: string;
+  file: WorkspaceFile | null;
   onClose: () => void;
   onOpen: () => void;
 }) {
@@ -23,20 +27,26 @@ export function QuickPreview({
   const [url, setUrl] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [text, setText] = useState<string | null>(null);
+  const rendered = useThumbnail(file);
 
   useEffect(() => {
     let cancelled = false;
     let objectUrl: string | null = null;
     void (async () => {
-      const file = await workspace.peekFile(fileId);
-      if (!file || cancelled) return;
-      setName(file.name);
-      if (file.type.startsWith("text/") || file.type === "application/json") {
-        setText((await file.text()).slice(0, 5000));
+      const source = await workspace.peekFile(fileId);
+      if (!source || cancelled) return;
+      setName(source.name);
+      if (source.type.startsWith("text/") || source.type === "application/json") {
+        setText((await source.text()).slice(0, 5000));
         return;
       }
-      objectUrl = URL.createObjectURL(file);
-      if (!cancelled) setUrl(objectUrl);
+      // Only types a browser reliably renders inline get an object URL. A PDF
+      // in an <object> shows an empty white panel in many browsers, which is
+      // worse than showing the page image we already generated.
+      if (source.type.startsWith("image/") || source.type.startsWith("video/") || source.type.startsWith("audio/")) {
+        objectUrl = URL.createObjectURL(source);
+        if (!cancelled) setUrl(objectUrl);
+      }
     })();
     return () => {
       cancelled = true;
@@ -50,13 +60,19 @@ export function QuickPreview({
         <DialogHeader>
           <DialogTitle className="truncate">{name}</DialogTitle>
         </DialogHeader>
-        <div className="flex max-h-[60vh] min-h-64 items-center justify-center overflow-auto rounded bg-surface-subtle">
+        <div className="flex max-h-[60vh] min-h-64 items-center justify-center overflow-auto rounded bg-surface-subtle p-4">
           {text !== null ? (
             <pre className="w-full whitespace-pre-wrap p-3 text-start text-xs">{text}</pre>
           ) : url ? (
             <object data={url} className="h-[60vh] w-full" aria-label={name}>
               <p className="p-4 text-sm text-text-muted">{t("noPreview")}</p>
             </object>
+          ) : rendered ? (
+            <img
+              src={rendered}
+              alt={name}
+              className="max-h-[60vh] max-w-full rounded border border-border-subtle object-contain shadow-2"
+            />
           ) : (
             <p className="text-sm text-text-muted">{t("noPreview")}</p>
           )}

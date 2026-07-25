@@ -161,7 +161,8 @@
     "copyMetadata": "Copy details",
     "copied": "Copied",
     "noCollections": "No collections yet.",
-    "newCollectionPlaceholder": "New collection…"
+    "newCollectionPlaceholder": "New collection…",
+    "inspectorEmptyTitle": "Nothing selected"
   },
   "nav": {
     "home": "Home",

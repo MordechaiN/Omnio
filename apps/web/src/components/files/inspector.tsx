@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslations, useFormatter } from "next-intl";
 import {
   kindOf,
@@ -12,7 +12,7 @@ import {
 } from "@omnio/workspace";
 import { useRelations, useThumbnail } from "@omnio/workspace/react";
 import { Badge, Button, Input, Separator } from "@omnio/ui";
-import { Check, Copy, CornerDownRight, ExternalLink, Pin, PinOff, Trash2 } from "lucide-react";
+import { Check, Copy, CornerDownRight, ExternalLink, PanelRight, Pin, PinOff, Trash2 } from "lucide-react";
 
 /**
  * The permanent Inspector panel.
@@ -63,8 +63,13 @@ export function Inspector({
   const [copied, setCopied] = useState(false);
   const [newCollection, setNewCollection] = useState("");
 
+  const panelRef = useRef<HTMLElement>(null);
+
   useEffect(() => {
     setRenaming(false);
+    // Selecting a different file must show its details from the top; carrying
+    // the previous scroll position over looked like clipped content.
+    if (panelRef.current) panelRef.current.scrollTop = 0;
   }, [file?.id]);
 
   // Rename can be triggered from the context menu; the field lives here, so the
@@ -91,8 +96,15 @@ export function Inspector({
 
   if (!file) {
     return (
-      <aside className="flex h-full w-80 shrink-0 flex-col items-center justify-center border-s border-border-subtle p-6 text-center" aria-label={t("inspector")}>
-        <p className="text-sm text-text-muted">{t("inspectorEmpty")}</p>
+      <aside
+        className="flex h-full w-80 shrink-0 flex-col items-center justify-center gap-3 border-s border-border-subtle p-6 text-center"
+        aria-label={t("inspector")}
+      >
+        <span className="flex h-12 w-12 items-center justify-center rounded-full bg-surface-subtle">
+          <PanelRight className="h-5 w-5 text-text-muted" aria-hidden />
+        </span>
+        <p className="text-sm font-medium">{t("inspectorEmptyTitle")}</p>
+        <p className="text-xs text-text-muted">{t("inspectorEmpty")}</p>
       </aside>
     );
   }
@@ -101,12 +113,19 @@ export function Inspector({
 
   return (
     <aside
+      ref={panelRef}
       className="flex h-full w-80 shrink-0 flex-col gap-4 overflow-y-auto border-s border-border-subtle p-4"
       aria-label={t("inspector")}
     >
-      <div className="flex h-40 items-center justify-center overflow-hidden rounded-lg bg-surface-subtle">
+      <div className="flex h-40 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-surface-subtle p-2">
         {preview ? (
-          <img src={preview} alt="" className="max-h-full max-w-full object-contain" />
+          // Border and shadow, because a white page on a white surface has no
+          // edge and reads as floating content rather than a document.
+          <img
+            src={preview}
+            alt=""
+            className="max-h-full max-w-full rounded-sm border border-border-subtle object-contain shadow-1 motion-safe:animate-in motion-safe:fade-in motion-safe:duration-200"
+          />
         ) : (
           <span className="text-xs text-text-muted">{t("noPreview")}</span>
         )}
@@ -144,7 +163,7 @@ export function Inspector({
         </button>
       )}
 
-      <div className="flex flex-wrap gap-1.5">
+      <div className="flex shrink-0 flex-wrap gap-1.5">
         <Button size="sm" variant="secondary" onClick={() => void workspace.setPinned(file.id, !file.pinned)}>
           {file.pinned ? <PinOff className="me-1 h-3.5 w-3.5" /> : <Pin className="me-1 h-3.5 w-3.5" />}
           {file.pinned ? t("unpin") : t("pin")}
