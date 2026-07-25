@@ -2,7 +2,7 @@
   "name": "@omnio/mod-numbase",
   "version": "1.0.0",
   "private": true,
-  "license": "AGPL-3.0-only",
+  "license": "Apache-2.0",
   "description": "Numbase — browser-tier tools. Ships TypeScript source; the web app transpiles it.",
   "type": "module",
   "exports": {

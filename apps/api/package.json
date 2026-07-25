@@ -2,7 +2,7 @@
   "name": "@omnio/api",
   "version": "0.1.0-alpha.1",
   "private": true,
-  "license": "AGPL-3.0-only",
+  "license": "Apache-2.0",
   "description": "Omnio HTTP API — NestJS implementation of @omnio/contracts.",
   "scripts": {
     "build": "tsc -p tsconfig.build.json",

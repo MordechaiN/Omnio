@@ -40,7 +40,7 @@ export function packageJson(o: ModuleTemplateOptions): string {
       name: `@omnio/mod-${o.id}`,
       version: "1.0.0",
       private: true,
-      license: "AGPL-3.0-only",
+      license: "Apache-2.0",
       description: `${toPascalCase(o.id)} module. Ships TypeScript source; the web app transpiles it.`,
       type: "module",
       exports: {

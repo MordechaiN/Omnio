@@ -2,7 +2,7 @@
   "name": "@omnio/db",
   "version": "0.1.0",
   "private": true,
-  "license": "AGPL-3.0-only",
+  "license": "Apache-2.0",
   "description": "Prisma schema, client factory, and migrate-on-boot runner for the Omnio core data model. Server-only (CommonJS); consumed by api and worker.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

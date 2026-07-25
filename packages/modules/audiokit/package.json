@@ -2,7 +2,7 @@
   "name": "@omnio/mod-audiokit",
   "version": "1.0.0",
   "private": true,
-  "license": "AGPL-3.0-only",
+  "license": "Apache-2.0",
   "description": "Audio tools — trim a clip and export WAV via the Web Audio API; sound never leaves the device.",
   "type": "module",
   "exports": {

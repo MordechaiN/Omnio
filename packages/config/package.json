@@ -2,7 +2,7 @@
   "name": "@omnio/config",
   "version": "0.1.0",
   "private": true,
-  "license": "AGPL-3.0-only",
+  "license": "Apache-2.0",
   "description": "Shared tooling presets: tsconfig, eslint. Internal to the Omnio monorepo.",
   "type": "module",
   "exports": {

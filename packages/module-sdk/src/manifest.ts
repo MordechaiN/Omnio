@@ -62,7 +62,7 @@ export const ModuleManifestSchema = z
     id: z.string().regex(KEBAB, "module id must be kebab-case"),
     version: z.string().regex(SEMVER, "version must be semver (e.g. 1.0.0)"),
     // Category membership is validated by modgen against @omnio/core so the
-    // published (MIT) schema stays free of the AGPL category list.
+    // published schema stays free of the app-level category list.
     category: z.string().min(1),
     icon: z.string().min(1),
     i18nNamespace: z.string().min(1),

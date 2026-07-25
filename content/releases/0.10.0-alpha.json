@@ -1,0 +1,36 @@
+{
+  "version": "0.10.0-alpha",
+  "date": "2026-07-25",
+  "headline": {
+    "en": "Omnio grows up: a clear licence, proper credit, and a front door that explains itself.",
+    "he": "Omnio מתבגר: רישיון ברור, קרדיט ראוי, ודלת כניסה שמסבירה את עצמה."
+  },
+  "sections": [
+    {
+      "type": "new",
+      "items": [
+        {
+          "en": "Omnio is now free for anyone to use, change, share and sell, under the Apache 2.0 licence. The only thing asked in return is that credit to the creator stays with the code.",
+          "he": "כל אחד רשאי כעת להשתמש ב-Omnio, לשנות אותו, לשתף אותו ואף למכור אותו, תחת רישיון Apache 2.0. הדבר היחיד שמתבקש בתמורה הוא שהקרדיט ליוצר יישאר עם הקוד."
+        },
+        {
+          "en": "About now credits Mordechai Neeman, who created Omnio.",
+          "he": "מסך \"אודות\" מציג כעת קרדיט למרדכי נאמן, יוצר Omnio."
+        }
+      ]
+    },
+    {
+      "type": "improved",
+      "items": [
+        {
+          "en": "Organize Pages is now the first thing offered for a document. It covers reordering, rotating, deleting and duplicating pages in one place, and had been buried below the tools it replaces.",
+          "he": "\"ארגון עמודים\" הוא כעת הכלי הראשון שמוצע עבור מסמך. הוא כולל סידור מחדש, סיבוב, מחיקה ושכפול עמודים במקום אחד, ועד כה היה קבור מתחת לכלים שהוא מחליף."
+        },
+        {
+          "en": "The project's front page now explains what Omnio is and why it exists, in plain language and with pictures, instead of reading like an engineering document.",
+          "he": "עמוד הפתיחה של הפרויקט מסביר כעת מהו Omnio ולמה הוא קיים, בשפה פשוטה ועם תמונות, במקום להיקרא כמסמך הנדסי."
+        }
+      ]
+    }
+  ]
+}

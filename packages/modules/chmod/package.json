@@ -2,7 +2,7 @@
   "name": "@omnio/mod-chmod",
   "version": "1.0.0",
   "private": true,
-  "license": "AGPL-3.0-only",
+  "license": "Apache-2.0",
   "description": "Unix permission calculator — convert between octal, symbolic, and per-role checkboxes.",
   "type": "module",
   "exports": {

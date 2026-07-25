@@ -695,7 +695,7 @@
           "mime": [
             "application/pdf"
           ],
-          "priority": 48
+          "priority": 62
         }
       ]
     },
@@ -721,7 +721,7 @@
           "mime": [
             "application/pdf"
           ],
-          "priority": 60
+          "priority": 88
         }
       ]
     }

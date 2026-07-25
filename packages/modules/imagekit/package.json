@@ -2,7 +2,7 @@
   "name": "@omnio/mod-imagekit",
   "version": "1.0.0",
   "private": true,
-  "license": "AGPL-3.0-only",
+  "license": "Apache-2.0",
   "description": "Image resizer and converter — canvas-based, entirely on your device; images never leave the browser.",
   "type": "module",
   "exports": {

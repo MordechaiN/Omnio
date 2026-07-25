@@ -1,8 +1,8 @@
 {
   "name": "omnio",
-  "version": "0.9.0-alpha",
+  "version": "0.10.0-alpha",
   "private": true,
-  "license": "AGPL-3.0-only",
+  "license": "Apache-2.0",
   "description": "Everything. One Workspace. — self-hosted, privacy-first workspace for files and everyday tools",
   "packageManager": "pnpm@10.33.0",
   "engines": {
@@ -24,5 +24,14 @@
     "@omnio/scaffold": "workspace:*",
     "prettier": "^3.6.0",
     "turbo": "^2.5.0"
+  },
+  "author": {
+    "name": "Mordechai Neeman",
+    "url": "https://github.com/MordechaiN"
+  },
+  "homepage": "https://github.com/MordechaiN/Omnio",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MordechaiN/Omnio.git"
   }
 }

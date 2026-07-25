@@ -126,6 +126,16 @@ export function AboutContent() {
         <Row label={t("buildDate")}>
           <Mono>{buildTimestamp}</Mono>
         </Row>
+        <Row label={t("createdBy")}>
+          <a
+            href="https://github.com/MordechaiN"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-accent hover:underline"
+          >
+            Mordechai Neeman <ExternalLink size={13} aria-hidden />
+          </a>
+        </Row>
         <Row label={t("license")}>
           <Mono>{OMNIO_LICENSE}</Mono>
         </Row>

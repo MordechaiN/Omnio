@@ -2,7 +2,7 @@
   "name": "@omnio/modgen",
   "version": "0.1.0",
   "private": true,
-  "license": "AGPL-3.0-only",
+  "license": "Apache-2.0",
   "description": "Build-time module discovery and registry codegen. Globs packages/modules, validates manifests against @omnio/module-sdk, and emits the typed web/api/worker/search registries + capabilities.json.",
   "type": "module",
   "bin": {

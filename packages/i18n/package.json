@@ -2,7 +2,7 @@
   "name": "@omnio/i18n",
   "version": "0.1.0",
   "private": true,
-  "license": "AGPL-3.0-only",
+  "license": "Apache-2.0",
   "description": "Locale metadata and platform message catalogs. English and Hebrew are both first-class; a test enforces key parity so neither can drift.",
   "type": "module",
   "exports": {

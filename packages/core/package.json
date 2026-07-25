@@ -2,7 +2,7 @@
   "name": "@omnio/core",
   "version": "0.1.0",
   "private": true,
-  "license": "AGPL-3.0-only",
+  "license": "Apache-2.0",
   "description": "Shared runtime utilities: errors, formatting, type helpers. Leaf package — depends on nothing.",
   "type": "module",
   "main": "./dist/index.cjs",

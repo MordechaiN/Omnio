@@ -29,6 +29,6 @@ export const buildInfo: WebBuildInfo = {
 /** The `v`-prefixed release string shown in the footer and titles. */
 export const versionLabel = `v${buildInfo.version}`;
 
-export const OMNIO_LICENSE = "AGPL-3.0-only";
+export const OMNIO_LICENSE = "Apache-2.0";
 export const OMNIO_REPO_URL = "https://github.com/MordechaiN/Omnio";
 export const OMNIO_DOCS_URL = "https://github.com/MordechaiN/Omnio/tree/main/docs";

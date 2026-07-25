@@ -2,7 +2,7 @@
   "name": "@omnio/jobs",
   "version": "0.1.0",
   "private": true,
-  "license": "AGPL-3.0-only",
+  "license": "Apache-2.0",
   "description": "Shared job-queue contract: BullMQ queue name, job payload schema, and SSE progress events. Server-only (CommonJS); consumed by api (producer) and worker (consumer).",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

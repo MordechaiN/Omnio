@@ -8,7 +8,17 @@ Format: each decision has a recommendation and its reasoning. Overrides are welc
 
 ## Resolved by founder (2026-07-11)
 
-### D1 · License — **DECIDED: AGPL-3.0 + MIT SDK**
+### D1 · License — **SUPERSEDED (2026-07-25): now Apache-2.0 throughout**
+
+> The original decision below chose AGPL-3.0 for the platform with an MIT SDK, to
+> keep integrators unencumbered by copyleft. That split existed only to work
+> around the copyleft core. Omnio is now Apache-2.0 everywhere: anyone may use,
+> fork, modify, redistribute and sell it, including commercially, provided the
+> attribution and NOTICE requirements in Apache-2.0 section 4 are preserved. The
+> separate MIT licence on `packages/contracts` has been removed as unnecessary.
+
+#### Original decision (superseded)
+
 
 **Recommendation: AGPL-3.0 for the platform; MIT for `@omnio/module-sdk` and `@omnio/contracts`.**
 AGPL is the proven defense for self-hosted products (Immich, Nextcloud, Grafana lineage): anyone may self-host, fork, and modify, but a cloud vendor reselling Omnio must publish their changes. MIT on the SDK/contracts means plugin and integration authors are never license-encumbered — their code is theirs. Alternative: MIT everywhere maximizes adoption but invites closed-source SaaS clones of the whole product; Apache-2.0 adds a patent grant but same clone exposure.

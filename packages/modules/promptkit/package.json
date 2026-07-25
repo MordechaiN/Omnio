@@ -2,7 +2,7 @@
   "name": "@omnio/mod-promptkit",
   "version": "1.0.0",
   "private": true,
-  "license": "AGPL-3.0-only",
+  "license": "Apache-2.0",
   "description": "Prompt tooling — templates with variables and token estimation, all local. Built so cloud providers can plug in later without UI redesign.",
   "type": "module",
   "exports": {

@@ -477,7 +477,8 @@
     "overallHealth": "מצב כללי",
     "copyDebugInfo": "העתקת פרטי דיבוג",
     "copyDebugInfoHint": "מעתיק תקציר טכני קצר — אפשר להדביק בדיווח על באג.",
-    "debugCopied": "פרטי הדיבוג הועתקו"
+    "debugCopied": "פרטי הדיבוג הועתקו",
+    "createdBy": "נוצר על ידי"
   },
   "changelog": {
     "title": "מה חדש",

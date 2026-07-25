@@ -2,7 +2,7 @@
   "name": "@omnio/scaffold",
   "version": "0.1.0",
   "private": true,
-  "license": "AGPL-3.0-only",
+  "license": "Apache-2.0",
   "description": "Module and tool scaffolders. `pnpm new:module` / `new:tool` generate a manifest, a ToolShell-ready surface, i18n stubs, and a test so a contributor ships a tool in minutes.",
   "type": "module",
   "bin": {

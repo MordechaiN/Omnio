@@ -2,7 +2,7 @@
   "name": "@omnio/storage",
   "version": "0.1.0",
   "private": true,
-  "license": "AGPL-3.0-only",
+  "license": "Apache-2.0",
   "description": "Streaming-first storage driver abstraction (StorageDriver) with a local-filesystem implementation. Server-only (CommonJS); consumed by api and worker.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

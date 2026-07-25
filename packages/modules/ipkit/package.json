@@ -2,7 +2,7 @@
   "name": "@omnio/mod-ipkit",
   "version": "1.0.0",
   "private": true,
-  "license": "AGPL-3.0-only",
+  "license": "Apache-2.0",
   "description": "IP address inspector — classify IPv4/IPv6 addresses and convert between notations, on your device.",
   "type": "module",
   "exports": {

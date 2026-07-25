@@ -3,7 +3,7 @@
   "version": "0.1.0-alpha.1",
   "private": true,
   "type": "module",
-  "license": "AGPL-3.0-only",
+  "license": "Apache-2.0",
   "description": "Omnio processing worker — the sandboxed home of all heavy file work. M1 ships the process skeleton and health endpoint; BullMQ consumers arrive in M3.",
   "scripts": {
     "build": "tsup",

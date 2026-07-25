@@ -1,0 +1,42 @@
+Omnio
+Copyright 2026 Mordechai Neeman
+
+This product is licensed under the Apache License, Version 2.0.
+A copy of the license is in the LICENSE file, and at
+https://www.apache.org/licenses/LICENSE-2.0
+
+Created by Mordechai Neeman — https://github.com/MordechaiN
+
+--------------------------------------------------------------------------------
+What you must keep
+--------------------------------------------------------------------------------
+
+You are free to use, copy, modify, fork, redistribute and sell Omnio, including
+in closed-source and commercial products. In exchange the license asks for a
+small, specific set of things (Apache-2.0 section 4). When you redistribute
+Omnio or anything derived from it, you must:
+
+  1. Include a copy of the Apache License 2.0.
+  2. Keep this NOTICE file, or reproduce its contents somewhere your users can
+     reasonably see them — an "About" screen, credits, or accompanying
+     documentation are all fine.
+  3. Keep the existing copyright, patent, trademark and attribution notices in
+     the source you received.
+  4. State clearly which files you changed, if you changed any.
+
+You may add your own copyright notice for your changes, and you may license your
+own additions however you like, as long as the terms above still hold for the
+parts that came from Omnio.
+
+You do not have to open-source your changes, ask permission, pay anything, or
+credit Omnio in your marketing.
+
+--------------------------------------------------------------------------------
+Third-party components
+--------------------------------------------------------------------------------
+
+Omnio bundles open-source software from other authors, each under its own
+license. Their terms continue to apply to those components, and nothing here
+replaces them. Notable engines include pdf.js and MuPDF for reading documents,
+qpdf for rebuilding them, Tesseract for reading text in scans, and LibreOffice
+for converting office documents on the server.

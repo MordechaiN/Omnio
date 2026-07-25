@@ -477,7 +477,8 @@
     "overallHealth": "Overall health",
     "copyDebugInfo": "Copy debug information",
     "copyDebugInfoHint": "Copies a short technical summary — paste it into a bug report.",
-    "debugCopied": "Debug information copied"
+    "debugCopied": "Debug information copied",
+    "createdBy": "Created by"
   },
   "changelog": {
     "title": "What's New",

@@ -9,6 +9,21 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ## [Unreleased]
 
+## [0.10.0-alpha] - 2026-07-25
+
+Omnio grows up: a clear licence, proper credit, and a front door that explains itself.
+
+### 🚀 New
+
+- **Omnio is now free for anyone to use, change, share and sell**, under the Apache 2.0 licence. The only thing asked in return is that credit to the creator stays with the code.
+- **About credits Mordechai Neeman**, who created Omnio.
+
+### ✨ Improved
+
+- **Organize Pages is now the first tool offered for a document.** It covers reordering, rotating, deleting and duplicating pages in one place, and had been buried below the tools it replaces.
+- **The project's front page** now explains what Omnio is and why it exists, in plain language and with pictures, instead of reading like an engineering document.
+
+
 ## [0.9.0-alpha] - 2026-07-25
 
 Omnio notices what you left unfinished — and now speaks your language everywhere.
@@ -182,7 +197,8 @@ The first public version of Omnio: a private, self-hosted workspace with dozens 
 - **A workspace to work in** — search everything from one place, star your favorites, drop files straight onto the page, and jump around with the keyboard.
 - **Runs entirely on your device** — files never leave your browser, and there's no account to create.
 
-[Unreleased]: https://github.com/MordechaiN/Omnio/compare/v0.9.0-alpha...HEAD
+[Unreleased]: https://github.com/MordechaiN/Omnio/compare/v0.10.0-alpha...HEAD
+[0.10.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.9.0-alpha...v0.10.0-alpha
 [0.9.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.8.0-alpha...v0.9.0-alpha
 [0.8.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.7.0-alpha...v0.8.0-alpha
 [0.7.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.6.1-alpha...v0.7.0-alpha

@@ -2,7 +2,7 @@
   "name": "@omnio/mod-case",
   "version": "1.0.0",
   "private": true,
-  "license": "AGPL-3.0-only",
+  "license": "Apache-2.0",
   "description": "Text case transforms — the worker-tier reference module. Ships TypeScript source.",
   "type": "module",
   "exports": {

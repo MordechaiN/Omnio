@@ -37,7 +37,7 @@ Scaffolders (`pnpm new:module`, `pnpm new:tool`) arrive with milestone M4 and ge
 
 ## Licensing of contributions
 
-The platform is AGPL-3.0-only; `packages/contracts` (and the future `module-sdk`) are MIT. By contributing you agree your contribution is licensed under the license of the package it modifies. See [docs/architecture/08-decisions.md](docs/architecture/08-decisions.md), decision D1.
+Omnio is Apache-2.0 throughout. By contributing you agree your contribution is licensed under Apache-2.0. See [docs/architecture/08-decisions.md](docs/architecture/08-decisions.md), decision D1.
 
 ## Code of conduct
 
