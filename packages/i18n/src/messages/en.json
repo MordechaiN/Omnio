@@ -92,7 +92,11 @@
       "other": "File"
     },
     "metadata": "Details",
-    "size": "Size",
+    "size": {
+      "s": "Small thumbnails",
+      "m": "Medium thumbnails",
+      "l": "Large thumbnails"
+    },
     "dimensions": "Dimensions",
     "pages": "Pages",
     "duration": "Duration",
@@ -137,7 +141,20 @@
     "unsupportedTitle": "Files can't be stored in this browser",
     "unsupportedBody": "Your browser won't let Omnio keep files on this device — this often happens in private browsing. Tools still work; files just won't be remembered between visits.",
     "kindLabel": "Type",
-    "newTagPlaceholder": "New tag…"
+    "newTagPlaceholder": "New tag…",
+    "filters": "Filter",
+    "filtersActive": "{count} filters",
+    "clearFilters": "Clear filters",
+    "savedSearches": "Saved searches",
+    "noSavedSearches": "No saved searches yet.",
+    "saveSearch": "Save this search…",
+    "saveSearchPlaceholder": "Name this search",
+    "save": "Save",
+    "viewMode": "View",
+    "gridView": "Grid view",
+    "listView": "List view",
+    "thumbSize": "Thumbnail size",
+    "sizeLabel": "Size"
   },
   "nav": {
     "home": "Home",

@@ -9,6 +9,7 @@ import {
   searchFiles,
   sortFiles,
   workspace,
+  type SavedSearch,
   type SortKey,
   type WorkspaceFile,
 } from "@omnio/workspace";
@@ -16,9 +17,12 @@ import { useSelection, useWorkspace } from "@omnio/workspace/react";
 import {
   Button,
   DropdownMenu,
+  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuSeparator,
+  DropdownMenuTrigger,
   EmptyState,
   Input,
   Select,
@@ -27,11 +31,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@omnio/ui";
-import { FolderOpen, Search } from "lucide-react";
+import { Bookmark, FolderOpen, LayoutGrid, List, Search, SlidersHorizontal } from "lucide-react";
 import { useRouter } from "@/i18n/navigation";
 import { mimeMatches, normalizeMime } from "@/lib/file-intel";
 import { SEARCH_ENTRIES } from "@/generated/registry.search";
-import { FileGrid } from "./file-grid";
+import { FileGrid, type ThumbSize, type ViewMode } from "./file-grid";
 import { Inspector } from "./inspector";
 import { QuickPreview } from "./quick-preview";
 
@@ -51,33 +55,60 @@ export function FilesWorkspace() {
   const t = useTranslations("files");
   const tKind = useTranslations("files.kind");
   const tSort = useTranslations("files.sort");
+  const tSize = useTranslations("files.size");
   const router = useRouter();
-  const { files, tags, collections, events, ready, supported } = useWorkspace();
+  const { files, tags, collections, events, searches, ready, supported } = useWorkspace();
 
   const [text, setText] = useState("");
   const [sort, setSort] = useState<SortKey>("recent");
   const [kind, setKind] = useState<string>("");
-  const [collectionId] = useState<string>("");
+  const [collectionId, setCollectionId] = useState<string>("");
+  const [tagIds, setTagIds] = useState<string[]>([]);
+  const [view, setView] = useState<ViewMode>("grid");
+  const [size, setSize] = useState<ThumbSize>("m");
+  const [savingSearch, setSavingSearch] = useState(false);
+  const [searchName, setSearchName] = useState("");
   const [focusedId, setFocusedId] = useState<string | null>(null);
   const [menu, setMenu] = useState<{ id: string; x: number; y: number } | null>(null);
   const [previewId, setPreviewId] = useState<string | null>(null);
   const [undoable, setUndoable] = useState<Array<{ file: WorkspaceFile; blob: File }>>([]);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const view = useMemo(
-    () =>
-      sortFiles(
-        searchFiles(files, {
-          text,
-          kind: kind || undefined,
-          collectionId: collectionId || undefined,
-        }),
-        sort,
-      ),
-    [files, text, kind, collectionId, sort],
+  // View preferences are UI state, not workspace data, so they live in
+  // localStorage rather than IndexedDB and never sync anywhere.
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem("omnio.files.view");
+      if (raw) {
+        const saved = JSON.parse(raw) as { view?: ViewMode; size?: ThumbSize };
+        if (saved.view) setView(saved.view);
+        if (saved.size) setSize(saved.size);
+      }
+    } catch {
+      // A corrupt preference must never keep the workspace from opening.
+    }
+  }, []);
+  useEffect(() => {
+    try {
+      localStorage.setItem("omnio.files.view", JSON.stringify({ view, size }));
+    } catch {
+      // Storage full or blocked; the preference simply does not persist.
+    }
+  }, [view, size]);
+
+  const query = useMemo(
+    () => ({
+      text,
+      kind: kind || undefined,
+      collectionId: collectionId || undefined,
+      tagIds: tagIds.length > 0 ? tagIds : undefined,
+    }),
+    [text, kind, collectionId, tagIds],
   );
 
-  const { selected, select, selectAll, clear } = useSelection(view);
+  const visible = useMemo(() => sortFiles(searchFiles(files, query), sort), [files, query, sort]);
+
+  const { selected, select, selectAll, clear } = useSelection(visible);
   const activeId = focusedId && selected.has(focusedId) ? focusedId : [...selected][0] ?? null;
   const activeFile = useMemo(() => files.find((f) => f.id === activeId) ?? null, [files, activeId]);
   const recommendations = useMemo(() => recommendationsFor(activeFile), [activeFile]);
@@ -134,10 +165,10 @@ export function FilesWorkspace() {
       if (target && /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName)) return;
       if (previewId && e.key !== "Escape" && e.key !== " ") return;
 
-      const index = focusedId ? view.findIndex((f) => f.id === focusedId) : -1;
+      const index = focusedId ? visible.findIndex((f) => f.id === focusedId) : -1;
       const move = (delta: number) => {
         e.preventDefault();
-        const next = view[Math.max(0, Math.min(view.length - 1, (index < 0 ? 0 : index) + delta))];
+        const next = visible[Math.max(0, Math.min(visible.length - 1, (index < 0 ? 0 : index) + delta))];
         if (next) {
           setFocusedId(next.id);
           select(next.id, { shift: e.shiftKey });
@@ -191,7 +222,7 @@ export function FilesWorkspace() {
     }
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [view, focusedId, activeId, selected, previewId, undoable, select, selectAll, clear, activate, removeSelected, undoDelete]);
+  }, [visible, focusedId, activeId, selected, previewId, undoable, select, selectAll, clear, activate, removeSelected, undoDelete]);
 
   /** Dropping files onto another file records the relationship. */
   const onDropOnFile = useCallback(async (draggedIds: string[], targetId: string) => {
@@ -207,6 +238,28 @@ export function FilesWorkspace() {
   }, [files]);
 
   const duplicates = useMemo(() => duplicateGroups(files), [files]);
+  const activeFilters = tagIds.length + (collectionId ? 1 : 0) + (kind ? 1 : 0);
+  const hasQuery = activeFilters > 0 || text.trim() !== "";
+
+  const clearFilters = useCallback(() => {
+    setTagIds([]);
+    setCollectionId("");
+    setKind("");
+  }, []);
+
+  const applySearch = useCallback((saved: SavedSearch) => {
+    setText(saved.query.text ?? "");
+    setKind(saved.query.kind ?? "");
+    setCollectionId(saved.query.collectionId ?? "");
+    setTagIds(saved.query.tagIds ?? []);
+  }, []);
+
+  const commitSavedSearch = useCallback(async () => {
+    if (searchName.trim() === "") return;
+    await workspace.saveSearch(searchName, query);
+    setSearchName("");
+    setSavingSearch(false);
+  }, [searchName, query]);
 
   if (ready && !supported) {
     return (
@@ -256,12 +309,148 @@ export function FilesWorkspace() {
             ))}
           </SelectContent>
         </Select>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button size="sm" variant={activeFilters > 0 ? "primary" : "secondary"}>
+              <SlidersHorizontal className="me-1 h-3.5 w-3.5" />
+              {activeFilters > 0 ? t("filtersActive", { count: activeFilters }) : t("filters")}
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-56">
+            <DropdownMenuLabel>{t("tags")}</DropdownMenuLabel>
+            {tags.length === 0 ? (
+              <DropdownMenuItem disabled>{t("noTags")}</DropdownMenuItem>
+            ) : (
+              tags.map((tag) => (
+                <DropdownMenuCheckboxItem
+                  key={tag.id}
+                  checked={tagIds.includes(tag.id)}
+                  onCheckedChange={(on) =>
+                    setTagIds((current) =>
+                      on ? [...current, tag.id] : current.filter((id) => id !== tag.id),
+                    )
+                  }
+                >
+                  {tag.name}
+                </DropdownMenuCheckboxItem>
+              ))
+            )}
+            {collections.length > 0 ? (
+              <>
+                <DropdownMenuSeparator />
+                <DropdownMenuLabel>{t("collections")}</DropdownMenuLabel>
+                {collections.map((collection) => (
+                  <DropdownMenuCheckboxItem
+                    key={collection.id}
+                    checked={collectionId === collection.id}
+                    onCheckedChange={(on) => setCollectionId(on ? collection.id : "")}
+                  >
+                    {collection.name}
+                  </DropdownMenuCheckboxItem>
+                ))}
+              </>
+            ) : null}
+            {activeFilters > 0 ? (
+              <>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onSelect={clearFilters}>{t("clearFilters")}</DropdownMenuItem>
+              </>
+            ) : null}
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button size="sm" variant="secondary" aria-label={t("savedSearches")}>
+              <Bookmark className="h-3.5 w-3.5" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-56">
+            <DropdownMenuLabel>{t("savedSearches")}</DropdownMenuLabel>
+            {searches.length === 0 ? (
+              <DropdownMenuItem disabled>{t("noSavedSearches")}</DropdownMenuItem>
+            ) : (
+              searches.map((saved) => (
+                <DropdownMenuItem key={saved.id} onSelect={() => applySearch(saved)}>
+                  {saved.name}
+                </DropdownMenuItem>
+              ))
+            )}
+            {hasQuery ? (
+              <>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onSelect={() => setSavingSearch(true)}>
+                  {t("saveSearch")}
+                </DropdownMenuItem>
+              </>
+            ) : null}
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+        <div className="flex items-center gap-0.5 rounded-md border border-border p-0.5" role="group" aria-label={t("viewMode")}>
+          <Button
+            size="sm"
+            variant={view === "grid" ? "primary" : "ghost"}
+            aria-pressed={view === "grid"}
+            aria-label={t("gridView")}
+            onClick={() => setView("grid")}
+          >
+            <LayoutGrid className="h-3.5 w-3.5" />
+          </Button>
+          <Button
+            size="sm"
+            variant={view === "list" ? "primary" : "ghost"}
+            aria-pressed={view === "list"}
+            aria-label={t("listView")}
+            onClick={() => setView("list")}
+          >
+            <List className="h-3.5 w-3.5" />
+          </Button>
+        </div>
+
+        {view === "grid" ? (
+          <div className="flex items-center gap-0.5" role="group" aria-label={t("thumbSize")}>
+            {(["s", "m", "l"] as ThumbSize[]).map((option) => (
+              <Button
+                key={option}
+                size="sm"
+                variant={size === option ? "primary" : "ghost"}
+                aria-pressed={size === option}
+                aria-label={tSize(option)}
+                onClick={() => setSize(option)}
+              >
+                {option.toUpperCase()}
+              </Button>
+            ))}
+          </div>
+        ) : null}
+
         {undoable.length > 0 ? (
           <Button size="sm" variant="secondary" onClick={() => void undoDelete()}>
             {t("undoDelete", { count: undoable.length })}
           </Button>
         ) : null}
       </div>
+
+      {savingSearch ? (
+        <div className="flex items-center gap-2 border-b border-border-subtle px-3 py-2">
+          <Input
+            autoFocus
+            value={searchName}
+            onChange={(e) => setSearchName(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") void commitSavedSearch();
+              if (e.key === "Escape") setSavingSearch(false);
+            }}
+            placeholder={t("saveSearchPlaceholder")}
+            aria-label={t("saveSearchPlaceholder")}
+            className="h-8 max-w-64"
+          />
+          <Button size="sm" onClick={() => void commitSavedSearch()} disabled={searchName.trim() === ""}>
+            {t("save")}
+          </Button>
+        </div>
+      ) : null}
 
       {duplicates.length > 0 ? (
         <p className="border-b border-border-subtle bg-surface-subtle px-3 py-1.5 text-xs text-text-muted">
@@ -271,7 +460,7 @@ export function FilesWorkspace() {
 
       <div className="flex min-h-0 flex-1">
         <div className="min-w-0 flex-1">
-          {view.length === 0 ? (
+          {visible.length === 0 ? (
             <div className="flex h-full items-center justify-center p-8">
               <EmptyState
                 title={files.length === 0 ? t("emptyTitle") : t("noMatchesTitle")}
@@ -281,7 +470,9 @@ export function FilesWorkspace() {
             </div>
           ) : (
             <FileGrid
-              files={view}
+              files={visible}
+              view={view}
+              size={size}
               selected={selected}
               focusedId={focusedId}
               onSelect={(id, mods) => {

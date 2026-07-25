@@ -8,16 +8,23 @@
  * handle opens.
  */
 
-import type { WorkspaceCollection, WorkspaceEvent, WorkspaceFile, WorkspaceTag } from "./model.ts";
+import type {
+  SavedSearch,
+  WorkspaceCollection,
+  WorkspaceEvent,
+  WorkspaceFile,
+  WorkspaceTag,
+} from "./model.ts";
 
 const DB_NAME = "omnio-workspace";
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 
 export const STORE_FILES = "files";
 export const STORE_TAGS = "tags";
 export const STORE_COLLECTIONS = "collections";
 export const STORE_EVENTS = "events";
 export const STORE_THUMBS = "thumbs";
+export const STORE_SEARCHES = "searches";
 
 export interface ThumbRecord {
   fileId: string;
@@ -60,6 +67,9 @@ export function openWorkspaceDb(): Promise<IDBDatabase> {
       }
       if (!db.objectStoreNames.contains(STORE_THUMBS)) {
         db.createObjectStore(STORE_THUMBS, { keyPath: "fileId" });
+      }
+      if (!db.objectStoreNames.contains(STORE_SEARCHES)) {
+        db.createObjectStore(STORE_SEARCHES, { keyPath: "id" });
       }
     };
     request.onsuccess = () => resolve(request.result);
@@ -161,3 +171,14 @@ export const getAllThumbs = (): Promise<ThumbRecord[]> =>
 
 export const deleteThumb = (fileId: string): Promise<undefined> =>
   withStore(STORE_THUMBS, "readwrite", (s) => s.delete(fileId));
+
+/* -------------------------------------------------------- saved searches */
+
+export const getAllSearches = (): Promise<SavedSearch[]> =>
+  withStore(STORE_SEARCHES, "readonly", (s) => s.getAll() as IDBRequest<SavedSearch[]>);
+
+export const putSearch = (search: SavedSearch): Promise<IDBValidKey> =>
+  withStore(STORE_SEARCHES, "readwrite", (s) => s.put(search));
+
+export const deleteSearch = (id: string): Promise<undefined> =>
+  withStore(STORE_SEARCHES, "readwrite", (s) => s.delete(id));

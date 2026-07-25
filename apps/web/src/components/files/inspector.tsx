@@ -143,7 +143,7 @@ export function Inspector({
 
       <Section title={t("metadata")}>
         <Row label={t("kindLabel")} value={tKind(kindOf(file.mime) as "other")} />
-        <Row label={t("size")} value={formatBytes(file.size)} />
+        <Row label={t("sizeLabel")} value={formatBytes(file.size)} />
         {facts?.kind === "image" ? <Row label={t("dimensions")} value={`${facts.width} × ${facts.height}`} /> : null}
         {facts?.kind === "pdf" ? <Row label={t("pages")} value={String(facts.pages)} /> : null}
         {facts?.kind === "audio" || facts?.kind === "video" ? (

@@ -25,6 +25,8 @@ import {
   type WorkspaceCollection,
   type WorkspaceEvent,
   type WorkspaceEventType,
+  type SavedSearch,
+  type SearchQuery,
   type WorkspaceFile,
   type WorkspaceTag,
 } from "./model.ts";
@@ -34,6 +36,7 @@ export interface WorkspaceSnapshot {
   tags: WorkspaceTag[];
   collections: WorkspaceCollection[];
   events: WorkspaceEvent[];
+  searches: SavedSearch[];
   ready: boolean;
   /** False when the browser denies OPFS/IndexedDB (e.g. some private modes). */
   supported: boolean;
@@ -44,6 +47,7 @@ const EMPTY: WorkspaceSnapshot = {
   tags: [],
   collections: [],
   events: [],
+  searches: [],
   ready: false,
   supported: true,
 };
@@ -91,13 +95,14 @@ class WorkspaceStore {
         return;
       }
       void requestPersistence();
-      const [files, tags, collections, events] = await Promise.all([
+      const [files, tags, collections, events, searches] = await Promise.all([
         db.getAllFiles(),
         db.getAllTags(),
         db.getAllCollections(),
         db.getAllEvents(),
+        db.getAllSearches(),
       ]);
-      this.commit({ files, tags, collections, events, ready: true, supported: true });
+      this.commit({ files, tags, collections, events, searches, ready: true, supported: true });
     })();
     return this.loading;
   };
@@ -226,6 +231,18 @@ class WorkspaceStore {
     await db.putCollection(collection);
     this.commit({ collections: [...this.snapshot.collections, collection] });
     return collection;
+  };
+
+  saveSearch = async (name: string, query: SearchQuery): Promise<SavedSearch> => {
+    const search: SavedSearch = { id: newId(), name: name.trim(), query, createdAt: Date.now() };
+    await db.putSearch(search);
+    this.commit({ searches: [...this.snapshot.searches, search] });
+    return search;
+  };
+
+  removeSearch = async (id: string): Promise<void> => {
+    await db.deleteSearch(id);
+    this.commit({ searches: this.snapshot.searches.filter((s) => s.id !== id) });
   };
 
   /**

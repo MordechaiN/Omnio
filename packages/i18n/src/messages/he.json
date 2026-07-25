@@ -92,7 +92,11 @@
       "other": "קובץ"
     },
     "metadata": "פרטים",
-    "size": "גודל",
+    "size": {
+      "s": "ממוזערות קטנות",
+      "m": "ממוזערות בינוניות",
+      "l": "ממוזערות גדולות"
+    },
     "dimensions": "מידות",
     "pages": "עמודים",
     "duration": "משך",
@@ -137,7 +141,20 @@
     "unsupportedTitle": "לא ניתן לאחסן קבצים בדפדפן הזה",
     "unsupportedBody": "הדפדפן שלך לא מאפשר ל-Omnio לשמור קבצים במכשיר — זה קורה לרוב בגלישה פרטית. הכלים עדיין עובדים; הקבצים פשוט לא ייזכרו בין ביקורים.",
     "kindLabel": "סוג",
-    "newTagPlaceholder": "תגית חדשה…"
+    "newTagPlaceholder": "תגית חדשה…",
+    "filters": "סינון",
+    "filtersActive": "{count} מסננים",
+    "clearFilters": "נקה מסננים",
+    "savedSearches": "חיפושים שמורים",
+    "noSavedSearches": "אין עדיין חיפושים שמורים.",
+    "saveSearch": "שמור חיפוש זה…",
+    "saveSearchPlaceholder": "שם לחיפוש",
+    "save": "שמור",
+    "viewMode": "תצוגה",
+    "gridView": "תצוגת רשת",
+    "listView": "תצוגת רשימה",
+    "thumbSize": "גודל תמונה ממוזערת",
+    "sizeLabel": "גודל"
   },
   "nav": {
     "home": "בית",

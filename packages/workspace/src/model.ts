@@ -46,6 +46,14 @@ export interface WorkspaceTag {
   color: string;
 }
 
+/** A named, re-runnable query. The workspace's answer to folders. */
+export interface SavedSearch {
+  id: string;
+  name: string;
+  query: SearchQuery;
+  createdAt: number;
+}
+
 export interface WorkspaceCollection {
   id: string;
   name: string;

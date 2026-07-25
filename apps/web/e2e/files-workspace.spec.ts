@@ -201,4 +201,79 @@ test.describe("file workspace", () => {
       "true",
     );
   });
+
+  test("switches between grid and list view, and remembers the choice", async ({ page }) => {
+    await gotoFiles(page);
+    await importFiles(page, [{ name: "viewme.txt", type: "text/plain", body: "v" }]);
+
+    await page.getByRole("button", { name: "List view" }).click();
+    await expect(page.getByRole("button", { name: "List view" })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+    // Thumbnail sizing is a grid-only concern and should disappear in list view.
+    await expect(page.getByRole("group", { name: "Thumbnail size" })).toBeHidden();
+
+    // A view preference the app forgets on reload is worse than none.
+    await page.reload();
+    await expect(page.getByRole("button", { name: "List view" })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+  });
+
+  test("thumbnail size is adjustable in grid view", async ({ page }) => {
+    await gotoFiles(page);
+    await importFiles(page, [{ name: "sized.txt", type: "text/plain", body: "s" }]);
+    await page.getByRole("button", { name: "Large thumbnails" }).click();
+    await expect(page.getByRole("button", { name: "Large thumbnails" })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+  });
+
+  test("filtering by tag narrows the grid and reports the active filter", async ({ page }) => {
+    await gotoFiles(page);
+    await importFiles(page, [
+      { name: "tagged.txt", type: "text/plain", body: "1" },
+      { name: "plain.txt", type: "text/plain", body: "2" },
+    ]);
+
+    await tile(page, "tagged.txt").click();
+    const inspector = page.getByRole("complementary", { name: "File details" });
+    await inspector.getByLabel("New tag…").fill("Work");
+    await inspector.getByLabel("New tag…").press("Enter");
+    await expect(inspector.getByRole("button", { name: "Work" })).toBeVisible();
+
+    await page.getByRole("button", { name: "Filter" }).click();
+    await page.getByRole("menuitemcheckbox", { name: "Work" }).click();
+    await page.keyboard.press("Escape");
+
+    await expect(page.getByRole("button", { name: /1 filters/ })).toBeVisible();
+    await expect(tile(page, "tagged.txt")).toBeVisible();
+    await expect(tile(page, "plain.txt")).toBeHidden();
+  });
+
+  test("a search can be saved and re-applied", async ({ page }) => {
+    await gotoFiles(page);
+    await importFiles(page, [
+      { name: "receipt-jan.txt", type: "text/plain", body: "a" },
+      { name: "photo.txt", type: "text/plain", body: "b" },
+    ]);
+
+    await page.getByLabel("Search files…").fill("receipt");
+    await page.getByRole("button", { name: "Saved searches" }).click();
+    await page.getByRole("menuitem", { name: "Save this search…" }).click();
+    await page.getByLabel("Name this search").fill("Receipts");
+    await page.getByRole("button", { name: "Save", exact: true }).click();
+
+    // Clear, then re-apply from the saved list.
+    await page.getByLabel("Search files…").fill("");
+    await expect(tile(page, "photo.txt")).toBeVisible();
+
+    await page.getByRole("button", { name: "Saved searches" }).click();
+    await page.getByRole("menuitem", { name: "Receipts" }).click();
+    await expect(tile(page, "receipt-jan.txt")).toBeVisible();
+    await expect(tile(page, "photo.txt")).toBeHidden();
+  });
 });

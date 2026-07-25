@@ -16,8 +16,16 @@ import { cn } from "@omnio/ui";
  * measure-then-reflow pass a variable-height virtualizer needs.
  */
 
-const TILE_WIDTH = 168;
-const TILE_HEIGHT = 188;
+/** Thumbnail sizes, mirroring the small/medium/large of a desktop file manager. */
+export type ThumbSize = "s" | "m" | "l";
+export type ViewMode = "grid" | "list";
+
+const TILE: Record<ThumbSize, { w: number; h: number; thumb: number }> = {
+  s: { w: 120, h: 138, thumb: 88 },
+  m: { w: 168, h: 188, thumb: 128 },
+  l: { w: 232, h: 258, thumb: 190 },
+};
+const ROW_HEIGHT = 40;
 const GAP = 12;
 /** Rows rendered beyond the viewport, so scrolling never shows a blank band. */
 const OVERSCAN = 2;
@@ -34,6 +42,8 @@ const KIND_ICON = {
 
 export interface FileGridProps {
   files: WorkspaceFile[];
+  view: ViewMode;
+  size: ThumbSize;
   selected: Set<string>;
   focusedId: string | null;
   onSelect: (id: string, modifiers: { ctrl?: boolean; shift?: boolean }) => void;
@@ -44,6 +54,8 @@ export interface FileGridProps {
 
 export function FileGrid({
   files,
+  view,
+  size,
   selected,
   focusedId,
   onSelect,
@@ -82,9 +94,14 @@ export function FileGrid({
     };
   }, []);
 
-  const columns = Math.max(1, Math.floor((viewport.width + GAP) / (TILE_WIDTH + GAP)));
+  const isList = view === "list";
+  const metrics = TILE[size];
+  // List view is a single column of short rows; grid packs as many tiles as fit.
+  const columns = isList
+    ? 1
+    : Math.max(1, Math.floor((viewport.width + GAP) / (metrics.w + GAP)));
   const rows = Math.ceil(files.length / columns);
-  const rowHeight = TILE_HEIGHT + GAP;
+  const rowHeight = isList ? ROW_HEIGHT : metrics.h + GAP;
   const firstRow = Math.max(0, Math.floor(viewport.scrollTop / rowHeight) - OVERSCAN);
   const visibleRows = Math.ceil(viewport.height / rowHeight) + OVERSCAN * 2;
   const lastRow = Math.min(rows, firstRow + visibleRows);
@@ -102,11 +119,12 @@ export function FileGrid({
     const row = Math.floor(index / columns);
     const top = row * rowHeight;
     const element = scrollRef.current;
+    const itemHeight = isList ? ROW_HEIGHT : metrics.h;
     if (top < element.scrollTop) element.scrollTo({ top, behavior: "smooth" });
-    else if (top + TILE_HEIGHT > element.scrollTop + element.clientHeight) {
-      element.scrollTo({ top: top + TILE_HEIGHT - element.clientHeight, behavior: "smooth" });
+    else if (top + itemHeight > element.scrollTop + element.clientHeight) {
+      element.scrollTo({ top: top + itemHeight - element.clientHeight, behavior: "smooth" });
     }
-  }, [focusedId, files, columns, rowHeight]);
+  }, [focusedId, files, columns, rowHeight, isList, metrics.h]);
 
   return (
     <div ref={scrollRef} className="h-full overflow-auto p-3" data-testid="file-grid">
@@ -115,8 +133,8 @@ export function FileGrid({
           className="absolute inset-x-0 grid"
           style={{
             top: firstRow * rowHeight,
-            gridTemplateColumns: `repeat(${columns}, ${TILE_WIDTH}px)`,
-            gap: GAP,
+            gridTemplateColumns: isList ? "1fr" : `repeat(${columns}, ${metrics.w}px)`,
+            gap: isList ? 0 : GAP,
             justifyContent: "start",
           }}
         >
@@ -124,6 +142,8 @@ export function FileGrid({
             <FileTile
               key={file.id}
               file={file}
+              view={view}
+              metrics={metrics}
               selected={selected.has(file.id)}
               focused={focusedId === file.id}
               allSelected={selected}
@@ -141,6 +161,8 @@ export function FileGrid({
 
 function FileTile({
   file,
+  view,
+  metrics,
   selected,
   focused,
   allSelected,
@@ -150,6 +172,8 @@ function FileTile({
   onDropOnFile,
 }: {
   file: WorkspaceFile;
+  view: ViewMode;
+  metrics: { w: number; h: number; thumb: number };
   selected: boolean;
   focused: boolean;
   allSelected: Set<string>;
@@ -198,30 +222,62 @@ function FileTile({
         if (ids.length > 0) onDropOnFile?.(ids, file.id);
       }}
       className={cn(
-        "group relative flex flex-col items-center gap-2 rounded-lg border p-2 text-center transition",
+        "group relative border transition-[background-color,border-color,box-shadow]",
         "motion-safe:duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
+        view === "list"
+          ? "flex w-full items-center gap-3 rounded-md px-2 py-1.5 text-start"
+          : "flex flex-col items-center gap-2 rounded-lg p-2 text-center",
         selected ? "border-accent bg-accent/10" : "border-transparent hover:bg-surface-hover",
         focused && !selected ? "ring-1 ring-border" : "",
         dropTarget ? "border-dashed border-accent bg-accent/5" : "",
       )}
-      style={{ width: TILE_WIDTH, height: TILE_HEIGHT }}
+      style={view === "list" ? undefined : { width: metrics.w, height: metrics.h }}
     >
-      <span className="flex h-32 w-full items-center justify-center overflow-hidden rounded-md bg-surface-subtle">
-        {thumb ? (
-          <img src={thumb} alt="" loading="lazy" className="max-h-full max-w-full object-contain" />
-        ) : (
-          <Icon className="h-10 w-10 text-text-muted" aria-hidden />
-        )}
-      </span>
-      <span className="line-clamp-2 w-full break-words text-xs leading-tight">{file.name}</span>
-      {file.pinned ? (
-        <Pin className="absolute end-1.5 top-1.5 h-3.5 w-3.5 text-accent" aria-label={t("pinned")} />
-      ) : null}
-      {file.evicted ? (
-        <span className="absolute start-1.5 top-1.5 rounded bg-surface px-1 text-[10px] text-text-muted">
-          {t("evicted")}
-        </span>
-      ) : null}
+      {view === "list" ? (
+        <>
+          {thumb ? (
+            <img src={thumb} alt="" loading="lazy" className="h-7 w-7 shrink-0 rounded object-cover" />
+          ) : (
+            <Icon className="h-5 w-5 shrink-0 text-text-muted" aria-hidden />
+          )}
+          <span className="min-w-0 flex-1 truncate text-sm">{file.name}</span>
+          <span className="shrink-0 text-xs tabular-nums text-text-muted">{formatBytes(file.size)}</span>
+          {file.pinned ? <Pin className="h-3.5 w-3.5 shrink-0 text-accent" aria-label={t("pinned")} /> : null}
+        </>
+      ) : (
+        <>
+          <span
+            className="flex w-full items-center justify-center overflow-hidden rounded-md bg-surface-subtle"
+            style={{ height: metrics.thumb }}
+          >
+            {thumb ? (
+              <img
+                src={thumb}
+                alt=""
+                loading="lazy"
+                className="max-h-full max-w-full object-contain motion-safe:animate-in motion-safe:fade-in motion-safe:duration-200"
+              />
+            ) : (
+              <Icon className="h-10 w-10 text-text-muted" aria-hidden />
+            )}
+          </span>
+          <span className="line-clamp-2 w-full break-words text-xs leading-tight">{file.name}</span>
+          {file.pinned ? (
+            <Pin className="absolute end-1.5 top-1.5 h-3.5 w-3.5 text-accent" aria-label={t("pinned")} />
+          ) : null}
+          {file.evicted ? (
+            <span className="absolute start-1.5 top-1.5 rounded bg-surface px-1 text-[10px] text-text-muted">
+              {t("evicted")}
+            </span>
+          ) : null}
+        </>
+      )}
     </button>
   );
+}
+
+function formatBytes(bytes: number): string {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
