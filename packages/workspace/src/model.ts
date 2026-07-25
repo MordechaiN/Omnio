@@ -35,7 +35,7 @@ export interface WorkspaceFile {
 /** Type-specific metadata. A union so the Inspector renders what applies. */
 export type FileFacts =
   | { kind: "image"; width: number; height: number }
-  | { kind: "pdf"; pages: number }
+  | { kind: "pdf"; pages: number; /** False when no page carries selectable text — i.e. a scan. */ hasText?: boolean }
   | { kind: "audio" | "video"; durationMs: number; width?: number; height?: number }
   | { kind: "text"; lines: number }
   | { kind: "other" };

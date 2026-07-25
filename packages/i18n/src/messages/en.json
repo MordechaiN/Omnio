@@ -172,7 +172,17 @@
     "chainNoticed": "You did this before",
     "chainNoticedRepeated": "You've done this {count} times",
     "chainRun": "Do it again",
-    "chainKeep": "Keep"
+    "chainKeep": "Keep",
+    "noticed": "Omnio noticed",
+    "insight": {
+      "screenshot": "Looks like a screenshot",
+      "camera-photo": "Looks like a photo",
+      "scanned-document": "Looks like a scan",
+      "duplicate": "You already have this file",
+      "large-file": "This file is large",
+      "oversized-image": "This image is very large"
+    },
+    "continueTitle": "Pick up where you left off"
   },
   "nav": {
     "home": "Home",

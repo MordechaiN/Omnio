@@ -36,6 +36,8 @@ export interface InspectorProps {
   onDelete: (id: string) => void;
   /** Chain suggestions for this file, rendered by the workspace. */
   chainSlot?: React.ReactNode;
+  /** What Omnio noticed about this file. */
+  insightSlot?: React.ReactNode;
   /** Set by the context menu's Rename action; puts the name field into edit mode. */
   renameRequestId?: string | null;
   onRenameHandled?: () => void;
@@ -52,6 +54,7 @@ export function Inspector({
   onSelectFile,
   onDelete,
   chainSlot,
+  insightSlot,
   renameRequestId,
   onRenameHandled,
 }: InspectorProps) {
@@ -177,6 +180,8 @@ export function Inspector({
           {t("delete")}
         </Button>
       </div>
+
+      {insightSlot}
 
       <Separator />
 

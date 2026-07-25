@@ -11,6 +11,7 @@ import { DropHero } from "@/components/workspace/drop-hero";
 import { PersonalSections } from "@/components/workspace/personal-sections";
 import { SessionStrip } from "@/components/workspace/session-strip";
 import { WorkspacesSection } from "@/components/workspace/workspaces-section";
+import { ContinueWorking } from "@/components/files/continue-working";
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -29,6 +30,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* 🗃️ This session's files, then 💾 saved workspaces and ⭐ favorites /
           recents — all local, and each renders nothing until it has content, so
           a first-time visitor sees only the hero and the category grid. */}
+      {/* What you were last working on leads — it is why people come back. */}
+      <ContinueWorking />
+
       <SessionStrip />
       <WorkspacesSection />
       <PersonalSections />

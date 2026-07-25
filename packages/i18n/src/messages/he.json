@@ -172,7 +172,17 @@
     "chainNoticed": "עשית את זה בעבר",
     "chainNoticedRepeated": "עשית את זה {count} פעמים",
     "chainRun": "עשה זאת שוב",
-    "chainKeep": "שמור"
+    "chainKeep": "שמור",
+    "noticed": "Omnio שם לב",
+    "insight": {
+      "screenshot": "נראה כמו צילום מסך",
+      "camera-photo": "נראה כמו תמונה",
+      "scanned-document": "נראה כמו סריקה",
+      "duplicate": "הקובץ הזה כבר קיים אצלך",
+      "large-file": "הקובץ הזה גדול",
+      "oversized-image": "התמונה הזו גדולה מאוד"
+    },
+    "continueTitle": "המשך מהמקום שבו הפסקת"
   },
   "nav": {
     "home": "בית",

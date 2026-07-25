@@ -101,7 +101,7 @@ export function useThumbnail(file: WorkspaceFile | null): string | null {
       const thumb = mime.startsWith("image/")
         ? await makeImageThumb(source)
         : mime === "application/pdf"
-          ? await pdfThumbnailer?.(source)
+          ? await pdfThumbnailer?.(source, id)
           : null;
       if (!thumb || cancelled) return;
       await putThumb({ fileId: id, blob: thumb.blob, width: thumb.width, height: thumb.height });
@@ -131,7 +131,10 @@ const THUMB_MAX = 320;
  * workspace stays engine-free and a host without pdf.js simply gets no PDF
  * thumbnail rather than a broken import.
  */
-type Thumbnailer = (file: File) => Promise<{ blob: Blob; width: number; height: number } | null>;
+type Thumbnailer = (
+  file: File,
+  fileId?: string,
+) => Promise<{ blob: Blob; width: number; height: number } | null>;
 
 let pdfThumbnailer: Thumbnailer | null = null;
 

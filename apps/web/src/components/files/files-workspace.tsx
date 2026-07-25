@@ -39,6 +39,7 @@ import { FileGrid, type ThumbSize, type ViewMode } from "./file-grid";
 import { FileContextMenu } from "./file-context-menu";
 import { installPdfThumbnailer } from "@/lib/pdf-thumbnail";
 import { ChainSuggestions } from "./chain-suggestions";
+import { FileInsights } from "./file-insights";
 import { rememberHandoff } from "@/lib/provenance";
 import { Inspector } from "./inspector";
 import { QuickPreview } from "./quick-preview";
@@ -582,6 +583,15 @@ export function FilesWorkspace() {
             select(id, {});
           }}
           onDelete={() => void removeSelected()}
+          insightSlot={
+            activeFile ? (
+              <FileInsights
+                file={activeFile}
+                files={files}
+                onOpenWith={(href, toolId) => void openWith(href, activeFile.id, toolId)}
+              />
+            ) : null
+          }
           chainSlot={
             activeFile ? (
               <ChainSuggestions
