@@ -9,6 +9,27 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ## [Unreleased]
 
+## [0.6.0-alpha] - 2026-07-25
+
+Files grows up. Everything you do with your files should now feel like the desktop app you already know.
+
+### 🚀 New
+
+- **See your files your way.** Switch between big thumbnails and a compact list, and set how large the thumbnails are. Omnio remembers your choice.
+- **Right-click anything.** A proper menu with everything you'd expect — open, open with, quick look, rename, duplicate, pin, tag, add to a collection, delete. It works with a long press on a touchscreen and with the menu key on a keyboard too.
+- **Filter by tag and collection**, with a count on the button so a filtered view can never be mistaken for an empty one.
+- **Save a search you use often** and bring it back with one click.
+- **Collections.** Group related files however you like, and create a new group as you file something into it.
+- **Duplicate a file** without using any extra space.
+
+### ✨ Improved
+
+- Selecting files in a large workspace stays smooth — moving through them no longer redraws everything on screen.
+- The details panel gained a copy button for a file's details, and now draws where a file came from as a chain you can follow rather than a flat list.
+- Renaming can be started from the right-click menu.
+- The keyboard shortcuts card now lists the file shortcuts, so they can actually be discovered.
+
+
 ## [0.5.0-alpha] - 2026-07-24
 
 Your files now have a home. Omnio stops being a collection of separate tools and starts behaving like one application.
@@ -100,7 +121,8 @@ The first public version of Omnio: a private, self-hosted workspace with dozens 
 - **A workspace to work in** — search everything from one place, star your favorites, drop files straight onto the page, and jump around with the keyboard.
 - **Runs entirely on your device** — files never leave your browser, and there's no account to create.
 
-[Unreleased]: https://github.com/MordechaiN/Omnio/compare/v0.5.0-alpha...HEAD
+[Unreleased]: https://github.com/MordechaiN/Omnio/compare/v0.6.0-alpha...HEAD
+[0.6.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.5.0-alpha...v0.6.0-alpha
 [0.5.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.4.0-alpha...v0.5.0-alpha
 [0.4.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.3.0-alpha...v0.4.0-alpha
 [0.3.0-alpha]: https://github.com/MordechaiN/Omnio/compare/v0.2.0-alpha...v0.3.0-alpha
