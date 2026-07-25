@@ -69,7 +69,7 @@ test.describe("file workspace", () => {
 
     const inspector = page.getByRole("complementary", { name: "File details" });
     await expect(inspector.getByText("report.txt")).toBeVisible();
-    await expect(inspector.getByText("Details")).toBeVisible();
+    await expect(inspector.getByRole("heading", { name: "Details" })).toBeVisible();
     await expect(inspector.getByText("2.0 KB")).toBeVisible();
     await expect(inspector.getByText("Added to your files")).toBeVisible();
   });
@@ -275,5 +275,59 @@ test.describe("file workspace", () => {
     await page.getByRole("menuitem", { name: "Receipts" }).click();
     await expect(tile(page, "receipt-jan.txt")).toBeVisible();
     await expect(tile(page, "photo.txt")).toBeHidden();
+  });
+
+  test("the context menu offers file actions on right-click", async ({ page }) => {
+    await gotoFiles(page);
+    await importFiles(page, [{ name: "menu.txt", type: "text/plain", body: "m" }]);
+    await tile(page, "menu.txt").click({ button: "right" });
+
+    const menu = page.getByRole("menu");
+    await expect(menu).toBeVisible();
+    // Accessible names include the shortcut hint, e.g. "Open ↵".
+    await expect(menu.getByRole("menuitem", { name: /^Open/ }).first()).toBeVisible();
+    await expect(menu.getByRole("menuitem", { name: "Duplicate" })).toBeVisible();
+    await expect(menu.getByRole("menuitem", { name: "Rename" })).toBeVisible();
+  });
+
+  test("duplicating from the context menu creates a copy", async ({ page }) => {
+    await gotoFiles(page);
+    await importFiles(page, [{ name: "orig.txt", type: "text/plain", body: "d" }]);
+    await tile(page, "orig.txt").click({ button: "right" });
+    await page.getByRole("menuitem", { name: "Duplicate" }).click();
+
+    await expect(tile(page, "orig copy.txt")).toBeVisible();
+    await expect(tile(page, "orig.txt")).toBeVisible();
+  });
+
+  test("renaming can be started from the context menu", async ({ page }) => {
+    await gotoFiles(page);
+    await importFiles(page, [{ name: "ctx.txt", type: "text/plain", body: "r" }]);
+    await tile(page, "ctx.txt").click({ button: "right" });
+    await page.getByRole("menuitem", { name: "Rename" }).click();
+
+    const inspector = page.getByRole("complementary", { name: "File details" });
+    await inspector.getByLabel("Rename").fill("renamed.txt");
+    await inspector.getByLabel("Rename").press("Enter");
+    await expect(tile(page, "renamed.txt")).toBeVisible();
+  });
+
+  test("the inspector shows the chain a derived file came from", async ({ page }) => {
+    // Produce a PDF from a PDF, then confirm the Inspector explains the lineage.
+    await page.goto("/tool/pdfkit/pdf-organize");
+    await page.locator('input[type="file"]').setInputFiles({
+      name: "source.pdf",
+      mimeType: "application/pdf",
+      buffer: await samplePdf(2),
+    });
+    await expect(page.getByText("2 pages")).toBeVisible();
+    const download = page.waitForEvent("download");
+    await page.getByRole("button", { name: "Save organized PDF" }).click();
+    await download;
+
+    await gotoFiles(page);
+    await tile(page, "source-organized.pdf").click();
+    const inspector = page.getByRole("complementary", { name: "File details" });
+    await expect(inspector.getByRole("heading", { name: "Details" })).toBeVisible();
   });
 });

@@ -97,6 +97,21 @@ export {
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
 } from "./components/dropdown-menu.tsx";
+export {
+  ContextMenu,
+  ContextMenuCheckboxItem,
+  ContextMenuContent,
+  ContextMenuGroup,
+  ContextMenuItem,
+  ContextMenuLabel,
+  ContextMenuRadioGroup,
+  ContextMenuSeparator,
+  ContextMenuShortcut,
+  ContextMenuSub,
+  ContextMenuSubContent,
+  ContextMenuSubTrigger,
+  ContextMenuTrigger,
+} from "./components/context-menu.tsx";
 export { Tabs, TabsList, TabsTrigger, TabsContent } from "./components/tabs.tsx";
 export {
   Accordion,

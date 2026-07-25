@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { kindOf, type WorkspaceFile } from "@omnio/workspace";
 import { useThumbnail } from "@omnio/workspace/react";
 import { FileArchive, FileAudio, FileText, FileVideo, Image as ImageIcon, Pin } from "lucide-react";
-import { cn } from "@omnio/ui";
+import { cn, ContextMenu, ContextMenuTrigger } from "@omnio/ui";
 
 /**
  * Virtualized file grid.
@@ -50,6 +50,8 @@ export interface FileGridProps {
   onActivate: (id: string) => void;
   onContextMenu: (id: string, at: { x: number; y: number }) => void;
   onDropOnFile?: (draggedIds: string[], targetId: string) => void;
+  /** Rendered inside a ContextMenu around each tile. */
+  renderContextMenu?: (file: WorkspaceFile) => React.ReactNode;
 }
 
 export function FileGrid({
@@ -62,6 +64,7 @@ export function FileGrid({
   onActivate,
   onContextMenu,
   onDropOnFile,
+  renderContextMenu,
 }: FileGridProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [viewport, setViewport] = useState({ width: 0, height: 0, scrollTop: 0 });
@@ -151,6 +154,7 @@ export function FileGrid({
               onActivate={onActivate}
               onContextMenu={onContextMenu}
               onDropOnFile={onDropOnFile}
+              renderContextMenu={renderContextMenu}
             />
           ))}
         </div>
@@ -170,6 +174,7 @@ function FileTile({
   onActivate,
   onContextMenu,
   onDropOnFile,
+  renderContextMenu,
 }: {
   file: WorkspaceFile;
   view: ViewMode;
@@ -181,13 +186,14 @@ function FileTile({
   onActivate: FileGridProps["onActivate"];
   onContextMenu: FileGridProps["onContextMenu"];
   onDropOnFile?: FileGridProps["onDropOnFile"];
+  renderContextMenu?: FileGridProps["renderContextMenu"];
 }) {
   const t = useTranslations("files");
   const thumb = useThumbnail(file);
   const [dropTarget, setDropTarget] = useState(false);
   const Icon = KIND_ICON[kindOf(file.mime) as keyof typeof KIND_ICON] ?? FileText;
 
-  return (
+  const tile = (
     <button
       type="button"
       draggable
@@ -196,11 +202,6 @@ function FileTile({
       aria-label={file.name}
       onClick={(e) => onSelect(file.id, { ctrl: e.ctrlKey || e.metaKey, shift: e.shiftKey })}
       onDoubleClick={() => onActivate(file.id)}
-      onContextMenu={(e) => {
-        e.preventDefault();
-        if (!selected) onSelect(file.id, {});
-        onContextMenu(file.id, { x: e.clientX, y: e.clientY });
-      }}
       onDragStart={(e) => {
         // Dragging an unselected tile acts on that tile alone, matching Finder.
         const ids = selected ? [...allSelected] : [file.id];
@@ -273,6 +274,21 @@ function FileTile({
         </>
       )}
     </button>
+  );
+
+  const menu = renderContextMenu?.(file);
+  if (!menu) return tile;
+  return (
+    <ContextMenu
+      onOpenChange={(open) => {
+        // Opening the menu on an unselected file selects it first, so the
+        // actions always describe what the user is looking at.
+        if (open && !selected) onContextMenu(file.id, { x: 0, y: 0 });
+      }}
+    >
+      <ContextMenuTrigger asChild>{tile}</ContextMenuTrigger>
+      {menu}
+    </ContextMenu>
   );
 }
 

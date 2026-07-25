@@ -36,6 +36,7 @@ import { useRouter } from "@/i18n/navigation";
 import { mimeMatches, normalizeMime } from "@/lib/file-intel";
 import { SEARCH_ENTRIES } from "@/generated/registry.search";
 import { FileGrid, type ThumbSize, type ViewMode } from "./file-grid";
+import { FileContextMenu } from "./file-context-menu";
 import { Inspector } from "./inspector";
 import { QuickPreview } from "./quick-preview";
 
@@ -69,7 +70,7 @@ export function FilesWorkspace() {
   const [savingSearch, setSavingSearch] = useState(false);
   const [searchName, setSearchName] = useState("");
   const [focusedId, setFocusedId] = useState<string | null>(null);
-  const [menu, setMenu] = useState<{ id: string; x: number; y: number } | null>(null);
+  const [renameId, setRenameId] = useState<string | null>(null);
   const [previewId, setPreviewId] = useState<string | null>(null);
   const [undoable, setUndoable] = useState<Array<{ file: WorkspaceFile; blob: File }>>([]);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -152,6 +153,14 @@ export function FilesWorkspace() {
     clear();
   }, [selected, files, clear]);
 
+  const duplicateSelection = useCallback(
+    async (fallbackId: string) => {
+      const ids = selected.has(fallbackId) ? [...selected] : [fallbackId];
+      for (const id of ids) await workspace.duplicate(id);
+    },
+    [selected],
+  );
+
   const undoDelete = useCallback(async () => {
     for (const { blob } of undoable) await workspace.import(blob);
     setUndoable([]);
@@ -207,7 +216,6 @@ export function FilesWorkspace() {
           break;
         case "Escape":
           setPreviewId(null);
-          setMenu(null);
           clear();
           break;
         default:
@@ -480,7 +488,28 @@ export function FilesWorkspace() {
                 select(id, mods);
               }}
               onActivate={activate}
-              onContextMenu={(id, at) => setMenu({ id, ...at })}
+              onContextMenu={(id) => {
+                if (!selected.has(id)) select(id, {});
+              }}
+              renderContextMenu={(file) => (
+                <FileContextMenu
+                  file={file}
+                  selectionCount={selected.has(file.id) ? selected.size : 1}
+                  tags={tags}
+                  collections={collections}
+                  recommendations={recommendationsFor(file).map((r) => ({
+                    toolId: r.entry.toolId,
+                    href: r.entry.href,
+                    label: r.entry.toolId,
+                  }))}
+                  onOpen={() => activate(file.id)}
+                  onOpenWith={(href) => void openWith(href, file.id)}
+                  onQuickLook={() => setPreviewId(file.id)}
+                  onRename={() => setRenameId(file.id)}
+                  onDuplicate={() => void duplicateSelection(file.id)}
+                  onDelete={() => void removeSelected()}
+                />
+              )}
               onDropOnFile={(ids, targetId) => void onDropOnFile(ids, targetId)}
             />
           )}
@@ -505,30 +534,10 @@ export function FilesWorkspace() {
             select(id, {});
           }}
           onDelete={() => void removeSelected()}
+          renameRequestId={renameId}
+          onRenameHandled={() => setRenameId(null)}
         />
       </div>
-
-      {menu ? (
-        <DropdownMenu open onOpenChange={(open) => !open && setMenu(null)}>
-          <DropdownMenuContent
-            style={{ position: "fixed", left: menu.x, top: menu.y }}
-            onEscapeKeyDown={() => setMenu(null)}
-          >
-            <DropdownMenuItem onSelect={() => activate(menu.id)}>{t("open")}</DropdownMenuItem>
-            <DropdownMenuItem onSelect={() => setPreviewId(menu.id)}>{t("quickLook")}</DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onSelect={() => {
-                const file = files.find((f) => f.id === menu.id);
-                if (file) void workspace.setPinned(file.id, !file.pinned);
-              }}
-            >
-              {files.find((f) => f.id === menu.id)?.pinned ? t("unpin") : t("pin")}
-            </DropdownMenuItem>
-            <DropdownMenuItem onSelect={() => void removeSelected()}>{t("delete")}</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      ) : null}
 
       {previewId ? (
         <QuickPreview

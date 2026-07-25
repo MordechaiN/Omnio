@@ -154,7 +154,12 @@
     "gridView": "Grid view",
     "listView": "List view",
     "thumbSize": "Thumbnail size",
-    "sizeLabel": "Size"
+    "sizeLabel": "Size",
+    "duplicate": "Duplicate",
+    "moveToCollection": "Add to collection",
+    "deleteMany": "Delete {count} files",
+    "copyMetadata": "Copy details",
+    "copied": "Copied"
   },
   "nav": {
     "home": "Home",

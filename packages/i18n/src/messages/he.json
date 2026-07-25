@@ -154,7 +154,12 @@
     "gridView": "תצוגת רשת",
     "listView": "תצוגת רשימה",
     "thumbSize": "גודל תמונה ממוזערת",
-    "sizeLabel": "גודל"
+    "sizeLabel": "גודל",
+    "duplicate": "שכפל",
+    "moveToCollection": "הוסף לאוסף",
+    "deleteMany": "מחק {count} קבצים",
+    "copyMetadata": "העתק פרטים",
+    "copied": "הועתק"
   },
   "nav": {
     "home": "בית",

@@ -12,7 +12,7 @@ import {
 } from "@omnio/workspace";
 import { useRelations, useThumbnail } from "@omnio/workspace/react";
 import { Badge, Button, Input, Separator } from "@omnio/ui";
-import { ExternalLink, Pin, PinOff, Trash2 } from "lucide-react";
+import { Check, Copy, CornerDownRight, ExternalLink, Pin, PinOff, Trash2 } from "lucide-react";
 
 /**
  * The permanent Inspector panel.
@@ -33,6 +33,9 @@ export interface InspectorProps {
   onOpenWith: (href: string) => void;
   onSelectFile: (id: string) => void;
   onDelete: (id: string) => void;
+  /** Set by the context menu's Rename action; puts the name field into edit mode. */
+  renameRequestId?: string | null;
+  onRenameHandled?: () => void;
 }
 
 export function Inspector({
@@ -45,6 +48,8 @@ export function Inspector({
   onOpenWith,
   onSelectFile,
   onDelete,
+  renameRequestId,
+  onRenameHandled,
 }: InspectorProps) {
   const t = useTranslations("files");
   const tKind = useTranslations("files.kind");
@@ -55,10 +60,20 @@ export function Inspector({
   const [renaming, setRenaming] = useState(false);
   const [draftName, setDraftName] = useState("");
   const [newTag, setNewTag] = useState("");
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     setRenaming(false);
   }, [file?.id]);
+
+  // Rename can be triggered from the context menu; the field lives here, so the
+  // request is handed over rather than duplicating the editor in two places.
+  useEffect(() => {
+    if (!file || renameRequestId !== file.id) return;
+    setDraftName(file.name);
+    setRenaming(true);
+    onRenameHandled?.();
+  }, [renameRequestId, file, onRenameHandled]);
 
   const history = useMemo(
     () => events.filter((e) => e.fileId === file?.id).sort((a, b) => b.at - a.at),
@@ -141,7 +156,33 @@ export function Inspector({
 
       <Separator />
 
-      <Section title={t("metadata")}>
+      <Section
+        title={t("metadata")}
+        action={
+          <button
+            type="button"
+            onClick={() => {
+              // Plain text, because the point is pasting into a message or a
+              // ticket — not re-importing structured data.
+              const lines = [
+                `${file.name}`,
+                `${t("kindLabel")}: ${tKind(kindOf(file.mime) as "other")}`,
+                `${t("sizeLabel")}: ${formatBytes(file.size)}`,
+                `${t("created")}: ${new Date(file.createdAt).toISOString()}`,
+              ];
+              void navigator.clipboard?.writeText(lines.join("\n")).then(() => {
+                setCopied(true);
+                setTimeout(() => setCopied(false), 1500);
+              });
+            }}
+            className="flex items-center gap-1 text-xs text-text-muted transition-colors hover:text-text"
+            aria-label={t("copyMetadata")}
+          >
+            {copied ? <Check className="h-3 w-3" aria-hidden /> : <Copy className="h-3 w-3" aria-hidden />}
+            {copied ? t("copied") : t("copyMetadata")}
+          </button>
+        }
+      >
         <Row label={t("kindLabel")} value={tKind(kindOf(file.mime) as "other")} />
         <Row label={t("sizeLabel")} value={formatBytes(file.size)} />
         {facts?.kind === "image" ? <Row label={t("dimensions")} value={`${facts.width} × ${facts.height}`} /> : null}
@@ -219,12 +260,24 @@ export function Inspector({
           {relations.ancestry.length > 0 ? (
             <div className="mb-2">
               <p className="mb-1 text-xs text-text-muted">{t("origin")}</p>
+              {/* Indented chain: the derivation is a path, and showing it as a
+                  flat list loses the one thing that makes it meaningful. */}
               <ol className="flex flex-col gap-0.5">
-                {relations.ancestry.map((ancestor) => (
-                  <li key={ancestor.id}>
+                {relations.ancestry.map((ancestor, depth) => (
+                  <li key={ancestor.id} className="flex items-center gap-1" style={{ paddingInlineStart: depth * 10 }}>
+                    {depth > 0 ? (
+                      <CornerDownRight className="h-3 w-3 shrink-0 text-text-muted" aria-hidden />
+                    ) : null}
                     <RelationLink file={ancestor} onSelect={onSelectFile} />
                   </li>
                 ))}
+                <li
+                  className="flex items-center gap-1 text-xs text-text-muted"
+                  style={{ paddingInlineStart: relations.ancestry.length * 10 }}
+                >
+                  <CornerDownRight className="h-3 w-3 shrink-0" aria-hidden />
+                  <span className="truncate font-medium">{file.name}</span>
+                </li>
               </ol>
             </div>
           ) : null}
@@ -301,10 +354,21 @@ export function Inspector({
 /** A small, readable palette so tags are distinguishable without a colour picker. */
 const TAG_COLORS = ["#2563eb", "#059669", "#d97706", "#dc2626", "#7c3aed", "#0891b2"];
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({
+  title,
+  action,
+  children,
+}: {
+  title: string;
+  action?: React.ReactNode;
+  children: React.ReactNode;
+}) {
   return (
     <section className="flex flex-col gap-1.5">
-      <h3 className="text-xs font-semibold uppercase tracking-wide text-text-muted">{title}</h3>
+      <div className="flex items-baseline justify-between gap-2">
+        <h3 className="text-xs font-semibold uppercase tracking-wide text-text-muted">{title}</h3>
+        {action}
+      </div>
       {children}
     </section>
   );

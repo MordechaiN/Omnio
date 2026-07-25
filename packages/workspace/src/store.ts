@@ -233,6 +233,27 @@ class WorkspaceStore {
     return collection;
   };
 
+  /**
+   * Copy a file as a new record. The bytes are shared, not re-written: content
+   * addressing means a duplicate costs a row, not a second copy on disk.
+   */
+  duplicate = async (id: string): Promise<WorkspaceFile | null> => {
+    const file = this.snapshot.files.find((f) => f.id === id);
+    if (!file) return null;
+    const now = Date.now();
+    const copy: WorkspaceFile = {
+      ...file,
+      id: newId(),
+      name: copyName(file.name),
+      createdAt: now,
+      lastOpenedAt: now,
+      pinned: false,
+    };
+    await this.upsert(copy);
+    await this.record(copy.id, "imported");
+    return copy;
+  };
+
   saveSearch = async (name: string, query: SearchQuery): Promise<SavedSearch> => {
     const search: SavedSearch = { id: newId(), name: name.trim(), query, createdAt: Date.now() };
     await db.putSearch(search);
@@ -273,6 +294,13 @@ class WorkspaceStore {
     }
     return ids;
   };
+}
+
+/** "report.pdf" → "report copy.pdf", matching desktop conventions. */
+function copyName(name: string): string {
+  const dot = name.lastIndexOf(".");
+  if (dot <= 0) return `${name} copy`;
+  return `${name.slice(0, dot)} copy${name.slice(dot)}`;
 }
 
 export const workspace = new WorkspaceStore();
