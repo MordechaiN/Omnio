@@ -159,7 +159,9 @@
     "moveToCollection": "Add to collection",
     "deleteMany": "Delete {count} files",
     "copyMetadata": "Copy details",
-    "copied": "Copied"
+    "copied": "Copied",
+    "noCollections": "No collections yet.",
+    "newCollectionPlaceholder": "New collection…"
   },
   "nav": {
     "home": "Home",
@@ -208,7 +210,11 @@
     "select": "Open the selection",
     "close": "Close dialogs and menus",
     "moveFocus": "Move keyboard focus",
-    "hint": "Everything in Omnio is reachable by keyboard — the palette is the fastest way in."
+    "hint": "Everything in Omnio is reachable by keyboard — the palette is the fastest way in.",
+    "quickLook": "Quick look at the selected file",
+    "selectAll": "Select everything",
+    "deleteFile": "Delete the selection",
+    "undo": "Undo the last change"
   },
   "dropzone": {
     "veilTitle": "Drop it — Omnio's got it",

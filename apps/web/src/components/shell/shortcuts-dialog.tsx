@@ -16,6 +16,11 @@ const ROWS: Array<{ keys: string[]; labelKey: string }> = [
   { keys: ["↵"], labelKey: "select" },
   { keys: ["Esc"], labelKey: "close" },
   { keys: ["Tab"], labelKey: "moveFocus" },
+  // Files. Listed here because a shortcut nobody can find is not a shortcut.
+  { keys: ["Space"], labelKey: "quickLook" },
+  { keys: ["⌘", "A"], labelKey: "selectAll" },
+  { keys: ["⌫"], labelKey: "deleteFile" },
+  { keys: ["⌘", "Z"], labelKey: "undo" },
 ];
 
 /** ⌨️ The keyboard reference — every global shortcut in one quiet card. */

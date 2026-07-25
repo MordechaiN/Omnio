@@ -61,6 +61,7 @@ export function Inspector({
   const [draftName, setDraftName] = useState("");
   const [newTag, setNewTag] = useState("");
   const [copied, setCopied] = useState(false);
+  const [newCollection, setNewCollection] = useState("");
 
   useEffect(() => {
     setRenaming(false);
@@ -234,9 +235,11 @@ export function Inspector({
         />
       </Section>
 
-      {collections.length > 0 ? (
-        <Section title={t("collections")}>
+      <Section title={t("collections")}>
           <div className="flex flex-wrap gap-1.5">
+            {collections.length === 0 ? (
+              <p className="text-xs text-text-muted">{t("noCollections")}</p>
+            ) : null}
             {collections.map((collection) => {
               const on = file.collectionIds.includes(collection.id);
               return (
@@ -252,8 +255,22 @@ export function Inspector({
               );
             })}
           </div>
+          <Input
+            value={newCollection}
+            onChange={(e) => setNewCollection(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key !== "Enter" || newCollection.trim() === "") return;
+              void (async () => {
+                const created = await workspace.createCollection(newCollection);
+                await workspace.setCollection(file.id, created.id, true);
+                setNewCollection("");
+              })();
+            }}
+            placeholder={t("newCollectionPlaceholder")}
+            aria-label={t("newCollectionPlaceholder")}
+            className="h-7 text-xs"
+          />
         </Section>
-      ) : null}
 
       {relations.parent || relations.children.length > 0 || relations.siblings.length > 0 ? (
         <Section title={t("relations")}>

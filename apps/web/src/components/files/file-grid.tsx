@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { memo, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { kindOf, type WorkspaceFile } from "@omnio/workspace";
 import { useThumbnail } from "@omnio/workspace/react";
@@ -163,7 +163,14 @@ export function FileGrid({
   );
 }
 
-function FileTile({
+/**
+ * Memoized per tile. Without this, changing the selection re-renders every
+ * visible tile — including re-running the thumbnail effect — which is what makes
+ * a large grid feel sluggish while arrowing through it. The comparison is
+ * explicit rather than shallow because `allSelected` is a new Set on every
+ * selection change and would defeat the memo on its own.
+ */
+const FileTile = memo(function FileTile({
   file,
   view,
   metrics,
@@ -290,7 +297,15 @@ function FileTile({
       {menu}
     </ContextMenu>
   );
-}
+},
+(prev, next) =>
+  prev.file === next.file &&
+  prev.selected === next.selected &&
+  prev.focused === next.focused &&
+  prev.view === next.view &&
+  prev.metrics === next.metrics &&
+  // Only matters while dragging, and only for the tiles actually selected.
+  (prev.selected === false || prev.allSelected === next.allSelected));
 
 function formatBytes(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;

@@ -159,7 +159,9 @@
     "moveToCollection": "הוסף לאוסף",
     "deleteMany": "מחק {count} קבצים",
     "copyMetadata": "העתק פרטים",
-    "copied": "הועתק"
+    "copied": "הועתק",
+    "noCollections": "אין עדיין אוספים.",
+    "newCollectionPlaceholder": "אוסף חדש…"
   },
   "nav": {
     "home": "בית",
@@ -208,7 +210,11 @@
     "select": "פתיחת הבחירה",
     "close": "סגירת חלונות ותפריטים",
     "moveFocus": "העברת מיקוד המקלדת",
-    "hint": "הכול ב-Omnio נגיש במקלדת — לוח הפקודות הוא הדרך המהירה ביותר."
+    "hint": "הכול ב-Omnio נגיש במקלדת — לוח הפקודות הוא הדרך המהירה ביותר.",
+    "quickLook": "הצצה מהירה לקובץ הנבחר",
+    "selectAll": "בחר הכל",
+    "deleteFile": "מחק את הבחירה",
+    "undo": "בטל את השינוי האחרון"
   },
   "dropzone": {
     "veilTitle": "שחררו — Omnio על זה",
