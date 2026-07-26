@@ -38,6 +38,8 @@ export interface InspectorProps {
   chainSlot?: React.ReactNode;
   /** What Omnio noticed about this file. */
   insightSlot?: React.ReactNode;
+  /** Actions for a multi-file selection — the tools that take several at once. */
+  groupSlot?: React.ReactNode;
   /** Set by the context menu's Rename action; puts the name field into edit mode. */
   renameRequestId?: string | null;
   onRenameHandled?: () => void;
@@ -55,6 +57,7 @@ export function Inspector({
   onDelete,
   chainSlot,
   insightSlot,
+  groupSlot,
   renameRequestId,
   onRenameHandled,
 }: InspectorProps) {
@@ -93,10 +96,24 @@ export function Inspector({
     [events, file?.id],
   );
 
+  /**
+   * Several files selected.
+   *
+   * This used to say "4 files selected" and stop there — a deliberate action
+   * leading to a blank panel. Dropping those same four files offered six things
+   * to do with them together, so the capability existed; it simply was not
+   * reachable from the workspace, which is where files live after the first day.
+   * Right-clicking was no better: it offered single-file commands and "delete
+   * 4 files", so the one thing a multi-selection could do was destroy it.
+   */
   if (selectionCount > 1) {
     return (
-      <aside className="flex h-full w-80 shrink-0 flex-col border-s border-border-subtle p-4" aria-label={t("inspector")}>
+      <aside
+        className="flex h-full w-80 shrink-0 flex-col gap-3 overflow-y-auto border-s border-border-subtle p-4"
+        aria-label={t("inspector")}
+      >
         <p className="text-sm text-text-muted">{t("multiSelected", { count: selectionCount })}</p>
+        {groupSlot}
       </aside>
     );
   }

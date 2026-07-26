@@ -202,7 +202,8 @@
     "seenBeforeReason": "The same contents arrived {when}. You don't have to do the work again.",
     "seenBeforeResult": "Open the {tool} result",
     "emptyChoose": "Choose files",
-    "forgetSearch": "Forget the saved search {name}"
+    "forgetSearch": "Forget the saved search {name}",
+    "groupActions": "Do this with all of them"
   },
   "nav": {
     "home": "Home",
@@ -301,7 +302,9 @@
     },
     "seenBefore": "You've done this before",
     "seenBeforeReason": "You've had this exact file before. The finished version is still here.",
-    "seenBeforeGet": "Get the {tool} version"
+    "seenBeforeGet": "Get the {tool} version",
+    "looksScanned": "This looks like a scan",
+    "looksScannedReason": "There is no selectable text in it, so you cannot search or copy from it yet."
   },
   "workspaceSession": {
     "title": "This session",

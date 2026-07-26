@@ -636,7 +636,10 @@
         "recognize text",
         "make searchable",
         "image to text",
-        "read scan"
+        "read scan",
+        "scan",
+        "text recognition",
+        "recognise text"
       ],
       "accepts": [
         {

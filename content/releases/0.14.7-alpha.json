@@ -1,0 +1,27 @@
+{
+  "version": "0.14.7-alpha",
+  "date": "2026-07-26",
+  "headline": {
+    "en": "Omnio says what it knows on the screen you are actually looking at.",
+    "he": "‏Omnio אומר את מה שהוא יודע במסך שבו אתם באמת מסתכלים."
+  },
+  "sections": [
+    {
+      "type": "fixed",
+      "items": [
+        {
+          "en": "Drop a scanned document and Omnio now says so immediately, and offers to make it searchable. It always knew — but only said it in the file's details panel, which meant dismissing the drop panel, opening Files and selecting the file to be told something Omnio had worked out the moment the file arrived.",
+          "he": "גררו מסמך סרוק ו-Omnio יאמר זאת מיד, ויציע להפוך אותו לניתן לחיפוש. הוא תמיד ידע — אך אמר זאת רק בחלונית הפרטים של הקובץ, כלומר היה צריך לסגור את חלונית הגרירה, לפתוח את הקבצים ולבחור את הקובץ כדי לשמוע דבר ש-Omnio הסיק כבר ברגע שהקובץ הגיע."
+        },
+        {
+          "en": "Searching \"scan\" finds the tool for scans. It did not.",
+          "he": "חיפוש \"scan\" מוצא את הכלי לסריקות. קודם לא."
+        },
+        {
+          "en": "Selecting several files now offers what can be done with all of them — zip them, rename them together, and so on. Selecting them used to produce a panel that said \"4 files selected\" and nothing else, while dropping those same four offered six things; the only multi-file command anywhere was delete.",
+          "he": "בחירת כמה קבצים מציעה כעת מה אפשר לעשות עם כולם — לארוז אותם, לשנות את שמם יחד וכדומה. קודם הבחירה הציגה חלונית שאמרה \"4 קבצים נבחרו\" וזהו, בעוד שגרירת אותם ארבעה הציעה שישה דברים; הפקודה הרב-קובצית היחידה שהייתה קיימת הייתה מחיקה."
+        }
+      ]
+    }
+  ]
+}

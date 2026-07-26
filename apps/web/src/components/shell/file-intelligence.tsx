@@ -7,6 +7,7 @@ import { hashBytes, recognizeByHash, workspace, type Recognition } from "@omnio/
 import { takeHandoff } from "@/lib/provenance";
 import {
   Badge,
+  Button,
   Dialog,
   DialogContent,
   DialogHeader,
@@ -14,7 +15,7 @@ import {
   Spinner,
 } from "@omnio/ui";
 import { DynamicIcon, type IconName } from "lucide-react/dynamic";
-import { ChevronRight, FileQuestion, Files, RotateCcw, Sparkles } from "lucide-react";
+import { ChevronRight, FileQuestion, Files, RotateCcw, ScanText, Sparkles } from "lucide-react";
 import { useRouter } from "@/i18n/navigation";
 import {
   classifyKind,
@@ -281,8 +282,11 @@ export function FileIntelligence() {
    * prettier one. The page appears a moment later, in place of the icon.
    */
   const [pdfPreview, setPdfPreview] = useState<string | null>(null);
+  /** True once we know this PDF carries no selectable text — i.e. it is a scan. */
+  const [looksScanned, setLooksScanned] = useState(false);
   useEffect(() => {
     setPdfPreview(null);
+    setLooksScanned(false);
     if (intel?.kind !== "pdf") return undefined;
     let url: string | null = null;
     let cancelled = false;
@@ -292,6 +296,7 @@ export function FileIntelligence() {
       if (!rendered || cancelled) return;
       url = URL.createObjectURL(rendered.blob);
       setPdfPreview(url);
+      setLooksScanned(!rendered.hasText);
     })();
     return () => {
       cancelled = true;
@@ -436,6 +441,39 @@ export function FileIntelligence() {
                       );
                     })}
                   </div>
+                </div>
+              ) : null}
+
+              {/* A scan, said where the person is actually looking.
+                  The Inspector has always known this — "no selectable text, this
+                  looks like a scan" — but only after dropping the panel, opening
+                  Files and selecting the file. Dropping a scanned contract, the
+                  example this product leads with, offered everything except the
+                  one tool that was for it. */}
+              {looksScanned ? (
+                <div className="flex flex-col gap-2 rounded-xl border border-accent/40 bg-accent/5 p-3">
+                  <p className="flex items-start gap-2 text-start text-sm">
+                    <ScanText size={15} className="mt-0.5 shrink-0 text-accent" aria-hidden="true" />
+                    <span>
+                      <span className="block font-medium">{t("dropzone.looksScanned")}</span>
+                      <span className="block text-xs text-text-muted">
+                        {t("dropzone.looksScannedReason")}
+                      </span>
+                    </span>
+                  </p>
+                  {(() => {
+                    const ocr = SEARCH_ENTRIES.find((e) => e.toolId === "pdf-ocr");
+                    if (!ocr) return null;
+                    return (
+                      <Button
+                        size="sm"
+                        className="self-start"
+                        onClick={() => launch(ocr.href, [intel.file])}
+                      >
+                        {t(`${ocr.i18nNamespace}.${ocr.nameKey}` as Parameters<typeof t>[0])}
+                      </Button>
+                    );
+                  })()}
                 </div>
               ) : null}
 

@@ -202,7 +202,8 @@
     "seenBeforeReason": "אותו תוכן בדיוק הגיע {when}. אין צורך לבצע את העבודה שוב.",
     "seenBeforeResult": "פתח את התוצאה של {tool}",
     "emptyChoose": "בחרו קבצים",
-    "forgetSearch": "שכח את החיפוש השמור {name}"
+    "forgetSearch": "שכח את החיפוש השמור {name}",
+    "groupActions": "בצעו את זה עם כולם"
   },
   "nav": {
     "home": "בית",
@@ -301,7 +302,9 @@
     },
     "seenBefore": "כבר עשית את זה",
     "seenBeforeReason": "הקובץ הזה בדיוק כבר היה אצלך. הגרסה המוכנה עדיין כאן.",
-    "seenBeforeGet": "קבל את הגרסה של {tool}"
+    "seenBeforeGet": "קבל את הגרסה של {tool}",
+    "looksScanned": "זה נראה כמו סריקה",
+    "looksScannedReason": "אין בו טקסט שניתן לבחירה, ולכן עדיין אי אפשר לחפש או להעתיק ממנו."
   },
   "workspaceSession": {
     "title": "הפעלה נוכחית",

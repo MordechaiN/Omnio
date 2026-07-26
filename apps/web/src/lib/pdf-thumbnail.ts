@@ -47,7 +47,7 @@ function hasInk(context: CanvasRenderingContext2D, width: number, height: number
 export async function renderPdfFirstPage(
   file: File,
   fileId?: string,
-): Promise<{ blob: Blob; width: number; height: number } | null> {
+): Promise<{ blob: Blob; width: number; height: number; hasText: boolean } | null> {
   {
     try {
       const pdfjs = await import("pdfjs-dist");
@@ -83,30 +83,32 @@ export async function renderPdfFirstPage(
       // selectable text costs almost nothing here — and it is the difference
       // between "a PDF" and "a picture of a document". Only the first few pages
       // are checked; a scan is a scan from page one.
+      //
+      // Computed unconditionally now, not just when persisting: the drop dialog
+      // needs this answer for a file that is not in the workspace yet, and its
+      // absence there was why dropping a scan offered everything except OCR.
+      //
+      // A blank page also has no text. Calling it a scan would be a wrong claim,
+      // so the page must actually carry ink before "no text" means anything —
+      // sampled from the thumbnail already rendered above.
+      const inked = hasInk(context, canvas.width, canvas.height);
+      let foundText = false;
+      const probePages = Math.min(doc.numPages, 3);
+      for (let i = 1; i <= probePages && !foundText; i += 1) {
+        const content = await (await doc.getPage(i)).getTextContent();
+        foundText = content.items.some(
+          (item) => "str" in item && typeof item.str === "string" && item.str.trim() !== "",
+        );
+      }
+      // Reporting hasText: true for a blank page keeps the scan insight silent,
+      // which is the honest outcome — there is nothing to make searchable.
+      const hasText = foundText || !inked;
       if (fileId) {
-        // A blank page also has no text. Calling it a scan would be a wrong
-        // claim, so the page must actually carry ink before "no text" means
-        // anything — sampled from the thumbnail already rendered above.
-        const inked = hasInk(context, canvas.width, canvas.height);
-        let hasText = false;
-        const probePages = Math.min(doc.numPages, 3);
-        for (let i = 1; i <= probePages && !hasText; i += 1) {
-          const content = await (await doc.getPage(i)).getTextContent();
-          hasText = content.items.some(
-            (item) => "str" in item && typeof item.str === "string" && item.str.trim() !== "",
-          );
-        }
-        // Reporting hasText: true for a blank page keeps the scan insight silent,
-        // which is the honest outcome — there is nothing to make searchable.
-        void workspace.setFacts(fileId, {
-          kind: "pdf",
-          pages: doc.numPages,
-          hasText: hasText || !inked,
-        });
+        void workspace.setFacts(fileId, { kind: "pdf", pages: doc.numPages, hasText });
       }
 
       void doc.destroy();
-      return blob ? { blob, width: canvas.width, height: canvas.height } : null;
+      return blob ? { blob, width: canvas.width, height: canvas.height, hasText } : null;
     } catch {
       // A PDF we cannot render simply keeps its generic icon.
       return null;

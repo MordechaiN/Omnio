@@ -9,6 +9,16 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ## [Unreleased]
 
+## [0.14.7-alpha] - 2026-07-26
+
+Omnio says what it knows on the screen you are actually looking at.
+
+### 🐛 Fixed
+
+- **Drop a scan and Omnio says so, and offers to make it searchable.** It always knew — the file's details panel said "no selectable text, this looks like a scan" — but the drop panel did not, so the product's headline example required dismissing it, opening Files and selecting the file.
+- **Searching "scan" finds the tool for scans.** It found nothing.
+- **Selecting several files offers what can be done with all of them.** Selection produced "4 files selected" and nothing else, while dropping those same four offered six actions. The only multi-file command anywhere was delete.
+
 ## [0.14.6-alpha] - 2026-07-26
 
 The moment you drop a file is no longer a puzzle.

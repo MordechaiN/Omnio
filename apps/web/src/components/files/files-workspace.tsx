@@ -40,6 +40,7 @@ import { FileContextMenu } from "./file-context-menu";
 import { installPdfThumbnailer } from "@/lib/pdf-thumbnail";
 import { ChainSuggestions } from "./chain-suggestions";
 import { FileInsights } from "./file-insights";
+import { GroupActions } from "./group-actions";
 import { FileStaleness } from "./file-staleness";
 import { FileRecognition } from "./file-recognition";
 import { rememberHandoff } from "@/lib/provenance";
@@ -689,6 +690,16 @@ export function FilesWorkspace() {
                 onOpenWith={(href, toolId) => void openWith(href, activeFile.id, toolId)}
                 />
               </>
+            ) : null
+          }
+          groupSlot={
+            selected.size > 1 ? (
+              <GroupActions
+                files={[...selected]
+                  .map((id) => files.find((f) => f.id === id))
+                  .filter((f): f is WorkspaceFile => Boolean(f))}
+                onOpened={clear}
+              />
             ) : null
           }
           chainSlot={
