@@ -654,7 +654,8 @@
     "supersededExport": {
       "title": "{name} כנראה אינו מעודכן",
       "reason": "הוא נוצר מתוך {source}, וגרסה חדשה יותר של הקובץ הזה הגיעה {when}.",
-      "action": "הרץ שוב עם {tool}"
+      "action": "הרץ שוב עם {tool}",
+      "inspectorTitle": "ייתכן שזה אינו מעודכן"
     },
     "documentVersions": {
       "title": "{count, plural, one {גרסה אחת של {name}} other {# גרסאות של {name}}}",

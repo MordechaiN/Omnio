@@ -654,7 +654,8 @@
     "supersededExport": {
       "title": "{name} may be out of date",
       "reason": "It was made from {source}, and a newer version of that file arrived {when}.",
-      "action": "Redo with {tool}"
+      "action": "Redo with {tool}",
+      "inspectorTitle": "This may be out of date"
     },
     "documentVersions": {
       "title": "{count, plural, one {# version of {name}} other {# versions of {name}}}",

@@ -9,6 +9,7 @@ import {
   steppingStones,
   stripSizeTokens,
   stripVersionMarkers,
+  supersededExportOf,
   supersededExports,
   workSessions,
 } from "./discoveries.ts";
@@ -120,6 +121,14 @@ describe("supersededExports", () => {
   it("ignores identical contents re-imported under the same name", () => {
     const sameBytes = file({ id: "src-copy", name: "report.docx", hash: "v1", createdAt: 3 * DAY });
     expect(supersededExports([source, result, sameBytes], NOW)).toHaveLength(0);
+  });
+
+  it("answers for a single file, the same way it does for the workspace", () => {
+    const all = [source, result, replacement];
+    expect(supersededExportOf(result, all, NOW)?.replacement.id).toBe("src2");
+    // The source itself is not out of date; only what was built from it is.
+    expect(supersededExportOf(source, all, NOW)).toBeNull();
+    expect(supersededExportOf(replacement, all, NOW)).toBeNull();
   });
 
   it("says nothing about work that just happened", () => {

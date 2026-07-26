@@ -40,6 +40,7 @@ import { FileContextMenu } from "./file-context-menu";
 import { installPdfThumbnailer } from "@/lib/pdf-thumbnail";
 import { ChainSuggestions } from "./chain-suggestions";
 import { FileInsights } from "./file-insights";
+import { FileStaleness } from "./file-staleness";
 import { FileRecognition } from "./file-recognition";
 import { rememberHandoff } from "@/lib/provenance";
 import { Inspector } from "./inspector";
@@ -598,6 +599,13 @@ export function FilesWorkspace() {
                     select(id, {});
                   }}
                 />
+              {/* Leads the panel: knowing the file is out of date changes whether
+                  you want to do anything else with it at all. */}
+              <FileStaleness
+                file={activeFile}
+                files={files}
+                onRedo={(href, toolId, fileId) => void openWith(href, fileId, toolId)}
+              />
               <FileInsights
                 file={activeFile}
                 files={files}
