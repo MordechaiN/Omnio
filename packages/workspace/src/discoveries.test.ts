@@ -174,6 +174,28 @@ describe("documentVersions", () => {
     expect(documentVersions(files)).toHaveLength(0);
   });
 
+  /** A file and something eventually made from it are one lineage, not two drafts. */
+  it("does not treat an output as a version of its own source", () => {
+    const files = [
+      file({ id: "scan", name: "scan.pdf", hash: "1", createdAt: 1 }),
+      file({
+        id: "ocr",
+        name: "scan-ocr.pdf",
+        hash: "2",
+        createdAt: 2,
+        derivedFrom: { fileId: "scan", toolId: "pdf-ocr" },
+      }),
+      file({
+        id: "done",
+        name: "scan-final.pdf",
+        hash: "3",
+        createdAt: 3,
+        derivedFrom: { fileId: "ocr", toolId: "pdf-compress" },
+      }),
+    ];
+    expect(documentVersions(files)).toHaveLength(0);
+  });
+
   it("leaves exact duplicates to duplicate detection", () => {
     const files = [
       file({ id: "a", name: "contract.pdf", hash: "same" }),
@@ -377,6 +399,21 @@ describe("discover", () => {
   it("leads with the discovery that prevents a mistake", () => {
     const found = discover(files, [], { now: NOW });
     expect(found[0]!.kind).toBe("superseded-export");
+  });
+
+  /** The two would otherwise state the same fact in consecutive rows. */
+  it("does not also report versions of a document it just said was superseded", () => {
+    const found = discover(files, [], { now: NOW });
+    expect(found.filter((d) => d.kind === "document-versions")).toHaveLength(0);
+  });
+
+  it("still reports versions of an unrelated document", () => {
+    const contract = [
+      file({ id: "k1", name: "contract.pdf", hash: "k1", createdAt: 1 * DAY }),
+      file({ id: "k2", name: "contract v2.pdf", hash: "k2", createdAt: 2 * DAY }),
+    ];
+    const found = discover([...files, ...contract], [], { now: NOW });
+    expect(found.filter((d) => d.kind === "document-versions")).toHaveLength(1);
   });
 
   it("honours a dismissal, and stays dismissed across recomputation", () => {

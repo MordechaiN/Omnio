@@ -11,6 +11,7 @@ import { PersonalSections } from "@/components/workspace/personal-sections";
 import { SessionStrip } from "@/components/workspace/session-strip";
 import { WorkspacesSection } from "@/components/workspace/workspaces-section";
 import { ContinueWorking } from "@/components/files/continue-working";
+import { WorkspaceDiscoveries } from "@/components/workspace/workspace-discoveries";
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -31,6 +32,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           a first-time visitor sees only the hero and the category grid. */}
       {/* What you were last working on leads — it is why people come back. */}
       <ContinueWorking />
+
+      {/* What Omnio noticed while you worked. Sits below Continue because it is
+          an observation, not an errand, and renders nothing until it has
+          something worth saying. */}
+      <WorkspaceDiscoveries />
 
       <SessionStrip />
       <WorkspacesSection />

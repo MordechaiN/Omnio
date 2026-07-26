@@ -644,5 +644,39 @@
     "statusActive": "Active",
     "communityTitle": "Community modules",
     "communityBody": "Coming later: install modules built by others, from an open catalog — with the same on-device privacy rules as everything built in."
+  },
+  "discoveries": {
+    "title": "Omnio noticed",
+    "options": "Discovery options",
+    "dismiss": "Dismiss",
+    "dismissKind": "Stop showing this kind",
+    "more": "+{count} more",
+    "supersededExport": {
+      "title": "{name} may be out of date",
+      "reason": "It was made from {source}, and a newer version of that file arrived {when}.",
+      "action": "Redo with {tool}"
+    },
+    "documentVersions": {
+      "title": "{count, plural, one {# version of {name}} other {# versions of {name}}}",
+      "reason": "Same name, different contents. The newest is {newest}, {when}."
+    },
+    "imageSizes": {
+      "title": "One picture, {count, plural, one {# size} other {# sizes}}",
+      "reason": "{sizes} — same shape, same name. Keeping only the largest frees {saving}."
+    },
+    "workSession": {
+      "title": "{count, plural, one {# file} other {# files}} on {when}",
+      "reason": "About {duration, plural, one {# minute} other {# minutes}} of work.",
+      "reasonWithTools": "About {duration, plural, one {# minute} other {# minutes}} of work, using {tools}."
+    },
+    "steppingStones": {
+      "title": "{count, plural, one {# file was} other {# files were}} only a step along the way",
+      "reason": "Each was made by a tool, used to produce something else, and never opened again. They hold {size}."
+    },
+    "habit": {
+      "title": "You almost always use {tool} on these",
+      "reason": "{applied} of the {total} you brought in went through it — {pending, plural, one {# has not} other {# have not}}.",
+      "action": "Do it for {count, plural, one {# file} other {# files}}"
+    }
   }
 }

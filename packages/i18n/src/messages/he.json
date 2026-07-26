@@ -644,5 +644,39 @@
     "statusActive": "פעיל",
     "communityTitle": "מודולים קהילתיים",
     "communityBody": "בהמשך: התקנת מודולים שנבנו על ידי אחרים, מקטלוג פתוח — עם אותם כללי פרטיות במכשיר כמו כל מה שמובנה."
+  },
+  "discoveries": {
+    "title": "Omnio שם לב",
+    "options": "אפשרויות תגלית",
+    "dismiss": "הסתרה",
+    "dismissKind": "הפסק להציג תגליות מסוג זה",
+    "more": "ועוד {count}",
+    "supersededExport": {
+      "title": "{name} כנראה אינו מעודכן",
+      "reason": "הוא נוצר מתוך {source}, וגרסה חדשה יותר של הקובץ הזה הגיעה {when}.",
+      "action": "הרץ שוב עם {tool}"
+    },
+    "documentVersions": {
+      "title": "{count, plural, one {גרסה אחת של {name}} other {# גרסאות של {name}}}",
+      "reason": "אותו שם, תוכן שונה. החדשה ביותר היא {newest}, {when}."
+    },
+    "imageSizes": {
+      "title": "תמונה אחת, {count, plural, one {גודל אחד} other {# גדלים}}",
+      "reason": "{sizes} — אותה צורה, אותו שם. שמירת הגדולה בלבד תפנה {saving}."
+    },
+    "workSession": {
+      "title": "{count, plural, one {קובץ אחד} other {# קבצים}} ב{when}",
+      "reason": "בערך {duration, plural, one {דקה אחת} other {# דקות}} של עבודה.",
+      "reasonWithTools": "בערך {duration, plural, one {דקה אחת} other {# דקות}} של עבודה, עם {tools}."
+    },
+    "steppingStones": {
+      "title": "{count, plural, one {קובץ אחד היה} other {# קבצים היו}} רק שלב בדרך",
+      "reason": "כל אחד מהם נוצר בכלי, שימש ליצירת משהו אחר, ומאז לא נפתח שוב. הם תופסים {size}."
+    },
+    "habit": {
+      "title": "אתם כמעט תמיד מריצים {tool} על אלה",
+      "reason": "{applied} מתוך {total} שהבאתם עברו דרכו — {pending, plural, one {אחד עדיין לא} other {# עדיין לא}}.",
+      "action": "בצע עבור {count, plural, one {קובץ אחד} other {# קבצים}}"
+    }
   }
 }
