@@ -155,11 +155,18 @@ export function FilesWorkspace() {
   );
 
   const openWith = useCallback(
-    async (href: string, fileId: string, toolId?: string) => {
+    async (href: string, fileId: string, toolId?: string, replaces?: WorkspaceFile) => {
       const handle = await workspace.openFile(fileId, toolId);
       if (!handle) return;
-      // Remember where this came from so the tool's output can be linked back.
-      if (toolId) rememberHandoff(fileId, toolId);
+      // Remember where this came from so the tool's output can be linked back —
+      // and, when this run is rebuilding something stale, which file it retires.
+      if (toolId) {
+        rememberHandoff(
+          fileId,
+          toolId,
+          replaces ? { fileId: replaces.id, name: replaces.name } : undefined,
+        );
+      }
       setPendingFiles([handle]);
       router.push(href);
     },
@@ -604,7 +611,9 @@ export function FilesWorkspace() {
               <FileStaleness
                 file={activeFile}
                 files={files}
-                onRedo={(href, toolId, fileId) => void openWith(href, fileId, toolId)}
+                onRedo={(href, toolId, fileId, replaces) =>
+                  void openWith(href, fileId, toolId, replaces)
+                }
               />
               <FileInsights
                 file={activeFile}

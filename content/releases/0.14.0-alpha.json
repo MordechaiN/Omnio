@@ -1,0 +1,53 @@
+{
+  "version": "0.14.0-alpha",
+  "date": "2026-07-26",
+  "headline": {
+    "en": "Omnio stops describing your work and starts finishing it.",
+    "he": "Omnio מפסיק לתאר את העבודה שלכם ומתחיל לסיים אותה."
+  },
+  "sections": [
+    {
+      "type": "new",
+      "items": [
+        {
+          "en": "Every observation now ends in a single next step. When Omnio says an exported PDF is out of date, \"Update it\" opens the right tool with the newer document already loaded — and when the conversion finishes, the new file takes the old one's name and the stale copy is archived for you. You never think about the old file again.",
+          "he": "כל תובנה מסתיימת כעת בצעד אחד. כש-Omnio אומר שקובץ PDF שייצאתם אינו מעודכן, \"עדכן אותו\" יפתח את הכלי הנכון עם המסמך החדש כבר טעון — וכשההמרה מסתיימת, הקובץ החדש מקבל את שם הקודם והעותק הישן עובר לארכיון. לא תחשבו על הקובץ הישן שוב."
+        },
+        {
+          "en": "Drafts of one document, or a picture kept at several sizes, can be grouped into a collection in one click. Leftover files that were only a step towards something finished can be archived, freeing their space while keeping every record and every relationship intact.",
+          "he": "טיוטות של מסמך אחד, או תמונה שנשמרה בכמה גדלים, ניתנות לאיחוד לאוסף בלחיצה אחת. קבצים שנותרו ושהיו רק שלב בדרך למשהו מוגמר ניתנים להעברה לארכיון, מה שמפנה את המקום שלהם תוך שמירה על כל הרשומות והקשרים."
+        },
+        {
+          "en": "Omnio now notices when you have performed the same sequence of tools more than once and offers to remember it as a workflow. Nobody has to build anything: doing the work twice is the entire setup.",
+          "he": "Omnio מבחין כעת כשביצעתם את אותו רצף כלים יותר מפעם אחת, ומציע לזכור אותו כתהליך. איש אינו צריך לבנות דבר: ביצוע העבודה פעמיים הוא כל ההגדרה."
+        }
+      ]
+    },
+    {
+      "type": "improved",
+      "items": [
+        {
+          "en": "Each observation offers exactly one action, never a menu, and never a dialog asking you to configure something. What it did is reported in the row itself, with an Undo that stays there rather than a message that disappears.",
+          "he": "כל תובנה מציעה בדיוק פעולה אחת, לעולם לא תפריט ולא חלון שמבקש מכם להגדיר משהו. מה שנעשה מדווח בשורה עצמה, עם ביטול שנשאר במקום ולא הודעה שנעלמת."
+        },
+        {
+          "en": "Only one action removes anything, and it says so before you click rather than after. Everything else organises instead of deleting, because Omnio cannot know which draft you still need.",
+          "he": "רק פעולה אחת מוחקת משהו, והיא אומרת זאת לפני הלחיצה ולא אחריה. כל השאר מארגנות במקום למחוק, כי Omnio אינו יכול לדעת איזו טיוטה עדיין נחוצה לכם."
+        }
+      ]
+    },
+    {
+      "type": "known",
+      "items": [
+        {
+          "en": "\"Update it\" opens the tool with everything prepared and finishes the job around it, but the conversion itself is still yours to start — Omnio does not run tools without you watching.",
+          "he": "\"עדכן אותו\" פותח את הכלי כשהכול מוכן ומסיים את העבודה סביבו, אך את ההמרה עצמה עדיין אתם מתחילים — Omnio אינו מריץ כלים בלי שתראו."
+        },
+        {
+          "en": "Archiving intermediate files removes their contents for good. Their record, history and place in the chain of work all remain, but the bytes cannot be brought back.",
+          "he": "העברת קבצי ביניים לארכיון מוחקת את תוכנם לצמיתות. הרשומה, ההיסטוריה והמקום שלהם בשרשרת העבודה נשמרים, אך את הבתים לא ניתן להחזיר."
+        }
+      ]
+    }
+  ]
+}

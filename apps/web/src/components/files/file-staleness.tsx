@@ -28,19 +28,15 @@ export function FileStaleness({
 }: {
   file: WorkspaceFile;
   files: WorkspaceFile[];
-  onRedo: (href: string, toolId: string, fileId: string) => void;
+  onRedo: (href: string, toolId: string, fileId: string, replaces: WorkspaceFile) => void;
 }) {
   const t = useTranslations("discoveries");
-  const tRoot = useTranslations();
   const format = useFormatter();
 
   const stale = useMemo(() => supersededExportOf(file, files), [file, files]);
   if (!stale) return null;
 
   const entry = BY_TOOL.get(stale.toolId);
-  const toolName = entry
-    ? tRoot(`${entry.i18nNamespace}.${entry.nameKey}` as Parameters<typeof tRoot>[0])
-    : stale.toolId;
 
   return (
     <section className="flex flex-col gap-1.5 rounded-md border border-accent-subtle bg-accent-subtle p-2">
@@ -61,9 +57,9 @@ export function FileStaleness({
           size="sm"
           variant="secondary"
           className="self-start"
-          onClick={() => onRedo(entry.href, stale.toolId, stale.replacement.id)}
+          onClick={() => onRedo(entry.href, stale.toolId, stale.replacement.id, stale.result)}
         >
-          {t("supersededExport.action", { tool: toolName })}
+          {t("action.regenerate")}
         </Button>
       ) : null}
     </section>

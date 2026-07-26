@@ -202,6 +202,8 @@ export function actionFor(discovery: Discovery): WorkspaceAction | null {
  * somewhere. Promising the first and delivering the second is how a feature like
  * this loses trust.
  */
-export function isHandoff(action: WorkspaceAction): boolean {
+export function isHandoff(
+  action: WorkspaceAction,
+): action is RegenerateAction | ApplyToolAction {
   return action.kind === "regenerate" || action.kind === "apply-tool";
 }

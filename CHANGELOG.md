@@ -9,6 +9,28 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ## [Unreleased]
 
+## [0.14.0-alpha] - 2026-07-26
+
+Omnio stops describing your work and starts finishing it.
+
+### 🚀 New
+
+- **Every observation ends in a single next step.** "Update it" on a stale export opens the right tool with the newer document already loaded; when the conversion finishes, the new file takes the old one's name and the stale copy is archived automatically.
+- **Group as a collection** — drafts of one document, or a picture kept at several sizes, gathered in one click.
+- **Archive intermediates** — files that were only a step towards something finished give their space back, keeping every record and relationship.
+- **Remember this workflow** — a sequence of tools performed more than once can be saved as a chain. Doing the work twice is the entire setup.
+
+### ✨ Improved
+
+- One action per observation, never a menu and never a configuration dialog. What happened is reported in the row, with an Undo that stays put instead of a message that vanishes.
+- Only one action removes anything, and it says so before the click rather than after.
+
+### ⚠️ Known limitations
+
+- "Update it" prepares everything and finishes the job around the conversion, but starting the conversion is still yours — Omnio does not run tools unwatched.
+- Archiving removes file contents for good; the record, history and lineage remain, the bytes do not.
+
+
 ## [0.13.0-alpha] - 2026-07-26
 
 Omnio has been paying attention — and tells you the one thing you would have missed.

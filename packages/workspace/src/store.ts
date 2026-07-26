@@ -373,8 +373,15 @@ class WorkspaceStore {
     for (const id of ids) {
       const file = this.snapshot.files.find((f) => f.id === id);
       if (!file || file.pinned || file.evicted) continue;
-      // Shared content: only drop the blob when this was the last reference.
-      if ((await db.countByHash(file.hash)) <= 1) await deleteBlob(file.hash);
+      try {
+        // Shared content: only drop the blob when this was the last reference.
+        if ((await db.countByHash(file.hash)) <= 1) await deleteBlob(file.hash);
+      } catch {
+        // Reclaiming the bytes is best-effort; marking the record is not. If the
+        // content is already unreachable there is nothing to free, and failing
+        // the whole action over one file's bookkeeping would leave the user with
+        // a button that silently does nothing.
+      }
       await this.upsert({ ...file, evicted: true });
       await this.record(id, "evicted");
       archived.push(id);

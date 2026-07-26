@@ -654,7 +654,6 @@
     "supersededExport": {
       "title": "{name} כנראה אינו מעודכן",
       "reason": "הוא נוצר מתוך {source}, וגרסה חדשה יותר של הקובץ הזה הגיעה {when}.",
-      "action": "הרץ שוב עם {tool}",
       "inspectorTitle": "ייתכן שזה אינו מעודכן"
     },
     "documentVersions": {
@@ -676,8 +675,26 @@
     },
     "habit": {
       "title": "אתם כמעט תמיד מריצים {tool} על אלה",
-      "reason": "{applied} מתוך {total} שהבאתם עברו דרכו — {pending, plural, one {אחד עדיין לא} other {# עדיין לא}}.",
-      "action": "בצע עבור {count, plural, one {קובץ אחד} other {# קבצים}}"
+      "reason": "{applied} מתוך {total} שהבאתם עברו דרכו — {pending, plural, one {אחד עדיין לא} other {# עדיין לא}}."
+    },
+    "undo": "ביטול",
+    "collectionFromSession": "עבודה מ{when}",
+    "action": {
+      "collect": "אחד לאוסף",
+      "archive": "העבר לארכיון ופנה {size}",
+      "rememberChain": "זכור את התהליך הזה",
+      "regenerate": "עדכן אותו",
+      "applyTool": "בצע עבור {count, plural, one {קובץ אחד} other {# קבצים}}",
+      "permanent": "התוכן יימחק לצמיתות"
+    },
+    "undone": {
+      "collected": "קובץ לאוסף {name}",
+      "archived": "{count, plural, one {קובץ אחד הועבר} other {# קבצים הועברו}} לארכיון",
+      "remembered": "נשמר כתהליך"
+    },
+    "repeatedSequence": {
+      "title": "עשיתם {steps} יותר מפעם אחת",
+      "reason": "אותו רצף, {count, plural, one {פעם אחת} other {# פעמים}}. Omnio יוכל להריץ אותו עבורכם בפעם הבאה."
     }
   }
 }

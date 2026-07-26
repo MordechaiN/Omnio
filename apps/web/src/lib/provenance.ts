@@ -16,14 +16,31 @@ export interface Handoff {
   fileId: string;
   toolId: string;
   at: number;
+  /**
+   * Set when this handoff is rebuilding something that already exists.
+   *
+   * Carried here rather than in a second mechanism because it is the same idea
+   * with one more fact attached: an intent, remembered across exactly one
+   * navigation, consumed once. When the tool produces its file, the result takes
+   * this name and the file it replaces is archived — which is the difference
+   * between Omnio telling you an export is stale and Omnio dealing with it.
+   */
+  replaces?: { fileId: string; name: string };
 }
 
 /** Handoffs older than this are ignored — the user has moved on. */
 const MAX_AGE_MS = 30 * 60 * 1000;
 
-export function rememberHandoff(fileId: string, toolId: string): void {
+export function rememberHandoff(
+  fileId: string,
+  toolId: string,
+  replaces?: { fileId: string; name: string },
+): void {
   try {
-    sessionStorage.setItem(KEY, JSON.stringify({ fileId, toolId, at: Date.now() } satisfies Handoff));
+    sessionStorage.setItem(
+      KEY,
+      JSON.stringify({ fileId, toolId, at: Date.now(), replaces } satisfies Handoff),
+    );
   } catch {
     // Without storage, outputs simply arrive unlinked.
   }

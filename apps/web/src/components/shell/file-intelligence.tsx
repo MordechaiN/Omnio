@@ -225,12 +225,20 @@ export function FileIntelligence() {
       // what lets Omnio learn a sequence from ordinary use rather than only
       // inside an explicit chain run.
       const handoff = takeHandoff();
-      void workspace
-        .import(
+      void (async () => {
+        const produced = await workspace.import(
           new File([detail.blob], detail.name, { type: detail.mime }),
           handoff ? { fromFileId: handoff.fileId, toolId: handoff.toolId } : undefined,
-        )
-        .catch(() => undefined);
+        );
+        // This run was rebuilding something that had gone stale. Finish the job:
+        // the replacement takes the old name, and the file it supersedes is
+        // archived. Leaving both, identically named and differently aged, would
+        // recreate by hand the exact confusion the discovery set out to remove.
+        if (handoff?.replaces) {
+          await workspace.rename(produced.id, handoff.replaces.name);
+          await workspace.archive([handoff.replaces.fileId]);
+        }
+      })().catch(() => undefined);
     };
 
     window.addEventListener("dragenter", onDragEnter);

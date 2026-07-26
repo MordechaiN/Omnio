@@ -654,7 +654,6 @@
     "supersededExport": {
       "title": "{name} may be out of date",
       "reason": "It was made from {source}, and a newer version of that file arrived {when}.",
-      "action": "Redo with {tool}",
       "inspectorTitle": "This may be out of date"
     },
     "documentVersions": {
@@ -676,8 +675,26 @@
     },
     "habit": {
       "title": "You almost always use {tool} on these",
-      "reason": "{applied} of the {total} you brought in went through it — {pending, plural, one {# has not} other {# have not}}.",
-      "action": "Do it for {count, plural, one {# file} other {# files}}"
+      "reason": "{applied} of the {total} you brought in went through it — {pending, plural, one {# has not} other {# have not}}."
+    },
+    "undo": "Undo",
+    "collectionFromSession": "Work from {when}",
+    "action": {
+      "collect": "Group as a collection",
+      "archive": "Archive them, freeing {size}",
+      "rememberChain": "Remember this workflow",
+      "regenerate": "Update it",
+      "applyTool": "Do it for {count, plural, one {# file} other {# files}}",
+      "permanent": "Contents are removed for good"
+    },
+    "undone": {
+      "collected": "Grouped into {name}",
+      "archived": "Archived {count, plural, one {# file} other {# files}}",
+      "remembered": "Saved as a workflow"
+    },
+    "repeatedSequence": {
+      "title": "You have done {steps} more than once",
+      "reason": "The same sequence, {count, plural, one {# time} other {# times}}. Omnio can run it for you next time."
     }
   }
 }

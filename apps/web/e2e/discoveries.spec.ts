@@ -108,4 +108,29 @@ test.describe("workspace discoveries", () => {
     await page.goto("/");
     await expect(page.getByRole("region", { name: "Omnio noticed" })).toBeHidden();
   });
+
+  /**
+   * The point of the actions: noticing is only worth anything if the next step
+   * costs one click. Grouping is the safe action for a set of drafts — Omnio
+   * cannot know which one is still wanted, so it organises rather than removes,
+   * and what it did can be taken straight back.
+   */
+  test("turns what it noticed into one click, and lets it be undone", async ({ page }) => {
+    // The same document, saved twice with different contents.
+    await drop(page, "report.pdf", await samplePdf(0.2));
+    await drop(page, "report.pdf", await samplePdf(0.8));
+
+    await page.goto("/");
+    const discoveries = page.getByRole("region", { name: "Omnio noticed" });
+    const versions = discoveries.locator("li").filter({ hasText: "versions of report" });
+    await expect(versions).toBeVisible();
+
+    await versions.getByRole("button", { name: "Group as a collection" }).click();
+
+    // The row reports what happened rather than leaving the user to check.
+    await expect(versions.getByText("Grouped into report")).toBeVisible();
+
+    await versions.getByRole("button", { name: "Undo" }).click();
+    await expect(versions.getByRole("button", { name: "Group as a collection" })).toBeVisible();
+  });
 });

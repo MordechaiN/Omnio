@@ -1,9 +1,18 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useFormatter, useTranslations } from "next-intl";
 import { setPendingFiles } from "@omnio/module-sdk";
-import { discover, workspace, type Discovery } from "@omnio/workspace";
+import {
+  actionFor,
+  defaultChainName,
+  discover,
+  isHandoff,
+  workspace,
+  type CollectionName,
+  type Discovery,
+  type WorkspaceFile,
+} from "@omnio/workspace";
 import { useWorkspace } from "@omnio/workspace/react";
 import {
   Button,
@@ -14,6 +23,7 @@ import {
   DropdownMenuTrigger,
 } from "@omnio/ui";
 import {
+  Check,
   Clock,
   Files as FilesIcon,
   Footprints,
@@ -21,6 +31,7 @@ import {
   MoreHorizontal,
   Repeat,
   RefreshCw,
+  Workflow,
 } from "lucide-react";
 import { useRouter } from "@/i18n/navigation";
 import { SEARCH_ENTRIES } from "@/generated/registry.search";
@@ -34,6 +45,7 @@ const KIND_ICON = {
   "image-sizes": ImageIcon,
   "work-session": Clock,
   "stepping-stones": Footprints,
+  "repeated-sequence": Workflow,
   habit: Repeat,
 } as const;
 
@@ -53,13 +65,25 @@ const NAMES_SHOWN = 3;
  * "why am I seeing this?" link, because a reason you have to go and find is a
  * reason the interface did not really give you.
  */
+/**
+ * What just happened, and how to take it back.
+ *
+ * `run` is absent when an action genuinely cannot be undone, which is the whole
+ * reason this carries a label rather than always a button.
+ */
+export interface Undo {
+  label: string;
+  run?: () => Promise<void>;
+}
+
 export function WorkspaceDiscoveries() {
   const t = useTranslations("discoveries");
-  const { files, events, dismissed, ready } = useWorkspace();
+  const { files, events, chains, dismissed, ready } = useWorkspace();
+  const [receipts, setReceipts] = useState<Record<string, Undo>>({});
 
   const discoveries = useMemo(
-    () => (ready ? discover(files, events, { dismissed }) : []),
-    [files, events, dismissed, ready],
+    () => (ready ? discover(files, events, { dismissed, chains }) : []),
+    [files, events, chains, dismissed, ready],
   );
 
   if (discoveries.length === 0) return null;
@@ -72,7 +96,17 @@ export function WorkspaceDiscoveries() {
       <ul className="flex flex-col gap-1">
         {discoveries.map((discovery) => (
           <li key={discovery.id}>
-            <DiscoveryRow discovery={discovery} />
+            <DiscoveryRow
+              discovery={discovery}
+              receipt={receipts[discovery.id]}
+              onDone={(undo) => setReceipts((prev) => ({ ...prev, [discovery.id]: undo }))}
+              onUndone={() =>
+                setReceipts((prev) => {
+                  const { [discovery.id]: _removed, ...rest } = prev;
+                  return rest;
+                })
+              }
+            />
           </li>
         ))}
       </ul>
@@ -87,7 +121,17 @@ export function WorkspaceDiscoveries() {
  * are simply worth knowing, and dressing the second kind up as something to
  * click would be pretending every observation is a task.
  */
-function DiscoveryRow({ discovery }: { discovery: Discovery }) {
+function DiscoveryRow({
+  discovery,
+  receipt,
+  onDone,
+  onUndone,
+}: {
+  discovery: Discovery;
+  receipt?: Undo;
+  onDone: (undo: Undo) => void;
+  onUndone: () => void;
+}) {
   const t = useTranslations("discoveries");
   const Icon = KIND_ICON[discovery.kind];
   // The only discovery that prevents a mistake rather than saving effort, so it
@@ -104,7 +148,11 @@ function DiscoveryRow({ discovery }: { discovery: Discovery }) {
         <Headline discovery={discovery} />
         <Reason discovery={discovery} />
         <Subjects discovery={discovery} />
-        <Action discovery={discovery} />
+        {receipt ? (
+          <Receipt receipt={receipt} onUndone={onUndone} />
+        ) : (
+          <Action discovery={discovery} onDone={onDone} />
+        )}
       </div>
 
       {/* Kept invisible until the row is approached, so the section reads as
@@ -159,6 +207,10 @@ function Headline({ discovery }: { discovery: Discovery }) {
         });
       case "stepping-stones":
         return t("steppingStones.title", { count: discovery.files.length });
+      case "repeated-sequence":
+        return t("repeatedSequence.title", {
+          steps: discovery.steps.map(toolName).join(" → "),
+        });
       case "habit":
         return t("habit.title", { tool: toolName(discovery.toolId) });
     }
@@ -204,6 +256,8 @@ function Reason({ discovery }: { discovery: Discovery }) {
             });
       case "stepping-stones":
         return t("steppingStones.reason", { size: formatBytes(discovery.reclaimableBytes) });
+      case "repeated-sequence":
+        return t("repeatedSequence.reason", { count: discovery.occurrences });
       case "habit":
         return t("habit.reason", {
           applied: discovery.applied,
@@ -242,18 +296,32 @@ function Subjects({ discovery }: { discovery: Discovery }) {
 }
 
 /**
- * The next move, where there genuinely is one.
+ * The next move.
  *
- * Only two discoveries carry an action, because only two have a single obvious
- * thing to do. Inventing a button for the others would turn observations into a
- * list of chores.
+ * One button, chosen by `actionFor` rather than by this component — the decision
+ * about what is safe belongs with the workspace, not with the thing drawing it.
+ * The label states the outcome ("Group as a collection") instead of the
+ * mechanism, and an action that cannot be taken back says so in the same breath,
+ * before it is clicked rather than after.
+ *
+ * Actions the workspace can perform itself finish here, in place, with an undo
+ * where one is honest. Actions that genuinely need a tool open it with the files
+ * already loaded.
  */
-function Action({ discovery }: { discovery: Discovery }) {
+function Action({ discovery, onDone }: { discovery: Discovery; onDone: (undo: Undo) => void }) {
   const t = useTranslations("discoveries");
+  const format = useFormatter();
   const router = useRouter();
   const toolName = useToolName();
+  const [busy, setBusy] = useState(false);
 
-  const handoff = async (fileIds: string[], toolId: string) => {
+  const action = useMemo(() => actionFor(discovery), [discovery]);
+  if (!action) return null;
+  // A handoff we cannot reach is not an offer; the tool may not be installed.
+  if (isHandoff(action) && !BY_TOOL.has(action.toolId)) return null;
+
+  /** Open a tool with these files already in hand. */
+  const handoff = async (fileIds: string[], toolId: string, replaces?: WorkspaceFile) => {
     const entry = BY_TOOL.get(toolId);
     if (!entry) return;
     const handles = (
@@ -262,38 +330,132 @@ function Action({ discovery }: { discovery: Discovery }) {
     if (handles.length === 0) return;
     // Only a single input can be attributed, so provenance is recorded only then;
     // a wrong lineage would poison the chains learned from it.
-    if (fileIds.length === 1) rememberHandoff(fileIds[0]!, toolId);
+    if (fileIds.length === 1) {
+      rememberHandoff(
+        fileIds[0]!,
+        toolId,
+        replaces ? { fileId: replaces.id, name: replaces.name } : undefined,
+      );
+    }
     setPendingFiles(handles);
     router.push(entry.href);
   };
 
-  if (discovery.kind === "superseded-export" && BY_TOOL.has(discovery.toolId)) {
-    return (
-      <Button
-        size="sm"
-        variant="secondary"
-        className="mt-1 self-start"
-        onClick={() => void handoff([discovery.replacement.id], discovery.toolId)}
-      >
-        {t("supersededExport.action", { tool: toolName(discovery.toolId) })}
-      </Button>
-    );
-  }
+  /** The name a collection should carry, resolved here because it is translated. */
+  const collectionName = (name: CollectionName): string =>
+    name.from === "stem"
+      ? name.stem
+      : t("collectionFromSession", {
+          when: format.dateTime(new Date(name.startedAt), { day: "numeric", month: "short" }),
+        });
 
-  if (discovery.kind === "habit" && BY_TOOL.has(discovery.toolId)) {
-    return (
-      <Button
-        size="sm"
-        variant="secondary"
-        className="mt-1 self-start"
-        onClick={() => void handoff(discovery.pending.map((file) => file.id), discovery.toolId)}
-      >
-        {t("habit.action", { count: discovery.pending.length })}
-      </Button>
-    );
-  }
+  const perform = async () => {
+    setBusy(true);
+    try {
+      switch (action.kind) {
+        case "collect": {
+          const collection = await workspace.collect(collectionName(action.name), action.fileIds);
+          onDone({
+            label: t("undone.collected", { name: collection.name }),
+            run: () => workspace.uncollect(collection.id),
+          });
+          break;
+        }
+        case "archive": {
+          const archived = await workspace.archive(action.fileIds);
+          // No undo: the bytes are gone. Saying so is the honest report.
+          onDone({ label: t("undone.archived", { count: archived.length }) });
+          break;
+        }
+        case "remember-chain": {
+          await workspace.saveChain({
+            id: workspace.newId(),
+            name: defaultChainName(action.steps, toolName),
+            steps: action.steps,
+            createdAt: Date.now(),
+            learned: true,
+            appliesTo: action.appliesTo,
+          });
+          onDone({ label: t("undone.remembered") });
+          break;
+        }
+        case "regenerate":
+          await handoff([action.sourceFileId], action.toolId, discoveryResult(discovery));
+          break;
+        case "apply-tool":
+          await handoff(action.fileIds, action.toolId);
+          break;
+      }
+    } finally {
+      setBusy(false);
+    }
+  };
 
-  return null;
+  const label = (() => {
+    switch (action.kind) {
+      case "collect":
+        return t("action.collect");
+      case "archive":
+        return t("action.archive", { size: formatBytes(action.bytes) });
+      case "remember-chain":
+        return t("action.rememberChain");
+      case "regenerate":
+        return t("action.regenerate");
+      case "apply-tool":
+        return t("action.applyTool", { count: action.fileIds.length });
+    }
+  })();
+
+  return (
+    <div className="mt-1 flex items-center gap-2">
+      <Button size="sm" variant="secondary" disabled={busy} onClick={() => void perform()}>
+        {label}
+      </Button>
+      {action.irreversible ? (
+        <span className="text-[11px] text-text-muted">{t("action.permanent")}</span>
+      ) : null}
+    </div>
+  );
+}
+
+/**
+ * What the action did, replacing the button once it has been taken.
+ *
+ * Stays in the row rather than becoming a toast: a confirmation that floats away
+ * after four seconds is not something you can act on, and undo is precisely the
+ * thing people reach for a moment too late.
+ */
+function Receipt({ receipt, onUndone }: { receipt: Undo; onUndone: () => void }) {
+  const t = useTranslations("discoveries");
+  const [busy, setBusy] = useState(false);
+
+  return (
+    <p className="mt-1 flex items-center gap-2 text-xs text-text-muted">
+      <Check className="h-3 w-3 shrink-0 text-accent" aria-hidden />
+      <span>{receipt.label}</span>
+      {receipt.run ? (
+        <button
+          type="button"
+          disabled={busy}
+          onClick={() => {
+            setBusy(true);
+            void receipt
+              .run?.()
+              .then(onUndone)
+              .finally(() => setBusy(false));
+          }}
+          className="underline underline-offset-2 transition-colors hover:text-text"
+        >
+          {t("undo")}
+        </button>
+      ) : null}
+    </p>
+  );
+}
+
+/** The stale output a regeneration replaces, if that is what this discovery is. */
+function discoveryResult(discovery: Discovery): WorkspaceFile | undefined {
+  return discovery.kind === "superseded-export" ? discovery.result : undefined;
 }
 
 /* ---------------------------------------------------------------- helpers */
