@@ -9,6 +9,26 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ## [Unreleased]
 
+## [0.13.0-alpha] - 2026-07-26
+
+Omnio has been paying attention — and tells you the one thing you would have missed.
+
+### 🚀 New
+
+- **Omnio notices when a file you exported is out of date.** If you turned a document into a PDF and a newer version of that document arrived afterwards, it says so — on Home, and again the moment you select the PDF — and offers to redo it in one click.
+- **Workspace Discoveries**: drafts of the same document, one picture kept at several sizes, the stretches of work you did on a particular afternoon, leftover files that were only a step towards something finished, and the thing you do to almost every file of a kind — with the ones still waiting for it.
+- **Every observation states its evidence in the same sentence**, can be waved away individually, and a whole kind can be silenced for good.
+
+### ✨ Improved
+
+- Discoveries never pop up, never interrupt, never count unread items, and say nothing about work still in progress.
+
+### ⚠️ Known limitations
+
+- Files are only called versions of each other on explicit naming evidence (`v2`, `copy`, `final`, or the same name with different contents). Drafts named some other way are not grouped — a wrong guess would cost more trust than the grouping is worth.
+- Discoveries come from what is already in the workspace, so a young workspace shows few or none.
+
+
 ## [0.12.0-alpha] - 2026-07-25
 
 Omnio recognises a file you've handled before — and hands back the finished work.

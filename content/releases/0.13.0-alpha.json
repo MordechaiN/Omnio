@@ -1,0 +1,49 @@
+{
+  "version": "0.13.0-alpha",
+  "date": "2026-07-26",
+  "headline": {
+    "en": "Omnio has been paying attention — and tells you the one thing you would have missed.",
+    "he": "Omnio שם לב לאורך הדרך — ומספר לך את הדבר האחד שהיית מפספס."
+  },
+  "sections": [
+    {
+      "type": "new",
+      "items": [
+        {
+          "en": "Omnio now notices when a file you exported is out of date. If you turned a document into a PDF and a newer version of that document arrived afterwards, it says so — on the home screen, and again the moment you select the PDF — and offers to redo it in one click. Nothing that only sees the file you just handed it could ever know this.",
+          "he": "Omnio מבחין כעת כשקובץ שייצאת אינו מעודכן. אם הפכת מסמך ל-PDF ואחר כך הגיעה גרסה חדשה יותר של אותו מסמך, הוא יאמר זאת — במסך הבית, ושוב ברגע שתבחר את ה-PDF — ויציע לעשות זאת מחדש בלחיצה אחת. שום כלי שרואה רק את הקובץ שהרגע מסרת לו לא יכול לדעת זאת."
+        },
+        {
+          "en": "It also points out drafts of the same document, one picture kept at several sizes, the stretches of work you did on a particular afternoon, the leftover files that were only a step on the way to something finished, and the thing you do to almost every file of a kind — along with the ones still waiting for it.",
+          "he": "הוא גם מצביע על טיוטות של אותו מסמך, על תמונה אחת שנשמרה בכמה גדלים, על שעות העבודה שעשית באחר צהריים מסוים, על קבצים שנותרו ושהיו רק שלב בדרך למשהו מוגמר, ועל הפעולה שאתם עושים כמעט לכל קובץ מסוג מסוים — יחד עם אלה שעדיין ממתינים לה."
+        },
+        {
+          "en": "Every observation states its evidence in the same sentence, so you never have to wonder why you are being told something. Each one can be waved away, and a whole kind can be silenced for good.",
+          "he": "כל תובנה מציגה את הראיה שלה באותו משפט, כך שלעולם לא תצטרך לתהות למה נאמר לך משהו. אפשר להסתיר כל אחת מהן, ואפשר להשתיק סוג שלם לתמיד."
+        }
+      ]
+    },
+    {
+      "type": "improved",
+      "items": [
+        {
+          "en": "Discoveries stay quiet by design: they never pop up, never interrupt, never count unread items, and say nothing at all about work you are still in the middle of.",
+          "he": "התגליות שקטות מעצם התכנון: הן לעולם לא קופצות, לא מפריעות, לא סופרות פריטים שלא נקראו, ולא אומרות דבר על עבודה שאתם עדיין באמצעה."
+        }
+      ]
+    },
+    {
+      "type": "known",
+      "items": [
+        {
+          "en": "Omnio only calls files versions of each other when the naming says so plainly — an explicit marker like \"v2\", \"copy\" or \"final\", or the very same name holding different contents. Drafts named in some other way are not grouped, which is deliberate: a wrong guess here would cost more trust than the grouping is worth.",
+          "he": "Omnio מגדיר קבצים כגרסאות זה של זה רק כששמות הקבצים אומרים זאת במפורש — סימון כמו \"v2\", \"copy\" או \"final\", או בדיוק אותו שם עם תוכן שונה. טיוטות שנקראו אחרת לא יקובצו, וזו בחירה מכוונת: ניחוש שגוי כאן היה עולה יותר אמון ממה ששווה הקיבוץ."
+        },
+        {
+          "en": "Discoveries are drawn from what is in your workspace, so a workspace with little history in it will show few of them — or none, which is a correct answer rather than a missing feature.",
+          "he": "התגליות נגזרות ממה שנמצא בסביבת העבודה שלך, ולכן סביבה עם מעט היסטוריה תציג מעט מהן — או כלל לא, וזו תשובה נכונה ולא תכונה חסרה."
+        }
+      ]
+    }
+  ]
+}

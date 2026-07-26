@@ -54,6 +54,7 @@ const NAMES_SHOWN = 3;
  * reason the interface did not really give you.
  */
 export function WorkspaceDiscoveries() {
+  const t = useTranslations("discoveries");
   const { files, events, dismissed, ready } = useWorkspace();
 
   const discoveries = useMemo(
@@ -66,7 +67,7 @@ export function WorkspaceDiscoveries() {
   return (
     <section className="flex flex-col gap-2" aria-labelledby="discoveries-title">
       <h2 id="discoveries-title" className="text-sm font-semibold">
-        <NoticedTitle />
+        {t("title")}
       </h2>
       <ul className="flex flex-col gap-1">
         {discoveries.map((discovery) => (
@@ -77,11 +78,6 @@ export function WorkspaceDiscoveries() {
       </ul>
     </section>
   );
-}
-
-function NoticedTitle() {
-  const t = useTranslations("discoveries");
-  return <>{t("title")}</>;
 }
 
 /**
