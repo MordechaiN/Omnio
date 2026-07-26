@@ -26,7 +26,7 @@
  * Pure functions over metadata. No storage, no React, no network, no model.
  */
 
-import { learnChains, stepsThatProduced, type Chain } from "./chains.ts";
+import { indexById, learnChains, stepsThatProduced, type Chain } from "./chains.ts";
 import { kindOf, normalizeText, type WorkspaceEvent, type WorkspaceFile } from "./model.ts";
 
 /* --------------------------------------------------------------- shapes */
@@ -646,20 +646,31 @@ export function repeatedSequences(
 ): RepeatedSequenceDiscovery[] {
   const saved = new Set(chains.map((chain) => chain.steps.join("→")));
 
+  // Every file's step signature, in one pass with one shared index. Asking each
+  // candidate to re-scan the whole workspace was the same quadratic mistake the
+  // graph walks themselves used to make.
+  const byId = indexById(files);
+  const bySignature = new Map<string, WorkspaceFile[]>();
+  for (const file of files) {
+    if (file.evicted) continue;
+    const key = stepsThatProduced(file, files, byId).join("→");
+    const group = bySignature.get(key);
+    if (group) group.push(file);
+    else bySignature.set(key, [file]);
+  }
+
   return learnChains(files, SEQUENCE_MIN_RUNS)
     .filter((candidate) => !saved.has(candidate.steps.join("→")))
     .map((candidate) => {
       const key = candidate.steps.join("→");
       // The files this sequence actually produced, for the date and the names.
-      const produced = files.filter(
-        (file) => !file.evicted && stepsThatProduced(file, files).join("→") === key,
-      );
+      const produced = bySignature.get(key) ?? [];
       return {
         kind: "repeated-sequence" as const,
         id: `repeated-sequence:${stableKey(candidate.steps)}`,
         at: produced.length > 0 ? Math.max(...produced.map((file) => file.createdAt)) : 0,
         weight: 65,
-        files: produced.sort((a, b) => b.createdAt - a.createdAt),
+        files: [...produced].sort((a, b) => b.createdAt - a.createdAt),
         steps: candidate.steps,
         occurrences: candidate.occurrences,
         appliesTo: candidate.sourceMimes,

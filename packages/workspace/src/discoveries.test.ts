@@ -445,4 +445,39 @@ describe("discover", () => {
   it("says nothing about an empty workspace", () => {
     expect(discover([], [], { now: NOW })).toHaveLength(0);
   });
+
+  /**
+   * The workspace is Omnio's memory, so it only ever grows. Discovery ran on
+   * every render of Home and was quadratic: the graph walks rebuilt an id→file
+   * map per file, which cost eleven seconds on ten thousand files and made the
+   * product unusable precisely for the people who had used it longest.
+   *
+   * The threshold is deliberately loose — this guards the *shape* of the
+   * algorithm, not a machine's speed. Anything near the old behaviour blows
+   * through it by a wide margin while the linear version has ~40x headroom.
+   */
+  it("stays usable on a workspace built over years, not minutes", () => {
+    const many: WorkspaceFile[] = [];
+    const log: WorkspaceEvent[] = [];
+    for (let i = 0; i < 4000; i += 1) {
+      const at = NOW - (i % 500) * DAY;
+      many.push(
+        file({
+          id: `f${i}`,
+          name: `doc-${i % 700}.pdf`,
+          hash: `h${i % 3900}`,
+          createdAt: at,
+          lastOpenedAt: at,
+          ...(i % 3 === 1
+            ? { derivedFrom: { fileId: `f${i - 1}`, toolId: i % 2 ? "pdf-ocr" : "pdf-compress" } }
+            : {}),
+        }),
+      );
+      log.push(event({ id: `e${i}`, fileId: `f${i}`, type: "imported", at }));
+    }
+
+    const started = performance.now();
+    discover(many, log, { now: NOW });
+    expect(performance.now() - started).toBeLessThan(1000);
+  });
 });

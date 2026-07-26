@@ -81,6 +81,26 @@ the next by itself.
 You never build a workflow. There's no canvas, no boxes and arrows, no settings
 screen. **Doing the job once is the setup.**
 
+### It tells you when something has gone out of date
+
+You turned a report into a PDF last Tuesday. On Thursday you edited the report
+again. Nothing anywhere would normally mention that the PDF you're about to send
+is now the old version — but Omnio saw both files, and remembers which came from
+which:
+
+> **Q3 report.pdf may be out of date** — it was made from Q3 report.docx, and a
+> newer version of that file arrived 2 days ago
+> → *Update it*
+
+One click reopens the right tool with the newer document already loaded. When
+it finishes, the new file takes the old one's name, the stale copy is archived,
+and the notice disappears — because it isn't true any more.
+
+Omnio notices other things too: drafts of the same document, one picture kept at
+several sizes, the afternoon you spent on a batch of files, the leftovers of
+finished work still taking up space. **Each one says why**, each one offers the
+single safest next step, and any of them can be waved away for good.
+
 ### It notices what you didn't finish
 
 Open a document, get distracted, close the tab. Omnio will be waiting with a way

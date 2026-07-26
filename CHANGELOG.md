@@ -9,6 +9,19 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ## [Unreleased]
 
+## [0.14.3-alpha] - 2026-07-26
+
+Omnio gets faster the longer you use it, not slower.
+
+### 🐛 Fixed
+
+- **A workspace built over months no longer slows Omnio down.** Reading what Omnio had noticed re-scanned the entire workspace once per file — quadratic work that cost 11 seconds on 10,000 files, on every render of Home. It now takes 56ms. The people worst affected were the ones who had used Omnio longest, which is the opposite of what a memory should do.
+
+### ✨ Improved
+
+- About explains that the server is unreachable *before* the blank fields rather than after them, so a page of dashes reads as a disconnection rather than a broken product.
+- Documentation matches the product. The roadmap listed OCR and PDF protection as out of scope — both shipped — and described a server-side architecture that was deliberately never built.
+
 ## [0.14.2-alpha] - 2026-07-26
 
 Omnio keeps working when its server does not.

@@ -145,6 +145,16 @@ export function AboutContent() {
 
   return (
     <div className="animate-rise-stagger flex flex-col gap-8">
+      {/* Stated before the blanks, not after them. This note used to sit at the
+          very bottom, so a reader met four "unknown"s, seven dashes and six
+          "offline"s and had already concluded the product was broken by the
+          time they reached the explanation. */}
+      {isError ? (
+        <p className="rounded-lg border border-border-subtle bg-surface-subtle px-3 py-2 text-sm text-text-muted">
+          {t("apiOffline")}
+        </p>
+      ) : null}
+
       <Section title={t("projectSection")}>
         <Row label={t("version")}>
           <span className="flex items-center gap-2">
@@ -276,7 +286,6 @@ export function AboutContent() {
         <p className="text-xs text-text-muted">{t("feedbackHint")}</p>
       </div>
 
-      {isError ? <p className="text-sm text-text-muted">{t("apiOffline")}</p> : null}
     </div>
   );
 }

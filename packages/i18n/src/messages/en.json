@@ -476,7 +476,7 @@
     "changelog": "What's New",
     "viewChangelog": "See what's new",
     "releaseNotes": "Release notes",
-    "apiOffline": "The API is unreachable — showing the bundled build details.",
+    "apiOffline": "Omnio can't reach its server, so runtime and service details are unavailable. The build details below come from this copy of Omnio.",
     "channel": {
       "alpha": "Alpha",
       "beta": "Beta",

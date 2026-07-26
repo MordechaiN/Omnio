@@ -1,6 +1,25 @@
 # Implementation Roadmap
 
-**Status:** Approved 2026-07-11 (M0 complete)
+**Status:** Approved 2026-07-11. Milestones M0–M7 delivered as written; the product then diverged from this plan — see *Where the product actually is* below.
+
+> **This is a planning record, not a description of the product.**
+> For what Omnio does today, read [CHANGELOG.md](../../CHANGELOG.md) and the
+> release notes in [`content/releases/`](../../content/releases/), which are
+> authoritative. This file is kept for the reasoning behind the early
+> milestones; where it disagrees with the shipped product, the product wins.
+
+## Where the product actually is
+
+Omnio ships **123 tools across 45 modules**, of which **121 run entirely in the
+browser** and 2 on the worker. Development after M7 followed the product rather
+than this document: instead of M8's worker-tier image/PDF/media modules, those
+capabilities were built on-device, because a tool that uploads your file to a
+server contradicts the reason Omnio exists. The worker tier remains for the
+genuinely un-portable cases (currently Office→PDF).
+
+Work since then — the file Workspace, Chains, Insights, Recognition,
+Discoveries and Workspace Actions — is not described here at all. It was not
+planned in this document and is recorded in the changelog instead.
 
 Milestones, not dates — each has exit criteria, and a milestone isn't done until they all pass. The repo must build, lint, test, and boot green at the end of **every** milestone (and every commit within one).
 
@@ -53,10 +72,15 @@ _Resequenced:_ the universal file viewer (former M6 flagship — zoom/pan, pdf.j
 36 browser-tier tools across 31 modules, all running entirely on-device: **developer** (JSON format, YAML↔JSON, CSV↔JSON, JWT decode, Base64, URL encode, HTML entities, text↔binary, number base, UUID), **text** (case convert, Lorem Ipsum, text stats, text diff, slugify, regex tester, Markdown preview, line tools, and more), **security** (hash generator, password generator), **utilities** (unit/color/timestamp/date converters, contrast checker, CSS gradient, BMI, random numbers, Roman numerals), **finance** (loan, VAT, percentage, tip), **networking** (CIDR/subnet). Each module ships shared logic + unit tests, an accessible ToolShell surface, and en+he i18n with RTL; all auto-registered by `modgen` into search, categories, and the command palette.
 **Exit:** every tool — ToolShell surface, en+he parity, keyboard accessible, unit-tested logic, "runs on your device" badge, offline where possible. Full workspace test suite + web typecheck + production build green. Self-review: [../reviews/M7.md](../reviews/M7.md).
 
-## M8 — First tools: worker tier (~20 tools)
+## M8 — First tools: worker tier (~20 tools) — ⤳ _superseded_
 
-image module (sharp): resize, crop, rotate, compress, convert, watermark, metadata view/strip. pdf module (qpdf/pdf-lib/ghostscript/poppler): merge, split, compress, rotate, extract text/images, watermark, PDF↔image. media module (ffmpeg): video convert/compress/trim, audio convert/extract, thumbnail, GIF. Hardened worker image per [06-security.md](06-security.md) §2.
-**Exit:** each tool has golden-file tests; sandbox limits demonstrably kill oversized/overlong jobs; job UX (progress, cancel, errors) consistent across all.
+**Not built as planned.** The capabilities landed, but on-device rather than on
+the worker: image, PDF and media tools all run in the browser today. Sending a
+user's file to a server to rotate a page would contradict the product's central
+promise, and the browser turned out to be capable of nearly all of it. The
+worker tier is reserved for what genuinely cannot run locally.
+
+The original plan, for the record: image module (sharp): resize, crop, rotate, compress, convert, watermark, metadata view/strip. pdf module (qpdf/pdf-lib/ghostscript/poppler): merge, split, compress, rotate, extract text/images, watermark, PDF↔image. media module (ffmpeg): video convert/compress/trim, audio convert/extract, thumbnail, GIF. Hardened worker image per [06-security.md](06-security.md) §2.
 
 ## M9 — Admin & operations
 
@@ -72,7 +96,13 @@ Performance budget pass (shell <200KB gz), error-state and empty-state sweep, co
 
 ## Post-v1 (explicitly out of v1 scope)
 
-Multi-user + OIDC · third-party plugin lane (out-of-process) · S3/MinIO driver · OCR (tesseract) + searchable-PDF · AI module (Ollama/Whisper integrations, all optional/local) · PWA offline mode · file-content search · PSD/RAW/STL/EPUB viewers · per-capability worker images · gVisor runtime option · PDF sign/protect · office editing (may never happen; conversion-based viewing only until a credible plan exists).
+Multi-user + OIDC · third-party plugin lane (out-of-process) · S3/MinIO driver · AI module (Ollama/Whisper integrations, all optional/local) · PWA offline mode · file-content search · PSD/RAW/STL/EPUB viewers · per-capability worker images · gVisor runtime option · PDF signing · office editing (may never happen; conversion-based viewing only until a credible plan exists).
+
+Two items have been struck from this list because they shipped: **OCR +
+searchable PDF** (`pdf-ocr`, on-device via tesseract) and **PDF protection**
+(`pdf-protect`). Listing shipped features as out of scope is worse than listing
+nothing at all — a reader checking whether Omnio can OCR a scan would have
+concluded that it cannot.
 
 ## Sequencing rationale
 

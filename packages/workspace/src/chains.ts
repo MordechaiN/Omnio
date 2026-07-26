@@ -39,14 +39,32 @@ export interface ChainCandidate {
 }
 
 /**
+ * An id → file lookup shared across a whole walk.
+ *
+ * Both graph walks below need one, and building it per call made anything that
+ * walked every file quadratic: `learnChains` over a ten-thousand-file workspace
+ * spent eleven seconds constructing the same map twenty thousand times. Callers
+ * that walk one file can still omit it and pay nothing.
+ */
+export type FileIndex = ReadonlyMap<string, WorkspaceFile>;
+
+export function indexById(files: WorkspaceFile[]): FileIndex {
+  return new Map(files.map((file) => [file.id, file]));
+}
+
+/**
  * The ordered tool ids that produced `file`, oldest step first.
  *
  * Walks the derivation backwards to the original import. Cycles cannot occur
  * through normal use but are guarded anyway — a hung Inspector is a worse bug
  * than a truncated chain.
  */
-export function stepsThatProduced(file: WorkspaceFile, files: WorkspaceFile[]): string[] {
-  const byId = new Map(files.map((f) => [f.id, f]));
+export function stepsThatProduced(
+  file: WorkspaceFile,
+  files: WorkspaceFile[],
+  index?: FileIndex,
+): string[] {
+  const byId = index ?? indexById(files);
   const steps: string[] = [];
   const seen = new Set<string>();
   let current: WorkspaceFile | undefined = file;
@@ -59,8 +77,12 @@ export function stepsThatProduced(file: WorkspaceFile, files: WorkspaceFile[]): 
 }
 
 /** The file at the root of a derivation — the one actually imported. */
-export function originOf(file: WorkspaceFile, files: WorkspaceFile[]): WorkspaceFile {
-  const byId = new Map(files.map((f) => [f.id, f]));
+export function originOf(
+  file: WorkspaceFile,
+  files: WorkspaceFile[],
+  index?: FileIndex,
+): WorkspaceFile {
+  const byId = index ?? indexById(files);
   const seen = new Set<string>();
   let current = file;
   while (current.derivedFrom && !seen.has(current.id)) {
@@ -84,15 +106,17 @@ export function learnChains(files: WorkspaceFile[], minOccurrences = 1): ChainCa
   const hasChildren = new Set(
     files.flatMap((f) => (f.derivedFrom ? [f.derivedFrom.fileId] : [])),
   );
+  // Built once for the whole sweep; see FileIndex.
+  const byId = indexById(files);
 
   const bySequence = new Map<string, ChainCandidate>();
   for (const file of files) {
     if (hasChildren.has(file.id)) continue;
-    const steps = stepsThatProduced(file, files);
+    const steps = stepsThatProduced(file, files, byId);
     if (steps.length < 2) continue;
     const key = steps.join("→");
     const existing = bySequence.get(key);
-    const sourceMime = originOf(file, files).mime;
+    const sourceMime = originOf(file, files, byId).mime;
     if (existing) {
       existing.occurrences += 1;
       if (!existing.sourceMimes.includes(sourceMime)) existing.sourceMimes.push(sourceMime);
