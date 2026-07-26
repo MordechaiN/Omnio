@@ -7,7 +7,6 @@ import { hashBytes, recognizeByHash, workspace, type Recognition } from "@omnio/
 import { takeHandoff } from "@/lib/provenance";
 import {
   Badge,
-  Button,
   Dialog,
   DialogContent,
   DialogHeader,
@@ -15,7 +14,7 @@ import {
   Spinner,
 } from "@omnio/ui";
 import { DynamicIcon, type IconName } from "lucide-react/dynamic";
-import { ChevronRight, FileQuestion, Files, RotateCcw, ScanText, Sparkles } from "lucide-react";
+import { ChevronRight, FileQuestion, Files, RotateCcw, Sparkles } from "lucide-react";
 import { useRouter } from "@/i18n/navigation";
 import {
   classifyKind,
@@ -283,10 +282,10 @@ export function FileIntelligence() {
    */
   const [pdfPreview, setPdfPreview] = useState<string | null>(null);
   /** True once we know this PDF carries no selectable text — i.e. it is a scan. */
-  const [looksScanned, setLooksScanned] = useState(false);
+  const [pdfScanned, setPdfScanned] = useState(false);
   useEffect(() => {
     setPdfPreview(null);
-    setLooksScanned(false);
+    setPdfScanned(false);
     if (intel?.kind !== "pdf") return undefined;
     let url: string | null = null;
     let cancelled = false;
@@ -296,7 +295,7 @@ export function FileIntelligence() {
       if (!rendered || cancelled) return;
       url = URL.createObjectURL(rendered.blob);
       setPdfPreview(url);
-      setLooksScanned(!rendered.hasText);
+      setPdfScanned(!rendered.hasText);
     })();
     return () => {
       cancelled = true;
@@ -304,7 +303,15 @@ export function FileIntelligence() {
     };
   }, [intel]);
 
-  const singleActions = intel ? smartActions(intel).slice(0, 5) : [];
+  const singleActions = intel
+    ? smartActions({
+        ...intel,
+        name: intel.file.name,
+        understanding: pdfScanned
+          ? { kind: "pdf", pages: intel.facts.pageCount ?? 1, hasText: false }
+          : intel.understanding,
+      }).slice(0, 5)
+    : [];
   const groupActions = multi ? multiActions(multi.files) : [];
 
   function launch(href: string, payload: File[]) {
@@ -444,39 +451,6 @@ export function FileIntelligence() {
                 </div>
               ) : null}
 
-              {/* A scan, said where the person is actually looking.
-                  The Inspector has always known this — "no selectable text, this
-                  looks like a scan" — but only after dropping the panel, opening
-                  Files and selecting the file. Dropping a scanned contract, the
-                  example this product leads with, offered everything except the
-                  one tool that was for it. */}
-              {looksScanned ? (
-                <div className="flex flex-col gap-2 rounded-xl border border-accent/40 bg-accent/5 p-3">
-                  <p className="flex items-start gap-2 text-start text-sm">
-                    <ScanText size={15} className="mt-0.5 shrink-0 text-accent" aria-hidden="true" />
-                    <span>
-                      <span className="block font-medium">{t("dropzone.looksScanned")}</span>
-                      <span className="block text-xs text-text-muted">
-                        {t("dropzone.looksScannedReason")}
-                      </span>
-                    </span>
-                  </p>
-                  {(() => {
-                    const ocr = SEARCH_ENTRIES.find((e) => e.toolId === "pdf-ocr");
-                    if (!ocr) return null;
-                    return (
-                      <Button
-                        size="sm"
-                        className="self-start"
-                        onClick={() => launch(ocr.href, [intel.file])}
-                      >
-                        {t(`${ocr.i18nNamespace}.${ocr.nameKey}` as Parameters<typeof t>[0])}
-                      </Button>
-                    );
-                  })()}
-                </div>
-              ) : null}
-
               {intel.facts.textPreview ? (
                 <pre
                   dir="ltr"
@@ -516,7 +490,7 @@ export function FileIntelligence() {
                         <span className="min-w-0 flex-1 truncate text-sm font-medium">{name}</span>
                         {reasonKey ? (
                           <Badge variant="accent" className="shrink-0">
-                            {t(`dropzone.reasons.${reasonKey}` as Parameters<typeof t>[0])}
+                            {t(`files.insight.${reasonKey}` as Parameters<typeof t>[0])}
                           </Badge>
                         ) : null}
                         <ChevronRight

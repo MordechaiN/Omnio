@@ -186,7 +186,12 @@
       "scanned-document": "נראה כמו סריקה",
       "duplicate": "הקובץ הזה כבר קיים אצלך",
       "large-file": "הקובץ הזה גדול",
-      "oversized-image": "התמונה הזו גדולה מאוד"
+      "oversized-image": "התמונה הזו גדולה מאוד",
+      "location-data": "מכיל נתוני מיקום",
+      "oversized-pdf": "גדול לשליחה",
+      "long-audio": "הקלטה ארוכה",
+      "huge-archive": "ארכיון גדול",
+      "invalid-data": "לא ניתן לפענוח"
     },
     "continueTitle": "המשך",
     "unfinishedTitle": "לא סיימת את אלה",
@@ -271,16 +276,6 @@
     "hasExif": "מכיל נתוני מיקום",
     "privacy": "נבדק כאן בדפדפן — הקובץ לא עזב את המכשיר שלכם.",
     "reasons": {
-      "largeImage": "קובץ גדול — כדאי לדחוס",
-      "hugeDimensions": "גדול מאוד — שקלו שינוי גודל",
-      "exifPresent": "מסיר את נתוני המיקום המוטמעים",
-      "pngToWebp": "WebP יכול להיות קטן בהרבה",
-      "hugePdf": "מסמך גדול — פצלו אותו",
-      "invalidJson": "תקנו את התחביר כאן",
-      "longAudio": "הקלטה ארוכה — קצרו אותה",
-      "transparentPng": "יש שקיפות — השאירו PNG או WebP, לא JPEG",
-      "oversizedPdf": "גדול מאוד — פצלו לחלקים קטנים יותר",
-      "hugeZip": "ארכיון גדול — עיינו לפני חילוץ הכול",
       "duplicateNames": "חלק מהשמות חוזרים על עצמם — נקו אותם קודם"
     },
     "multiTitle": "{count} קבצים — הנה מה ש-Omnio יכול לעשות איתם יחד",

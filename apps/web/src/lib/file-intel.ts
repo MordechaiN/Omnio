@@ -7,6 +7,7 @@
  * modules describe what they take; this file only matches and ranks.
  */
 
+import { insightsFor, type FileFacts as Understanding } from "@omnio/workspace";
 import { SEARCH_ENTRIES, type SearchEntry } from "@/generated/registry.search";
 
 export type FileKind =
@@ -50,8 +51,47 @@ export interface FileIntel {
   extension: string;
   size: number;
   facts: FileFacts;
+  /**
+   * The same shape the workspace stores, so every screen reasons about this
+   * file through one engine rather than its own copy of the rules.
+   */
+  understanding?: Understanding;
   /** Object URL for previews (image/audio); caller revokes. */
   previewUrl?: string;
+}
+
+/**
+ * Translate a fresh inspection into what the workspace already understands.
+ *
+ * The flat bag above is what the drop panel displays; this is what Omnio
+ * *knows*. Keeping the second one in the workspace's own vocabulary is what
+ * lets the drop panel, the Inspector, Discoveries and search all reach the
+ * same conclusions about the same file.
+ */
+export function toUnderstanding(
+  kind: FileKind,
+  facts: FileFacts,
+  pdfHasText?: boolean,
+): Understanding | undefined {
+  if (kind === "image" && facts.width && facts.height) {
+    return {
+      kind: "image",
+      width: facts.width,
+      height: facts.height,
+      hasExif: facts.hasExif,
+      hasAlpha: facts.hasAlpha,
+    };
+  }
+  if (kind === "pdf" && facts.pageCount !== undefined) {
+    return { kind: "pdf", pages: facts.pageCount, hasText: pdfHasText };
+  }
+  if ((kind === "audio" || kind === "video") && facts.duration !== undefined) {
+    return { kind, durationMs: Math.round(facts.duration * 1000) };
+  }
+  if (facts.jsonValid !== undefined) {
+    return { kind: "text", lines: 0, valid: facts.jsonValid };
+  }
+  return undefined;
 }
 
 const EXT_MIME: Record<string, string> = {
@@ -126,68 +166,40 @@ export interface SmartAction {
   reasonKey?: string;
 }
 
-interface Nudge {
-  toolId: string;
-  boost: number;
-  reasonKey: string;
-}
-
-/**
- * Recommendation rules — small, legible nudges layered on the declared
- * priorities. Each returns the tool it wants to lift and why.
- */
-export function recommendationNudges(intel: {
-  kind: FileKind;
-  mime: string;
-  size: number;
-  facts: FileFacts;
-}): Nudge[] {
-  const nudges: Nudge[] = [];
-  const { kind, mime, size, facts } = intel;
-  const MB = 1024 * 1024;
-
-  if (kind === "image") {
-    if (size > 2 * MB) {
-      nudges.push({ toolId: "image-compress", boost: 20, reasonKey: "largeImage" });
-    }
-    if ((facts.width ?? 0) > 3000 || (facts.height ?? 0) > 3000) {
-      nudges.push({ toolId: "image-resize", boost: 16, reasonKey: "hugeDimensions" });
-    }
-    if (facts.hasExif) {
-      nudges.push({ toolId: "exif-remove", boost: 24, reasonKey: "exifPresent" });
-    }
-    if (mime === "image/png" && size > 1 * MB && !facts.hasAlpha) {
-      nudges.push({ toolId: "image-compress", boost: 6, reasonKey: "pngToWebp" });
-    }
-    if (facts.hasAlpha && size > 300 * 1024) {
-      nudges.push({ toolId: "image-compress", boost: 8, reasonKey: "transparentPng" });
-    }
-  }
-  if (kind === "pdf" && size > 15 * MB) {
-    nudges.push({ toolId: "pdf-split-size", boost: 22, reasonKey: "oversizedPdf" });
-  }
-  if (kind === "json" && facts.jsonValid === false) {
-    nudges.push({ toolId: "json-format", boost: 20, reasonKey: "invalidJson" });
-  }
-  if (kind === "audio" && (facts.duration ?? 0) > 600) {
-    nudges.push({ toolId: "audio-trim", boost: 10, reasonKey: "longAudio" });
-  }
-  if (kind === "zip" && size > 50 * MB) {
-    nudges.push({ toolId: "zip-extract", boost: 6, reasonKey: "hugeZip" });
-  }
-  return nudges;
-}
-
 /**
  * Ordered actions for a file — registry-driven. Base score is the declared
  * priority (default 50); recommendation nudges lift specific tools and attach
  * a human reason.
  */
 export function smartActions(
-  intel: { kind: FileKind; mime: string; size: number; facts: FileFacts },
+  intel: {
+    kind: FileKind;
+    mime: string;
+    size: number;
+    facts: FileFacts;
+    name?: string;
+    understanding?: Understanding;
+  },
   entries: readonly SearchEntry[] = SEARCH_ENTRIES,
 ): SmartAction[] {
-  const nudges = recommendationNudges(intel);
+  // One engine, shared with the Inspector, Discoveries and Home. This file used
+  // to keep a private table of thresholds that disagreed with them: a 3 MB
+  // 4000x3000 photo was "large, compress it" here and unremarkable there.
+  const insights = insightsFor({
+    name: intel.name ?? "",
+    mime: intel.mime,
+    size: intel.size,
+    facts: intel.understanding,
+  });
+  const nudges = insights.flatMap((insight) =>
+    insight.suggests
+      // The insight's own weight is how strongly Omnio wants to say it, so it is
+      // also how far the suggested tool rises. Halving keeps a privacy or scan
+      // finding comfortably ahead of even the highest base priority, while a
+      // mild observation only nudges.
+      ? [{ toolId: insight.suggests, boost: Math.round(insight.weight / 2), reasonKey: insight.kind }]
+      : [],
+  );
   const actions: SmartAction[] = [];
   for (const entry of entries) {
     if (entry.tier !== "browser") continue;
@@ -313,5 +325,14 @@ export async function inspectFile(file: File): Promise<FileIntel> {
     // Inspection is best-effort — a fact we couldn't gather is simply absent.
   }
 
-  return { file, kind, mime, extension, size: file.size, facts, previewUrl };
+  return {
+    file,
+    kind,
+    mime,
+    extension,
+    size: file.size,
+    facts,
+    understanding: toUnderstanding(kind, facts),
+    previewUrl,
+  };
 }

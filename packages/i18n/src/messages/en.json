@@ -186,7 +186,12 @@
       "scanned-document": "Looks like a scan",
       "duplicate": "You already have this file",
       "large-file": "This file is large",
-      "oversized-image": "This image is very large"
+      "oversized-image": "This image is very large",
+      "location-data": "Has location data",
+      "oversized-pdf": "Large to send",
+      "long-audio": "Long recording",
+      "huge-archive": "Big archive",
+      "invalid-data": "Will not parse"
     },
     "continueTitle": "Continue",
     "unfinishedTitle": "You didn't finish these",
@@ -271,16 +276,6 @@
     "hasExif": "Contains location data",
     "privacy": "Inspected right here in your browser — the file never left your device.",
     "reasons": {
-      "largeImage": "Large file — worth compressing",
-      "hugeDimensions": "Very large — consider resizing",
-      "exifPresent": "Strips the embedded location data",
-      "pngToWebp": "WebP could be much smaller",
-      "hugePdf": "Big document — split it down",
-      "invalidJson": "Fix the syntax here",
-      "longAudio": "Long recording — trim it down",
-      "transparentPng": "Has transparency — keep PNG or WebP, not JPEG",
-      "oversizedPdf": "Very large — split it into smaller parts",
-      "hugeZip": "Large archive — browse before extracting everything",
       "duplicateNames": "Some names repeat — clean them up first"
     },
     "multiTitle": "{count} files — here's what Omnio can do together",

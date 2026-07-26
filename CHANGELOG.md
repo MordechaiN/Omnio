@@ -9,6 +9,16 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ## [Unreleased]
 
+## [0.14.8-alpha] - 2026-07-26
+
+Every screen now says the same thing about the same file.
+
+### ✨ Improved
+
+- **One understanding of a file, shown in different ways.** Omnio kept two sets of heuristics — one owned by the drop panel, one by the file's details — with different thresholds that could disagree. A 3 MB, 4000×3000 photo was "large, compress it" on one screen and unremarkable on the other.
+- **Findings now travel.** Screen captures, camera photos and scans were noticed only in the file's details; they now appear the moment you drop a file. Oversized PDFs, long recordings and unparseable data were noticed only on drop; they now appear in the details too.
+- **One vocabulary.** The same finding is named the same way wherever you meet it.
+
 ## [0.14.7-alpha] - 2026-07-26
 
 Omnio says what it knows on the screen you are actually looking at.

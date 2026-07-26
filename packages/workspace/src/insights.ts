@@ -9,7 +9,13 @@
  * Pure functions over metadata. No engines, no network, no model.
  */
 
-import { duplicateGroups, kindOf, type WorkspaceEvent, type WorkspaceFile } from "./model.ts";
+import {
+  duplicateGroups,
+  kindOf,
+  type FileFacts,
+  type WorkspaceEvent,
+  type WorkspaceFile,
+} from "./model.ts";
 
 export type InsightKind =
   | "screenshot"
@@ -17,7 +23,12 @@ export type InsightKind =
   | "scanned-document"
   | "duplicate"
   | "large-file"
-  | "oversized-image";
+  | "location-data"
+  | "oversized-image"
+  | "oversized-pdf"
+  | "long-audio"
+  | "huge-archive"
+  | "invalid-data";
 
 export interface Insight {
   kind: InsightKind;
@@ -34,16 +45,40 @@ const SCREENSHOT_NAME = /^(screen[\s_-]?shot|screenshot|cleanshot|snip|capture)/
 /** Cameras and phones use a small set of stems. */
 const CAMERA_NAME = /^(img[_-]?\d|dsc[_-]?\d|dscf|p\d{7}|gopr|dji[_-]|pxl[_-]?\d)/i;
 
-const LARGE_FILE_BYTES = 25 * 1024 * 1024;
-const OVERSIZED_IMAGE_PIXELS = 12_000_000;
+// Around the attachment limit most mail imposes.
+const LARGE_FILE_BYTES = 10 * 1024 * 1024;
+// 3000px on a side: past this, no screen shows it and every send is slower.
+const OVERSIZED_IMAGE_PIXELS = 9_000_000;
+
+/**
+ * The least Omnio needs in order to understand a file.
+ *
+ * Satisfied by a stored `WorkspaceFile` and equally by one that has only just
+ * been dropped and has no id yet. The point is that understanding belongs to
+ * the file, not to the screen showing it: every surface asks this one engine
+ * rather than keeping its own opinions.
+ *
+ * Before this existed the drop panel carried a second set of thresholds that
+ * disagreed with these — a 3 MB, 4000×3000 photo was "large, compress it" on
+ * one screen and unremarkable on the other.
+ */
+export interface FileLike {
+  name: string;
+  mime: string;
+  size: number;
+  facts?: FileFacts;
+  /** Present once the file is in the workspace; absent for one being dropped. */
+  id?: string;
+}
 
 /**
  * Read a file for what it plainly is.
  *
  * `files` is needed only for duplicate detection, which is a property of the
- * set rather than of any one file.
+ * set rather than of any one file, and is skipped for a file that is not in
+ * the workspace yet.
  */
-export function insightsFor(file: WorkspaceFile, files: WorkspaceFile[] = []): Insight[] {
+export function insightsFor(file: FileLike, files: WorkspaceFile[] = []): Insight[] {
   const insights: Insight[] = [];
   const kind = kindOf(file.mime);
 
@@ -76,11 +111,62 @@ export function insightsFor(file: WorkspaceFile, files: WorkspaceFile[] = []): I
     });
   }
 
-  if (files.length > 1 && duplicateGroups(files).some((group) => group.some((f) => f.id === file.id))) {
+  if (
+    file.id !== undefined &&
+    files.length > 1 &&
+    duplicateGroups(files).some((group) => group.some((f) => f.id === file.id))
+  ) {
     insights.push({
       kind: "duplicate",
       reason: "Another file holds exactly the same contents",
       weight: 70,
+    });
+  }
+
+  if (file.facts?.kind === "image" && file.facts.hasExif) {
+    insights.push({
+      kind: "location-data",
+      reason: "Carries camera and possibly location details",
+      suggests: "exif-remove",
+      weight: 65,
+    });
+  }
+
+  // These four used to live in a private table belonging to the drop panel, so
+  // only that one screen ever mentioned them. They are facts about the file.
+  if (kind === "pdf" && file.size > 15 * 1024 * 1024) {
+    insights.push({
+      kind: "oversized-pdf",
+      reason: "Too large for most mail attachments",
+      suggests: "pdf-split-size",
+      weight: 45,
+    });
+  }
+
+  if (file.facts?.kind === "audio" && file.facts.durationMs > 10 * 60 * 1000) {
+    insights.push({
+      kind: "long-audio",
+      reason: "Over ten minutes long",
+      suggests: "audio-trim",
+      weight: 30,
+    });
+  }
+
+  if (kind === "archive" && file.size > 50 * 1024 * 1024) {
+    insights.push({
+      kind: "huge-archive",
+      reason: "A large archive — worth seeing inside before opening",
+      suggests: "zip-extract",
+      weight: 28,
+    });
+  }
+
+  if (file.facts?.kind === "text" && file.facts.valid === false) {
+    insights.push({
+      kind: "invalid-data",
+      reason: "This does not parse — something in it is malformed",
+      suggests: "json-format",
+      weight: 75,
     });
   }
 

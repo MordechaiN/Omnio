@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
 import type { SearchEntry } from "@/generated/registry.search";
+import { insightsFor } from "@omnio/workspace";
 import {
   classifyKind,
   fileExtension,
   mimeMatches,
   normalizeMime,
-  recommendationNudges,
   smartActions,
 } from "./file-intel";
 
@@ -104,88 +104,103 @@ describe("smartActions", () => {
         mime: "image/jpeg",
         size: 500_000,
         facts: { hasExif: true },
+        // What Omnio understands, in the workspace's own vocabulary — the same
+        // value the Inspector reasons from.
+        understanding: { kind: "image", width: 1200, height: 800, hasExif: true },
       },
       registry,
     );
     expect(actions[0]!.entry.toolId).toBe("exif-remove");
-    expect(actions[0]!.reasonKey).toBe("exifPresent");
+    expect(actions[0]!.reasonKey).toBe("location-data");
   });
 
-  it("recommends compression for large images with a reason", () => {
-    const actions = smartActions(
+  it("recommends compression only once a file is genuinely awkward to send", () => {
+    // 4 MB is fine to attach; the old drop-panel rule nagged from 2 MB, which
+    // is most photographs.
+    const modest = smartActions(
       { kind: "image", mime: "image/png", size: 4 * 1024 * 1024, facts: {} },
       registry,
     );
-    expect(actions[0]!.entry.toolId).toBe("image-compress");
-    expect(actions[0]!.reasonKey).toBeDefined();
-  });
-});
+    expect(modest.every((a) => a.reasonKey === undefined)).toBe(true);
 
-describe("recommendationNudges", () => {
-  it("flags invalid JSON toward the formatter", () => {
-    const nudges = recommendationNudges({
-      kind: "json",
-      mime: "application/json",
-      size: 100,
-      facts: { jsonValid: false },
-    });
-    expect(nudges).toEqual([
-      { toolId: "json-format", boost: 20, reasonKey: "invalidJson" },
-    ]);
-  });
-
-  it("stays quiet for an unremarkable file", () => {
-    expect(
-      recommendationNudges({ kind: "text", mime: "text/plain", size: 10, facts: {} }),
-    ).toEqual([]);
-  });
-
-  it("flags a transparent PNG toward compress, favoring format-safety over pngToWebp", () => {
-    const nudges = recommendationNudges({
-      kind: "image",
-      mime: "image/png",
-      size: 500_000,
-      facts: { hasAlpha: true },
-    });
-    expect(nudges).toEqual([{ toolId: "image-compress", boost: 8, reasonKey: "transparentPng" }]);
-  });
-
-  it("does not suggest pngToWebp for a transparent PNG (would lose transparency semantics)", () => {
-    const nudges = recommendationNudges({
-      kind: "image",
-      mime: "image/png",
-      size: 2 * 1024 * 1024,
-      facts: { hasAlpha: true },
-    });
-    expect(nudges.some((n) => n.reasonKey === "pngToWebp")).toBe(false);
-  });
-
-  it("flags an oversized PDF toward split-by-size", () => {
-    const nudges = recommendationNudges({
-      kind: "pdf",
-      mime: "application/pdf",
-      size: 20 * 1024 * 1024,
-      facts: {},
-    });
-    expect(nudges).toEqual([{ toolId: "pdf-split-size", boost: 22, reasonKey: "oversizedPdf" }]);
-  });
-
-  it("flags a huge ZIP toward extract", () => {
-    const nudges = recommendationNudges({
-      kind: "zip",
-      mime: "application/zip",
-      size: 60 * 1024 * 1024,
-      facts: {},
-    });
-    expect(nudges).toEqual([{ toolId: "zip-extract", boost: 6, reasonKey: "hugeZip" }]);
+    const heavy = smartActions(
+      { kind: "image", mime: "image/png", size: 12 * 1024 * 1024, facts: {} },
+      registry,
+    );
+    expect(heavy[0]!.entry.toolId).toBe("image-compress");
+    expect(heavy[0]!.reasonKey).toBe("large-file");
   });
 });
 
 describe("fileExtension", () => {
-  it("extracts and lowercases", () => {
+  it("lowercases, and treats a dotfile as having none", () => {
     expect(fileExtension("Photo.JPG")).toBe("jpg");
     expect(fileExtension("noext")).toBe("");
     expect(fileExtension(".hidden")).toBe("");
+  });
+});
+
+describe("one understanding, every surface", () => {
+  /**
+   * The drop panel used to keep its own table of thresholds. It disagreed with
+   * the Inspector: a 3 MB, 4000x3000 photo was "large, compress it" on one
+   * screen and unremarkable on the other. Both now ask the same engine, so a
+   * disagreement is impossible rather than merely unlikely.
+   */
+  it("recommends what the workspace's own engine concludes", () => {
+    const understanding = { kind: "image", width: 4000, height: 3000 } as const;
+    const fromEngine = insightsFor({
+      name: "DSC_0044.jpg",
+      mime: "image/jpeg",
+      size: 3 * 1024 * 1024,
+      facts: understanding,
+    });
+    const suggested = new Set(fromEngine.flatMap((i) => (i.suggests ? [i.suggests] : [])));
+
+    const registry = [
+      entry("image-resize", [{ mime: ["image/*"], priority: 50 }]),
+      entry("image-compress", [{ mime: ["image/*"], priority: 50 }]),
+      entry("image-crop", [{ mime: ["image/*"], priority: 50 }]),
+    ];
+    const ranked = smartActions(
+      {
+        kind: "image",
+        mime: "image/jpeg",
+        size: 3 * 1024 * 1024,
+        facts: { width: 4000, height: 3000 },
+        name: "DSC_0044.jpg",
+        understanding,
+      },
+      registry,
+    );
+
+    // Whatever the engine suggests is what the panel lifts, with the reason it gave.
+    const boosted = ranked.filter((a) => a.reasonKey !== undefined);
+    expect(boosted.length).toBeGreaterThan(0);
+    for (const action of boosted) expect(suggested.has(action.entry.toolId)).toBe(true);
+    expect(ranked[0]!.entry.toolId).toBe([...suggested][0]);
+  });
+
+  it("says nothing about a file it has nothing to say about", () => {
+    const ranked = smartActions(
+      { kind: "image", mime: "image/png", size: 4096, facts: {}, name: "logo.png" },
+      [entry("image-resize", [{ mime: ["image/*"], priority: 50 }])],
+    );
+    expect(ranked.every((a) => a.reasonKey === undefined)).toBe(true);
+  });
+
+  /** Signals that used to exist only on the drop panel now reach every surface. */
+  it("carries the panel's old private signals into the shared engine", () => {
+    const bigPdf = insightsFor({ name: "report.pdf", mime: "application/pdf", size: 20 * 1024 * 1024 });
+    expect(bigPdf.some((i) => i.suggests === "pdf-split-size")).toBe(true);
+
+    const badJson = insightsFor({
+      name: "data.json",
+      mime: "application/json",
+      size: 500,
+      facts: { kind: "text", lines: 0, valid: false },
+    });
+    expect(badJson.some((i) => i.suggests === "json-format")).toBe(true);
   });
 });
 

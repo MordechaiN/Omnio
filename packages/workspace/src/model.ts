@@ -34,10 +34,18 @@ export interface WorkspaceFile {
 
 /** Type-specific metadata. A union so the Inspector renders what applies. */
 export type FileFacts =
-  | { kind: "image"; width: number; height: number }
+  | {
+      kind: "image";
+      width: number;
+      height: number;
+      /** Camera/EXIF block present — the privacy signal, wherever it is shown. */
+      hasExif?: boolean;
+      /** Meaningfully transparent pixels; re-encoding to JPEG would lose them. */
+      hasAlpha?: boolean;
+    }
   | { kind: "pdf"; pages: number; /** False when no page carries selectable text — i.e. a scan. */ hasText?: boolean }
   | { kind: "audio" | "video"; durationMs: number; width?: number; height?: number }
-  | { kind: "text"; lines: number }
+  | { kind: "text"; lines: number; /** Parsed cleanly, where that applies. */ valid?: boolean }
   | { kind: "other" };
 
 export interface WorkspaceTag {
