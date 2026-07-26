@@ -25,6 +25,7 @@ import {
   type Workflow,
 } from "@/lib/preferences";
 import { EMOJI_PRESETS } from "@/lib/emoji-presets";
+import { LearnedChains } from "./learned-chains";
 
 const BY_ID = new Map(SEARCH_ENTRIES.map((entry) => [entry.id, entry]));
 
@@ -293,6 +294,11 @@ export function WorkflowsSection() {
           {t("workflows.new")}
         </button>
       </div>
+
+      {/* Sequences Omnio learned from repeated work. Same heading, because they
+          are the same idea to the person reading it — one they built, one they
+          performed. Renders nothing until there is one. */}
+      <LearnedChains />
 
       {workflows.length === 0 ? (
         <p className="flex items-center gap-2 rounded-lg border border-dashed border-border px-4 py-3 text-sm text-text-muted">

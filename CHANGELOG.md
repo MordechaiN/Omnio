@@ -9,6 +9,15 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ## [Unreleased]
 
+## [0.14.5-alpha] - 2026-07-26
+
+The workflows Omnio learns are no longer invisible.
+
+### 🐛 Fixed
+
+- **A workflow Omnio learned is now visible in the Library**, next to the ones you build by hand, and can be forgotten. Asking Omnio to remember a repeated sequence saved it and then displayed it on no screen — while a section literally called Workflows listed a different kind entirely.
+- **Saved searches can be removed.** They could only ever be added.
+
 ## [0.14.4-alpha] - 2026-07-26
 
 Omnio can finally see how big your pictures are.

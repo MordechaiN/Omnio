@@ -31,7 +31,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@omnio/ui";
-import { Bookmark, FolderOpen, LayoutGrid, List, Search, SlidersHorizontal } from "lucide-react";
+import { Bookmark, FolderOpen, LayoutGrid, List, Search, SlidersHorizontal, Trash2 } from "lucide-react";
 import { useRouter } from "@/i18n/navigation";
 import { mimeMatches, normalizeMime } from "@/lib/file-intel";
 import { SEARCH_ENTRIES } from "@/generated/registry.search";
@@ -476,9 +476,28 @@ export function FilesWorkspace() {
             {searches.length === 0 ? (
               <DropdownMenuItem disabled>{t("noSavedSearches")}</DropdownMenuItem>
             ) : (
+              // Deletable, because they were not: saved searches could only ever
+              // accumulate, and `removeSearch` had no caller in the product.
               searches.map((saved) => (
-                <DropdownMenuItem key={saved.id} onSelect={() => applySearch(saved)}>
-                  {saved.name}
+                <DropdownMenuItem
+                  key={saved.id}
+                  onSelect={() => applySearch(saved)}
+                  className="group justify-between gap-2"
+                >
+                  <span className="truncate">{saved.name}</span>
+                  <button
+                    type="button"
+                    aria-label={t("forgetSearch", { name: saved.name })}
+                    className="shrink-0 rounded p-0.5 text-text-muted opacity-0 transition-opacity hover:text-text focus-visible:opacity-100 group-hover:opacity-100"
+                    onClick={(event) => {
+                      // Keep the menu open: removing one is rarely the only edit.
+                      event.stopPropagation();
+                      event.preventDefault();
+                      void workspace.removeSearch(saved.id);
+                    }}
+                  >
+                    <Trash2 className="h-3.5 w-3.5" />
+                  </button>
                 </DropdownMenuItem>
               ))
             )}

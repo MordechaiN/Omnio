@@ -201,7 +201,8 @@
     "seenBefore": "You've had this file before",
     "seenBeforeReason": "The same contents arrived {when}. You don't have to do the work again.",
     "seenBeforeResult": "Open the {tool} result",
-    "emptyChoose": "Choose files"
+    "emptyChoose": "Choose files",
+    "forgetSearch": "Forget the saved search {name}"
   },
   "nav": {
     "home": "Home",
@@ -641,7 +642,9 @@
       "shareSafely": "Share Safely"
     },
     "edit": "Edit",
-    "duplicateStep": "Duplicate step"
+    "duplicateStep": "Duplicate step",
+    "learnedHint": "Omnio saved these from work you repeated. They're offered when you open a file they fit.",
+    "forget": "Forget {name}"
   },
   "modules": {
     "title": "Modules",

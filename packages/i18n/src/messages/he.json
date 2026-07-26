@@ -201,7 +201,8 @@
     "seenBefore": "כבר היה לך הקובץ הזה",
     "seenBeforeReason": "אותו תוכן בדיוק הגיע {when}. אין צורך לבצע את העבודה שוב.",
     "seenBeforeResult": "פתח את התוצאה של {tool}",
-    "emptyChoose": "בחרו קבצים"
+    "emptyChoose": "בחרו קבצים",
+    "forgetSearch": "שכח את החיפוש השמור {name}"
   },
   "nav": {
     "home": "בית",
@@ -641,7 +642,9 @@
       "shareSafely": "שיתוף בטוח"
     },
     "edit": "עריכה",
-    "duplicateStep": "שכפול שלב"
+    "duplicateStep": "שכפול שלב",
+    "learnedHint": "‏Omnio שמר את אלה מעבודה שחזרתם עליה. הם מוצעים כשפותחים קובץ שמתאים להם.",
+    "forget": "שכח את {name}"
   },
   "modules": {
     "title": "מודולים",
