@@ -26,6 +26,7 @@
  * Pure functions over metadata. No storage, no React, no network, no model.
  */
 
+import { learnChains, stepsThatProduced, type Chain } from "./chains.ts";
 import { kindOf, normalizeText, type WorkspaceEvent, type WorkspaceFile } from "./model.ts";
 
 /* --------------------------------------------------------------- shapes */
@@ -142,12 +143,31 @@ export interface HabitDiscovery extends DiscoveryBase {
   pending: WorkspaceFile[];
 }
 
+/**
+ * A sequence of tools performed more than once, which nobody has saved.
+ *
+ * Chains already learn sequences from the derivation graph and can re-run them;
+ * what has been missing is anyone mentioning that a sequence exists. This is the
+ * bridge: the workspace noticed you doing the same three steps twice, and saving
+ * that is one click rather than a workflow builder.
+ */
+export interface RepeatedSequenceDiscovery extends DiscoveryBase {
+  kind: "repeated-sequence";
+  /** Ordered tool ids, oldest step first. */
+  steps: string[];
+  /** How many separate files were produced by exactly this sequence. */
+  occurrences: number;
+  /** Source mime types it has been used on, so the saved chain knows its scope. */
+  appliesTo: string[];
+}
+
 export type Discovery =
   | SupersededExportDiscovery
   | DocumentVersionsDiscovery
   | ImageSizesDiscovery
   | WorkSessionDiscovery
   | SteppingStonesDiscovery
+  | RepeatedSequenceDiscovery
   | HabitDiscovery;
 
 /* ---------------------------------------------------------------- timing */
@@ -607,6 +627,47 @@ export function steppingStones(
   ];
 }
 
+/* ----------------------------------------------------------- sequences */
+
+/** Doing something twice is a pattern; doing it once is just doing it. */
+const SEQUENCE_MIN_RUNS = 2;
+
+/**
+ * Sequences performed more than once that are not saved as chains yet.
+ *
+ * Deliberately built on `learnChains` rather than a second implementation of the
+ * same idea: the graph walk that finds a sequence is already correct and tested,
+ * and a discovery that disagreed with the chain it offers to save would be worse
+ * than no discovery at all.
+ */
+export function repeatedSequences(
+  files: WorkspaceFile[],
+  chains: Chain[] = [],
+): RepeatedSequenceDiscovery[] {
+  const saved = new Set(chains.map((chain) => chain.steps.join("→")));
+
+  return learnChains(files, SEQUENCE_MIN_RUNS)
+    .filter((candidate) => !saved.has(candidate.steps.join("→")))
+    .map((candidate) => {
+      const key = candidate.steps.join("→");
+      // The files this sequence actually produced, for the date and the names.
+      const produced = files.filter(
+        (file) => !file.evicted && stepsThatProduced(file, files).join("→") === key,
+      );
+      return {
+        kind: "repeated-sequence" as const,
+        id: `repeated-sequence:${stableKey(candidate.steps)}`,
+        at: produced.length > 0 ? Math.max(...produced.map((file) => file.createdAt)) : 0,
+        weight: 65,
+        files: produced.sort((a, b) => b.createdAt - a.createdAt),
+        steps: candidate.steps,
+        occurrences: candidate.occurrences,
+        appliesTo: candidate.sourceMimes,
+      };
+    })
+    .sort((a, b) => b.occurrences - a.occurrences || b.at - a.at);
+}
+
 /* ---------------------------------------------------------------- habits */
 
 /** Below this, a repetition is a coincidence rather than a habit. */
@@ -695,6 +756,8 @@ export interface DiscoverOptions {
   dismissed?: string[];
   /** Most discoveries to return. The surface is a quiet list, not a feed. */
   limit?: number;
+  /** Already-saved chains, so a sequence is not offered twice. */
+  chains?: Chain[];
 }
 
 /**
@@ -710,7 +773,7 @@ export function discover(
   events: WorkspaceEvent[] = [],
   options: DiscoverOptions = {},
 ): Discovery[] {
-  const { now = Date.now(), dismissed = [], limit = 6 } = options;
+  const { now = Date.now(), dismissed = [], limit = 6, chains = [] } = options;
   const waved = new Set(dismissed);
 
   const superseded = supersededExports(files, now);
@@ -728,6 +791,7 @@ export function discover(
 
   const all: Discovery[] = [
     ...superseded,
+    ...repeatedSequences(files, chains),
     ...habits(files, now),
     ...versions,
     ...imageSizeSets(files),

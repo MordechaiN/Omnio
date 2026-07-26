@@ -330,6 +330,58 @@ class WorkspaceStore {
     this.commit({ files: this.snapshot.files.filter((f) => f.id !== id) });
   };
 
+  /* ------------------------------------------------------------ actions */
+
+  /**
+   * Group files under a new collection, in one step.
+   *
+   * Creating a collection and then assigning files to it are two operations the
+   * user would otherwise perform by hand, once per file. Returning the
+   * collection lets the caller offer an undo that is genuinely complete.
+   */
+  collect = async (name: string, fileIds: string[]): Promise<WorkspaceCollection> => {
+    const collection = await this.createCollection(name);
+    for (const id of fileIds) await this.setCollection(id, collection.id, true);
+    return collection;
+  };
+
+  /** Delete a collection and remove every file's membership of it. */
+  uncollect = async (collectionId: string): Promise<void> => {
+    for (const file of this.snapshot.files) {
+      if (file.collectionIds.includes(collectionId)) {
+        await this.setCollection(file.id, collectionId, false);
+      }
+    }
+    await db.deleteCollection(collectionId);
+    this.commit({ collections: this.snapshot.collections.filter((c) => c.id !== collectionId) });
+  };
+
+  /**
+   * Drop the bytes of specific files while keeping every record.
+   *
+   * The row, its history and its place in the derivation graph all survive — the
+   * workspace's memory is not what is being reclaimed, only the storage. This is
+   * eviction aimed at a chosen set rather than at a budget, which is what an
+   * action can offer and a background policy cannot.
+   *
+   * Pinned files are skipped rather than refused: pinning is a promise that the
+   * contents stay, and an action that quietly broke it would be the worst kind
+   * of bug to find later.
+   */
+  archive = async (ids: string[]): Promise<string[]> => {
+    const archived: string[] = [];
+    for (const id of ids) {
+      const file = this.snapshot.files.find((f) => f.id === id);
+      if (!file || file.pinned || file.evicted) continue;
+      // Shared content: only drop the blob when this was the last reference.
+      if ((await db.countByHash(file.hash)) <= 1) await deleteBlob(file.hash);
+      await this.upsert({ ...file, evicted: true });
+      await this.record(id, "evicted");
+      archived.push(id);
+    }
+    return archived;
+  };
+
   /* ----------------------------------------------------------- eviction */
 
   /** Drop the bytes of the least-recently-used unpinned files to fit `budget`. */
