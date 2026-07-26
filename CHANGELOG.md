@@ -9,6 +9,19 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ## [Unreleased]
 
+## [0.14.2-alpha] - 2026-07-26
+
+Omnio keeps working when its server does not.
+
+### 🚀 New
+
+- **Carry on without the server.** An unreachable server used to replace the whole application with a retry screen, taking 121 browser-tier tools down with a server they never used. `personal` — the default deployment — has no login at all, so the gate was protecting nothing.
+- A quiet mark in the top bar shows when you are working without the server, and the few tools that genuinely need one say so instead of offering an upload that could only fail.
+
+### ✨ Improved
+
+- Home states its promise without advertising a tool count, restoring a product decision that a previous polish pass had quietly reversed.
+
 ## [0.14.1-alpha] - 2026-07-26
 
 A pass over everything you touch in the first five minutes.

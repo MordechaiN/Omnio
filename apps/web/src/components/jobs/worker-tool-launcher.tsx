@@ -2,8 +2,9 @@
 
 import { useRef } from "react";
 import { useTranslations } from "next-intl";
-import { Button } from "@omnio/ui";
-import { UploadCloud } from "lucide-react";
+import { Button, EmptyState } from "@omnio/ui";
+import { CloudOff, UploadCloud } from "lucide-react";
+import { useServerReachability } from "@/components/auth/server-reachability";
 import { useJobs } from "./jobs-provider";
 
 /**
@@ -23,6 +24,15 @@ export function WorkerToolLauncher({
   const t = useTranslations("jobs");
   const input = useRef<HTMLInputElement>(null);
   const { runJob } = useJobs();
+  const { online } = useServerReachability();
+
+  // This is one of the few tools that genuinely needs the server. Offering an
+  // upload button that could only fail would be worse than saying so plainly.
+  if (!online) {
+    return (
+      <EmptyState icon={CloudOff} title={t("needsServerTitle")} description={t("needsServerBody")} />
+    );
+  }
 
   function onPick(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];

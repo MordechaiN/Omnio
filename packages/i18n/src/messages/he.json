@@ -23,7 +23,9 @@
     "primaryNavigation": "ניווט ראשי",
     "categoriesNavigation": "קטגוריות",
     "searchHintShort": "חיפוש…",
-    "breadcrumb": "נתיב ניווט"
+    "breadcrumb": "נתיב ניווט",
+    "offlineBadge": "עובדים בלי השרת",
+    "offlineBadgeHint": "השרת אינו מגיב. הכלים שרצים על המכשיר והקבצים שלכם אינם מושפעים."
   },
   "auth": {
     "loading": "טוען…",
@@ -42,8 +44,10 @@
     "signedInAs": "מחובר כ‑{username}",
     "account": "חשבון",
     "offlineTitle": "לא ניתן להגיע לשרת",
-    "offlineSubtitle": "‏Omnio לא הצליח להתחבר ל‑API. ודאו שהוא פועל ונסו שוב.",
-    "retry": "נסו שוב"
+    "offlineSubtitle": "‏Omnio לא הצליח להגיע לשרת שלו. אפשר לנסות שוב, או להמשיך בלעדיו.",
+    "retry": "נסו שוב",
+    "continueOffline": "המשיכו בלי השרת",
+    "continueOfflineHint": "הקבצים שלכם וכל הכלים שרצים על המכשיר ימשיכו לעבוד. רק כלי שרת דורשים חיבור."
   },
   "jobs": {
     "title": "פעילות",
@@ -65,7 +69,9 @@
       "completed": "הושלם",
       "failed": "נכשל",
       "canceled": "בוטל"
-    }
+    },
+    "needsServerTitle": "הכלי הזה דורש שרת",
+    "needsServerBody": "הוא רץ על השרת ולא על המכשיר שלכם, ולכן אינו זמין כשאין חיבור. כל הכלים שרצים על המכשיר עדיין עובדים."
   },
   "files": {
     "title": "קבצים",
@@ -440,7 +446,8 @@
     "categoriesTitle": "קטגוריות",
     "toolCount": "{count} כלים",
     "favoritesHint": "סמנו כלי בכוכב כדי להצמיד אותו כאן לגישה מהירה.",
-    "timesUsed": "{count, plural, one {פעם #} other {# פעמים}}"
+    "timesUsed": "{count, plural, one {פעם #} other {# פעמים}}",
+    "privacyNote": "הכול רץ בדפדפן שלכם. הקבצים שלכם לעולם אינם עוזבים את המכשיר הזה."
   },
   "about": {
     "title": "אודות Omnio",

@@ -23,7 +23,9 @@
     "primaryNavigation": "Primary",
     "categoriesNavigation": "Categories",
     "searchHintShort": "Search…",
-    "breadcrumb": "Breadcrumb"
+    "breadcrumb": "Breadcrumb",
+    "offlineBadge": "Working without the server",
+    "offlineBadgeHint": "The server is not answering. On-device tools and your files are unaffected."
   },
   "auth": {
     "loading": "Loading…",
@@ -42,8 +44,10 @@
     "signedInAs": "Signed in as {username}",
     "account": "Account",
     "offlineTitle": "Can't reach the server",
-    "offlineSubtitle": "Omnio couldn't connect to the API. Check it's running and try again.",
-    "retry": "Try again"
+    "offlineSubtitle": "Omnio couldn't reach its server. You can try again, or carry on without it.",
+    "retry": "Try again",
+    "continueOffline": "Continue without the server",
+    "continueOfflineHint": "Your files and every on-device tool keep working. Only server tools need the connection."
   },
   "jobs": {
     "title": "Activity",
@@ -65,7 +69,9 @@
       "completed": "Done",
       "failed": "Failed",
       "canceled": "Canceled"
-    }
+    },
+    "needsServerTitle": "This tool needs the server",
+    "needsServerBody": "It runs on the server rather than on your device, so it is unavailable while the connection is down. Every on-device tool still works."
   },
   "files": {
     "title": "Files",
@@ -440,7 +446,8 @@
     "categoriesTitle": "Categories",
     "toolCount": "{count} tools",
     "favoritesHint": "Star any tool to pin it here for quick access.",
-    "timesUsed": "{count, plural, one {# time} other {# times}}"
+    "timesUsed": "{count, plural, one {# time} other {# times}}",
+    "privacyNote": "Everything runs in your browser. Your files never leave this device."
   },
   "about": {
     "title": "About Omnio",

@@ -15,6 +15,7 @@ import { ThemeMenu } from "./theme-menu";
 import { UserMenu } from "./user-menu";
 import { JobsProvider } from "@/components/jobs/jobs-provider";
 import { JobsTray } from "@/components/jobs/jobs-tray";
+import { OfflineBadge } from "./offline-badge";
 
 function Wordmark({ compact }: { compact?: boolean }) {
   const t = useTranslations();
@@ -73,6 +74,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   <SearchButton size="bar" />
                 </div>
                 <div className="ms-auto flex items-center gap-1">
+                  <OfflineBadge />
                   <JobsTray />
                   <ThemeMenu />
                   <LocaleMenu />

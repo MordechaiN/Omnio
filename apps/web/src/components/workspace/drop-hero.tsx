@@ -4,7 +4,6 @@ import { useRef } from "react";
 import { useTranslations } from "next-intl";
 import { Kbd } from "@omnio/ui";
 import { ShieldCheck, UploadCloud } from "lucide-react";
-import { SEARCH_ENTRIES } from "@/generated/registry.search";
 
 const SUPPORTED = ["Images", "PDF", "Video", "Audio", "Office", "ZIP", "Text"];
 
@@ -59,11 +58,17 @@ export function DropHero() {
           left a first-time visitor to infer the single most important fact about
           the product. The sentence was already written and translated; it was
           simply never rendered anywhere. */}
-      {/* items-start, not center: the sentence wraps to three lines on a phone,
-          where a vertically centred icon floats away from the text it marks. */}
+      {/* The promise, stated where someone decides whether to trust Omnio with a
+          contract or a passport scan. Deliberately no tool count: Home stopped
+          advertising how many tools exist, and reintroducing "123 tools" here
+          traded a settled product decision for a marketing number. The privacy
+          claim was the part worth surfacing.
+
+          items-start, not center: the sentence wraps on a phone, where a
+          vertically centred icon floats away from the text it marks. */}
       <p className="flex max-w-lg items-start justify-center gap-2 text-sm text-text-secondary">
         <ShieldCheck className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden="true" />
-        <span>{t("welcomeBody", { count: SEARCH_ENTRIES.length })}</span>
+        <span>{t("privacyNote")}</span>
       </p>
 
       <p className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs text-text-muted">
