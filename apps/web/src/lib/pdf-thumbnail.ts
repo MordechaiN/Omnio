@@ -36,11 +36,19 @@ function hasInk(context: CanvasRenderingContext2D, width: number, height: number
   return false;
 }
 
-export function installPdfThumbnailer(): void {
-  if (installed) return;
-  installed = true;
-
-  registerPdfThumbnailer(async (file, fileId) => {
+/**
+ * Render a PDF's first page.
+ *
+ * Exported because the drop dialog needs it too: it showed an "unknown file"
+ * glyph for every PDF, which is the first thing anyone sees after their first
+ * action and reads as "Omnio has no idea what this is" — while the very same
+ * panel reported the page count it had just read out of the document.
+ */
+export async function renderPdfFirstPage(
+  file: File,
+  fileId?: string,
+): Promise<{ blob: Blob; width: number; height: number } | null> {
+  {
     try {
       const pdfjs = await import("pdfjs-dist");
       pdfjs.GlobalWorkerOptions.workerSrc = new URL(
@@ -103,5 +111,11 @@ export function installPdfThumbnailer(): void {
       // A PDF we cannot render simply keeps its generic icon.
       return null;
     }
-  });
+  }
+}
+
+export function installPdfThumbnailer(): void {
+  if (installed) return;
+  installed = true;
+  registerPdfThumbnailer(renderPdfFirstPage);
 }

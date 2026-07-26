@@ -32,6 +32,7 @@ interface FlatTool {
   icon: string;
   i18nNamespace: string;
   keywords: string[];
+  coveredBy: string[];
   accepts: Array<{ mime: string[]; multiple?: boolean; maxSizeMB?: number; priority?: number }>;
 }
 
@@ -46,9 +47,11 @@ function flattenTools(modules: LoadedModule[]): FlatTool[] {
         tier: tool.tier,
         surface: tool.surface,
         category: manifest.category,
-        icon: manifest.icon,
+        // The tool's own icon when it has one; the module's is the fallback.
+        icon: tool.icon ?? manifest.icon,
         i18nNamespace: manifest.i18nNamespace,
         keywords: tool.keywords ?? [],
+        coveredBy: tool.coveredBy ?? [],
         accepts: tool.accepts ?? [],
       });
     }
@@ -71,6 +74,7 @@ function generateSearch(tools: FlatTool[]): string {
         `    nameKey: ${JSON.stringify(`tools.${tool.toolId}.name`)},`,
         `    descriptionKey: ${JSON.stringify(`tools.${tool.toolId}.description`)},`,
         `    keywords: ${JSON.stringify(tool.keywords)},`,
+        `    coveredBy: ${JSON.stringify(tool.coveredBy)},`,
         `    accepts: ${JSON.stringify(tool.accepts)},`,
         `    href: ${JSON.stringify(`/tool/${tool.moduleId}/${tool.toolId}`)},`,
         "  },",
@@ -97,6 +101,8 @@ export interface SearchEntry {
   nameKey: string;
   descriptionKey: string;
   keywords: string[];
+  /** Tools that already do this one's whole job — see the manifest schema. */
+  coveredBy: string[];
   accepts: ToolAccept[];
   href: string;
 }

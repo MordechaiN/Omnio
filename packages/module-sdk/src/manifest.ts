@@ -33,6 +33,29 @@ export const ToolManifestSchema = z
     /** Mandatory above browser tier — the escalation rule, enforced by schema. */
     tierReason: z.string().min(1).optional(),
     surface: z.string().min(1),
+    /**
+     * The tool's own icon, falling back to the module's when absent.
+     *
+     * Every tool used to inherit its module's icon with no way to override, so
+     * any list showing tools from one module — a dropped PDF offering PDF
+     * tools, a category page, the palette — was a column of identical glyphs
+     * that cost scanning time and gave nothing back.
+     */
+    icon: z.string().min(1).optional(),
+    /**
+     * Tools that already do this tool's whole job.
+     *
+     * Used only where Omnio proposes a shortlist for a file it was just handed.
+     * A dropped PDF offered *Organize Pages* beside *Rotate*, *Delete* and
+     * *Reorder Pages* — three things Organize does — so half the first screen
+     * anyone ever sees was one job wearing four names.
+     *
+     * Deliberately not expressed by lowering `priority`: that is how well a tool
+     * matches a file, and it also drives the Inspector, where "rotate this" is a
+     * perfectly good thing to ask for directly. Overlap is a fact about tools,
+     * not about how well they fit a PDF, so it gets its own field.
+     */
+    coveredBy: z.array(z.string()).optional(),
     accepts: z.array(AcceptSchema).optional(),
     produces: z.array(ProduceSchema).optional(),
     keywords: z.array(z.string()).optional(),

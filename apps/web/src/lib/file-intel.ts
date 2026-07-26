@@ -210,7 +210,27 @@ export function smartActions(
     }
     actions.push({ entry, score, reasonKey });
   }
-  return actions.sort((a, b) => b.score - a.score);
+  actions.sort((a, b) => b.score - a.score);
+
+  /**
+   * Drop anything a better-placed tool already does.
+   *
+   * A dropped PDF offered *Organize Pages* alongside *Rotate*, *Delete* and
+   * *Reorder Pages* — three jobs Organize performs — so most of the first
+   * screen anyone sees was one capability under four names, which is a list to
+   * puzzle over rather than a choice to make.
+   *
+   * Only here, on the shortlist Omnio proposes for a file it was just handed.
+   * Asking for a specific tool by name, or picking one from the Inspector,
+   * still reaches every one of them: this hides nothing, it only declines to
+   * recommend the same thing twice.
+   */
+  const offered = new Set<string>();
+  return actions.filter((action) => {
+    const covered = action.entry.coveredBy.some((toolId) => offered.has(toolId));
+    if (!covered) offered.add(action.entry.toolId);
+    return !covered;
+  });
 }
 
 /** Full local inspection. Heavy helpers load lazily so the shell stays light. */

@@ -10,6 +10,7 @@
       "id": "image-resize",
       "tier": "browser",
       "surface": "frontend/tools/image-resize",
+      "icon": "scaling",
       "keywords": [
         "image",
         "resize",
@@ -32,6 +33,7 @@
       "id": "image-batch",
       "tier": "browser",
       "surface": "frontend/tools/image-batch",
+      "icon": "layers",
       "keywords": [
         "batch",
         "bulk",
@@ -55,6 +57,7 @@
       "id": "image-crop",
       "tier": "browser",
       "surface": "frontend/tools/image-crop",
+      "icon": "crop",
       "keywords": [
         "image",
         "crop",
@@ -76,6 +79,7 @@
       "id": "image-rotate",
       "tier": "browser",
       "surface": "frontend/tools/image-rotate",
+      "icon": "rotate-cw",
       "keywords": [
         "image",
         "rotate",
@@ -97,6 +101,7 @@
       "id": "image-compress",
       "tier": "browser",
       "surface": "frontend/tools/image-compress",
+      "icon": "shrink",
       "keywords": [
         "image",
         "compress",
@@ -118,6 +123,7 @@
       "id": "image-filters",
       "tier": "browser",
       "surface": "frontend/tools/image-filters",
+      "icon": "sliders-horizontal",
       "keywords": [
         "image",
         "filter",
@@ -139,6 +145,7 @@
       "id": "image-colors",
       "tier": "browser",
       "surface": "frontend/tools/image-colors",
+      "icon": "palette",
       "keywords": [
         "image",
         "color",
@@ -161,6 +168,7 @@
       "id": "exif-remove",
       "tier": "browser",
       "surface": "frontend/tools/exif-remove",
+      "icon": "shield-off",
       "keywords": [
         "exif",
         "metadata",
@@ -184,6 +192,7 @@
       "id": "aspect-ratio",
       "tier": "browser",
       "surface": "frontend/tools/aspect-ratio",
+      "icon": "ratio",
       "keywords": [
         "aspect",
         "ratio",
@@ -197,6 +206,7 @@
       "id": "image-watermark",
       "tier": "browser",
       "surface": "frontend/tools/image-watermark",
+      "icon": "droplets",
       "keywords": [
         "watermark",
         "stamp",
@@ -218,6 +228,7 @@
       "id": "image-compare",
       "tier": "browser",
       "surface": "frontend/tools/image-compare",
+      "icon": "columns-2",
       "keywords": [
         "compare",
         "before",
@@ -240,6 +251,7 @@
       "id": "image-metadata",
       "tier": "browser",
       "surface": "frontend/tools/image-metadata",
+      "icon": "info",
       "keywords": [
         "metadata",
         "exif",
@@ -261,6 +273,7 @@
       "id": "favicon-generate",
       "tier": "browser",
       "surface": "frontend/tools/favicon-generate",
+      "icon": "app-window",
       "keywords": [
         "favicon",
         "icon",
@@ -282,6 +295,7 @@
       "id": "svg-optimize",
       "tier": "browser",
       "surface": "frontend/tools/svg-optimize",
+      "icon": "spline",
       "keywords": [
         "svg",
         "optimize",
@@ -303,6 +317,7 @@
       "id": "contact-sheet",
       "tier": "browser",
       "surface": "frontend/tools/contact-sheet",
+      "icon": "layout-grid",
       "keywords": [
         "contact sheet",
         "grid",
@@ -325,6 +340,7 @@
       "id": "image-histogram",
       "tier": "browser",
       "surface": "frontend/tools/image-histogram",
+      "icon": "chart-column",
       "keywords": [
         "histogram",
         "tonal",
@@ -345,6 +361,7 @@
       "id": "color-blindness",
       "tier": "browser",
       "surface": "frontend/tools/color-blindness",
+      "icon": "eye",
       "keywords": [
         "color blindness",
         "colorblind",
@@ -367,6 +384,7 @@
       "id": "palette-export",
       "tier": "browser",
       "surface": "frontend/tools/palette-export",
+      "icon": "swatch-book",
       "keywords": [
         "palette",
         "export",
@@ -388,6 +406,7 @@
       "id": "ico-tools",
       "tier": "browser",
       "surface": "frontend/tools/ico-tools",
+      "icon": "app-window-mac",
       "keywords": [
         "ico",
         "icon",

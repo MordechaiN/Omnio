@@ -42,7 +42,11 @@ describe("mimeMatches", () => {
   });
 });
 
-function entry(toolId: string, accepts: SearchEntry["accepts"]): SearchEntry {
+function entry(
+  toolId: string,
+  accepts: SearchEntry["accepts"],
+  coveredBy: string[] = [],
+): SearchEntry {
   return {
     id: `m.${toolId}`,
     moduleId: "m",
@@ -54,6 +58,7 @@ function entry(toolId: string, accepts: SearchEntry["accepts"]): SearchEntry {
     nameKey: `tools.${toolId}.name`,
     descriptionKey: `tools.${toolId}.description`,
     keywords: [],
+    coveredBy,
     accepts,
     href: `/tool/m/${toolId}`,
   };
@@ -181,6 +186,41 @@ describe("fileExtension", () => {
     expect(fileExtension("Photo.JPG")).toBe("jpg");
     expect(fileExtension("noext")).toBe("");
     expect(fileExtension(".hidden")).toBe("");
+  });
+});
+
+describe("smartActions coverage", () => {
+  /**
+   * The first screen anyone sees offered Organize Pages next to Rotate, Delete
+   * and Reorder Pages — three jobs Organize already does — so most of it was one
+   * capability under four names.
+   */
+  it("does not recommend a tool a better-placed one already covers", () => {
+    const entries = [
+      entry("pdf-organize", [{ mime: ["application/pdf"], priority: 88 }]),
+      entry("pdf-rotate", [{ mime: ["application/pdf"], priority: 80 }], ["pdf-organize"]),
+      entry("pdf-delete", [{ mime: ["application/pdf"], priority: 78 }], ["pdf-organize"]),
+      entry("pdf-compress", [{ mime: ["application/pdf"], priority: 75 }]),
+    ];
+    const offered = smartActions(
+      { kind: "pdf", mime: "application/pdf", size: 1000, facts: {} },
+      entries,
+    ).map((a) => a.entry.toolId);
+
+    expect(offered).toEqual(["pdf-organize", "pdf-compress"]);
+  });
+
+  it("still offers a covered tool when its coverer does not apply", () => {
+    const entries = [
+      entry("pdf-rotate", [{ mime: ["application/pdf"], priority: 80 }], ["pdf-organize"]),
+      entry("pdf-compress", [{ mime: ["application/pdf"], priority: 75 }]),
+    ];
+    const offered = smartActions(
+      { kind: "pdf", mime: "application/pdf", size: 1000, facts: {} },
+      entries,
+    ).map((a) => a.entry.toolId);
+
+    expect(offered).toContain("pdf-rotate");
   });
 });
 

@@ -9,6 +9,16 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ## [Unreleased]
 
+## [0.14.6-alpha] - 2026-07-26
+
+The moment you drop a file is no longer a puzzle.
+
+### ✨ Improved
+
+- **Dropping a PDF offered eight choices, four of which were one job.** Organize Pages sat beside Rotate, Delete and Reorder Pages — three things Organize already does. Omnio now proposes five genuinely different outcomes. Nothing was removed: every tool is still one search away, and the Inspector still offers them all.
+- **The drop panel shows the first page of your document**, instead of a question mark on your own file.
+- **Every PDF and image tool has its own icon.** They shared one per module, so any list of them was a column of identical glyphs.
+
 ## [0.14.5-alpha] - 2026-07-26
 
 The workflows Omnio learns are no longer invisible.

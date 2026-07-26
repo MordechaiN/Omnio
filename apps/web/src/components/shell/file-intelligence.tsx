@@ -261,7 +261,45 @@ export function FileIntelligence() {
     };
   }, [openFiles]);
 
-  const singleActions = intel ? smartActions(intel).slice(0, 8) : [];
+  /**
+   * Five, not eight.
+   *
+   * This dialog is the first screen anyone sees after their first action, and it
+   * was eight rows of identical icons with no ordering anyone could perceive —
+   * a list to read rather than a choice to make. Worse, a dropped PDF offered
+   * *Organize Pages* alongside *Rotate*, *Delete* and *Reorder Pages*, which are
+   * three things Organize already does; four of the eight were one job. Those
+   * three are now ranked below the tools that do something genuinely different,
+   * so what remains is five distinct outcomes. Nothing was removed from Omnio —
+   * every tool is still one search away.
+   */
+  /**
+   * The dropped PDF's first page, rendered after the dialog is already up.
+   *
+   * Deliberately not part of `inspectFile`: the panel opens in about 90ms and
+   * waiting on pdf.js to show it would trade a fast, honest response for a
+   * prettier one. The page appears a moment later, in place of the icon.
+   */
+  const [pdfPreview, setPdfPreview] = useState<string | null>(null);
+  useEffect(() => {
+    setPdfPreview(null);
+    if (intel?.kind !== "pdf") return undefined;
+    let url: string | null = null;
+    let cancelled = false;
+    void (async () => {
+      const { renderPdfFirstPage } = await import("@/lib/pdf-thumbnail");
+      const rendered = await renderPdfFirstPage(intel.file);
+      if (!rendered || cancelled) return;
+      url = URL.createObjectURL(rendered.blob);
+      setPdfPreview(url);
+    })();
+    return () => {
+      cancelled = true;
+      if (url) URL.revokeObjectURL(url);
+    };
+  }, [intel]);
+
+  const singleActions = intel ? smartActions(intel).slice(0, 5) : [];
   const groupActions = multi ? multiActions(multi.files) : [];
 
   function launch(href: string, payload: File[]) {
@@ -326,6 +364,8 @@ export function FileIntelligence() {
                 <div className="flex size-20 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border-subtle bg-surface-raised">
                   {intel.kind === "image" && intel.previewUrl ? (
                     <img src={intel.previewUrl} alt="" className="size-full object-cover" />
+                  ) : pdfPreview ? (
+                    <img src={pdfPreview} alt="" className="size-full object-contain" />
                   ) : (
                     <FileQuestion size={28} className="text-text-muted" aria-hidden="true" />
                   )}

@@ -1,0 +1,27 @@
+{
+  "version": "0.14.6-alpha",
+  "date": "2026-07-26",
+  "headline": {
+    "en": "The moment you drop a file is no longer a puzzle.",
+    "he": "הרגע שבו גוררים קובץ אינו חידה עוד."
+  },
+  "sections": [
+    {
+      "type": "improved",
+      "items": [
+        {
+          "en": "Dropping a PDF used to offer eight choices, four of which were the same job: Organize Pages sat beside Rotate, Delete and Reorder Pages — three things Organize already does. Omnio now proposes five genuinely different outcomes. Nothing was taken away; every tool is still a search away, and the Inspector still offers them all directly.",
+          "he": "גרירת PDF הציעה שמונה אפשרויות, שארבע מהן היו אותה עבודה: \"סידור עמודים\" הופיע לצד סיבוב, מחיקה וסידור מחדש — שלושה דברים שסידור עמודים כבר עושה. Omnio מציע כעת חמש תוצאות שונות באמת. דבר לא הוסר; כל כלי עדיין במרחק חיפוש אחד, והמפקח עדיין מציע את כולם ישירות."
+        },
+        {
+          "en": "That panel now shows the first page of the document you dropped, instead of a question mark on your own file.",
+          "he": "החלונית מציגה כעת את העמוד הראשון של המסמך שגררתם, במקום סימן שאלה על הקובץ שלכם."
+        },
+        {
+          "en": "Every PDF and image tool has its own icon. They all shared one per module, so any list of them — the drop panel, a category page, the command palette — was a column of identical glyphs that cost a glance and gave nothing back.",
+          "he": "לכל כלי PDF ותמונה יש כעת סמל משלו. כולם חלקו סמל אחד לכל מודול, כך שכל רשימה שלהם — חלונית הגרירה, דף קטגוריה, לוח הפקודות — הייתה טור של סמלים זהים שגזל מבט ולא נתן דבר."
+        }
+      ]
+    }
+  ]
+}

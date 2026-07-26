@@ -10,6 +10,7 @@
       "id": "pdf-merge",
       "tier": "browser",
       "surface": "frontend/tools/pdf-merge",
+      "icon": "combine",
       "keywords": [
         "pdf",
         "merge",
@@ -31,6 +32,7 @@
       "id": "pdf-split",
       "tier": "browser",
       "surface": "frontend/tools/pdf-split",
+      "icon": "split",
       "keywords": [
         "pdf",
         "split",
@@ -51,6 +53,10 @@
       "id": "pdf-rotate",
       "tier": "browser",
       "surface": "frontend/tools/pdf-rotate",
+      "icon": "rotate-cw",
+      "coveredBy": [
+        "pdf-organize"
+      ],
       "keywords": [
         "pdf",
         "rotate",
@@ -71,6 +77,10 @@
       "id": "pdf-delete",
       "tier": "browser",
       "surface": "frontend/tools/pdf-delete",
+      "icon": "file-minus",
+      "coveredBy": [
+        "pdf-organize"
+      ],
       "keywords": [
         "pdf",
         "delete",
@@ -91,6 +101,10 @@
       "id": "pdf-reorder",
       "tier": "browser",
       "surface": "frontend/tools/pdf-reorder",
+      "icon": "arrow-up-down",
+      "coveredBy": [
+        "pdf-organize"
+      ],
       "keywords": [
         "pdf",
         "reorder",
@@ -112,6 +126,7 @@
       "id": "pdf-watermark",
       "tier": "browser",
       "surface": "frontend/tools/pdf-watermark",
+      "icon": "droplets",
       "keywords": [
         "pdf",
         "watermark",
@@ -132,6 +147,7 @@
       "id": "pdf-pagenum",
       "tier": "browser",
       "surface": "frontend/tools/pdf-pagenum",
+      "icon": "hash",
       "keywords": [
         "pdf",
         "page numbers",
@@ -152,6 +168,7 @@
       "id": "pdf-metadata",
       "tier": "browser",
       "surface": "frontend/tools/pdf-metadata",
+      "icon": "info",
       "keywords": [
         "pdf",
         "metadata",
@@ -173,6 +190,7 @@
       "id": "pdf-split-size",
       "tier": "browser",
       "surface": "frontend/tools/pdf-split-size",
+      "icon": "scale",
       "keywords": [
         "pdf",
         "split",
@@ -193,6 +211,7 @@
       "id": "pdf-metadata-edit",
       "tier": "browser",
       "surface": "frontend/tools/pdf-metadata-edit",
+      "icon": "file-pen",
       "keywords": [
         "pdf",
         "metadata",
@@ -214,6 +233,7 @@
       "id": "images-to-pdf",
       "tier": "browser",
       "surface": "frontend/tools/images-to-pdf",
+      "icon": "images",
       "keywords": [
         "images to pdf",
         "jpg to pdf",
@@ -237,6 +257,7 @@
       "id": "pdf-reverse",
       "tier": "browser",
       "surface": "frontend/tools/pdf-reverse",
+      "icon": "flip-vertical",
       "keywords": [
         "reverse",
         "flip",
@@ -256,6 +277,7 @@
       "id": "pdf-duplicate",
       "tier": "browser",
       "surface": "frontend/tools/pdf-duplicate",
+      "icon": "copy",
       "keywords": [
         "duplicate",
         "copy pages",
@@ -274,6 +296,7 @@
       "id": "pdf-crop",
       "tier": "browser",
       "surface": "frontend/tools/pdf-crop",
+      "icon": "crop",
       "keywords": [
         "crop",
         "trim",
@@ -293,6 +316,7 @@
       "id": "pdf-nup",
       "tier": "browser",
       "surface": "frontend/tools/pdf-nup",
+      "icon": "layout-grid",
       "keywords": [
         "n-up",
         "n up",
@@ -315,6 +339,7 @@
       "id": "pdf-blank",
       "tier": "browser",
       "surface": "frontend/tools/pdf-blank",
+      "icon": "file-plus",
       "keywords": [
         "blank page",
         "insert page",
@@ -334,6 +359,7 @@
       "id": "pdf-split-half",
       "tier": "browser",
       "surface": "frontend/tools/pdf-split-half",
+      "icon": "columns-2",
       "keywords": [
         "split in half",
         "spread",
@@ -353,6 +379,7 @@
       "id": "pdf-flatten",
       "tier": "browser",
       "surface": "frontend/tools/pdf-flatten",
+      "icon": "layers",
       "keywords": [
         "flatten",
         "form",
@@ -373,6 +400,7 @@
       "id": "pdf-to-images",
       "tier": "browser",
       "surface": "frontend/tools/pdf-to-images",
+      "icon": "image-down",
       "keywords": [
         "pdf to image",
         "pdf to jpg",
@@ -393,6 +421,7 @@
       "id": "pdf-to-text",
       "tier": "browser",
       "surface": "frontend/tools/pdf-to-text",
+      "icon": "type",
       "keywords": [
         "pdf to text",
         "extract text",
@@ -412,6 +441,7 @@
       "id": "pdf-remove-blank",
       "tier": "browser",
       "surface": "frontend/tools/pdf-remove-blank",
+      "icon": "eraser",
       "keywords": [
         "remove blank pages",
         "delete empty",
@@ -430,6 +460,7 @@
       "id": "pdf-protect",
       "tier": "browser",
       "surface": "frontend/tools/pdf-protect",
+      "icon": "lock",
       "keywords": [
         "protect",
         "encrypt",
@@ -450,6 +481,7 @@
       "id": "pdf-unlock",
       "tier": "browser",
       "surface": "frontend/tools/pdf-unlock",
+      "icon": "lock-open",
       "keywords": [
         "unlock",
         "decrypt",
@@ -469,6 +501,7 @@
       "id": "pdf-compress",
       "tier": "browser",
       "surface": "frontend/tools/pdf-compress",
+      "icon": "shrink",
       "keywords": [
         "compress",
         "reduce size",
@@ -489,6 +522,7 @@
       "id": "pdf-repair",
       "tier": "browser",
       "surface": "frontend/tools/pdf-repair",
+      "icon": "wrench",
       "keywords": [
         "repair",
         "fix",
@@ -510,6 +544,7 @@
       "id": "pdf-linearize",
       "tier": "browser",
       "surface": "frontend/tools/pdf-linearize",
+      "icon": "gauge",
       "keywords": [
         "linearize",
         "optimize",
@@ -530,6 +565,7 @@
       "id": "pdf-sanitize",
       "tier": "browser",
       "surface": "frontend/tools/pdf-sanitize",
+      "icon": "shield-check",
       "keywords": [
         "sanitize",
         "clean",
@@ -550,6 +586,7 @@
       "id": "pdf-extract-images",
       "tier": "browser",
       "surface": "frontend/tools/pdf-extract-images",
+      "icon": "image-plus",
       "keywords": [
         "extract images",
         "get images",
@@ -570,6 +607,7 @@
       "id": "pdf-extract-attachments",
       "tier": "browser",
       "surface": "frontend/tools/pdf-extract-attachments",
+      "icon": "paperclip",
       "keywords": [
         "extract attachments",
         "embedded files",
@@ -590,6 +628,7 @@
       "id": "pdf-ocr",
       "tier": "browser",
       "surface": "frontend/tools/pdf-ocr",
+      "icon": "scan-text",
       "keywords": [
         "ocr",
         "scanned",
@@ -612,6 +651,7 @@
       "id": "pdf-edit",
       "tier": "browser",
       "surface": "frontend/tools/pdf-edit",
+      "icon": "pen-line",
       "keywords": [
         "edit",
         "annotate",
@@ -638,6 +678,7 @@
       "id": "pdf-fill-form",
       "tier": "browser",
       "surface": "frontend/tools/pdf-fill-form",
+      "icon": "clipboard-pen",
       "keywords": [
         "fill form",
         "form",
@@ -660,6 +701,7 @@
       "id": "pdf-split-bookmarks",
       "tier": "browser",
       "surface": "frontend/tools/pdf-split-bookmarks",
+      "icon": "bookmark",
       "keywords": [
         "split by bookmarks",
         "bookmarks",
@@ -681,6 +723,7 @@
       "id": "pdf-bookmarks",
       "tier": "browser",
       "surface": "frontend/tools/pdf-bookmarks",
+      "icon": "list-tree",
       "keywords": [
         "bookmarks",
         "outline",
@@ -703,6 +746,7 @@
       "id": "pdf-organize",
       "tier": "browser",
       "surface": "frontend/tools/pdf-organize",
+      "icon": "layout-dashboard",
       "keywords": [
         "organize pages",
         "page organizer",
