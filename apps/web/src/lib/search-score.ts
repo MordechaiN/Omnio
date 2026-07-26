@@ -6,6 +6,7 @@
  *   prefix match       0.9
  *   word-prefix match  0.8   ("form" → "JSON Formatter")
  *   substring          0.7
+ *   keyword hit       ≤0.65  (any tier, scaled — see KEYWORD_WEIGHT)
  *   subsequence        0.4   (all query chars appear in order)
  *   typo (edit ≤ 1–2)  0.3   ("pasword" → "password")
  *
@@ -63,13 +64,27 @@ export function scoreText(query: string, text: string): number {
   return 0;
 }
 
+/**
+ * How far a keyword hit is held below a hit on the visible name.
+ *
+ * A keyword is invisible to the person searching, so it must never beat a tool
+ * whose own name matches. At 0.95 an exact keyword scored 0.95 and outranked
+ * every name tier below "starts with" — typing "compress" put **Create ZIP**
+ * first (it lists "compress" as a keyword) while *Image Compressor* and
+ * *Compress PDF* came fourth and fifth, so pressing Enter opened the wrong
+ * tool. At 0.65 the best possible keyword hit still lands under the weakest
+ * direct name hit (substring, 0.7), and comfortably above a fuzzy name match,
+ * which is exactly the intended order of evidence.
+ */
+const KEYWORD_WEIGHT = 0.65;
+
 /** Best score across an item's value and its keywords. */
 export function scoreItem(query: string, value: string, keywords: readonly string[] = []): number {
   let best = scoreText(query, value);
+  // Nothing a keyword can contribute will beat a direct name match.
+  if (best >= 0.7) return best;
   for (const keyword of keywords) {
-    if (best >= 0.9) break;
-    // Keyword hits rank a shade under the same hit on the visible name.
-    best = Math.max(best, scoreText(query, keyword) * 0.95);
+    best = Math.max(best, scoreText(query, keyword) * KEYWORD_WEIGHT);
   }
   return best;
 }

@@ -44,17 +44,22 @@ export function ToolShell({
     >
       <div className="flex flex-col gap-4">
         {breadcrumb ? <div className="text-sm text-text-muted">{breadcrumb}</div> : null}
-        <header className="flex items-start gap-3">
+        {/* Wraps rather than squeezes. On a narrow phone the icon, title,
+            actions and the "runs on your device" badge cannot share one line,
+            and that badge is the most important sentence on the page — the
+            reason someone trusts Omnio with a contract or a passport scan. It
+            drops to its own line instead of being truncated away. */}
+        <header className="flex flex-wrap items-start gap-x-3 gap-y-2">
           {icon ? (
             <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-accent-subtle text-accent-subtle-fg">
               {icon}
             </span>
           ) : null}
-          <div className="flex flex-1 flex-col gap-0.5">
+          <div className="flex min-w-0 flex-1 flex-col gap-0.5">
             <h1 className="text-2xl font-semibold tracking-tight text-text">{name}</h1>
             <p className="text-text-muted">{description}</p>
           </div>
-          <div className="flex shrink-0 items-center gap-2">
+          <div className="flex shrink-0 basis-full items-center gap-2 sm:basis-auto">
             {actions}
             {badge}
           </div>

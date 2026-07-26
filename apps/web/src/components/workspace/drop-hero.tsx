@@ -3,7 +3,8 @@
 import { useRef } from "react";
 import { useTranslations } from "next-intl";
 import { Kbd } from "@omnio/ui";
-import { UploadCloud } from "lucide-react";
+import { ShieldCheck, UploadCloud } from "lucide-react";
+import { SEARCH_ENTRIES } from "@/generated/registry.search";
 
 const SUPPORTED = ["Images", "PDF", "Video", "Audio", "Office", "ZIP", "Text"];
 
@@ -51,6 +52,19 @@ export function DropHero() {
           }}
         />
       </label>
+
+      {/* The promise, stated where someone decides whether to trust Omnio with a
+          contract or a passport scan — the first screen. Every tool page carries
+          "runs on your device", but the landing page said nothing at all, which
+          left a first-time visitor to infer the single most important fact about
+          the product. The sentence was already written and translated; it was
+          simply never rendered anywhere. */}
+      {/* items-start, not center: the sentence wraps to three lines on a phone,
+          where a vertically centred icon floats away from the text it marks. */}
+      <p className="flex max-w-lg items-start justify-center gap-2 text-sm text-text-secondary">
+        <ShieldCheck className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden="true" />
+        <span>{t("welcomeBody", { count: SEARCH_ENTRIES.length })}</span>
+      </p>
 
       <p className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs text-text-muted">
         {SUPPORTED.map((label, index) => (

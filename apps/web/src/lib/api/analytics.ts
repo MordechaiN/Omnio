@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import type { AnalyticsStats, ToolEventInput } from "@omnio/contracts";
+import { AnalyticsStatsSchema, type AnalyticsStats, type ToolEventInput } from "@omnio/contracts";
 import { apiClient } from "./client";
 
 type ToolTier = ToolEventInput["tier"];
@@ -26,7 +26,13 @@ export function useAnalyticsStats() {
     queryFn: async () => {
       const res = await apiClient.analytics.stats();
       if (res.status !== 200) throw new Error("Could not load usage statistics.");
-      return res.body;
+      // The client does not validate response bodies, and this is a self-hosted
+      // product: an api one version behind the web app can answer 200 with a
+      // different shape. Parsing here turns that into the page's existing error
+      // state instead of a crash that replaces the whole screen — reading
+      // `body.byTool.length` off an unexpected shape took the Statistics page
+      // down entirely, which is a poor way to learn your api is out of date.
+      return AnalyticsStatsSchema.parse(res.body);
     },
     staleTime: 60_000,
   });

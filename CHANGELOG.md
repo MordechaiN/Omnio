@@ -9,6 +9,23 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ## [Unreleased]
 
+## [0.14.1-alpha] - 2026-07-26
+
+A pass over everything you touch in the first five minutes.
+
+### ✨ Improved
+
+- **Search answers the obvious question with the obvious tool.** "compress" ranked Create ZIP first (it lists "compress" as a hidden keyword) while Image Compressor and Compress PDF came fourth and fifth — Enter opened the wrong tool. A tool's own name now always outranks an invisible keyword.
+- **The first screen states the promise**: what Omnio is, and that files never leave the device. Every tool page said so; the landing page did not.
+- **Files opens with one invitation** instead of a dozen filters around an empty list — and a "Choose files" button, which did not exist there at all: dragging was the only way in.
+- **Closing search returns focus to where it came from.** Keyboard users were dropped back at the top of the page.
+- **No sideways scrolling on a phone.** The top bar and every tool page overflowed 360px, the narrowest width Omnio commits to.
+
+### 🐛 Fixed
+
+- The Statistics page no longer replaces itself with an error screen when the api answers with an unexpected shape — a real possibility when a self-hosted api and web app are different versions.
+
+
 ## [0.14.0-alpha] - 2026-07-26
 
 Omnio stops describing your work and starts finishing it.

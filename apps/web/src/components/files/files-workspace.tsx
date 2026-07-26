@@ -328,6 +328,55 @@ export function FilesWorkspace() {
     );
   }
 
+  /**
+   * First run: no files have ever been here.
+   *
+   * The full screen — search, type filter, sort, saved searches, two view
+   * toggles, three size steps and an inspector reading "nothing selected" —
+   * is a dozen controls arranged around nothing, which reads as complicated
+   * rather than capable. Worse, none of them could add a file: dragging was
+   * the only way in, so anyone not thinking to drag was simply stuck.
+   *
+   * A filtered-to-empty list is a different situation and keeps its toolbar,
+   * because there the controls are what gets you out of it.
+   *
+   * A pending undo also keeps the normal screen. Deleting your only file empties
+   * the workspace, and taking this path would have removed the "undo delete"
+   * offer along with the toolbar — losing the file for good at the exact moment
+   * someone needs it back.
+   */
+  if (ready && files.length === 0 && undoable.length === 0) {
+    return (
+      <div className="flex h-[calc(100vh-8rem)] items-center justify-center p-8">
+        <EmptyState
+          title={t("emptyTitle")}
+          description={t("emptyBody")}
+          icon={FolderOpen}
+          action={
+            <Button
+              onClick={() => {
+                const input = document.createElement("input");
+                input.type = "file";
+                input.multiple = true;
+                input.onchange = () => {
+                  const chosen = [...(input.files ?? [])];
+                  if (chosen.length > 0) {
+                    window.dispatchEvent(
+                      new CustomEvent("omnio:inspect", { detail: { files: chosen, record: true } }),
+                    );
+                  }
+                };
+                input.click();
+              }}
+            >
+              {t("emptyChoose")}
+            </Button>
+          }
+        />
+      </div>
+    );
+  }
+
   return (
     <div ref={containerRef} className="flex h-[calc(100vh-8rem)] flex-col">
       <div className="flex flex-wrap items-center gap-2 border-b border-border-subtle p-3">

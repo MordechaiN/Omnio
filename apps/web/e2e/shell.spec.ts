@@ -62,6 +62,39 @@ test.describe("command palette", () => {
     await expect(page).toHaveURL(/\/t\/images$/);
   });
 
+  /**
+   * Search is the product's primary entry point, so the obvious query must give
+   * the obvious answer. "compress" used to rank Create ZIP first — it lists
+   * "compress" as a hidden keyword — pushing the two tools actually named for
+   * the query to fourth and fifth, so Enter opened the wrong tool.
+   */
+  test("ranks the tool named for the query above one that merely lists it", async ({ page }) => {
+    await gotoApp(page);
+    await page.keyboard.press("Control+k");
+    await page.getByRole("dialog").waitFor();
+    await page.keyboard.type("compress");
+
+    const options = page.getByRole("option");
+    await expect(options.first()).toHaveText(/Compress PDF|Image Compressor/);
+    await page.keyboard.press("Enter");
+    await expect(page).toHaveURL(/(pdf-compress|image-compress)/);
+  });
+
+  /**
+   * The palette opens from ⌘K and from a plain button, never from a Radix
+   * trigger, so nothing restored focus when it closed — it fell to <body> and a
+   * keyboard user had to tab from the top of the page again.
+   */
+  test("gives focus back to wherever it came from", async ({ page }) => {
+    await gotoApp(page);
+    const search = page.getByRole("button", { name: "Search" }).first();
+    await search.focus();
+    await page.keyboard.press("Enter");
+    await page.getByRole("dialog").waitFor();
+    await page.keyboard.press("Escape");
+    await expect(search).toBeFocused();
+  });
+
   test("switches theme from the palette", async ({ page }) => {
     await gotoApp(page);
     await page.keyboard.press("ControlOrMeta+k");

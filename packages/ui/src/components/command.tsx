@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import { Command as CommandPrimitive } from "cmdk";
 import { Search } from "lucide-react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
@@ -32,11 +33,44 @@ export interface CommandDialogProps extends DialogPrimitive.DialogProps {
 }
 
 export function CommandDialog({ title, children, className, filter, ...props }: CommandDialogProps) {
+  const contentRef = React.useRef<HTMLDivElement>(null);
+  const previouslyFocused = React.useRef<HTMLElement | null>(null);
+
+  /**
+   * Give focus back when the palette closes.
+   *
+   * Radix returns focus to its `DialogTrigger`, but this palette has none — it
+   * opens from ⌘K, from "/", and from a plain search button. With no trigger to
+   * return to, focus fell to `<body>`, so every time a keyboard user dismissed
+   * search they had to tab from the top of the page again.
+   *
+   * Tracking focus continuously, rather than reading it once when `open` flips,
+   * keeps this immune to how React and Radix happen to order their effects.
+   */
+  React.useEffect(() => {
+    const remember = (event: FocusEvent) => {
+      const target = event.target as HTMLElement | null;
+      if (!target || target === document.body) return;
+      // Focus moving inside the palette is not somewhere to return to.
+      if (contentRef.current?.contains(target)) return;
+      previouslyFocused.current = target;
+    };
+    document.addEventListener("focusin", remember, true);
+    return () => document.removeEventListener("focusin", remember, true);
+  }, []);
+
   return (
     <DialogPrimitive.Root {...props}>
       <DialogPrimitive.Portal>
         <DialogOverlay />
         <DialogPrimitive.Content
+          ref={contentRef}
+          onCloseAutoFocus={(event) => {
+            const target = previouslyFocused.current;
+            if (!target || !document.contains(target)) return;
+            event.preventDefault();
+            target.focus();
+          }}
           className={cn(
             "fixed inset-x-4 top-[14vh] z-(--z-modal) mx-auto max-w-xl",
             "overflow-hidden rounded-2xl border border-border-subtle bg-overlay shadow-2",

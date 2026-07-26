@@ -24,7 +24,7 @@ export function SearchButton({ size = "bar" }: { size?: "bar" | "hero" | "sideba
         "flex items-center gap-2.5 text-text-muted",
         "transition-[border-color,box-shadow,background-color] duration-(--motion-fast) ease-(--ease-out)",
         size === "bar" &&
-          "h-(--control-h-md) w-full max-w-72 rounded-sm border border-border bg-surface px-2.5 text-sm hover:border-border-strong hover:bg-surface-raised/50",
+          "h-(--control-h-md) w-auto min-w-(--control-h-md) justify-center rounded-sm border border-border bg-surface px-2.5 text-sm hover:border-border-strong hover:bg-surface-raised/50 min-[420px]:w-full min-[420px]:max-w-72 min-[420px]:justify-start",
         size === "hero" &&
           "h-12 w-full max-w-xl rounded-lg border border-border bg-surface px-4 text-base shadow-1 hover:border-border-strong hover:bg-surface-raised/50",
         size === "sidebar" &&
@@ -32,7 +32,17 @@ export function SearchButton({ size = "bar" }: { size?: "bar" | "hero" | "sideba
       )}
     >
       <Icon icon={Search} size={size === "hero" ? 20 : 16} className="shrink-0" />
-      <span className="min-w-0 flex-1 truncate text-start">
+      {/* On the narrowest phones the top bar cannot hold a labelled field
+          alongside the menu, wordmark and four controls. Below 420px the bar
+          form drops its placeholder and reads as a search button — still
+          visible, still tappable, still labelled for screen readers — rather
+          than squeezing the label into a few unreadable pixels. */}
+      <span
+        className={cn(
+          "min-w-0 flex-1 truncate text-start",
+          size === "bar" && "hidden min-[420px]:block",
+        )}
+      >
         {size === "sidebar" ? t("searchHintShort") : t("searchHint")}
       </span>
       <span className="hidden shrink-0 items-center gap-0.5 sm:flex" aria-hidden>

@@ -1,6 +1,6 @@
 {
   "name": "omnio",
-  "version": "0.14.0-alpha",
+  "version": "0.14.1-alpha",
   "private": true,
   "license": "Apache-2.0",
   "description": "Everything. One Workspace. — self-hosted, privacy-first workspace for files and everyday tools",

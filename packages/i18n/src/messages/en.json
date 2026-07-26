@@ -194,7 +194,8 @@
     "recentTitle": "Recent",
     "seenBefore": "You've had this file before",
     "seenBeforeReason": "The same contents arrived {when}. You don't have to do the work again.",
-    "seenBeforeResult": "Open the {tool} result"
+    "seenBeforeResult": "Open the {tool} result",
+    "emptyChoose": "Choose files"
   },
   "nav": {
     "home": "Home",

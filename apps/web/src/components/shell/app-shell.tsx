@@ -64,7 +64,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 <div className="lg:hidden">
                   <Wordmark compact />
                 </div>
-                <div className="flex flex-1 justify-center lg:hidden">
+                {/* min-w-0 is load-bearing: a flex child defaults to min-width
+                    auto, so without it this column refuses to shrink below the
+                    search field's natural width and the whole page scrolls
+                    sideways on a 360px phone — the narrowest size the design
+                    commits to. */}
+                <div className="flex min-w-0 flex-1 justify-center lg:hidden">
                   <SearchButton size="bar" />
                 </div>
                 <div className="ms-auto flex items-center gap-1">

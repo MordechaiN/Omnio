@@ -45,12 +45,36 @@ describe("scoreText tiers", () => {
 });
 
 describe("scoreItem", () => {
-  it("takes the best of value and keywords, discounting keywords slightly", () => {
+  it("takes the best of value and keywords, discounting keywords", () => {
     const viaName = scoreItem("uuid", "uuid generator", ["guid"]);
     const viaKeyword = scoreItem("guid", "uuid generator", ["guid"]);
     expect(viaName).toBe(0.9);
-    expect(viaKeyword).toBeCloseTo(0.95, 5);
+    expect(viaKeyword).toBeCloseTo(0.65, 5);
+    // A keyword still finds a tool whose name says nothing about the query.
     expect(viaKeyword).toBeGreaterThan(scoreItem("guid", "uuid generator", []));
+  });
+
+  /**
+   * The bug this ordering exists to prevent: typing "compress" ranked Create ZIP
+   * first, because it lists "compress" as a keyword, while the two tools with
+   * "compress" in their actual names came fourth and fifth. Enter opened the
+   * wrong tool from the product's primary entry point.
+   */
+  it("never lets an invisible keyword outrank a visible name", () => {
+    const zipCreate = scoreItem("compress", "create zip", ["zip", "archive", "compress", "bundle"]);
+    const compressPdf = scoreItem("compress", "compress pdf", ["compress", "reduce size"]);
+    const imageCompressor = scoreItem("compress", "image compressor", ["image", "compress"]);
+
+    expect(compressPdf).toBeGreaterThan(zipCreate);
+    expect(imageCompressor).toBeGreaterThan(zipCreate);
+    // And the tool actually named for the query leads.
+    expect(compressPdf).toBeGreaterThan(imageCompressor);
+  });
+
+  it("keeps a keyword hit above a merely fuzzy name match", () => {
+    const keyword = scoreItem("archive", "create zip", ["archive"]);
+    const subsequence = scoreItem("archive", "a rather nice video encoder", []);
+    expect(keyword).toBeGreaterThan(subsequence);
   });
 });
 

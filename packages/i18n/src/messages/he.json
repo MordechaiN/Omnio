@@ -194,7 +194,8 @@
     "recentTitle": "אחרונים",
     "seenBefore": "כבר היה לך הקובץ הזה",
     "seenBeforeReason": "אותו תוכן בדיוק הגיע {when}. אין צורך לבצע את העבודה שוב.",
-    "seenBeforeResult": "פתח את התוצאה של {tool}"
+    "seenBeforeResult": "פתח את התוצאה של {tool}",
+    "emptyChoose": "בחרו קבצים"
   },
   "nav": {
     "home": "בית",
