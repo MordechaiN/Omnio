@@ -9,6 +9,14 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ## [Unreleased]
 
+## [0.14.4-alpha] - 2026-07-26
+
+Omnio can finally see how big your pictures are.
+
+### 🐛 Fixed
+
+- **Images now record their dimensions.** Nothing ever did, so the Inspector's Dimensions row was always blank for pictures, and two features that read them never fired at all: the "much larger than any screen will show" note, and the "one picture, several sizes" discovery. Reading the size is free — the image was already being decoded to draw its thumbnail.
+
 ## [0.14.3-alpha] - 2026-07-26
 
 Omnio gets faster the longer you use it, not slower.

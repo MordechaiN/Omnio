@@ -72,6 +72,9 @@ export function useThumbnail(file: WorkspaceFile | null): string | null {
   const hash = file?.hash ?? null;
   const mime = file?.mime ?? null;
   const evicted = file?.evicted ?? false;
+  // A primitive, like the rest: depending on `file.facts` would re-run this
+  // effect on every unrelated workspace commit.
+  const needsFacts = file?.facts === undefined;
 
   useEffect(() => {
     let cancelled = false;
@@ -90,28 +93,41 @@ export function useThumbnail(file: WorkspaceFile | null): string | null {
     };
 
     void (async () => {
+      const isImage = mime.startsWith("image/");
       const existing = await getThumb(id);
       if (cancelled) return;
       if (existing) {
         show(existing.blob);
+        // Thumbnails are cached, so this is the only chance to fill in the
+        // dimensions of images that predate them being recorded at all.
+        if (isImage && needsFacts) await recordImageFacts(id);
         return;
       }
       const source = await workspace.peekFile(id);
       if (!source || cancelled) return;
-      const thumb = mime.startsWith("image/")
-        ? await makeImageThumb(source)
-        : mime === "application/pdf"
-          ? await pdfThumbnailer?.(source, id)
-          : null;
+      // Kept separate from the generic thumbnail so the image's own dimensions
+      // stay typed rather than being narrowed back out of a union.
+      const imageThumb = isImage ? await makeImageThumb(source) : null;
+      const thumb =
+        imageThumb ??
+        (mime === "application/pdf" ? ((await pdfThumbnailer?.(source, id)) ?? null) : null);
       if (!thumb || cancelled) return;
       await putThumb({ fileId: id, blob: thumb.blob, width: thumb.width, height: thumb.height });
+      // Free: the decode already happened to build the thumbnail.
+      if (imageThumb && needsFacts) {
+        await workspace.setFacts(id, {
+          kind: "image",
+          width: imageThumb.sourceWidth,
+          height: imageThumb.sourceHeight,
+        });
+      }
       show(thumb.blob);
     })();
 
     return () => {
       cancelled = true;
     };
-  }, [id, hash, mime, evicted]);
+  }, [id, hash, mime, evicted, needsFacts]);
 
   useEffect(
     () => () => {
@@ -142,14 +158,21 @@ export function registerPdfThumbnailer(render: Thumbnailer): void {
   pdfThumbnailer = render;
 }
 
-async function makeImageThumb(
-  source: File,
-): Promise<{ blob: Blob; width: number; height: number } | null> {
+async function makeImageThumb(source: File): Promise<{
+  blob: Blob;
+  width: number;
+  height: number;
+  /** The original image's size, which is what the Inspector and insights mean. */
+  sourceWidth: number;
+  sourceHeight: number;
+} | null> {
   try {
     const bitmap = await createImageBitmap(source);
-    const scale = Math.min(1, THUMB_MAX / Math.max(bitmap.width, bitmap.height));
-    const width = Math.max(1, Math.round(bitmap.width * scale));
-    const height = Math.max(1, Math.round(bitmap.height * scale));
+    const sourceWidth = bitmap.width;
+    const sourceHeight = bitmap.height;
+    const scale = Math.min(1, THUMB_MAX / Math.max(sourceWidth, sourceHeight));
+    const width = Math.max(1, Math.round(sourceWidth * scale));
+    const height = Math.max(1, Math.round(sourceHeight * scale));
     const canvas = document.createElement("canvas");
     canvas.width = width;
     canvas.height = height;
@@ -158,9 +181,35 @@ async function makeImageThumb(
     const blob = await new Promise<Blob | null>((resolve) =>
       canvas.toBlob(resolve, "image/webp", 0.8),
     );
-    return blob ? { blob, width, height } : null;
+    return blob ? { blob, width, height, sourceWidth, sourceHeight } : null;
   } catch {
     return null;
+  }
+}
+
+/**
+ * Read an image's real dimensions and record them.
+ *
+ * Nothing populated image facts: `setFacts` was called from exactly one place,
+ * the PDF thumbnailer. Every image in every real workspace therefore had none,
+ * which quietly disabled the "much larger than any screen will show" insight and
+ * the "one picture, several sizes" discovery — both of which read
+ * `facts.kind === "image"`. They passed their tests because the fixtures set
+ * facts by hand; no imported file ever did.
+ *
+ * Used to backfill images whose thumbnail was cached before this existed.
+ */
+async function recordImageFacts(id: string): Promise<void> {
+  const source = await workspace.peekFile(id);
+  if (!source) return;
+  try {
+    const bitmap = await createImageBitmap(source);
+    const facts = { kind: "image" as const, width: bitmap.width, height: bitmap.height };
+    bitmap.close();
+    await workspace.setFacts(id, facts);
+  } catch {
+    // Not a decodable image after all — a mislabelled or truncated file. The
+    // workspace keeps it; it simply has nothing type-specific to say about it.
   }
 }
 

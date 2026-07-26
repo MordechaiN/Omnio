@@ -331,6 +331,42 @@ test.describe("file workspace", () => {
     await expect(inspector.getByRole("heading", { name: "Details" })).toBeVisible();
   });
 
+  /**
+   * Facts have to come from a real import, not a fixture.
+   *
+   * `setFacts` was called from exactly one place — the PDF thumbnailer — so no
+   * imported image ever carried its dimensions. The Inspector's Dimensions row
+   * never appeared, and two features that read `facts.kind === "image"` (the
+   * "much larger than any screen will show" insight, and the "one picture,
+   * several sizes" discovery) could not fire at all. Their unit tests passed
+   * throughout, because those fixtures set facts by hand.
+   *
+   * This test exists at this level for that reason: nothing below the browser
+   * can catch it.
+   */
+  test("an imported image knows its own dimensions", async ({ page }) => {
+    await gotoFiles(page);
+    await page.evaluate(async () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = 1600;
+      canvas.height = 900;
+      canvas.getContext("2d")!.fillRect(0, 0, 1600, 900);
+      const blob = await new Promise<Blob | null>((r) => canvas.toBlob(r, "image/png"));
+      const dt = new DataTransfer();
+      dt.items.add(new File([blob!], "measured.png", { type: "image/png" }));
+      window.dispatchEvent(
+        Object.assign(new Event("drop", { bubbles: true, cancelable: true }), { dataTransfer: dt }),
+      );
+    });
+    await expect(page.getByRole("dialog")).toBeVisible();
+    await page.keyboard.press("Escape");
+
+    await tile(page, "measured.png").click();
+    const details = page.getByRole("complementary", { name: "File details" });
+    // The source size, not the thumbnail's.
+    await expect(details.getByText("1600 × 900")).toBeVisible();
+  });
+
   test("images and PDFs both get real thumbnails, not placeholder icons", async ({ page }) => {
     await gotoFiles(page);
 
