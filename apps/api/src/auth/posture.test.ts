@@ -5,11 +5,11 @@ import { assertAuthPosture } from "./posture";
 function env(overrides: Partial<Env>): Env {
   return {
     NODE_ENV: "development",
-    OMNIO_API_PORT: 4000,
+    OMNIO_API_PORT: 7410,
     OMNIO_API_HOST: "0.0.0.0",
     OMNIO_DATABASE_URL: "postgresql://localhost/omnio",
-    OMNIO_REDIS_URL: "redis://localhost:6379",
-    OMNIO_WORKER_HEALTH_URL: "http://worker:4100",
+    OMNIO_REDIS_URL: "redis://localhost:7479",
+    OMNIO_WORKER_HEALTH_URL: "http://worker:7420",
     OMNIO_MODE: "multi-user",
     OMNIO_SESSION_SECRET: "x".repeat(32),
     OMNIO_AUTH_ALLOW_INSECURE: false,

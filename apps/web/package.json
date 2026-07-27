@@ -6,9 +6,9 @@
   "description": "Omnio web app — the Next.js shell: navigation, command palette, theming, i18n.",
   "scripts": {
     "vendor:assets": "node scripts/vendor-tesseract.mjs",
-    "dev": "node scripts/vendor-tesseract.mjs && next dev --port 3000",
+    "dev": "node scripts/vendor-tesseract.mjs && next dev --port 7400",
     "build": "node scripts/vendor-tesseract.mjs && next build",
-    "start": "next start --port 3000",
+    "start": "next start --port 7400",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "test": "vitest run",

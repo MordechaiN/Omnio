@@ -10,13 +10,13 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
   use: {
-    baseURL: "http://localhost:3000",
+    baseURL: "http://localhost:7400",
     trace: "on-first-retry",
     ...(chromiumPath ? { launchOptions: { executablePath: chromiumPath } } : {}),
   },
   webServer: {
     command: "pnpm start",
-    url: "http://localhost:3000",
+    url: "http://localhost:7400",
     reuseExistingServer: !process.env.CI,
     timeout: 60_000,
   },

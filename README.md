@@ -167,10 +167,14 @@ Omnio is free and open source.
 ```bash
 git clone https://github.com/MordechaiN/Omnio.git
 cd Omnio
-docker compose up -d
+cp .env.example .env          # then set OMNIO_SESSION_SECRET
+docker compose -f docker/compose.yaml --env-file .env up -d --build
 ```
 
-Then open <http://localhost:3000>.
+Then open <http://localhost:7400>.
+
+Omnio runs on ports 7400–7449 and nothing else, so it won't take 3000 or 5432
+from anything else you have running. Set `WEB_PORT` in `.env` to move it.
 
 Developer setup, architecture and contribution notes live in [`docs/`](docs/)
 and [`CONTRIBUTING.md`](CONTRIBUTING.md).

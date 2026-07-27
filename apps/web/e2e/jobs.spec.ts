@@ -2,7 +2,7 @@ import AxeBuilder from "@axe-core/playwright";
 import { expect, mockJson, test } from "./fixtures";
 
 const CORS = {
-  "access-control-allow-origin": "http://localhost:3000",
+  "access-control-allow-origin": "http://localhost:7400",
   "access-control-allow-credentials": "true",
 };
 

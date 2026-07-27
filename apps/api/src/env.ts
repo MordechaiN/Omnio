@@ -18,19 +18,39 @@ const PUBLIC_SESSION_SECRETS = new Set([
   "change-me-to-a-long-random-secret-value",
 ]);
 
+/**
+ * The dev stores from `docker/compose.dev.yaml`, on Omnio's own ports
+ * (docs/ports.md). They are defaults so that `pnpm dev` runs straight after
+ * `docker compose -f docker/compose.dev.yaml up -d`, with nothing to copy or
+ * export first — which is what CONTRIBUTING.md promises.
+ *
+ * Refused in production, where a silent fallback to localhost would be a
+ * misconfiguration wearing a convenience costume: the process would start,
+ * connect to nothing, and look healthy until someone tried to use it.
+ */
+const DEV_DATABASE_URL = "postgresql://omnio:omnio@localhost:7432/omnio";
+const DEV_REDIS_URL = "redis://localhost:7479";
+
 const EnvSchema = z
   .object({
     NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
     /** Human-facing environment label for the About page / version endpoint
      * (e.g. "production", "staging"). Defaults to NODE_ENV when unset. */
     OMNIO_ENVIRONMENT: z.string().optional(),
-    OMNIO_API_PORT: z.coerce.number().int().min(1).max(65535).default(4000),
-    OMNIO_API_HOST: z.string().default("0.0.0.0"),
+    OMNIO_API_PORT: z.coerce.number().int().min(1).max(65535).default(7410),
+    /**
+     * Loopback by default. Personal mode has no login, so a process that binds
+     * every interface by accident is an authless api on the network — and the
+     * posture check rightly refuses to start, which also made `pnpm dev` fail
+     * out of the box. Containers that need every interface say so explicitly
+     * (docker/compose.yaml), where the surrounding network is the real boundary.
+     */
+    OMNIO_API_HOST: z.string().default("127.0.0.1"),
 
-    OMNIO_DATABASE_URL: z.string().url(),
-    OMNIO_REDIS_URL: z.string().url(),
+    OMNIO_DATABASE_URL: z.string().url().default(DEV_DATABASE_URL),
+    OMNIO_REDIS_URL: z.string().url().default(DEV_REDIS_URL),
     /** Worker health base URL for the /api/health service check (internal). */
-    OMNIO_WORKER_HEALTH_URL: z.string().url().default("http://worker:4100"),
+    OMNIO_WORKER_HEALTH_URL: z.string().url().default("http://worker:7420"),
 
     /** Deployment mode (decision D2, reversed 2026-07-18): "personal" is a
      * single implicit local user with no login; "multi-user" is the original
@@ -84,6 +104,20 @@ const EnvSchema = z
         message:
           "must be set to a unique strong secret in production (repo defaults and placeholders are refused).",
       });
+    }
+    if (env.NODE_ENV === "production") {
+      for (const [key, devValue] of [
+        ["OMNIO_DATABASE_URL", DEV_DATABASE_URL],
+        ["OMNIO_REDIS_URL", DEV_REDIS_URL],
+      ] as const) {
+        if (env[key] === devValue) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            path: [key],
+            message: "must be set in production (the local development default is refused).",
+          });
+        }
+      }
     }
   });
 

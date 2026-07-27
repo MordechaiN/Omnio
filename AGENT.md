@@ -198,6 +198,27 @@ Therefore:
 
 Adding a heuristic outside this engine is a defect, however small it looks.
 
+### Omnio owns ports 7400–7449 and uses nothing else
+
+Every port Omnio binds comes from that range: web `7400`, api `7410`, worker
+health `7420`, and in dev postgres `7432`, redis `7479`. Full table and
+reasoning: `docs/ports.md`.
+
+The popular defaults are shared property. Taking 3000 or 5432 means a developer
+cannot run Omnio and their other project at the same time without editing config
+first — a permanent cost to everyone, to save a few characters once.
+
+Therefore:
+
+- A new service takes the next free number in the range. Never a familiar
+  default, and never something inside the ephemeral range (32768–60999), where
+  the kernel may have handed the port out already.
+- One number per role, everywhere: dev command, container, health check,
+  Dockerfile, docs. A deployment may republish on a different *host* port via
+  `WEB_PORT`/`API_PORT`; the port inside the container is fixed so the two can
+  never disagree.
+- `scripts/check-ports.sh` must stay in step with `docs/ports.md`.
+
 ---
 
 ## Decision Making

@@ -7,6 +7,10 @@
 # Quick start: cp .env.example .env, edit it, then:
 #   docker compose -f docker/compose.yaml --env-file .env up -d --build
 #
+# Ports: Omnio owns 7400-7449 and publishes nothing outside it (docs/ports.md).
+# Set WEB_PORT / API_PORT to publish elsewhere; the ports inside the containers
+# are fixed, so a deployment override can never desync from a health check.
+#
 # Architecture: docs/architecture/01-system-overview.md
 # Security model (worker sandbox, internal-only data stores): docs/architecture/06-security.md
 
@@ -63,7 +67,7 @@ services:
         condition: service_healthy
     environment:
       NODE_ENV: production
-      OMNIO_API_PORT: "4000"
+      OMNIO_API_PORT: "7410"
       OMNIO_API_HOST: "0.0.0.0"
       OMNIO_DATABASE_URL: postgresql://omnio:${POSTGRES_PASSWORD:-omnio}@postgres:5432/omnio
       OMNIO_REDIS_URL: redis://redis:6379
@@ -85,13 +89,13 @@ services:
     volumes:
       - storage-data:/data
     healthcheck:
-      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4000/readyz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:7410/readyz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
       interval: 10s
       timeout: 5s
       retries: 10
       start_period: 20s
     ports:
-      - "${API_PORT:-4000}:4000"
+      - "${API_PORT:-7410}:7410"
     networks: [internal, edge]
     security_opt: ["no-new-privileges:true"]
     cap_drop: ["ALL"]
@@ -118,12 +122,12 @@ services:
       OMNIO_STORAGE_ROOT: /data
       OMNIO_SCRATCH_TTL_HOURS: ${OMNIO_SCRATCH_TTL_HOURS:-24}
       OMNIO_WORKER_CONCURRENCY: ${OMNIO_WORKER_CONCURRENCY:-4}
-      OMNIO_WORKER_HEALTH_PORT: "4100"
+      OMNIO_WORKER_HEALTH_PORT: "7420"
       OMNIO_LOG_LEVEL: ${OMNIO_LOG_LEVEL:-info}
     volumes:
       - storage-data:/data
     healthcheck:
-      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4100/readyz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:7420/readyz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -158,13 +162,13 @@ services:
     environment:
       NODE_ENV: production
     healthcheck:
-      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:7400/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
       interval: 10s
       timeout: 5s
       retries: 10
       start_period: 20s
     ports:
-      - "${WEB_PORT:-3000}:3000"
+      - "${WEB_PORT:-7400}:7400"
     networks: [edge]
     security_opt: ["no-new-privileges:true"]
     cap_drop: ["ALL"]

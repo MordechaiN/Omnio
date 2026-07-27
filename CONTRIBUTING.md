@@ -16,9 +16,18 @@ Thanks for wanting to build this with us. Omnio is designed so that contributing
 # prerequisites: Node 22+, pnpm 10+, Docker
 git clone https://github.com/MordechaiN/Omnio.git && cd Omnio
 pnpm install
-docker compose -f docker/compose.dev.yaml up -d   # postgres + redis
-pnpm dev                                          # web :3000 · api :4000 · worker :4100
+docker compose -f docker/compose.dev.yaml up -d   # postgres :7432 · redis :7479
+pnpm dev                                          # web :7400 · api :7410 · worker :7420
 ```
+
+Those four lines are the whole setup — there is no `.env` to copy first. The api
+and worker default to the dev stores above, and refuse those same defaults in
+production so the convenience can never become a misconfiguration. Copy
+`.env.example` only when you want to change something.
+
+Omnio owns ports **7400–7449** and uses nothing outside them, so it never takes
+3000, 5432 or 6379 from another project on your machine. `scripts/check-ports.sh`
+tells you if something else already holds one. See [docs/ports.md](docs/ports.md).
 
 Verify your environment: `pnpm build && pnpm lint && pnpm typecheck && pnpm test`.
 

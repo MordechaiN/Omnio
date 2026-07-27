@@ -1,5 +1,10 @@
 # Development data stores. The apps themselves run on the host with hot
 # reload (`pnpm dev`); only postgres and redis are containerized in dev.
+#
+# Host ports come from Omnio's own range (docs/ports.md): 7432 and 7479 rather
+# than 5432 and 6379, so a second project's database can run at the same time
+# without either side editing config. The containers still listen on the images'
+# conventional ports internally — only the published port has to be unique.
 # The production stack (web/api/worker images, internal networks, hardened
 # worker) ships with milestone M9 — docs/architecture/07-roadmap.md.
 
@@ -13,7 +18,7 @@ services:
       POSTGRES_PASSWORD: omnio
       POSTGRES_DB: omnio
     ports:
-      - "127.0.0.1:5432:5432"
+      - "127.0.0.1:7432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
     healthcheck:
@@ -26,7 +31,7 @@ services:
     image: redis:7-alpine
     command: ["redis-server", "--appendonly", "yes"]
     ports:
-      - "127.0.0.1:6379:6379"
+      - "127.0.0.1:7479:6379"
     volumes:
       - redis-data:/data
     healthcheck:

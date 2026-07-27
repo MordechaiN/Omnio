@@ -2,7 +2,7 @@ import { apiContract } from "@omnio/contracts";
 import { initClient } from "@ts-rest/core";
 
 /** Base URL of the API. Shared by the typed client and the raw binary routes. */
-export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:7410";
 
 /**
  * The typed API client — one source of truth shared with the backend via

@@ -26,10 +26,10 @@ check() {
   fi
 }
 
-check "api /healthz"    "docker compose -f '$COMPOSE_FILE' exec -T api node -e \"fetch('http://127.0.0.1:4000/healthz').then(r=>process.exit(r.ok?0:1))\""
-check "api /readyz"     "docker compose -f '$COMPOSE_FILE' exec -T api node -e \"fetch('http://127.0.0.1:4000/readyz').then(r=>process.exit(r.ok?0:1))\""
-check "worker /readyz"  "docker compose -f '$COMPOSE_FILE' exec -T worker node -e \"fetch('http://127.0.0.1:4100/readyz').then(r=>process.exit(r.ok?0:1))\""
-check "web /"            "docker compose -f '$COMPOSE_FILE' exec -T web node -e \"fetch('http://127.0.0.1:3000/').then(r=>process.exit(r.ok?0:1))\""
+check "api /healthz"    "docker compose -f '$COMPOSE_FILE' exec -T api node -e \"fetch('http://127.0.0.1:7410/healthz').then(r=>process.exit(r.ok?0:1))\""
+check "api /readyz"     "docker compose -f '$COMPOSE_FILE' exec -T api node -e \"fetch('http://127.0.0.1:7410/readyz').then(r=>process.exit(r.ok?0:1))\""
+check "worker /readyz"  "docker compose -f '$COMPOSE_FILE' exec -T worker node -e \"fetch('http://127.0.0.1:7420/readyz').then(r=>process.exit(r.ok?0:1))\""
+check "web /"            "docker compose -f '$COMPOSE_FILE' exec -T web node -e \"fetch('http://127.0.0.1:7400/').then(r=>process.exit(r.ok?0:1))\""
 check "postgres"        "docker compose -f '$COMPOSE_FILE' exec -T postgres pg_isready -U omnio -d omnio"
 check "redis"           "docker compose -f '$COMPOSE_FILE' exec -T redis redis-cli ping"
 

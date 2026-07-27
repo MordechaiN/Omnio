@@ -30,7 +30,7 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
  */
 const API_ORIGIN = (() => {
   try {
-    return new URL(process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000").origin;
+    return new URL(process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:7410").origin;
   } catch {
     return "";
   }
@@ -100,7 +100,7 @@ const nextConfig: NextConfig = {
   // Next.js resolves rewrites() at build time, not per-request, so this can't read
   // a runtime env var — "api" is the fixed compose service name regardless of env.
   async rewrites() {
-    return [{ source: "/api/:path*", destination: "http://api:4000/api/:path*" }];
+    return [{ source: "/api/:path*", destination: "http://api:7410/api/:path*" }];
   },
   // Linting is a first-class turbo task with the shared config;
   // next build must not run a second, differently-configured pass.

@@ -2,7 +2,7 @@ import { test as base, expect, type Page } from "@playwright/test";
 
 const CORS = {
   "content-type": "application/json",
-  "access-control-allow-origin": "http://localhost:3000",
+  "access-control-allow-origin": "http://localhost:7400",
   "access-control-allow-credentials": "true",
 };
 

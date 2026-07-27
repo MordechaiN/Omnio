@@ -44,5 +44,5 @@ RUN addgroup -S omnio && adduser -S omnio -G omnio
 COPY --from=build --chown=omnio:omnio /app /app
 USER omnio
 ENV NODE_ENV=production
-EXPOSE 4100
+EXPOSE 7420
 CMD ["node", "apps/worker/dist/main.js"]

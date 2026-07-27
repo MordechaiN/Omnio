@@ -15,7 +15,7 @@ RUN corepack enable && corepack prepare pnpm@10.33.0 --activate \
 FROM deps AS build
 # Inlined into the client bundle at build time (Next.js NEXT_PUBLIC_* convention) —
 # the image must be (re)built if the public API origin changes.
-ARG NEXT_PUBLIC_API_URL=http://localhost:4000
+ARG NEXT_PUBLIC_API_URL=http://localhost:7410
 ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
 # Build & release metadata — supplied by the release tooling, never hand-edited
 # (docs/architecture/09-releases.md). NEXT_PUBLIC_* so the footer/About page can
@@ -54,7 +54,7 @@ COPY --from=build /app/apps/web/public ./apps/web/public
 RUN chown -R omnio:omnio /app
 USER omnio
 ENV NODE_ENV=production
-ENV PORT=3000
+ENV PORT=7400
 ENV HOSTNAME=0.0.0.0
-EXPOSE 3000
+EXPOSE 7400
 CMD ["node", "apps/web/server.js"]
