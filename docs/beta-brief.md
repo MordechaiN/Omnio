@@ -97,12 +97,11 @@ These are not bugs. I would rather you heard them from me first.
   clear your browsing data, they are gone and I cannot get them back. There is an
   export — that file is the only real backup. **Please do not let Omnio hold the
   only copy of anything that matters yet.**
-- **Two tools out of a hundred-odd do leave your machine**, and both say so on
-  their own page before you use them. Turning Word, Excel or PowerPoint files
-  into PDFs is too heavy for a browser, so it runs on the Omnio server — if you
-  are using my instance, that means my server. A small "Uppercase" tool left
-  over from early development does the same. Everything else runs where you are.
-  If you are watching the network panel, those two are what you will see.
+- **One tool out of a hundred-odd does leave your machine**, and it says so on
+  its own page before you use it: turning Word, Excel or PowerPoint files into
+  PDFs is too heavy for a browser, so it runs on the Omnio server — if you are
+  using my instance, that means my server. Everything else runs where you are.
+  If you are watching the network panel, that one is what you will see.
 - **Archiving a file removes its contents permanently.** The record stays, the
   contents do not.
 - **When Omnio offers to rebuild a stale export, it prepares the job but does not

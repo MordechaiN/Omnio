@@ -8,7 +8,6 @@
     "copy": "Copy",
     "download": "Download",
     "loading": "Loading…",
-    "comingSoon": "Coming soon",
     "onDevice": "Runs on your device",
     "notOnDevice": "Uploads to run",
     "addFavorite": "Add to favorites",
@@ -221,7 +220,6 @@
     "settings": "Settings",
     "about": "About",
     "changelog": "What's New",
-    "modules": "Modules",
     "stats": "Stats"
   },
   "palette": {
@@ -645,16 +643,6 @@
     "duplicateStep": "Duplicate step",
     "learnedHint": "Omnio saved these from work you repeated. They're offered when you open a file they fit.",
     "forget": "Forget {name}"
-  },
-  "modules": {
-    "title": "Modules",
-    "subtitle": "Every tool in Omnio ships inside a module — a self-contained package with its own tools, translations, and tests. This is the foundation the future ecosystem builds on.",
-    "builtinTitle": "Built-in modules",
-    "count": "{count} modules",
-    "toolCount": "{count, plural, one {# tool} other {# tools}}",
-    "statusActive": "Active",
-    "communityTitle": "Community modules",
-    "communityBody": "Coming later: install modules built by others, from an open catalog — with the same on-device privacy rules as everything built in."
   },
   "discoveries": {
     "title": "Omnio noticed",

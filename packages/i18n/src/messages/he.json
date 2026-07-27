@@ -8,7 +8,6 @@
     "copy": "העתקה",
     "download": "הורדה",
     "loading": "טוען…",
-    "comingSoon": "בקרוב",
     "onDevice": "פועל על המכשיר שלך",
     "notOnDevice": "דורש העלאה",
     "addFavorite": "הוספה למועדפים",
@@ -221,7 +220,6 @@
     "settings": "הגדרות",
     "about": "אודות",
     "changelog": "מה חדש",
-    "modules": "מודולים",
     "stats": "סטטיסטיקות"
   },
   "palette": {
@@ -645,16 +643,6 @@
     "duplicateStep": "שכפול שלב",
     "learnedHint": "‏Omnio שמר את אלה מעבודה שחזרתם עליה. הם מוצעים כשפותחים קובץ שמתאים להם.",
     "forget": "שכח את {name}"
-  },
-  "modules": {
-    "title": "מודולים",
-    "subtitle": "כל כלי ב-Omnio מגיע בתוך מודול — חבילה עצמאית עם כלים, תרגומים ובדיקות משלה. זהו הבסיס שעליו ייבנה המערך העתידי.",
-    "builtinTitle": "מודולים מובנים",
-    "count": "{count} מודולים",
-    "toolCount": "{count, plural, one {כלי אחד} other {# כלים}}",
-    "statusActive": "פעיל",
-    "communityTitle": "מודולים קהילתיים",
-    "communityBody": "בהמשך: התקנת מודולים שנבנו על ידי אחרים, מקטלוג פתוח — עם אותם כללי פרטיות במכשיר כמו כל מה שמובנה."
   },
   "discoveries": {
     "title": "Omnio שם לב",

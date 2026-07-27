@@ -6,7 +6,11 @@ const CORS = {
   "access-control-allow-credentials": "true",
 };
 
-const FILE = { name: "notes.txt", mimeType: "text/plain", buffer: Buffer.from("hello omnio") };
+const FILE = {
+  name: "notes.docx",
+  mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  buffer: Buffer.from("hello omnio"),
+};
 
 function uploadedFile(id: string) {
   return {
@@ -23,8 +27,8 @@ function uploadedFile(id: string) {
 function job(overrides: Record<string, unknown>) {
   return {
     id: "job1",
-    moduleId: "case",
-    toolId: "uppercase",
+    moduleId: "officekit",
+    toolId: "office-to-pdf",
     status: "queued",
     progress: 0,
     error: null,
@@ -58,7 +62,7 @@ test.describe("job runtime", () => {
       }),
     );
 
-    await page.goto("/tool/case/uppercase");
+    await page.goto("/tool/officekit/office-to-pdf");
     await page.locator('input[type="file"]').setInputFiles(FILE);
 
     // The tray opens itself and the run resolves to a download.
@@ -83,7 +87,7 @@ test.describe("job runtime", () => {
       }),
     );
 
-    await page.goto("/tool/case/uppercase");
+    await page.goto("/tool/officekit/office-to-pdf");
     await page.locator('input[type="file"]').setInputFiles(FILE);
 
     await expect(page.getByText("That file type isn't supported.")).toBeVisible();

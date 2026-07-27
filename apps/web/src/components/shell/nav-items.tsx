@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { cn, Icon } from "@omnio/ui";
-import { BarChart3, Blocks, Home, Info, FolderOpen, Library, ScrollText, Settings, Star } from "lucide-react";
+import { BarChart3, Home, Info, FolderOpen, Library, ScrollText, Settings, Star } from "lucide-react";
 import { DynamicIcon, type IconName } from "lucide-react/dynamic";
 import { Link, usePathname } from "@/i18n/navigation";
 import { CATEGORY_ICONS } from "@/lib/category-icons";
@@ -98,12 +98,6 @@ export function NavItems({ onNavigate }: { onNavigate?: () => void }) {
           href="/changelog"
           icon={ScrollText}
           label={t("nav.changelog")}
-          onNavigate={onNavigate}
-        />
-        <NavLink
-          href="/modules"
-          icon={Blocks}
-          label={t("nav.modules")}
           onNavigate={onNavigate}
         />
         <NavLink href="/about" icon={Info} label={t("nav.about")} onNavigate={onNavigate} />

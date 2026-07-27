@@ -29,16 +29,16 @@ test.describe("stats", () => {
       enabled: true,
       totalEvents: 12,
       byTool: [
-        { toolId: "case.uppercase", count: 7 },
+        { toolId: "officekit.office-to-pdf", count: 7 },
         { toolId: "base64.base64", count: 5 },
       ],
-      trending: [{ toolId: "case.uppercase", count: 7 }],
+      trending: [{ toolId: "officekit.office-to-pdf", count: 7 }],
     });
 
     await page.goto("/stats");
 
     await expect(page.getByText("Most used tools")).toBeVisible();
-    await expect(page.getByText(/Uppercase/i).first()).toBeVisible();
+    await expect(page.getByText(/Office/i).first()).toBeVisible();
     await expect(page.getByText("Trending this week")).toBeVisible();
     // Aggregate totals only, never a per-run breakdown.
     await expect(page.getByRole("link", { name: /^Download$/i })).toHaveCount(0);

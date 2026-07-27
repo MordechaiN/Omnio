@@ -1,7 +1,0 @@
-{
-  "extends": "@omnio/config/tsconfig/react-library.json",
-  "compilerOptions": {
-    "types": ["node"]
-  },
-  "include": ["frontend", "worker", "shared"]
-}

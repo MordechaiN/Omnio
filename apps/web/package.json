@@ -34,7 +34,6 @@
     "react-dom": "^19.1.0",
     "@omnio/mod-audiokit": "workspace:*",
     "@omnio/mod-base64": "workspace:*",
-    "@omnio/mod-case": "workspace:*",
     "@omnio/mod-casekit": "workspace:*",
     "@omnio/mod-chmod": "workspace:*",
     "@omnio/mod-colorkit": "workspace:*",
