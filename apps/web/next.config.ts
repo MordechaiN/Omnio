@@ -9,6 +9,51 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
  * `frame-ancestors 'none'` blocks clickjacking without touching resource loading;
  * the full nonce-based script CSP is tracked as web-shell debt (docs/TECH_DEBT.md).
  */
+/**
+ * Content-Security-Policy.
+ *
+ * Omnio holds people's contracts and passport scans in OPFS on this origin, so
+ * script running here can read all of it. The policy previously said only
+ * `frame-ancestors 'none'` — clickjacking cover, and nothing about what may
+ * load or execute.
+ *
+ * `script-src` still carries `unsafe-inline` and `unsafe-eval`: Next's bootstrap
+ * is inline, and the on-device engines (tesseract, mupdf, pdf.js) are WebAssembly.
+ * Removing those needs the nonce work already tracked in docs/TECH_DEBT.md, and
+ * pretending otherwise would be theatre. What *is* new is everything around it —
+ * a default that denies, no plugins, no base-tag hijack, no cross-origin form
+ * post — each of which closes a real path without costing a feature.
+ *
+ * Allowances are deliberate, not generous: `blob:` because every preview,
+ * thumbnail and download is an object URL; `worker-src blob:` because pdf.js and
+ * tesseract run in workers; `frame-src` for the HTML preview's sandboxed iframe.
+ */
+const API_ORIGIN = (() => {
+  try {
+    return new URL(process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000").origin;
+  } catch {
+    return "";
+  }
+})();
+
+const CSP = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob:",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' blob: data:",
+  "media-src 'self' blob:",
+  "font-src 'self'",
+  "worker-src 'self' blob:",
+  "child-src 'self' blob:",
+  "frame-src 'self' blob:",
+  `connect-src 'self' blob: data:${API_ORIGIN ? ` ${API_ORIGIN}` : ""}`,
+  // Nothing here needs plugins, a rewritten base URL, or an off-site form post.
+  "object-src 'none'",
+  "base-uri 'none'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+].join("; ");
+
 const SECURITY_HEADERS = [
   { key: "X-Frame-Options", value: "DENY" },
   { key: "X-Content-Type-Options", value: "nosniff" },
@@ -17,7 +62,7 @@ const SECURITY_HEADERS = [
     key: "Permissions-Policy",
     value: "camera=(), microphone=(), geolocation=(), browsing-topics=()",
   },
-  { key: "Content-Security-Policy", value: "frame-ancestors 'none'" },
+  { key: "Content-Security-Policy", value: CSP },
   { key: "Strict-Transport-Security", value: "max-age=15552000; includeSubDomains" },
 ];
 

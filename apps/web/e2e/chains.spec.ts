@@ -68,6 +68,12 @@ async function performSequence(page: Page, name: string) {
 }
 
 test.describe("chains", () => {
+  // Each of these drives real tools through real conversions and downloads.
+  // That is genuinely slower than a default timeout once the suite runs in
+  // parallel, and a test that fails on contention teaches people to ignore
+  // failures rather than read them.
+  test.slow();
+
   test("Omnio notices a sequence you performed and offers to repeat it", async ({ page }) => {
     await performSequence(page, "scan.pdf");
 

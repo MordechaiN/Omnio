@@ -172,6 +172,32 @@ Non-negotiable defaults for all code:
 
 Production quality is the floor, not the goal.
 
+### A file has exactly one understanding
+
+`packages/workspace/src/insights.ts` is the only place in Omnio that decides
+what a file *is*. Everything that needs to know something about a file — the
+drop panel, the Inspector, Discoveries, Quick Look, search, any tool surface —
+asks that engine. Screens present the understanding; they never compute it.
+
+This is not a style preference. Omnio previously kept a second set of
+heuristics for the drop panel, and the two disagreed: the same photo was
+"large, compress it" on one screen and unremarkable on another, while
+screenshots and scans were invisible to one side and oversized PDFs invisible
+to the other. Every such split is a future bug that no test will catch, because
+each half passes its own tests.
+
+Therefore:
+
+- A new capability that needs a fact about a file **extends the engine**. It
+  does not read the bytes again on its own.
+- A new fact about a file belongs in `FileFacts`, in the workspace's
+  vocabulary, whatever discovered it.
+- Two parts of Omnio must never learn the same fact independently.
+- If a surface needs to say something the engine cannot express, the fix is to
+  teach the engine, not to add a special case beside it.
+
+Adding a heuristic outside this engine is a defect, however small it looks.
+
 ---
 
 ## Decision Making

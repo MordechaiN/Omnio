@@ -41,6 +41,8 @@ export interface FileFacts {
   textPreview?: string;
   /** JSON parsed successfully. */
   jsonValid?: boolean;
+  /** Total uncompressed size declared by an archive — read without inflating it. */
+  expandsToBytes?: number;
 }
 
 export interface FileIntel {
@@ -294,12 +296,36 @@ export async function inspectFile(file: File): Promise<FileIntel> {
     } else if (kind === "zip") {
       const { unzip } = await import("fflate");
       const data = new Uint8Array(await file.arrayBuffer());
-      const unzipped = await new Promise<Record<string, Uint8Array>>((resolve, reject) =>
-        unzip(data, (error, result) => (error ? reject(error) : resolve(result))),
+      /*
+       * Read the names without inflating a single byte.
+       *
+       * This used to decompress the entire archive into memory purely to list
+       * up to eight filenames — on drop, before the person had chosen anything.
+       * A small archive that expands to tens of gigabytes would take the tab
+       * down, and dragging a file in is the least trusted path in the product.
+       *
+       * fflate's filter runs per entry with its metadata and decides whether to
+       * extract; returning false means nothing is ever inflated. The names are
+       * collected into an array rather than read back off an object, so archive
+       * contents never become object keys either.
+       */
+      const names: string[] = [];
+      let expandsTo = 0;
+      await new Promise<void>((resolve, reject) =>
+        unzip(
+          data,
+          {
+            filter: (entry) => {
+              expandsTo += entry.originalSize;
+              if (!entry.name.endsWith("/") && names.length < 8) names.push(entry.name);
+              return false;
+            },
+          },
+          (error) => (error ? reject(error) : resolve()),
+        ),
       );
-      facts.entries = Object.keys(unzipped)
-        .filter((name) => !name.endsWith("/"))
-        .slice(0, 8);
+      facts.entries = names;
+      facts.expandsToBytes = expandsTo;
     } else if (kind === "audio") {
       previewUrl = URL.createObjectURL(file);
       facts.duration = await new Promise<number | undefined>((resolve) => {

@@ -9,6 +9,20 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ## [Unreleased]
 
+## [0.14.9-alpha] - 2026-07-27
+
+Hardened against files that were built to break it.
+
+### 🐛 Fixed
+
+- **Decompression bombs.** A small archive crafted to expand to many gigabytes could exhaust the tab the moment it was dragged in — Omnio unpacked every archive just to list its contents. It now reads the listing without inflating a single byte. The same protection covers importing a workspace someone sent you.
+
+### ✨ Improved
+
+- **A real Content-Security-Policy.** Previously one directive; now `default-src 'self'`, no plugins, no base-tag hijack, no off-site form posts, with explicit allowances for on-device OCR, PDF rendering and previews. Verified across every surface: nothing broken.
+
+See `docs/security-audit-2026-07.md` for the full audit, including risks knowingly accepted.
+
 ## [0.14.8-alpha] - 2026-07-26
 
 Every screen now says the same thing about the same file.

@@ -184,11 +184,47 @@ export async function exportWorkspaceZip(id: string): Promise<boolean> {
   return true;
 }
 
+/**
+ * Ceiling on how far an imported workspace may expand.
+ *
+ * Not a policy about how much someone may keep — the workspace itself is
+ * unbounded. This is only the point past which an archive is evidently a
+ * decompression bomb rather than a set of documents.
+ */
+const MAX_WORKSPACE_EXPANSION_BYTES = 2 * 1024 * 1024 * 1024;
+
 /** Import a workspace ZIP produced by exportWorkspaceZip. */
 export async function importWorkspaceZip(file: File): Promise<boolean> {
   try {
     const { unzip } = await import("fflate");
     const data = new Uint8Array(await file.arrayBuffer());
+
+    /*
+     * Ask how far it expands before expanding it.
+     *
+     * A workspace archive is something you were sent, so it is as untrusted as
+     * anything else that arrives from outside. Inflating it to find out how big
+     * it is means a small file can exhaust the tab's memory before anything can
+     * object. The filter runs over the central directory and inflates nothing,
+     * so this costs a pass over metadata and closes the whole class.
+     */
+    let expandsTo = 0;
+    await new Promise<void>((resolve, reject) =>
+      unzip(
+        data,
+        {
+          filter: (entry) => {
+            expandsTo += entry.originalSize;
+            return false;
+          },
+        },
+        (error) => (error ? reject(error) : resolve()),
+      ),
+    );
+    // Generous: a real workspace of documents sits far below this, and refusing
+    // is only correct when the number is plainly not a workspace.
+    if (expandsTo > MAX_WORKSPACE_EXPANSION_BYTES) return false;
+
     const entries = await new Promise<Record<string, Uint8Array>>((resolve, reject) =>
       unzip(data, (error, result) => (error ? reject(error) : resolve(result))),
     );
