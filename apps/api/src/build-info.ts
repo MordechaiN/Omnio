@@ -43,6 +43,11 @@ export function channelOf(version: string): ReleaseChannel {
   if (pre.startsWith("alpha")) return "alpha";
   if (pre.startsWith("beta")) return "beta";
   if (pre.startsWith("rc")) return "rc";
+  // A build with no release metadata (someone cloned the repo and built it) has
+  // no prerelease tag, and used to fall through to "stable" — an unreleased
+  // product announcing itself as stable. It is at most as finished as the
+  // release it was built from.
+  if (pre.startsWith("source") || version.startsWith("0.0.0")) return "alpha";
   return "stable";
 }
 

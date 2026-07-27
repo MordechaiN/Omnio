@@ -167,7 +167,8 @@ Omnio is free and open source.
 ```bash
 git clone https://github.com/MordechaiN/Omnio.git
 cd Omnio
-cp .env.example .env          # then set OMNIO_SESSION_SECRET
+cp .env.example .env
+echo "OMNIO_SESSION_SECRET=$(openssl rand -hex 32)" >> .env
 docker compose -f docker/compose.yaml --env-file .env up -d --build
 ```
 

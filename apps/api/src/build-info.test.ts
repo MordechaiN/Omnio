@@ -25,6 +25,14 @@ describe("channelOf", () => {
     expect(channelOf("0.1.0")).toBe("stable");
     expect(channelOf("1.2.3")).toBe("stable");
   });
+
+  it("never calls a build without release metadata stable", () => {
+    // Someone who clones the repository and builds it gets 0.0.0-source. That
+    // build is at most as finished as the release it came from — announcing it
+    // as "stable" would be the product lying about itself on the About page.
+    expect(channelOf("0.0.0-source")).toBe("alpha");
+    expect(channelOf("0.0.0")).toBe("alpha");
+  });
 });
 
 describe("readManifest", () => {

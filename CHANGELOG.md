@@ -9,6 +9,12 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ## [Unreleased]
 
+### 🐞 Fixed
+
+- **Installing Omnio from the instructions now works.** The setup command could not run at all, and building from a downloaded copy was refused outright — so anyone following the README stopped in the first minute.
+- **A wrong or out-of-date address now gets a real answer** — in your language, with your files reassuringly still there and a way back — instead of a blank page.
+- **A copy you build yourself no longer calls itself finished.** It says plainly that it was built from source.
+
 ## [0.15.0-alpha] - 2026-07-27
 
 Omnio starts noticing your work — and finishing it.

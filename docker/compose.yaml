@@ -54,11 +54,11 @@ services:
       # the release tooling; safe zero-value defaults keep a plain `compose build`
       # working for local/dev without any release step.
       args:
-        OMNIO_VERSION: ${OMNIO_VERSION:-0.0.0-dev}
-        OMNIO_GIT_COMMIT: ${OMNIO_GIT_COMMIT:-unknown}
-        OMNIO_GIT_BRANCH: ${OMNIO_GIT_BRANCH:-unknown}
-        OMNIO_BUILD_DATE: ${OMNIO_BUILD_DATE:-unknown}
-        OMNIO_BUILD_NUMBER: ${OMNIO_BUILD_NUMBER:-unknown}
+        OMNIO_VERSION: ${OMNIO_VERSION:-0.0.0-source}
+        OMNIO_GIT_COMMIT: ${OMNIO_GIT_COMMIT:-source}
+        OMNIO_GIT_BRANCH: ${OMNIO_GIT_BRANCH:-source}
+        OMNIO_BUILD_DATE: ${OMNIO_BUILD_DATE:-source}
+        OMNIO_BUILD_NUMBER: ${OMNIO_BUILD_NUMBER:-source}
     restart: unless-stopped
     depends_on:
       postgres:
@@ -77,7 +77,9 @@ services:
       # is what actually lets the container boot without extra config. Set to
       # false if you switch OMNIO_MODE to multi-user and want the stricter posture.
       OMNIO_AUTH_ALLOW_INSECURE: ${OMNIO_AUTH_ALLOW_INSECURE:-true}
-      OMNIO_SESSION_SECRET: ${OMNIO_SESSION_SECRET:?OMNIO_SESSION_SECRET must be set — generate with: openssl rand -hex 32}
+      # Quoted: the message contains ": ", which YAML would otherwise read as a
+      # second mapping key and refuse to parse the whole file.
+      OMNIO_SESSION_SECRET: "${OMNIO_SESSION_SECRET:?set OMNIO_SESSION_SECRET first — generate one with `openssl rand -hex 32`}"
       OMNIO_SESSION_TTL_HOURS: ${OMNIO_SESSION_TTL_HOURS:-168}
       OMNIO_STORAGE_ROOT: /data
       OMNIO_MAX_UPLOAD_MB: ${OMNIO_MAX_UPLOAD_MB:-512}
@@ -150,11 +152,11 @@ services:
       dockerfile: docker/images/web.Dockerfile
       args:
         NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-}
-        OMNIO_VERSION: ${OMNIO_VERSION:-0.0.0-dev}
-        OMNIO_GIT_COMMIT: ${OMNIO_GIT_COMMIT:-unknown}
-        OMNIO_GIT_BRANCH: ${OMNIO_GIT_BRANCH:-unknown}
-        OMNIO_BUILD_DATE: ${OMNIO_BUILD_DATE:-unknown}
-        OMNIO_BUILD_NUMBER: ${OMNIO_BUILD_NUMBER:-unknown}
+        OMNIO_VERSION: ${OMNIO_VERSION:-0.0.0-source}
+        OMNIO_GIT_COMMIT: ${OMNIO_GIT_COMMIT:-source}
+        OMNIO_GIT_BRANCH: ${OMNIO_GIT_BRANCH:-source}
+        OMNIO_BUILD_DATE: ${OMNIO_BUILD_DATE:-source}
+        OMNIO_BUILD_NUMBER: ${OMNIO_BUILD_NUMBER:-source}
     restart: unless-stopped
     depends_on:
       api:

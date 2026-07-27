@@ -707,5 +707,19 @@
       "title": "You have done {steps} more than once",
       "reason": "The same sequence, {count, plural, one {# time} other {# times}}. Omnio can run it for you next time."
     }
+  },
+  "errors": {
+    "notFound": {
+      "label": "Page not found",
+      "title": "That page isn't here",
+      "body": "The link may be out of date, or the address slightly off. Nothing has happened to your files — they're still on this device.",
+      "action": "Go to Omnio"
+    },
+    "crash": {
+      "title": "This screen didn't load",
+      "body": "Your files are safe. They're stored on this device, and a screen that fails to draw can't touch them. Try this screen again, or go back to the start.",
+      "retry": "Try again",
+      "home": "Go to Omnio"
+    }
   }
 }
