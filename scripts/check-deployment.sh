@@ -47,9 +47,24 @@ fi
 if git merge-base --is-ancestor "$deployed_commit" HEAD 2>/dev/null; then
   behind=$(git rev-list --count "$deployed_commit"..HEAD 2>/dev/null)
   echo
-  echo "  The running instance is $behind commit(s) behind this checkout." >&2
-  echo "  Everything committed since $deployed_commit is reaching nobody:" >&2
-  git log --oneline "$deployed_commit"..HEAD 2>/dev/null | sed 's/^/    /' >&2
+  echo "  The running instance is $behind commit(s) behind this checkout:"
+  git log --oneline "$deployed_commit"..HEAD 2>/dev/null | sed 's/^/    /'
+
+  # Not every commit changes what a user meets. A release script or a document
+  # can sit undeployed forever and cost nobody anything, and a checker that
+  # treats that as an incident is a checker people learn to ignore — so only
+  # changes under apps/ or packages/ are reported as reaching nobody.
+  shipped=$(git diff --name-only "$deployed_commit"..HEAD -- apps packages 2>/dev/null | head -1)
+  if [[ -z "$shipped" ]]; then
+    echo
+    echo "  None of it touches apps/ or packages/, so nothing a user meets is"
+    echo "  missing from the running instance. Deploy when convenient."
+    exit 0
+  fi
+  echo
+  echo "  This changes what users meet and is reaching nobody:" >&2
+  git diff --name-only "$deployed_commit"..HEAD -- apps packages 2>/dev/null |
+    head -8 | sed 's/^/    /' >&2
 else
   echo
   echo "  The running instance is not an ancestor of this checkout — it was" >&2
