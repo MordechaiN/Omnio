@@ -5,15 +5,43 @@ import { apiClient } from "./client";
 type ToolTier = ToolEventInput["tier"];
 
 /**
- * Record that a tool ran. Fire-and-forget: the api silently drops the event
- * unless the instance operator has opted in to analytics (decision D5), so
- * this never needs to check a flag first, and a failure here is never
- * surfaced to the person using the tool — usage counting must not get in the
- * way of the tool itself.
+ * Whether this instance collects usage events at all, asked once per session.
+ *
+ * The event endpoint discards everything when the operator has not opted in, so
+ * for a long time the client sent regardless and let the server drop it. That is
+ * correct about *storage* and wrong about what a person can see: open the network
+ * panel with analytics off, and Omnio is posting the name of every tool you
+ * open — `pdfkit.pdf-redact` among them — to a server, while the Statistics page
+ * says "Usage analytics are off".
+ *
+ * Omnio asks people to verify rather than to trust. Anything that punishes
+ * someone for looking is a defect, however harmless the payload.
+ */
+let collecting: Promise<boolean> | null = null;
+
+function instanceCollectsUsage(): Promise<boolean> {
+  collecting ??= apiClient.analytics
+    .stats()
+    .then((res) => (res.status === 200 ? AnalyticsStatsSchema.parse(res.body).enabled : false))
+    .catch(() => false);
+  return collecting;
+}
+
+/**
+ * Record that a tool ran — only if this instance actually collects usage.
+ *
+ * One question per session, and none at all after the answer is no. A failure
+ * here is never surfaced to the person using the tool: usage counting must not
+ * get in the way of the tool itself.
  */
 export function recordToolEvent(toolId: string, tier: ToolTier = "browser"): void {
-  void apiClient.analytics
-    .record({ body: { toolId, tier, durationBucket: "lt100ms", success: true } })
+  void instanceCollectsUsage()
+    .then((enabled) => {
+      if (!enabled) return;
+      return apiClient.analytics.record({
+        body: { toolId, tier, durationBucket: "lt100ms", success: true },
+      });
+    })
     .catch(() => {
       // Analytics is best-effort; a logged-out session or offline api is fine.
     });

@@ -141,7 +141,7 @@
     "undoDelete": "{count, plural, one {Undo delete} other {Undo deleting # files}}",
     "duplicatesFound": "{groups, plural, one {# set of identical files} other {# sets of identical files}}",
     "emptyTitle": "No files yet",
-    "emptyBody": "Drop a file anywhere in Omnio and it will appear here, ready for any tool.",
+    "emptyBody": "Drop a file anywhere in Omnio and it will appear here, ready for any tool. Files are kept in this browser, on this device — not uploaded anywhere.",
     "noMatchesTitle": "Nothing matches",
     "noMatchesBody": "Try a different search, or clear the filters.",
     "unsupportedTitle": "Files can't be stored in this browser",
