@@ -89,12 +89,20 @@ docker compose -f docker/compose.yaml --env-file .env up -d --build
 
 Then, **against the running instance, not the files**:
 
-- `GET /api/version` reports the version, commit and build number you just built
-- What's New leads with that version
+```bash
+scripts/check-deployment.sh          # or: scripts/check-deployment.sh https://your-host
+```
+
+It compares the running instance's commit to this checkout and names every
+commit that is reaching nobody. Follow it by hand with:
+
+- What's New leads with the version you just built
 - the channel is not `stable` unless it genuinely is
 
 A deployed instance once served a 34-hour-old image while every file in the
-repository said otherwise. Files are not evidence; the running application is.
+repository said otherwise, and later kept serving a dead-end 404 for a day after
+the fix was merged. Both were found by accident. Files are not evidence; the
+running application is — which is why this is a script and not a good intention.
 
 ## 5. Sign-off
 
