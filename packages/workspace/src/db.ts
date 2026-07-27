@@ -37,7 +37,19 @@ export interface ThumbRecord {
 }
 
 export function isIndexedDbAvailable(): boolean {
-  return typeof indexedDB !== "undefined";
+  /*
+   * Reading the global can throw, not merely be undefined.
+   *
+   * Locked-down modes and enterprise policies make `indexedDB` a getter that
+   * raises SecurityError, so `typeof` was enough to take the workspace down
+   * with an uncaught error on load. Storage being refused is a state Omnio
+   * handles; finding out about it should not itself be a failure.
+   */
+  try {
+    return typeof indexedDB !== "undefined" && indexedDB !== null;
+  } catch {
+    return false;
+  }
 }
 
 let cached: Promise<IDBDatabase> | null = null;

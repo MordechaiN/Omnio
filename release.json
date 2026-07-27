@@ -1,10 +1,10 @@
 {
   "version": "0.15.0-alpha",
   "channel": "alpha",
-  "commit": "3d62ed9",
+  "commit": "9eb8698",
   "branch": "main",
-  "buildNumber": "45",
-  "buildTimestamp": "2026-07-27T07:22:17.962402Z",
+  "buildNumber": "125",
+  "buildTimestamp": "2026-07-27T07:53:28.436Z",
   "dockerImages": [
     "omnio-web:0.15.0-alpha",
     "omnio-api:0.15.0-alpha",

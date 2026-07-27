@@ -208,7 +208,9 @@
     "seenBeforeResult": "פתח את התוצאה של {tool}",
     "emptyChoose": "בחרו קבצים",
     "forgetSearch": "שכח את החיפוש השמור {name}",
-    "groupActions": "בצעו את זה עם כולם"
+    "groupActions": "בצעו את זה עם כולם",
+    "notKeptTitle": "הקובץ הזה לא נשמר",
+    "notKeptBody": "‏Omnio לא הצליח לכתוב לאחסון של המכשיר, ולכן הוא אינו בקבצים שלכם. הכלים עדיין עובדים עליו כרגע."
   },
   "nav": {
     "home": "בית",

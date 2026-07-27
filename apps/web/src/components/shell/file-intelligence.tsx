@@ -12,6 +12,7 @@ import {
   DialogHeader,
   DialogTitle,
   Spinner,
+  toast,
 } from "@omnio/ui";
 import { DynamicIcon, type IconName } from "lucide-react/dynamic";
 import { ChevronRight, FileQuestion, Files, RotateCcw, Sparkles } from "lucide-react";
@@ -144,7 +145,18 @@ export function FileIntelligence() {
     // stop a drop from working, so it is swallowed.
     if (record) {
       for (const file of incoming) {
-        void workspace.import(file).catch(() => undefined);
+        void workspace.import(file).catch(() => {
+          /*
+           * Say so. Swallowing this meant a drop looked like it worked while
+           * nothing was kept: with storage refused or the disk full, the panel
+           * opened, the tools ran, and Files still read "no files yet". Someone
+           * would believe a document was in Omnio when it never arrived.
+           *
+           * The drop itself still proceeds — the tools work on the file in hand
+           * regardless — so this reports the one thing that actually failed.
+           */
+          toast.error(t("files.notKeptTitle"), { description: t("files.notKeptBody") });
+        });
       }
     }
     if (incoming.length === 1) {
