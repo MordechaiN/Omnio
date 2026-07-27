@@ -4,11 +4,11 @@
   "tools": {
     "uppercase": {
       "name": "Uppercase",
-      "description": "Convert a text file to UPPERCASE in the sandboxed worker."
+      "description": "Turn a text file into UPPERCASE. This one runs on your Omnio server rather than on your device."
     }
   },
   "ui": {
     "title": "Uppercase",
-    "workerNote": "This tool runs in the worker. Upload and job progress arrive with the file surfaces in a later milestone."
+    "workerNote": "Choose a text file. It is sent to your Omnio server, converted there, and the result appears in Activity."
   }
 }
