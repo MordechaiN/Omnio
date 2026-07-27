@@ -64,6 +64,22 @@ const SECURITY_HEADERS = [
   },
   { key: "Content-Security-Policy", value: CSP },
   { key: "Strict-Transport-Security", value: "max-age=15552000; includeSubDomains" },
+  /*
+   * Cut this page off from other browsing contexts.
+   *
+   * COOP severs the opener relationship, so a page that launches Omnio keeps no
+   * handle on it; CORP stops another origin embedding Omnio's responses as a
+   * subresource. Both are cheap and both close real cross-window paths to an
+   * origin that holds people's contracts.
+   *
+   * COEP (`require-corp`) is deliberately absent. It exists to unlock
+   * SharedArrayBuffer, which nothing here needs, and it would reject every
+   * cross-origin subresource that lacks a CORP header — a real chance of
+   * breaking on-device engines in exchange for a guarantee Omnio is not asking
+   * for. Adding it would be theatre with a cost.
+   */
+  { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+  { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
 ];
 
 const nextConfig: NextConfig = {

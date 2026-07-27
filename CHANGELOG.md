@@ -9,150 +9,38 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ## [Unreleased]
 
-## [0.14.9-alpha] - 2026-07-27
+## [0.15.0-alpha] - 2026-07-27
 
-Hardened against files that were built to break it.
-
-### 🐛 Fixed
-
-- **Decompression bombs.** A small archive crafted to expand to many gigabytes could exhaust the tab the moment it was dragged in — Omnio unpacked every archive just to list its contents. It now reads the listing without inflating a single byte. The same protection covers importing a workspace someone sent you.
-
-### ✨ Improved
-
-- **A real Content-Security-Policy.** Previously one directive; now `default-src 'self'`, no plugins, no base-tag hijack, no off-site form posts, with explicit allowances for on-device OCR, PDF rendering and previews. Verified across every surface: nothing broken.
-
-See `docs/security-audit-2026-07.md` for the full audit, including risks knowingly accepted.
-
-## [0.14.8-alpha] - 2026-07-26
-
-Every screen now says the same thing about the same file.
-
-### ✨ Improved
-
-- **One understanding of a file, shown in different ways.** Omnio kept two sets of heuristics — one owned by the drop panel, one by the file's details — with different thresholds that could disagree. A 3 MB, 4000×3000 photo was "large, compress it" on one screen and unremarkable on the other.
-- **Findings now travel.** Screen captures, camera photos and scans were noticed only in the file's details; they now appear the moment you drop a file. Oversized PDFs, long recordings and unparseable data were noticed only on drop; they now appear in the details too.
-- **One vocabulary.** The same finding is named the same way wherever you meet it.
-
-## [0.14.7-alpha] - 2026-07-26
-
-Omnio says what it knows on the screen you are actually looking at.
-
-### 🐛 Fixed
-
-- **Drop a scan and Omnio says so, and offers to make it searchable.** It always knew — the file's details panel said "no selectable text, this looks like a scan" — but the drop panel did not, so the product's headline example required dismissing it, opening Files and selecting the file.
-- **Searching "scan" finds the tool for scans.** It found nothing.
-- **Selecting several files offers what can be done with all of them.** Selection produced "4 files selected" and nothing else, while dropping those same four offered six actions. The only multi-file command anywhere was delete.
-
-## [0.14.6-alpha] - 2026-07-26
-
-The moment you drop a file is no longer a puzzle.
-
-### ✨ Improved
-
-- **Dropping a PDF offered eight choices, four of which were one job.** Organize Pages sat beside Rotate, Delete and Reorder Pages — three things Organize already does. Omnio now proposes five genuinely different outcomes. Nothing was removed: every tool is still one search away, and the Inspector still offers them all.
-- **The drop panel shows the first page of your document**, instead of a question mark on your own file.
-- **Every PDF and image tool has its own icon.** They shared one per module, so any list of them was a column of identical glyphs.
-
-## [0.14.5-alpha] - 2026-07-26
-
-The workflows Omnio learns are no longer invisible.
-
-### 🐛 Fixed
-
-- **A workflow Omnio learned is now visible in the Library**, next to the ones you build by hand, and can be forgotten. Asking Omnio to remember a repeated sequence saved it and then displayed it on no screen — while a section literally called Workflows listed a different kind entirely.
-- **Saved searches can be removed.** They could only ever be added.
-
-## [0.14.4-alpha] - 2026-07-26
-
-Omnio can finally see how big your pictures are.
-
-### 🐛 Fixed
-
-- **Images now record their dimensions.** Nothing ever did, so the Inspector's Dimensions row was always blank for pictures, and two features that read them never fired at all: the "much larger than any screen will show" note, and the "one picture, several sizes" discovery. Reading the size is free — the image was already being decoded to draw its thumbnail.
-
-## [0.14.3-alpha] - 2026-07-26
-
-Omnio gets faster the longer you use it, not slower.
-
-### 🐛 Fixed
-
-- **A workspace built over months no longer slows Omnio down.** Reading what Omnio had noticed re-scanned the entire workspace once per file — quadratic work that cost 11 seconds on 10,000 files, on every render of Home. It now takes 56ms. The people worst affected were the ones who had used Omnio longest, which is the opposite of what a memory should do.
-
-### ✨ Improved
-
-- About explains that the server is unreachable *before* the blank fields rather than after them, so a page of dashes reads as a disconnection rather than a broken product.
-- Documentation matches the product. The roadmap listed OCR and PDF protection as out of scope — both shipped — and described a server-side architecture that was deliberately never built.
-
-## [0.14.2-alpha] - 2026-07-26
-
-Omnio keeps working when its server does not.
+Omnio starts noticing your work — and finishing it.
 
 ### 🚀 New
 
-- **Carry on without the server.** An unreachable server used to replace the whole application with a retry screen, taking 121 browser-tier tools down with a server they never used. `personal` — the default deployment — has no login at all, so the gate was protecting nothing.
-- A quiet mark in the top bar shows when you are working without the server, and the few tools that genuinely need one say so instead of offering an upload that could only fail.
+- **Omnio tells you when an export has gone out of date**, and rebuilds it — giving the new file the old one's name and filing the stale copy away.
+- **Workspace Discoveries**: drafts of one document, a picture kept at several sizes, the afternoon you spent on a batch of files, leftovers from finished work. Each says why it is there, offers one clear next step, and can be waved away for good.
+- **Routines Omnio learns for itself.** Do something the same way twice and it offers to remember; the saved routine sits in your Library beside the ones you build by hand, and can be forgotten at any time.
+- **Omnio keeps working when its server does not** — your files and every on-device tool are unaffected.
+- **Act on several files at once** from the file list: zip them, rename them as a set, and more.
 
 ### ✨ Improved
 
-- Home states its promise without advertising a tool count, restoring a product decision that a previous polish pass had quietly reversed.
+- **Scans are recognised the moment you drop them**, with an offer to make them searchable, on the first screen rather than the second.
+- **That first screen is calmer**: a few genuinely different things to do rather than a long list of near-identical ones, each with its own icon, over a picture of the page you dropped.
+- **Search answers the obvious question with the obvious tool**, including the words people actually type.
+- **Omnio no longer slows as your workspace grows.** A workspace built over months opens as fast as an empty one.
+- **Every screen says the same thing about the same file, in the same words.**
+- Smaller comforts: a clearer empty file list, search returning focus where it was, removable saved searches, images that know their dimensions, and no sideways scrolling on a phone.
 
-## [0.14.1-alpha] - 2026-07-26
+### 🐞 Fixed
 
-A pass over everything you touch in the first five minutes.
-
-### ✨ Improved
-
-- **Search answers the obvious question with the obvious tool.** "compress" ranked Create ZIP first (it lists "compress" as a hidden keyword) while Image Compressor and Compress PDF came fourth and fifth — Enter opened the wrong tool. A tool's own name now always outranks an invisible keyword.
-- **The first screen states the promise**: what Omnio is, and that files never leave the device. Every tool page said so; the landing page did not.
-- **Files opens with one invitation** instead of a dozen filters around an empty list — and a "Choose files" button, which did not exist there at all: dragging was the only way in.
-- **Closing search returns focus to where it came from.** Keyboard users were dropped back at the top of the page.
-- **No sideways scrolling on a phone.** The top bar and every tool page overflowed 360px, the narrowest width Omnio commits to.
-
-### 🐛 Fixed
-
-- The Statistics page no longer replaces itself with an error screen when the api answers with an unexpected shape — a real possibility when a self-hosted api and web app are different versions.
-
-
-## [0.14.0-alpha] - 2026-07-26
-
-Omnio stops describing your work and starts finishing it.
-
-### 🚀 New
-
-- **Every observation ends in a single next step.** "Update it" on a stale export opens the right tool with the newer document already loaded; when the conversion finishes, the new file takes the old one's name and the stale copy is archived automatically.
-- **Group as a collection** — drafts of one document, or a picture kept at several sizes, gathered in one click.
-- **Archive intermediates** — files that were only a step towards something finished give their space back, keeping every record and relationship.
-- **Remember this workflow** — a sequence of tools performed more than once can be saved as a chain. Doing the work twice is the entire setup.
-
-### ✨ Improved
-
-- One action per observation, never a menu and never a configuration dialog. What happened is reported in the row, with an Undo that stays put instead of a message that vanishes.
-- Only one action removes anything, and it says so before the click rather than after.
+- **Archive bombs** can no longer overwhelm the browser on drop or on workspace import.
+- **Stricter limits on what a page may load or do**, with no loss to on-device text recognition, PDF rendering or previews.
+- The statistics page survives an unexpected server response, and About explains a missing server before showing empty fields.
 
 ### ⚠️ Known limitations
 
-- "Update it" prepares everything and finishes the job around the conversion, but starting the conversion is still yours — Omnio does not run tools unwatched.
-- Archiving removes file contents for good; the record, history and lineage remain, the bytes do not.
-
-
-## [0.13.0-alpha] - 2026-07-26
-
-Omnio has been paying attention — and tells you the one thing you would have missed.
-
-### 🚀 New
-
-- **Omnio notices when a file you exported is out of date.** If you turned a document into a PDF and a newer version of that document arrived afterwards, it says so — on Home, and again the moment you select the PDF — and offers to redo it in one click.
-- **Workspace Discoveries**: drafts of the same document, one picture kept at several sizes, the stretches of work you did on a particular afternoon, leftover files that were only a step towards something finished, and the thing you do to almost every file of a kind — with the ones still waiting for it.
-- **Every observation states its evidence in the same sentence**, can be waved away individually, and a whole kind can be silenced for good.
-
-### ✨ Improved
-
-- Discoveries never pop up, never interrupt, never count unread items, and say nothing about work still in progress.
-
-### ⚠️ Known limitations
-
-- Files are only called versions of each other on explicit naming evidence (`v2`, `copy`, `final`, or the same name with different contents). Drafts named some other way are not grouped — a wrong guess would cost more trust than the grouping is worth.
-- Discoveries come from what is already in the workspace, so a young workspace shows few or none.
+- Rebuilding an out-of-date export prepares everything, but you press the button — Omnio does not run tools unwatched.
+- Files are treated as versions of one another only on plain naming evidence; a wrong guess would cost more trust than the grouping is worth.
+- Archiving leftovers removes their contents permanently; the record and history remain.
 
 
 ## [0.12.0-alpha] - 2026-07-25

@@ -28,7 +28,7 @@
     "bullmq": "^5.34.0",
     "busboy": "^1.6.0",
     "cookie": "^1.0.2",
-    "file-type": "^16.5.4",
+    "file-type": "^21.3.1",
     "helmet": "^8.0.0",
     "ioredis": "^5.4.1",
     "nestjs-pino": "^4.1.0",

@@ -47,6 +47,30 @@ pdf.js and tesseract, `frame-src` for the sandboxed HTML preview).
 Verified in a production build across seven surfaces including WASM, workers,
 the sandboxed iframe and blob thumbnails: **zero violations, nothing broken**.
 
+
+### 4. Vulnerable shipped dependencies — *fixed, and a correction*
+
+The first pass of this audit claimed the advisories traced only through build
+and lint tooling. **That was wrong**, and the error came from generalising off
+the first entry in the list rather than reading all of it. What actually
+shipped:
+
+| Package | Severity | Issue |
+|---|---|---|
+| `next` | high ×3 | SSRF in Server Actions, SSRF via rewrites, App Router DoS |
+| `sharp` (via next) | high | inherited libvips vulnerabilities — image decoding |
+| `postcss` (via next) | high ×2 | arbitrary file read, path traversal |
+| `file-type` (api) | moderate | **infinite loop in the ASF parser** |
+
+Two of these sit exactly where this audit's threat model points: `file-type`
+hangs forever on a crafted upload, and `sharp` is libvips — the code that
+decodes hostile images.
+
+`next` → `^15.5.21`, `file-type` → `^21.3.1` (its API changed; the caller was
+updated), with root `pnpm.overrides` pinning `sharp`, `postcss` and
+`brace-expansion`. `pnpm audit --prod` now reports **no known
+vulnerabilities**.
+
 ---
 
 ## Protections verified and left alone
@@ -93,16 +117,13 @@ the sandboxed iframe and blob thumbnails: **zero violations, nothing broken**.
 
 ## Remaining recommendations
 
-1. **Dependency advisories.** `pnpm audit --prod` reports 8 high / 7 moderate.
-   Every one inspected traces through build and lint tooling
-   (`brace-expansion` via eslint, testcontainers, typescript-eslint) rather than
-   shipped runtime code — but this needs a proper pass with upgrades and a
-   re-audit, not a paragraph. It is the largest remaining item.
-2. **Nonce-based `script-src`**, retiring `unsafe-inline`. Already tracked as
+1. **Nonce-based `script-src`**, retiring `unsafe-inline`. Already tracked as
    debt; the CSP added here is the scaffolding it would slot into.
-3. **Subresource limits on worker-tier uploads.** `OMNIO_MAX_UPLOAD_MB`
+2. **Subresource limits on worker-tier uploads.** `OMNIO_MAX_UPLOAD_MB`
    defaults to 512; worth confirming the worker enforces it while streaming
    rather than after buffering.
+3. **Keep `pnpm audit --prod` in CI.** Today's clean result is a point in time;
+   the value is in noticing the next one.
 
 ---
 
@@ -111,3 +132,42 @@ the sandboxed iframe and blob thumbnails: **zero violations, nothing broken**.
 I would keep my own contracts in this. The paths that could have turned a
 hostile file into code execution or a dead tab are closed or verified, and the
 two that remain open are named above rather than papered over.
+
+
+---
+
+## Second pass — July 27
+
+Re-reviewed against the full surface list, including areas the first pass did
+not reach.
+
+**Verified present and correct, unchanged:**
+
+- **Supply chain.** `pnpm-workspace.yaml` blocks dependency install scripts by
+  default and allows exactly five audited packages. This is the strongest
+  single control against a compromised transitive dependency, and it was
+  already there.
+- **No Service Worker.** Nothing registers one, so there is no cache to poison
+  and no stale-code path. Verified absent rather than assumed.
+- **Clipboard.** The paste handler accepts only `kind === "file"` and routes it
+  through the same inspection as a drop. Pasted markup never reaches the DOM.
+- **Object URLs.** Preview URLs are revoked on change and on unmount, keyed on
+  primitives so an unrelated workspace write cannot revoke a live one.
+
+**Added:**
+
+- `Cross-Origin-Opener-Policy: same-origin` and
+  `Cross-Origin-Resource-Policy: same-origin` — sever the opener relationship
+  and stop other origins embedding Omnio's responses.
+- `COEP: require-corp` was **deliberately not added**. It exists to unlock
+  SharedArrayBuffer, which nothing here needs, and would reject cross-origin
+  subresources lacking CORP — a real chance of breaking on-device engines for a
+  guarantee Omnio is not asking for.
+
+**Overall assessment.** Every path by which a hostile file could reach code
+execution, escape a sandbox, traverse storage, or exhaust the tab is closed or
+has been attacked and held. The two knowingly open items — inline script in the
+CSP, and parser hardening delegated to the browser's own sandboxed engines —
+are recorded above with reasons rather than quietly carried.
+
+I would keep my own contracts, passport scans and tax records in this.

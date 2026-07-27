@@ -1,0 +1,98 @@
+{
+  "version": "0.15.0-alpha",
+  "date": "2026-07-27",
+  "headline": {
+    "en": "Omnio starts noticing your work — and finishing it.",
+    "he": "‏Omnio מתחיל להבחין בעבודה שלכם — ולסיים אותה."
+  },
+  "sections": [
+    {
+      "type": "new",
+      "items": [
+        {
+          "en": "Omnio now tells you when a file you exported has gone out of date. Turn a document into a PDF, edit the document a week later, and Omnio says so — then rebuilds the PDF for you, gives it the old file's name, and files the stale copy away. Nothing that only ever sees the file you just handed it could know this.",
+          "he": "‏Omnio מודיע לכם כעת כשקובץ שייצאתם אינו מעודכן. הפכו מסמך ל-PDF, ערכו את המסמך שבוע לאחר מכן, ו-Omnio יאמר זאת — ואז יבנה מחדש את ה-PDF עבורכם, ייתן לו את שם הקובץ הישן, ויעביר את העותק הישן לארכיון. שום כלי שרואה רק את הקובץ שהרגע מסרתם לו לא יכול לדעת זאת."
+        },
+        {
+          "en": "It also points out drafts of the same document, one picture kept at several sizes, the afternoon you spent on a batch of files, and leftovers from work you already finished. Every observation says why it is there, offers one clear next step, and can be waved away for good.",
+          "he": "הוא גם מצביע על טיוטות של אותו מסמך, על תמונה אחת שנשמרה בכמה גדלים, על אחר הצהריים שהקדשתם לקבוצת קבצים, ועל שאריות מעבודה שכבר הסתיימה. כל תובנה מסבירה מדוע היא כאן, מציעה צעד אחד ברור, וניתן להסתיר אותה לתמיד."
+        },
+        {
+          "en": "Do something the same way twice and Omnio offers to remember it. The saved routine lives in your Library beside the ones you build by hand, and you can forget it whenever you like. Nobody has to design a workflow: doing the job twice is the whole setup.",
+          "he": "בצעו משהו פעמיים באותה דרך ו-Omnio יציע לזכור זאת. השגרה השמורה נמצאת בספרייה שלכם לצד אלה שבניתם ידנית, וניתן לשכוח אותה מתי שתרצו. איש אינו צריך לתכנן תהליך: ביצוע העבודה פעמיים הוא כל ההגדרה."
+        },
+        {
+          "en": "Omnio keeps working when its server does not. If it cannot reach the server, you can carry on without it — your files and every tool that runs on your device work exactly as before, which is almost all of them.",
+          "he": "‏Omnio ממשיך לעבוד גם כשהשרת שלו לא. אם אין אפשרות להגיע לשרת, אפשר להמשיך בלעדיו — הקבצים שלכם וכל כלי שרץ על המכשיר עובדים בדיוק כמקודם, וזה כמעט כולם."
+        },
+        {
+          "en": "Select several files and Omnio offers what can be done with all of them together — zip them, rename them as a set, and more.",
+          "he": "בחרו כמה קבצים ו-Omnio יציע מה אפשר לעשות עם כולם יחד — לארוז אותם, לשנות את שמם כקבוצה, ועוד."
+        }
+      ]
+    },
+    {
+      "type": "improved",
+      "items": [
+        {
+          "en": "Drop a scanned document and Omnio recognises it immediately, and offers to make it searchable — on the very first screen, where you are actually looking.",
+          "he": "גררו מסמך סרוק ו-Omnio יזהה אותו מיד, ויציע להפוך אותו לניתן לחיפוש — כבר במסך הראשון, בדיוק במקום שבו אתם מסתכלים."
+        },
+        {
+          "en": "That first screen is calmer: a handful of genuinely different things to do rather than a long list of near-identical ones, each with its own icon, and a picture of the actual page you dropped.",
+          "he": "המסך הראשון רגוע יותר: קומץ אפשרויות שונות באמת במקום רשימה ארוכה של דומות כמעט לחלוטין, כל אחת עם סמל משלה, ותמונה של העמוד שגררתם."
+        },
+        {
+          "en": "Search answers the obvious question with the obvious tool, including words like \"scan\" that you would actually type.",
+          "he": "החיפוש עונה על השאלה המובנת מאליה בכלי המובן מאליו, כולל מילים כמו \"סריקה\" שבאמת היו מקלידים."
+        },
+        {
+          "en": "Omnio no longer slows down as your workspace grows. A workspace built over months now opens as quickly as an empty one.",
+          "he": "‏Omnio כבר לא מאט ככל שסביבת העבודה גדלה. סביבה שנבנתה לאורך חודשים נפתחת כעת מהר כמו ריקה."
+        },
+        {
+          "en": "Every screen now says the same thing about the same file, in the same words — what Omnio notices about a document does not depend on where you happen to be looking at it.",
+          "he": "כל מסך אומר כעת את אותו דבר על אותו קובץ, באותן מילים — מה ש-Omnio מבחין בו במסמך אינו תלוי במקום שבו אתם צופים בו."
+        },
+        {
+          "en": "Smaller comforts throughout: the file list opens with one clear invitation instead of a row of filters, closing search returns you where you were, saved searches can be removed, images know their own dimensions, and nothing scrolls sideways on a phone.",
+          "he": "נוחות קטנה לאורך כל הדרך: רשימת הקבצים נפתחת בהזמנה אחת ברורה במקום שורת מסננים, סגירת החיפוש מחזירה אתכם למקום שהייתם, אפשר להסיר חיפושים שמורים, תמונות יודעות את מידותיהן, ושום דבר אינו נגלל לצדדים בטלפון."
+        }
+      ]
+    },
+    {
+      "type": "fixed",
+      "items": [
+        {
+          "en": "Archives crafted to expand to enormous sizes can no longer overwhelm your browser when you drag them in, or when you import a workspace someone sent you.",
+          "he": "ארכיונים שנבנו כדי להתרחב לגדלים עצומים כבר לא יכולים להעמיס על הדפדפן כשגוררים אותם פנימה, או כשמייבאים סביבת עבודה שמישהו שלח."
+        },
+        {
+          "en": "Stricter limits on what a page in Omnio may load or do, so a malicious file has far less to work with. Everything Omnio genuinely needs — on-device text recognition, PDF rendering, previews — is unaffected.",
+          "he": "מגבלות מחמירות יותר על מה שדף ב-Omnio רשאי לטעון או לעשות, כך שלקובץ זדוני יש הרבה פחות עם מה לעבוד. כל מה ש-Omnio באמת זקוק לו — זיהוי טקסט על המכשיר, הצגת PDF, תצוגות מקדימות — אינו מושפע."
+        },
+        {
+          "en": "The statistics page no longer breaks when the server answers unexpectedly, and the About page explains a missing server before showing you empty fields rather than after.",
+          "he": "דף הסטטיסטיקה כבר לא נשבר כשהשרת מגיב באופן בלתי צפוי, ודף About מסביר על שרת חסר לפני שהוא מציג שדות ריקים ולא אחרי."
+        }
+      ]
+    },
+    {
+      "type": "known",
+      "items": [
+        {
+          "en": "Rebuilding an out-of-date export opens the right tool with everything prepared, but you still press the button yourself — Omnio does not run tools while you are not watching.",
+          "he": "בנייה מחדש של ייצוא לא מעודכן פותחת את הכלי הנכון כשהכול מוכן, אך את הכפתור אתם עדיין לוחצים — Omnio אינו מריץ כלים כשאינכם צופים."
+        },
+        {
+          "en": "Files are only treated as versions of one another when their names say so plainly. Drafts named some other way are left alone, deliberately: a wrong guess would cost more trust than the grouping is worth.",
+          "he": "קבצים נחשבים לגרסאות זה של זה רק כששמותיהם אומרים זאת במפורש. טיוטות שנקראו אחרת נותרות לבדן, במכוון: ניחוש שגוי היה עולה יותר אמון ממה ששווה הקיבוץ."
+        },
+        {
+          "en": "Archiving leftovers removes their contents for good. Their record and their place in your history remain, but the contents cannot be brought back.",
+          "he": "העברת שאריות לארכיון מוחקת את תוכנן לצמיתות. הרשומה והמקום שלהן בהיסטוריה נשמרים, אך את התוכן לא ניתן להחזיר."
+        }
+      ]
+    }
+  ]
+}

@@ -1,14 +1,14 @@
 {
-  "version": "0.1.0-alpha.1",
+  "version": "0.15.0-alpha",
   "channel": "alpha",
-  "commit": "24ea513",
+  "commit": "3d62ed9",
   "branch": "main",
-  "buildNumber": "44",
-  "buildTimestamp": "2026-07-18T13:33:28.694Z",
+  "buildNumber": "45",
+  "buildTimestamp": "2026-07-27T07:22:17.962402Z",
   "dockerImages": [
-    "omnio-web:0.1.0-alpha.1",
-    "omnio-api:0.1.0-alpha.1",
-    "omnio-worker:0.1.0-alpha.1"
+    "omnio-web:0.15.0-alpha",
+    "omnio-api:0.15.0-alpha",
+    "omnio-worker:0.15.0-alpha"
   ],
   "node": "v22.23.1",
   "pnpm": "10.33.0",

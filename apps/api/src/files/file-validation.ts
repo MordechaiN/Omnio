@@ -1,5 +1,5 @@
 import { extname } from "node:path";
-import { fromBuffer } from "file-type";
+import { fileTypeFromBuffer } from "file-type";
 
 /** file-type recommends sniffing up to the first 4100 bytes. */
 export const HEAD_BYTES = 4100;
@@ -63,7 +63,7 @@ export async function validateUploadHead(params: {
 }): Promise<ValidatedType> {
   // A tiny file can be shorter than a magic signature; treat an incomplete
   // sniff as "undetectable" rather than an error.
-  const detected = await fromBuffer(params.head).catch(() => undefined);
+  const detected = await fileTypeFromBuffer(params.head).catch(() => undefined);
   const declaredExt = normalizeExt(extname(params.filename));
 
   if (detected) {
