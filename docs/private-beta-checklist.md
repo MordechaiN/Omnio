@@ -104,7 +104,12 @@ repository said otherwise, and later kept serving a dead-end 404 for a day after
 the fix was merged. Both were found by accident. Files are not evidence; the
 running application is — which is why this is a script and not a good intention.
 
-## 5. Sign-off
+## 5. Operations
+
+Running the beta — deployment, rollback, backup, recovery, smoke test, triage,
+severity, and what to tell testers — is `docs/beta-operations.md`.
+
+## 6. Sign-off
 
 One question, answered honestly:
 
