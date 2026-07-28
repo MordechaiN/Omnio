@@ -312,6 +312,52 @@ test.describe("file workspace", () => {
     await expect(tile(page, "renamed.txt")).toBeVisible();
   });
 
+  test("says so when a file's contents are gone instead of ignoring the click", async ({
+    page,
+  }) => {
+    // Two tabs, one workspace: delete a file in one and the other still lists it,
+    // with its size and page count. Pressing a tool there used to do nothing at
+    // all, silently, however many times you pressed it. The same state arrives if
+    // the browser evicts stored data.
+    await page.goto("/tool/pdfkit/pdf-organize");
+    await page.locator('input[type="file"]').setInputFiles({
+      name: "vanishes.pdf",
+      mimeType: "application/pdf",
+      buffer: await samplePdf(2),
+    });
+    await expect(page.getByText("2 pages")).toBeVisible();
+    const download = page.waitForEvent("download");
+    await page.getByRole("button", { name: "Save organized PDF" }).click();
+    await download;
+
+    await gotoFiles(page);
+    await tile(page, "vanishes-organized.pdf").click();
+
+    // Take the bytes away underneath it, leaving the record — exactly what the
+    // other tab's delete does.
+    await page.evaluate(async () => {
+      // `entries()` is real on every browser that has OPFS, but is not in the
+      // DOM lib this repo compiles against.
+      type Iterable = FileSystemDirectoryHandle & {
+        entries: () => AsyncIterableIterator<[string, FileSystemDirectoryHandle]>;
+      };
+      const root = (await navigator.storage.getDirectory()) as Iterable;
+      const blobs = (await root.getDirectoryHandle("blobs")) as Iterable;
+      for await (const [, shard] of blobs.entries()) {
+        for await (const [name] of (shard as Iterable).entries()) {
+          await shard.removeEntry(name);
+        }
+      }
+    });
+
+    const inspector = page.getByRole("complementary", { name: "File details" });
+    await inspector.getByRole("button", { name: /Organize Pages/i }).click();
+
+    await expect(page.getByText("Omnio can't open that file")).toBeVisible();
+    // ...and it stays put rather than half-opening a tool with nothing in it.
+    await expect(page).toHaveURL(/\/files/);
+  });
+
   test("the inspector shows the chain a derived file came from", async ({ page }) => {
     // Produce a PDF from a PDF, then confirm the Inspector explains the lineage.
     await page.goto("/tool/pdfkit/pdf-organize");

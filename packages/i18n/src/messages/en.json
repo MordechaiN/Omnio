@@ -209,7 +209,9 @@
     "forgetSearch": "Forget the saved search {name}",
     "groupActions": "Do this with all of them",
     "notKeptTitle": "This file was not kept",
-    "notKeptBody": "Omnio could not write to this device's storage, so it is not in your files. The tools still work on it right now."
+    "notKeptBody": "Omnio could not write to this device's storage, so it is not in your files. The tools still work on it right now.",
+    "goneTitle": "Omnio can't open that file",
+    "goneBody": "Its contents are no longer on this device — it may have been removed in another tab. Refresh this page to bring your list up to date."
   },
   "nav": {
     "home": "Home",

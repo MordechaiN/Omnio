@@ -30,6 +30,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  toast,
 } from "@omnio/ui";
 import { Bookmark, FolderOpen, LayoutGrid, List, Search, SlidersHorizontal, Trash2 } from "lucide-react";
 import { useRouter } from "@/i18n/navigation";
@@ -158,7 +159,18 @@ export function FilesWorkspace() {
   const openWith = useCallback(
     async (href: string, fileId: string, toolId?: string, replaces?: WorkspaceFile) => {
       const handle = await workspace.openFile(fileId, toolId);
-      if (!handle) return;
+      if (!handle) {
+        /*
+         * The record is here but its contents are not — deleted in another tab,
+         * or evicted by the browser. This used to `return` in silence: the file
+         * sat in the list with its size and page count, and pressing a tool did
+         * nothing at all, however many times you pressed it. Saying nothing is
+         * the worst of the options, because the only visible fact is that Omnio
+         * ignored you.
+         */
+        toast.error(t("goneTitle"), { description: t("goneBody") });
+        return;
+      }
       // Remember where this came from so the tool's output can be linked back —
       // and, when this run is rebuilding something stale, which file it retires.
       if (toolId) {
@@ -171,7 +183,7 @@ export function FilesWorkspace() {
       setPendingFiles([handle]);
       router.push(href);
     },
-    [router],
+    [router, t],
   );
 
   /** Enter / double-click: straight into the best-matching tool. */
