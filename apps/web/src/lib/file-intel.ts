@@ -7,7 +7,11 @@
  * modules describe what they take; this file only matches and ranks.
  */
 
-import { insightsFor, type FileFacts as Understanding } from "@omnio/workspace";
+import {
+  insightsFor,
+  isUnsafeArchiveName,
+  type FileFacts as Understanding,
+} from "@omnio/workspace";
 import { SEARCH_ENTRIES, type SearchEntry } from "@/generated/registry.search";
 
 export type FileKind =
@@ -43,6 +47,8 @@ export interface FileFacts {
   jsonValid?: boolean;
   /** Total uncompressed size declared by an archive — read without inflating it. */
   expandsToBytes?: number;
+  /** Entries that would be written outside the folder you unpack into. */
+  unsafeNames?: string[];
 }
 
 export interface FileIntel {
@@ -89,6 +95,14 @@ export function toUnderstanding(
   }
   if ((kind === "audio" || kind === "video") && facts.duration !== undefined) {
     return { kind, durationMs: Math.round(facts.duration * 1000) };
+  }
+  if (kind === "zip" && facts.entries) {
+    return {
+      kind: "archive",
+      entries: facts.entries.length,
+      expandsToBytes: facts.expandsToBytes,
+      unsafeNames: facts.unsafeNames,
+    };
   }
   if (facts.jsonValid !== undefined) {
     return { kind: "text", lines: 0, valid: facts.jsonValid };
@@ -310,6 +324,7 @@ export async function inspectFile(file: File): Promise<FileIntel> {
        * contents never become object keys either.
        */
       const names: string[] = [];
+      const unsafeNames: string[] = [];
       let expandsTo = 0;
       await new Promise<void>((resolve, reject) =>
         unzip(
@@ -317,7 +332,13 @@ export async function inspectFile(file: File): Promise<FileIntel> {
           {
             filter: (entry) => {
               expandsTo += entry.originalSize;
-              if (!entry.name.endsWith("/") && names.length < 8) names.push(entry.name);
+              if (!entry.name.endsWith("/")) {
+                if (names.length < 8) names.push(entry.name);
+                // Every entry is judged, not only the eight that are shown.
+                if (isUnsafeArchiveName(entry.name) && unsafeNames.length < 8) {
+                  unsafeNames.push(entry.name);
+                }
+              }
               return false;
             },
           },
@@ -326,6 +347,7 @@ export async function inspectFile(file: File): Promise<FileIntel> {
       );
       facts.entries = names;
       facts.expandsToBytes = expandsTo;
+      facts.unsafeNames = unsafeNames;
     } else if (kind === "audio") {
       previewUrl = URL.createObjectURL(file);
       facts.duration = await new Promise<number | undefined>((resolve) => {

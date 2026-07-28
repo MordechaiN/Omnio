@@ -28,7 +28,22 @@ export type InsightKind =
   | "oversized-pdf"
   | "long-audio"
   | "huge-archive"
+  | "unsafe-archive"
   | "invalid-data";
+
+/**
+ * A name that would write outside the folder you unpack into: absolute paths,
+ * drive letters, or any `..` segment.
+ *
+ * Lives here, beside the engine, because it decides a *fact about a file*. Any
+ * surface that needs to know uses this one — the drop panel, the Inspector, and
+ * anything later — rather than learning it again.
+ */
+export function isUnsafeArchiveName(name: string): boolean {
+  if (name.startsWith("/") || name.startsWith("\\")) return true;
+  if (/^[a-zA-Z]:[\\/]/.test(name)) return true;
+  return name.split(/[\\/]/).some((segment) => segment === "..");
+}
 
 export interface Insight {
   kind: InsightKind;
@@ -149,6 +164,26 @@ export function insightsFor(file: FileLike, files: WorkspaceFile[] = []): Insigh
       reason: "Over ten minutes long",
       suggests: "audio-trim",
       weight: 30,
+    });
+  }
+
+  /*
+   * An archive that would write outside the folder you unpack into. Omnio has
+   * always listed these names in the drop panel, in the same grey text as
+   * `readme.txt`, and said nothing about them — showing the evidence while
+   * withholding the understanding. Highest weight of any archive insight: it is
+   * the one thing worth knowing before deciding what to do with the file.
+   */
+  if (file.facts?.kind === "archive" && (file.facts.unsafeNames?.length ?? 0) > 0) {
+    const count = file.facts.unsafeNames!.length;
+    insights.push({
+      kind: "unsafe-archive",
+      reason:
+        count === 1
+          ? "One item inside would be written outside the folder you unpack into"
+          : `${count} items inside would be written outside the folder you unpack into`,
+      suggests: "zip-inspect",
+      weight: 96,
     });
   }
 

@@ -190,7 +190,8 @@
       "oversized-pdf": "Large to send",
       "long-audio": "Long recording",
       "huge-archive": "Big archive",
-      "invalid-data": "Will not parse"
+      "invalid-data": "Will not parse",
+      "unsafe-archive": "Unsafe archive"
     },
     "continueTitle": "Continue",
     "unfinishedTitle": "You didn't finish these",

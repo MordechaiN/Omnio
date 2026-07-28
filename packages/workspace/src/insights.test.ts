@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   insightsFor,
+  isUnsafeArchiveName,
   primaryInsight,
   recentActivity,
   summarize,
@@ -259,5 +260,52 @@ describe("unfinishedWork dismissals", () => {
     expect(
       unfinishedWork(files, events, now, 4, ["tool:pdf-edit"]).map((w) => w.toolId),
     ).toEqual(["pdf-rotate"]);
+  });
+});
+
+describe("archives that would escape the folder you unpack into", () => {
+  const archive = (unsafeNames: string[]) => ({
+    name: "shared.zip",
+    mime: "application/zip",
+    size: 4096,
+    facts: { kind: "archive" as const, entries: 6, unsafeNames },
+  });
+
+  it("says so, at the top, when an entry would be written outside", () => {
+    // Omnio always listed these names in the drop panel, in the same grey text
+    // as readme.txt, and said nothing about them.
+    const [first] = insightsFor(archive(["../../etc/passwd"]));
+    expect(first?.kind).toBe("unsafe-archive");
+    expect(first?.reason).toMatch(/outside the folder/i);
+    expect(first?.suggests).toBe("zip-inspect");
+  });
+
+  it("outranks every other archive observation", () => {
+    const insights = insightsFor({
+      ...archive(["../escape"]),
+      size: 80 * 1024 * 1024, // also a big archive
+    });
+    expect(insights[0]?.kind).toBe("unsafe-archive");
+  });
+
+  it("counts them rather than naming one and implying it is the only one", () => {
+    const [first] = insightsFor(archive(["../a", "/etc/b", "..\\c"]));
+    expect(first?.reason).toMatch(/^3 items/);
+  });
+
+  it("stays quiet about an ordinary archive", () => {
+    const insights = insightsFor(archive([]));
+    expect(insights.some((i) => i.kind === "unsafe-archive")).toBe(false);
+  });
+});
+
+describe("isUnsafeArchiveName", () => {
+  it("accepts ordinary names and catches escapes", () => {
+    expect(isUnsafeArchiveName("docs/readme.txt")).toBe(false);
+    expect(isUnsafeArchiveName("notes/...txt")).toBe(false);
+    expect(isUnsafeArchiveName("../etc/passwd")).toBe(true);
+    expect(isUnsafeArchiveName("/etc/passwd")).toBe(true);
+    expect(isUnsafeArchiveName("C:\\Windows\\system32")).toBe(true);
+    expect(isUnsafeArchiveName("a/../../b")).toBe(true);
   });
 });

@@ -46,6 +46,18 @@ export type FileFacts =
   | { kind: "pdf"; pages: number; /** False when no page carries selectable text — i.e. a scan. */ hasText?: boolean }
   | { kind: "audio" | "video"; durationMs: number; width?: number; height?: number }
   | { kind: "text"; lines: number; /** Parsed cleanly, where that applies. */ valid?: boolean }
+  | {
+      kind: "archive";
+      entries: number;
+      /** Total size once unpacked, read from the archive's own listing. */
+      expandsToBytes?: number;
+      /**
+       * Entry names that would write outside the folder you unpack into.
+       * Omnio already showed these names in the drop panel as ordinary
+       * content; knowing they are not ordinary is the whole point.
+       */
+      unsafeNames?: string[];
+    }
   | { kind: "other" };
 
 export interface WorkspaceTag {

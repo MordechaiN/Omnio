@@ -190,7 +190,8 @@
       "oversized-pdf": "גדול לשליחה",
       "long-audio": "הקלטה ארוכה",
       "huge-archive": "ארכיון גדול",
-      "invalid-data": "לא ניתן לפענוח"
+      "invalid-data": "לא ניתן לפענוח",
+      "unsafe-archive": "ארכיון לא בטוח"
     },
     "continueTitle": "המשך",
     "unfinishedTitle": "לא סיימת את אלה",
