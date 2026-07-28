@@ -1,0 +1,48 @@
+{
+  "version": "0.15.1-alpha",
+  "date": "2026-07-28",
+  "headline": {
+    "en": "Fewer things to wonder about.",
+    "he": "פחות דברים לתהות לגביהם."
+  },
+  "sections": [
+    {
+      "type": "improved",
+      "items": [
+        {
+          "en": "Omnio no longer sends anything at all when it says it is collecting nothing. It used to quietly tell the server which tool you had opened, even on a copy of Omnio set to gather nothing — never your files, but still more than it said. Now the words and the behaviour match: if the Statistics page says nothing is being collected, nothing leaves your device. Open your browser's network panel and check, because that is the point.",
+          "he": "‏Omnio כבר לא שולח דבר כאשר הוא אומר שאינו אוסף דבר. בעבר הוא דיווח לשרת בשקט על הכלי שפתחתם, גם בעותק שהוגדר לא לאסוף דבר — מעולם לא את הקבצים שלכם, אך יותר ממה שנאמר. כעת המילים וההתנהגות תואמות: אם בדף הסטטיסטיקות כתוב שלא נאסף דבר, שום דבר לא עוזב את המכשיר. פתחו את חלונית הרשת בדפדפן ובדקו — בדיוק בשביל זה זה שם."
+        },
+        {
+          "en": "A shorter menu. The list on the left now holds only places you would actually go, and one page that described how Omnio is built rather than what it does for you has been taken out.",
+          "he": "תפריט קצר יותר. הרשימה בצד מכילה כעת רק מקומות שבאמת הייתם הולכים אליהם, ודף אחד שתיאר איך Omnio בנוי במקום מה הוא עושה עבורכם הוסר."
+        },
+        {
+          "en": "A small tool called Uppercase has been removed. It sent your text to the server to make it capital letters — the one thing in Omnio that did not keep its own promise. The Case Converter does the same job on your device, and always did.",
+          "he": "כלי קטן בשם Uppercase הוסר. הוא שלח את הטקסט שלכם לשרת כדי להפוך אותו לאותיות גדולות — הדבר היחיד ב-Omnio שלא עמד בהבטחה שלו. ממיר האותיות עושה את אותה עבודה על המכשיר שלכם, ותמיד עשה זאת."
+        }
+      ]
+    },
+    {
+      "type": "fixed",
+      "items": [
+        {
+          "en": "When you save a document, Omnio stops saying you have unsaved changes. It used to leave the warning on screen after the file had already been saved, which left you wondering whether it had worked.",
+          "he": "כששומרים מסמך, Omnio מפסיק לומר שיש שינויים שלא נשמרו. בעבר האזהרה נשארה על המסך גם אחרי שהקובץ כבר נשמר, ונשארתם לתהות אם זה הצליח."
+        },
+        {
+          "en": "An old or mistyped link now explains itself — in your language, telling you your files are untouched, with a way back. It used to be a blank page.",
+          "he": "קישור ישן או כתובת שגויה מסבירים כעת את עצמם — בשפה שלכם, עם הבהרה שהקבצים שלכם לא נגעו, ועם דרך לחזור. בעבר זה היה דף ריק."
+        },
+        {
+          "en": "People who use a screen reader can now use the choices Omnio offers when you drop in a file. They were being read out as plain text instead of as buttons you can press — on the very first thing anyone does.",
+          "he": "אנשים שמשתמשים בקורא מסך יכולים כעת להשתמש באפשרויות ש-Omnio מציע כשגוררים קובץ. הן הוקראו כטקסט רגיל ולא ככפתורים שאפשר ללחוץ עליהם — וזה הדבר הראשון שכל אחד עושה."
+        },
+        {
+          "en": "Setting up your own copy of Omnio now works by following the instructions. It did not: the very first command failed, and the words to fix it were not written down anywhere.",
+          "he": "התקנה של עותק Omnio משלכם עובדת כעת לפי ההוראות. קודם לא: הפקודה הראשונה נכשלה, וההסבר לתיקון לא הופיע בשום מקום."
+        }
+      ]
+    }
+  ]
+}

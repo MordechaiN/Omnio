@@ -1,9 +1,9 @@
 {
   "name": "omnio",
-  "version": "0.15.0-alpha",
+  "version": "0.15.1-alpha",
   "private": true,
   "license": "Apache-2.0",
-  "description": "Everything. One Workspace. \u2014 self-hosted, privacy-first workspace for files and everyday tools",
+  "description": "Everything. One Workspace. — self-hosted, privacy-first workspace for files and everyday tools",
   "packageManager": "pnpm@10.33.0",
   "engines": {
     "node": ">=22"

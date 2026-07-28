@@ -9,10 +9,22 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ## [Unreleased]
 
+## [0.15.1-alpha] - 2026-07-28
+
+Fewer things to wonder about.
+
+### ✨ Improved
+
+- **Omnio no longer sends anything at all when it says it is collecting nothing.** It used to tell the server which tool you had opened even on a copy set to gather nothing — never your files, but more than it said.
+- **A shorter menu**, and one page describing how Omnio is built rather than what it does for you has been removed.
+- **The Uppercase tool has been removed.** It sent your text to the server to capitalise it — the one thing in Omnio that did not keep its own promise. Case Converter does the same job on your device.
+
 ### 🐞 Fixed
 
-- **Installing Omnio from the instructions now works.** The setup command could not run at all, and building from a downloaded copy was refused outright — so anyone following the README stopped in the first minute.
+- **Saving a document stops Omnio saying you have unsaved changes.** The warning used to stay on screen after the file was already saved.
 - **A wrong or out-of-date address now gets a real answer** — in your language, with your files reassuringly still there and a way back — instead of a blank page.
+- **People using a screen reader can now use the choices offered when a file is dropped in.** They were announced as plain text rather than as buttons.
+- **Installing Omnio from the instructions now works.** The first command could not run at all, and the words to fix it were written down nowhere.
 - **A copy you build yourself no longer calls itself finished.** It says plainly that it was built from source.
 
 ## [0.15.0-alpha] - 2026-07-27
