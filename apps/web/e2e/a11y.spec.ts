@@ -1,4 +1,5 @@
 import AxeBuilder from "@axe-core/playwright";
+import { PDFDocument } from "pdf-lib";
 import { expect, test } from "./fixtures";
 
 /**
@@ -42,4 +43,41 @@ test("dark theme home passes axe", async ({ page }) => {
     (v) => v.impact === "serious" || v.impact === "critical",
   );
   expect(serious).toEqual([]);
+});
+
+/**
+ * The drop panel — the product's primary interaction, and the one surface this
+ * gate never scanned.
+ *
+ * Its five actions were `<button role="listitem">`. The attribute overrides a
+ * native button's implicit role, so assistive technology announced the first
+ * thing anyone does with a file as a list item, not something you can press.
+ * Nothing caught it: the static pages here have no dialog, and the panel only
+ * exists once a file has been dropped.
+ */
+test("the drop panel announces its actions as buttons", async ({ page }) => {
+  const doc = await PDFDocument.create();
+  for (let i = 0; i < 3; i += 1) doc.addPage([300, 400]);
+
+  await page.goto("/");
+  await page.locator('input[type="file"]').first().setInputFiles({
+    name: "dropped.pdf",
+    mimeType: "application/pdf",
+    buffer: Buffer.from(await doc.save()),
+  });
+
+  const panel = page.getByRole("dialog").first();
+  await expect(panel).toBeVisible();
+
+  // What a screen reader is offered: real buttons, not list items.
+  await expect(panel.getByRole("listitem")).toHaveCount(0);
+  const actions = panel.getByRole("button");
+  expect(await actions.count()).toBeGreaterThan(1);
+  await expect(panel.getByRole("button", { name: /Organize Pages/i })).toBeVisible();
+
+  const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
+  const serious = results.violations.filter(
+    (v) => v.impact === "serious" || v.impact === "critical",
+  );
+  expect(serious, serious.map((v) => `${v.id}: ${v.help}`).join("\n")).toEqual([]);
 });

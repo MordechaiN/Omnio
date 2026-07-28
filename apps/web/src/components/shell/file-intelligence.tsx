@@ -485,14 +485,13 @@ export function FileIntelligence() {
               ) : null}
 
               {singleActions.length > 0 ? (
-                <div className="flex flex-col gap-1.5" role="list" aria-label={t("dropzone.actionsTitle")}>
+                <div className="flex flex-col gap-1.5" role="group" aria-label={t("dropzone.actionsTitle")}>
                   {singleActions.map(({ entry, reasonKey }) => {
                     const name = t(`${entry.i18nNamespace}.${entry.nameKey}` as Parameters<typeof t>[0]);
                     return (
                       <button
                         key={entry.id}
                         type="button"
-                        role="listitem"
                         onClick={() => launch(entry.href, [intel.file])}
                         className="group flex items-center gap-3 rounded-lg border border-border-subtle bg-surface px-3 py-2.5 text-start transition-[border-color,background-color] duration-(--motion-fast) ease-(--ease-out) hover:border-border hover:bg-surface-raised"
                       >
@@ -559,14 +558,13 @@ export function FileIntelligence() {
               </p>
 
               {groupActions.length > 0 ? (
-                <div className="flex flex-col gap-1.5" role="list" aria-label={t("dropzone.actionsTitle")}>
+                <div className="flex flex-col gap-1.5" role="group" aria-label={t("dropzone.actionsTitle")}>
                   {groupActions.map(({ entry, reasonKey }) => {
                     const name = t(`${entry.i18nNamespace}.${entry.nameKey}` as Parameters<typeof t>[0]);
                     return (
                       <button
                         key={entry.id}
                         type="button"
-                        role="listitem"
                         onClick={() => launch(entry.href, multi.files)}
                         className="group flex items-center gap-3 rounded-lg border border-border-subtle bg-surface px-3 py-2.5 text-start transition-[border-color,background-color] duration-(--motion-fast) ease-(--ease-out) hover:border-border hover:bg-surface-raised"
                       >
