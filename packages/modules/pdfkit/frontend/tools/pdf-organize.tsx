@@ -27,6 +27,10 @@ const THUMB_SCALE = 0.35;
  * per-page rotation, duplication, deletion and blank insertion, applied in one
  * pass at the end.
  */
+/** Identity of an arrangement: order, sources and rotations — nothing else. */
+const signatureOf = (slots: PageSlot[]): string =>
+  slots.map((slot) => `${slot.source}:${slot.rotation}`).join("|");
+
 export default function PdfOrganizeTool() {
   const t = useTranslations("mod-pdfkit");
   const [file, setFile] = useState<LoadedPdf | null>(null);
@@ -38,6 +42,17 @@ export default function PdfOrganizeTool() {
   const [thumbs, setThumbs] = useState<Map<number, string>>(new Map());
   const [dragOver, setDragOver] = useState<number | null>(null);
   const [failed, setFailed] = useState<"load" | "save" | null>(null);
+  /**
+   * The arrangement as it was when the file was last saved.
+   *
+   * "You have unsaved changes" used to be derived purely from "the pages
+   * differ from the original", so it stayed on screen after saving — you
+   * pressed Save, the file downloaded, and Omnio still told you your work
+   * was unsaved. Whether that reads as "the save failed" or "Omnio has lost
+   * track", it is the wrong thing to be told at the one moment you are
+   * deciding whether you can move on.
+   */
+  const [savedSlots, setSavedSlots] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const dragging = useRef(false);
 
@@ -71,6 +86,7 @@ export default function PdfOrganizeTool() {
       setFile(loaded);
       setRaw(bytes);
       setSlots(initialSlots(loaded.pageCount));
+      setSavedSlots(null);
       void renderThumbs(bytes, loaded.pageCount);
     } catch {
       setFailed("load");
@@ -123,6 +139,7 @@ export default function PdfOrganizeTool() {
     setFailed(null);
     try {
       downloadPdf(await applySlots(raw, slots), pdfFilename(file.name, "organized"));
+      setSavedSlots(signatureOf(slots));
     } catch {
       setFailed("save");
     } finally {
@@ -156,7 +173,9 @@ export default function PdfOrganizeTool() {
   }, [file, selected, selectAll, undo, commit]);
 
   const hasSelection = selected.size > 0;
-  const changed = file ? !isUnchanged(slots, file.pageCount) : false;
+  const changed = file
+    ? !isUnchanged(slots, file.pageCount) && signatureOf(slots) !== savedSlots
+    : false;
 
   return (
     <div className="flex flex-col gap-5">

@@ -44,6 +44,30 @@ test.describe("page organizer", () => {
     await expect(page.getByText("3 pages")).toBeVisible();
   });
 
+  test("saving clears the unsaved-changes notice", async ({ page }) => {
+    // You press Save, the file downloads, and the screen still says your work is
+    // unsaved. Whether that reads as "the save failed" or "Omnio has lost track",
+    // it is the wrong thing to be told at the one moment you are deciding whether
+    // you can move on. The notice was derived from "differs from the original",
+    // which stays true forever after any edit.
+    await openWith(page, "pdf-organize");
+    const notice = page.getByText("You have unsaved changes.");
+    await expect(notice).toHaveCount(0);
+
+    await page.getByRole("button", { name: /Page 1, now in position/ }).click();
+    await page.getByRole("button", { name: "Rotate right" }).click();
+    await expect(notice).toBeVisible();
+
+    const download = page.waitForEvent("download");
+    await page.getByRole("button", { name: "Save organized PDF" }).click();
+    await download;
+    await expect(notice).toHaveCount(0);
+
+    // ...and it comes back the moment there is something new to save.
+    await page.getByRole("button", { name: "Rotate right" }).click();
+    await expect(notice).toBeVisible();
+  });
+
   test("undo restores a deleted page", async ({ page }) => {
     await openWith(page, "pdf-organize");
     await page.getByRole("button", { name: /Page 1, now in position/ }).click();
