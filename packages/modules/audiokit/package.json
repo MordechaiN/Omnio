@@ -7,6 +7,7 @@
   "type": "module",
   "exports": {
     "./module.json": "./module.json",
+    "./frontend/tools/audio-inspect": "./frontend/tools/audio-inspect.tsx",
     "./frontend/tools/audio-trim": "./frontend/tools/audio-trim.tsx",
     "./i18n/en": "./i18n/en.json",
     "./i18n/he": "./i18n/he.json",

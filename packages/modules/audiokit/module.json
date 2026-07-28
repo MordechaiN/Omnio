@@ -7,6 +7,32 @@
   "i18nNamespace": "mod-audiokit",
   "tools": [
     {
+      "id": "audio-inspect",
+      "tier": "browser",
+      "surface": "frontend/tools/audio-inspect",
+      "icon": "audio-lines",
+      "keywords": [
+        "audio",
+        "inspect",
+        "duration",
+        "length",
+        "bitrate",
+        "quality",
+        "how long",
+        "size",
+        "mp3",
+        "details"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "audio/*"
+          ],
+          "priority": 88
+        }
+      ]
+    },
+    {
       "id": "audio-trim",
       "tier": "browser",
       "surface": "frontend/tools/audio-trim",

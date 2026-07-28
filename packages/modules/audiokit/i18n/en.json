@@ -13,6 +13,10 @@
     "audio-fade": {
       "name": "Audio Fade",
       "description": "Smooth the start and end of a clip with a fade, then export WAV — on your device."
+    },
+    "audio-inspect": {
+      "name": "Audio Inspector",
+      "description": "How long a recording is, how big, and how heavily compressed — without playing it through."
     }
   },
   "ui": {
@@ -35,6 +39,15 @@
     "fadeCurve": "Curve",
     "curveLinear": "Linear",
     "curveEqualPower": "Equal-power (smoother)",
-    "fadeDownload": "Apply & export WAV"
+    "fadeDownload": "Apply & export WAV",
+    "inspectDrop": "Drop an audio file here, or click to choose",
+    "inspectFailed": "This file could not be read as audio.",
+    "inspectDuration": "Length",
+    "inspectSize": "File size",
+    "inspectBitrate": "Average quality",
+    "inspectFormat": "Format",
+    "inspectUnknown": "Unknown",
+    "inspectCompared": "Uncompressed, this recording would be about {raw}. It is stored at roughly {percent}% of that.",
+    "inspectNote": "Read from the file's own header on your device — nothing is uploaded and nothing is played to anyone but you."
   }
 }

@@ -13,6 +13,10 @@
     "audio-fade": {
       "name": "עמעום אודיו",
       "description": "החלקת ההתחלה והסוף של קטע עם עמעום, וייצוא WAV — במכשיר שלכם."
+    },
+    "audio-inspect": {
+      "name": "בוחן אודיו",
+      "description": "כמה ארוכה ההקלטה, כמה היא גדולה, וכמה היא דחוסה — בלי להאזין לה עד הסוף."
     }
   },
   "ui": {
@@ -35,6 +39,15 @@
     "fadeCurve": "עקומה",
     "curveLinear": "לינארי",
     "curveEqualPower": "הספק שווה (חלק יותר)",
-    "fadeDownload": "החלה וייצוא WAV"
+    "fadeDownload": "החלה וייצוא WAV",
+    "inspectDrop": "גררו לכאן קובץ אודיו, או לחצו לבחירה",
+    "inspectFailed": "לא ניתן לקרוא את הקובץ הזה כאודיו.",
+    "inspectDuration": "אורך",
+    "inspectSize": "גודל הקובץ",
+    "inspectBitrate": "איכות ממוצעת",
+    "inspectFormat": "פורמט",
+    "inspectUnknown": "לא ידוע",
+    "inspectCompared": "ללא דחיסה ההקלטה הזו הייתה תופסת בערך {raw}. היא נשמרת בכ-{percent}% מזה.",
+    "inspectNote": "נקרא מכותרת הקובץ עצמו על המכשיר שלכם — שום דבר לא נשלח ואף אחד מלבדכם לא שומע דבר."
   }
 }

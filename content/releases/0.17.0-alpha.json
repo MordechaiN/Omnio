@@ -1,0 +1,45 @@
+{
+  "version": "0.17.0-alpha",
+  "date": "2026-07-28",
+  "headline": {
+    "en": "Know what a file is before you do anything to it.",
+    "he": "לדעת מה הקובץ לפני שעושים איתו משהו."
+  },
+  "sections": [
+    {
+      "type": "new",
+      "items": [
+        {
+          "en": "Drop in a recording and Omnio tells you how long it is, how much room it takes, and how heavily it has been squeezed — a lecture, a voice note, a song. You do not have to listen to the end to find out, and you do not have to open anything else.",
+          "he": "גררו הקלטה ו-Omnio יגיד כמה היא ארוכה, כמה מקום היא תופסת, וכמה היא נדחסה — הרצאה, הודעה קולית או שיר. אין צורך להאזין עד הסוף כדי לגלות, ואין צורך לפתוח שום דבר אחר."
+        },
+        {
+          "en": "The same is now true of a ZIP someone sends you. Look inside before you open it: how many files, which folders, which are biggest, and how much space it will really want. Omnio also warns you if the archive contains names that would scatter files outside the folder you unpack into — and it finds all this out without unpacking a thing, so even an enormous archive answers straight away.",
+          "he": "אותו דבר נכון כעת גם לקובץ ZIP שמישהו שולח לכם. אפשר להציץ פנימה עוד לפני שפותחים: כמה קבצים, אילו תיקיות, מי הגדולים, וכמה מקום הוא באמת ידרוש. Omnio גם מתריע אם הארכיון מכיל שמות שיפזרו קבצים מחוץ לתיקייה שאליה פותחים — והוא מגלה את כל זה בלי לפתוח דבר, כך שגם ארכיון ענק עונה מיד."
+        }
+      ]
+    },
+    {
+      "type": "improved",
+      "items": [
+        {
+          "en": "Both of these appear on their own the moment you drop a file of that kind, alongside the tools that change it. Omnio now answers \"what is this?\" as readily as \"what can I do with it?\"",
+          "he": "שניהם מופיעים מעצמם ברגע שגוררים קובץ מהסוג הזה, לצד הכלים שמשנים אותו. Omnio עונה כעת על \"מה זה?\" באותה קלות שבה הוא עונה על \"מה אפשר לעשות עם זה?\""
+        }
+      ]
+    },
+    {
+      "type": "fixed",
+      "items": [
+        {
+          "en": "If a file's contents are no longer on your device — you removed it in another tab, or the browser reclaimed the space — Omnio says so when you try to open it, instead of doing nothing at all.",
+          "he": "אם תוכן של קובץ כבר לא נמצא במכשיר — מחקתם אותו בלשונית אחרת, או שהדפדפן פינה מקום — Omnio אומר זאת כשמנסים לפתוח אותו, במקום פשוט לא לעשות כלום."
+        },
+        {
+          "en": "Saving a document no longer leaves a warning on screen saying your changes are unsaved.",
+          "he": "שמירת מסמך כבר לא משאירה על המסך אזהרה שהשינויים לא נשמרו."
+        }
+      ]
+    }
+  ]
+}

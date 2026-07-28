@@ -9,6 +9,18 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ## [Unreleased]
 
+## [0.17.0-alpha] - 2026-07-28
+
+Know what a file is before you do anything to it.
+
+### 🚀 New
+
+- **Audio Inspector.** How long a recording is, how big, and how heavily compressed — read from the file's own header, without playing it through. Video had an inspector and audio did not.
+
+### ✨ Improved
+
+- Inspectors now appear on their own when you drop a file of that kind, beside the tools that change it.
+
 ## [0.16.0-alpha] - 2026-07-28
 
 Look inside an archive before you open it.
