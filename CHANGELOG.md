@@ -9,6 +9,18 @@ Pre-release stages progress `alpha → beta → rc → stable`; see
 
 ## [Unreleased]
 
+## [0.16.0-alpha] - 2026-07-28
+
+Look inside an archive before you open it.
+
+### 🚀 New
+
+- **Archive Inspector.** Drop in a ZIP and see what it holds — file and folder counts, the biggest items, and how much room it really takes once open — without unpacking anything. It warns when an archive contains names that would write outside the folder you unpack into, and answers instantly even for an enormous archive, because it reads the archive's own table of contents rather than its contents.
+
+### 🐞 Fixed
+
+- **Omnio says so when a file's contents are no longer on this device** — removed in another tab, or reclaimed by the browser — instead of ignoring the click.
+
 ## [0.15.1-alpha] - 2026-07-28
 
 Fewer things to wonder about.

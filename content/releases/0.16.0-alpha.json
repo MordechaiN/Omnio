@@ -1,0 +1,32 @@
+{
+  "version": "0.16.0-alpha",
+  "date": "2026-07-28",
+  "headline": {
+    "en": "Look inside an archive before you open it.",
+    "he": "להציץ לתוך ארכיון עוד לפני שפותחים אותו."
+  },
+  "sections": [
+    {
+      "type": "new",
+      "items": [
+        {
+          "en": "Someone sends you a ZIP. Before this, your only choice was to unpack it and find out. Now you can drop it into Omnio and simply look: how many files, what folders, which ones are biggest, and how much room it will really take once it is open — often far more than the file itself suggests.",
+          "he": "מישהו שולח לכם קובץ ZIP. עד עכשיו האפשרות היחידה הייתה לפתוח אותו ולגלות. כעת אפשר לגרור אותו ל-Omnio ופשוט להסתכל: כמה קבצים יש בו, אילו תיקיות, מי הגדולים, וכמה מקום הוא באמת יתפוס כשייפתח — לעיתים קרובות הרבה יותר ממה שנראה לפי גודל הקובץ."
+        },
+        {
+          "en": "It also warns you when an archive contains names that would put files outside the folder you unpack into — the old trick for scattering files where you did not ask for them. And nothing is unpacked to tell you any of this: Omnio reads the archive's own list of contents, so even an enormous one answers instantly.",
+          "he": "הוא גם מתריע כשארכיון מכיל שמות שיכתבו קבצים מחוץ לתיקייה שאליה פותחים — התרגיל הישן לפיזור קבצים במקומות שלא ביקשתם. ושום דבר לא נפתח כדי לומר לכם את כל זה: Omnio קורא את רשימת התכולה של הארכיון עצמו, כך שגם ארכיון ענק עונה מיד."
+        }
+      ]
+    },
+    {
+      "type": "fixed",
+      "items": [
+        {
+          "en": "If a file's contents are no longer on your device — because you removed it in another tab, or the browser reclaimed the space — Omnio now says so when you try to open it. It used to do nothing at all, however many times you pressed.",
+          "he": "אם תוכן של קובץ כבר לא נמצא במכשיר — כי מחקתם אותו בלשונית אחרת, או שהדפדפן פינה מקום — Omnio אומר זאת כשמנסים לפתוח אותו. בעבר פשוט לא קרה כלום, כמה פעמים שלא לחצתם."
+        }
+      ]
+    }
+  ]
+}

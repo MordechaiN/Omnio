@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "license": "Apache-2.0",
-  "description": "ZIP tools — create and extract archives entirely in the browser via fflate; files never leave the device.",
+  "description": "ZIP tools — inspect an archive without opening it, create and extract, entirely in the browser via fflate; files never leave the device.",
   "type": "module",
   "exports": {
     "./module.json": "./module.json",
+    "./frontend/tools/zip-inspect": "./frontend/tools/zip-inspect.tsx",
     "./frontend/tools/zip-create": "./frontend/tools/zip-create.tsx",
     "./frontend/tools/zip-extract": "./frontend/tools/zip-extract.tsx",
     "./i18n/en": "./i18n/en.json",

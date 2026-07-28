@@ -9,6 +9,10 @@
     "zip-extract": {
       "name": "Extract ZIP",
       "description": "Open a ZIP, browse what's inside, and save the files you need — on your device."
+    },
+    "zip-inspect": {
+      "name": "Archive Inspector",
+      "description": "See what is inside a ZIP — how many files, how big they really are, and anything odd — without opening it."
     }
   },
   "ui": {
@@ -29,6 +33,20 @@
     "saveAll": "Save all {count} files",
     "errorCreate": "Couldn't build the archive — one of the files may be unreadable.",
     "errorExtract": "Couldn't open that file as a ZIP. It may be corrupted or encrypted.",
-    "privacy": "Your files never leave this device — archiving happens in your browser."
+    "privacy": "Your files never leave this device — archiving happens in your browser.",
+    "inspectDrop": "Drop a ZIP here, or click to choose",
+    "inspectFailed": "That file could not be read as a ZIP archive.",
+    "inspectFiles": "{count, plural, one {# file} other {# files}}",
+    "inspectFolders": "{count, plural, one {# folder} other {# folders}}",
+    "inspectPacked": "Size on disk",
+    "inspectUnpacked": "Size once unpacked",
+    "inspectRatio": "Packed down to",
+    "inspectUnsafeTitle": "Some names would escape the folder you unpack into",
+    "inspectUnsafeBody": "{count, plural, one {# entry uses a path that points outside the destination} other {# entries use paths that point outside the destination}}. Be careful where you unpack this.",
+    "inspectStored": "{count, plural, one {# file is stored as-is} other {# files are stored as-is}} — usually photos, music or video, which are already compressed.",
+    "inspectTopFolders": "Folders inside",
+    "inspectLargest": "Biggest files",
+    "inspectClear": "Inspect another",
+    "inspectNote": "Nothing is unpacked and nothing is written to your files — Omnio reads the archive's own list of contents, on your device."
   }
 }

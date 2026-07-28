@@ -7,6 +7,31 @@
   "i18nNamespace": "mod-zipkit",
   "tools": [
     {
+      "id": "zip-inspect",
+      "tier": "browser",
+      "surface": "frontend/tools/zip-inspect",
+      "icon": "search",
+      "keywords": [
+        "zip",
+        "archive",
+        "inspect",
+        "contents",
+        "what is inside",
+        "list",
+        "peek",
+        "preview"
+      ],
+      "accepts": [
+        {
+          "mime": [
+            "application/zip",
+            "application/x-zip-compressed"
+          ],
+          "priority": 94
+        }
+      ]
+    },
+    {
       "id": "zip-create",
       "tier": "browser",
       "surface": "frontend/tools/zip-create",
